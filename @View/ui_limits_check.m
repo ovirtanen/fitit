@@ -1,7 +1,10 @@
 function b = ui_limits_check(obj,inp,type,tag)
 %UI_LIMITS_CHECK Checks the validity of input in editable text boxes in
 %fit_it_gui
-%   
+%   The function fetches the current values for the fit parameters and
+%   checks that the input doesn't violate other settings, i.e. parameter
+%   values cannot be larger than maximum limit etc.
+%
 % b = ui_limits_check(type,tag)
 %
 % Parameters
@@ -25,14 +28,13 @@ end % if
 m = obj.controller.model;
 
 % minimum limit, value and maximum limit for this tag family
-[min,~,max] = m.get_min_val_max(m.get_fit_param_index(tag));
-
+[min,val,max] = m.get_min_val_max(m.get_fit_param_index(tag));
 
 switch type
     
     case 'min'
         
-        b = all([(inp >= 0) (inp <= max)]);
+        b = all([(inp >= 0) (inp <= max) (inp <= val)]);
         
     case 'val'
         
@@ -40,7 +42,7 @@ switch type
         
     case 'max'
         
-        b = all([(inp >= 0) (inp >= min)]);  
+        b = all([(inp >= 0) (inp >= min) (inp >= val)]);  
      
 end % switch
 

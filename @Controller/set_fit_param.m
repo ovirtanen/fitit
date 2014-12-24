@@ -1,4 +1,4 @@
-function set_fit_param( obj,tag,value )
+function set_fit_param(obj,tag,value)
 %SET_FIT_PARAM Tells Model to change fit_param
 %      
 % set_fit_param(tag,value)

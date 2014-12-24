@@ -22,7 +22,7 @@ function varargout = fit_it_ui(varargin)
 
 % Edit the above text to modify the response to help fit_it_ui
 
-% Last Modified by GUIDE v2.5 22-Dec-2014 20:06:33
+% Last Modified by GUIDE v2.5 23-Dec-2014 20:22:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -77,7 +77,7 @@ for i = 1:2:length(varargin)
 end % for
 
 
-%%% Initialize default values
+%%% Initialize default values to edit boxes and sliders
 
 pmap = handles.controller.model.param_map;
 m = handles.controller.model;
@@ -115,6 +115,20 @@ for i = keys(pmap)
     
 end % for
 
+%%% Initialize calculate_btn
+
+set(handles.calculate_btn,'String','No data loaded')
+set(handles.calculate_btn,'Enable','off')
+
+
+%%% Initialize axes
+
+v = handles.view;
+
+v.initialize_form_factor_axes(handles.form_factor_axes);
+v.initialize_residual_axes(handles.residual_axes);
+v.initialize_pd_axes(handles.pd_axes);
+v.initialize_psd_axes(handles.psd_axes);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -245,6 +259,13 @@ function meanr_sldr_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+tag = 'meanr_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
+
 
 
 % --- Executes during object creation, after setting all properties.
@@ -423,6 +444,11 @@ function sd_sldr_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+tag = 'sd_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
 
 % --- Executes during object creation, after setting all properties.
 function sd_sldr_CreateFcn(hObject, eventdata, handles)
@@ -543,6 +569,11 @@ function epds_sldr_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+tag = 'epds_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
 
 % --- Executes during object creation, after setting all properties.
 function epds_sldr_CreateFcn(hObject, eventdata, handles)
@@ -662,6 +693,11 @@ function fuzz_sldr_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+tag = 'fuzz_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
 
 % --- Executes during object creation, after setting all properties.
 function fuzz_sldr_CreateFcn(hObject, eventdata, handles)
@@ -712,6 +748,12 @@ function amplitude_val_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of amplitude_val as text
 %        str2double(get(hObject,'String')) returns contents of amplitude_val as a double
+
+tag = 'amplitude_val';
+type = 'val';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -773,6 +815,11 @@ function amplitude_sldr_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+tag = 'amplitude_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
 
 % --- Executes during object creation, after setting all properties.
 function amplitude_sldr_CreateFcn(hObject, eventdata, handles)
@@ -824,6 +871,11 @@ function pdisp_sldr_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+tag = 'pdisp_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
 
 % --- Executes during object creation, after setting all properties.
 function pdisp_sldr_CreateFcn(hObject, eventdata, handles)
@@ -835,3 +887,11 @@ function pdisp_sldr_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+% --- Executes on button press in pdisp_chck.
+function pdisp_chck_Callback(hObject, eventdata, handles)
+% hObject    handle to pdisp_chck (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of amplitude_chck

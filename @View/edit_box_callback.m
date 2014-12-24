@@ -12,9 +12,7 @@ function edit_box_callback(obj,hObject,inp,tag,type)
 % type      Edit box type, 'min', 'val' or 'max'
 %
 
-b = obj.ui_limits_check(inp,type,tag);
-
-if b 
+if obj.ui_limits_check(inp,type,tag) 
    
     obj.controller.set_fit_param(tag,inp);
     
@@ -23,13 +21,11 @@ else
     old_value = obj.controller.model.get_fit_param(tag);
     set(hObject,'String',old_value);
     
-    errstr = 'Parameters have to be numeric, at least 0 and respect the limits inposed by other fields.';
+    errstr = 'Parameters have to be numeric, at least 0 and respect the limits imposed by other fields.';
     
     errordlg(errstr,'Invalid parameter','modal');
-    
+      
 end % if
-
-
 
 end
 
