@@ -22,7 +22,7 @@ function varargout = fit_it_ui(varargin)
 
 % Edit the above text to modify the response to help fit_it_ui
 
-% Last Modified by GUIDE v2.5 23-Dec-2014 20:22:47
+% Last Modified by GUIDE v2.5 25-Dec-2014 15:36:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -126,7 +126,7 @@ set(handles.calculate_btn,'Enable','off')
 v = handles.view;
 
 v.initialize_form_factor_axes(handles.form_factor_axes);
-v.initialize_residual_axes(handles.residual_axes);
+%v.initialize_residual_axes(handles.residual_axes);
 v.initialize_pd_axes(handles.pd_axes);
 v.initialize_psd_axes(handles.psd_axes);
 
@@ -895,3 +895,201 @@ function pdisp_chck_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of amplitude_chck
+
+
+% --------------------------------------------------------------------
+function f_menu_Callback(hObject, eventdata, handles)
+% File menu
+% hObject    handle to f_menu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function a_smenu_Callback(hObject, eventdata, handles)
+% About menu
+% hObject    handle to a_smenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function id_smenu_Callback(hObject, eventdata, handles)
+% Import Data menu
+% hObject    handle to id_smenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+try 
+    
+    handles.controller.import_data();
+    
+catch ME
+   
+    if strcmp(ME.message,'Open dialog cancelled')
+        
+        % do nothing
+        
+    elseif strcmp(ME.message,'Data structure not recognized.')
+        
+        errstr = 'Data file does not seem to have three columns. There should be only three columns: q(nm^(-1)), intensity and std.';
+    
+        errordlg(errstr,'Invalid parameter','modal');
+        
+    elseif strcmp(ME.message,'No numeric data recognized.')
+        
+        errstr = 'Data file does not seem to contain numeric data.';
+    
+        errordlg(errstr,'Invalid parameter','modal');
+        
+    else rethrow(ME)
+        
+    end % if
+    
+end
+
+% --------------------------------------------------------------------
+function sd_smenu_Callback(hObject, eventdata, handles)
+% Save Data menu
+% hObject    handle to sd_smenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function q_smenu_Callback(hObject, eventdata, handles)
+% Quit menu
+% hObject    handle to q_smenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function h_menu_Callback(hObject, eventdata, handles)
+% Help menu
+% hObject    handle to h_menu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function pd_min_Callback(hObject, eventdata, handles)
+% hObject    handle to pd_min (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pd_min as text
+%        str2double(get(hObject,'String')) returns contents of pd_min as a double
+
+tag = 'pd_min';
+type = 'min';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function pd_min_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pd_min (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pd_val_Callback(hObject, eventdata, handles)
+% hObject    handle to pd_val (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pd_val as text
+%        str2double(get(hObject,'String')) returns contents of pd_val as a double
+
+tag = 'pd_val';
+type = 'val';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function pd_val_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pd_val (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function pd_max_Callback(hObject, eventdata, handles)
+% hObject    handle to pd_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of pd_max as text
+%        str2double(get(hObject,'String')) returns contents of pd_max as a double
+
+tag = 'pd_max';
+type = 'max';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function pd_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pd_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pd_chck.
+function pd_chck_Callback(hObject, eventdata, handles)
+% hObject    handle to pd_chck (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of pd_chck
+
+
+% --- Executes on slider movement.
+function pd_sldr_Callback(hObject, eventdata, handles)
+% hObject    handle to pd_sldr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+tag = 'pd_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
+
+% --- Executes during object creation, after setting all properties.
+function pd_sldr_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pd_sldr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

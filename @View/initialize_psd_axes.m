@@ -7,8 +7,8 @@ m = obj.model;
 x = m.rpsd;
 y = m.psd;
 
-bar(axes,x,y,1,'white');
-%plot(axes,x,y);
+%bar(axes,x,y,1,'white');
+plot(axes,x,y);
 
 axes.YLim = [0 1.1 .* max(y)];
 axes.XLim = [0 cell2mat(m.fit_param(m.param_map('meanr_max')))];

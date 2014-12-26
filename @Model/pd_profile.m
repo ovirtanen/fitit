@@ -1,4 +1,4 @@
-function [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,fuzz)
+function [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vskin,fuzz)
 %PD_PROFILE Calculates the radial polarization density profile for a
 %microgel with a skin. We like skin. Do you like skin? Skin skin skin.
 %
@@ -10,13 +10,20 @@ function [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,fuzz)
 % rhard     hard radius without convolution
 % rfrac     fraction of rhard when the ramp begins, e.g. 0.5
 % vcore     relative polarization density of the core
-% vexc      excess relative polarization density at the top of the ramp, e.g. 1.1
+% vskin     relative polarization density at the top of the ramp
 % fuzz      fuzziness factor, std of the gaussian
 %
 % Returns
 %
 % rc        radial collocation points 
 % a         refractive index density at the collocation points
+%
+% PROBLEMS
+%
+% If the number of collocation points is small and the gaussian becomes very
+% narrow its area starts to shrink, i.e. A ~= 1, because of insufficient
+% resolution.
+%
 
 rng = rhard+2.*fuzz;               % range of values
 rc = linspace(-(rng),rng,2.*nc)';
@@ -28,9 +35,8 @@ w = mean(diff(rc));                 % quadrature weight, average rounding errors
 %f = b_step(r,rbox-rbox.*0.6,rbox,vfrac,0.8.*vfrac);
 
 rbox = rhard .* rfrac;
-vmax = vcore .* vexc;
 
-f = Model.trg2(rc,rbox,rhard,vcore,vmax);
+f = Model.trg2(rc,rbox,rhard,vcore,vskin);
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rc.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
 a = conv(f,g.*w,'same');            % vector convolution, add weight

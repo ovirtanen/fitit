@@ -6,9 +6,12 @@ handles = guidata(obj.gui);
 
 ffa = handles.form_factor_axes;
 
-ffa.Children(1).XData = obj.model.qfit;
-ffa.Children(1).YData = obj.model.fit;
+% If empirical data will be loaded, it will push the calculated data from
+% ffa.Children(1) to ffa.Children(2). Calculated data will always be at the
+% end of the array at position ffa.Children(end).
 
+ffa.Children(end).XData = obj.model.qfit;
+ffa.Children(end).YData = obj.model.fit;
 
 end
 

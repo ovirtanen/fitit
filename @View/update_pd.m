@@ -1,7 +1,6 @@
 function update_pd(obj)
 %UPDATE_PD Fetches the pd from Model and updates the
 %pd_axes
-%   Detailed explanation goes here
 
 
 handles = guidata(obj.gui);

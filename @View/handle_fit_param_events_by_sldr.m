@@ -20,13 +20,15 @@ val = m.get_fit_param(tag);
 set(handles.(tag),'String',val);
 obj.update_form_factor();
 
+% tags that require psd to update
 if any([strfind(tag,'meanr') strfind(tag,'pdisp')])
    
     obj.update_psd();
 
 end
 
-if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'epds') strfind(tag,'fuzz')])
+% tags that require polarization density profile to update
+if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'pd') strfind(tag,'epds') strfind(tag,'fuzz')])
     
     obj.update_pd();
     

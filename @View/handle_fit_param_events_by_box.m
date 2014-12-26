@@ -1,5 +1,5 @@
 function handle_fit_param_events_by_box(obj,src,evnt)
-%HANDLE_FIT_PARAM_EVENTS_BY_BOX Summary of this function goes here
+%HANDLE_FIT_PARAM_EVENTS_BY_BOX Handler for fit_params_changed_by_box
 %   Detailed explanation goes here
 %
 % Parameters
@@ -22,28 +22,38 @@ switch tag(end-3:end)
         
         set(handles.([tag(1:end-4) '_sldr']),'Min',min);
         
+        % changes in min values that affect psd    
+        if strfind(tag,'meanr_min')
+   
+            obj.update_psd();
+   
+        end
+        
     case '_val'
         
         set(handles.([tag(1:end-4) '_sldr']),'Value',val);
         obj.update_form_factor();
         
+        % tags that require psd to update
         if any([strfind(tag,'meanr') strfind(tag,'pdisp')])
    
             obj.update_psd();
             
         end
-            
-        if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'epds') strfind(tag,'fuzz')])
+        
+        % tags that require polarization density profile to update
+        if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'pd') strfind(tag,'epds') strfind(tag,'fuzz')])
     
             obj.update_pd();    
     
         end
         
-        
+    
     case '_max'
         
         set(handles.([tag(1:end-4) '_sldr']),'Max',max);
         
+        % changes in max values that affect psd and pd    
         if strfind(tag,'meanr_max')
    
             obj.update_psd();
@@ -52,7 +62,7 @@ switch tag(end-3:end)
         end
     
     
-end
+end % switch
 
 
 end
