@@ -4,7 +4,7 @@ function FitIt()
 
 addpath([pwd '/GUI']);
 m = Model();
-c = Controller(m);
+Controller(m);
 
 
 end

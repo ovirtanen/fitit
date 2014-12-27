@@ -1,7 +1,7 @@
-function [ hri ] = trg2(r,rinc,rp,v,vm)
-%TRG2 Hard polarization density profile for a microgel with a linear ramp
+function [ hri ] = trg3(r,rinc,rp,v,vm)
+%TRG3 Hard polarization density profile for a microgel with a exponential ramp
 %at the periphery
-%   [ hri ] = trg2( r,r1,r2,v,vm)
+%   [ hri ] = trg3( r,r1,r2,v,vm)
 %
 % Parameters
 % 
@@ -17,12 +17,15 @@ function [ hri ] = trg2(r,rinc,rp,v,vm)
 %
 
 fb = abs(r) <= rinc;                  % box
-fr = abs(r) > rinc & abs(r) <= rp;    % ramp
+fr = abs(r) > rinc & abs(r) <= rp;    % exponential ramp
 
 hri = zeros(numel(r),1);
 
 hri(fb) = v;
-hri(fr) = (vm-v)./(rp-rinc) .* (abs(r(fr))-rinc) + v;
+
+tau = log(vm./v)./(rp-rinc);
+
+hri(fr) = exp(tau.* abs(r(fr)-rinc)+log(v));
 
 
 end

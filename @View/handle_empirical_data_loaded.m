@@ -25,15 +25,17 @@ if numel(ffa.Children) == 1
     ffa.YLabel.String = 'Intensity (cm^{-2})';
     ffa.XLabel.String = 'q (nm^{-1})';
     ffa.YScale = 'log';
-    ffa.YLim = [5e-6 0.2e1];
+    
+    ffa.XLim = [0 1.1.*max(m.q)];
+    %ffa.YLim = [5e-6 0.2e1];
     
     
 elseif numel(ffa.Children) == 2
     
-    ffa.Children(1).XData = obj.model.q;
-    ffa.Children(1).YData = obj.model.intensity;
-    ffa.Children(1).LData = obj.model.std;
-    ffa.Children(1).UData = obj.model.std;
+    ffa.Children(1).XData = m.q;
+    ffa.Children(1).YData = m.intensity;
+    ffa.Children(1).LData = m.std;
+    ffa.Children(1).UData = m.std;
     
 else
     

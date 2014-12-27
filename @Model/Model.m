@@ -50,6 +50,7 @@ classdef Model < handle
         
         [intst,rpd,rpsd,psd] = scattered_intensity(q,a,nc,rfrac,vcore,vexc,fuzz,psd_m,psd_w);
         hri = trg2(r,rinc,rp,v,vm)
+        hri = trg3(r,rinc,rp,v,vm)
         [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)       % pd_profile has a problem. See documentation.
         p = numP(r,a,q)
           

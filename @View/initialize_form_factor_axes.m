@@ -16,7 +16,7 @@ plot(axes,x,y);
 axes.YLabel.String = 'Intensity (cm^{-2})';
 axes.XLabel.String = 'q (nm^{-1})';
 axes.YScale = 'log';
-axes.YLim = [5e-6 0.2e1];
+axes.YLim = [0.5.*min(y) 5*max(y)];
 
 end
 

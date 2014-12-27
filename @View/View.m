@@ -7,12 +7,15 @@ classdef View < handle
         gui;
         model;
         controller;
+        version;
         
     end
     
     methods (Access = public)
         
         function obj = View(m,c)
+            
+            obj.version = '0.1';
             
             obj.model = m;
             obj.controller = c;
@@ -43,6 +46,7 @@ classdef View < handle
         edit_box_callback(obj,hObject,inp,tag,type);
         slider_callback(obj,hObject,inp,tag);
         chck_box_callback(obj,hObject,inp);
+        about_menu_callback(obj);
         
         
         % Updates

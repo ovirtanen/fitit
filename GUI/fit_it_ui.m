@@ -912,6 +912,8 @@ function a_smenu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+handles.view.about_menu_callback();
+
 
 % --------------------------------------------------------------------
 function id_smenu_Callback(hObject, eventdata, handles)
@@ -962,6 +964,7 @@ function q_smenu_Callback(hObject, eventdata, handles)
 % hObject    handle to q_smenu (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+close(handles.fitit);
 
 
 % --------------------------------------------------------------------

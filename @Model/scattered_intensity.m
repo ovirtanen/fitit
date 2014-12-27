@@ -29,7 +29,11 @@ function [intst,rpd,rpsd,psd] = scattered_intensity(q,a,nc,rfrac,vcore,vskin,fuz
 %
 
 rpsd = linspace(psd_m-4.*psd_w,psd_m+4.*psd_w,nc); % take collocation points 4 stds from the mean
+%rpsd = linspace(psd_m-7.*psd_w,psd_m+4.*psd_w,nc);
+
 psd = normpdf(rpsd,psd_m,psd_w);
+%psd = evpdf(rpsd,psd_m,psd_w);
+%psd = wblpdf(rpsd,psd_m,psd_w);
 
 w = mean(diff(rpsd)); % quadrature weight, average rounding errors
 

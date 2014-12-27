@@ -36,7 +36,8 @@ w = mean(diff(rc));                 % quadrature weight, average rounding errors
 
 rbox = rhard .* rfrac;
 
-f = Model.trg2(rc,rbox,rhard,vcore,vskin);
+%f = Model.trg2(rc,rbox,rhard,vcore,vskin);
+f = Model.trg3(rc,rbox,rhard,vcore,vskin);
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rc.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
 a = conv(f,g.*w,'same');            % vector convolution, add weight

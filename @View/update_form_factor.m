@@ -13,5 +13,7 @@ ffa = handles.form_factor_axes;
 ffa.Children(end).XData = obj.model.qfit;
 ffa.Children(end).YData = obj.model.fit;
 
+ffa.YLim = [0.1.*min(obj.model.fit) 10*max(obj.model.fit)];
+
 end
 
