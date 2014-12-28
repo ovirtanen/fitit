@@ -45,6 +45,11 @@ elseif strfind(tag,'_sldr')
     obj.set_pd(p);
     notify(obj,'fit_params_changed_by_sldr',Fit_params_event_data(tag));
     
+elseif strfind(tag, '_chck')
+    
+    obj.fit_param{index} = value;
+    notify(obj,'fit_params_changed_by_chckbox',Fit_params_event_data(tag));
+    
 end % if
 
 end

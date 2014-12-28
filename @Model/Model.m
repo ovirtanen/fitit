@@ -27,9 +27,10 @@ classdef Model < handle
         param_map;          % map containing indices for parameters and bounds
         fit_param;          % values for parameters and bounds
         
-        % fit_param structure <4 x 8 double>:
+        % fit_param structure <7 x 4 double>:
         %
         % sd_min            sd_val          sd_max          sd_chck
+        % pd_min            pd_val          pd_max          pd_chck
         % epds_min          epds_val        epds_max        epds_chck
         % fuzz_min          fuzz_val        fuzz_max        fuzz_chck
         % amplitude_min     amplitude_val   amplitude_max   amplitude_chck
@@ -41,6 +42,7 @@ classdef Model < handle
     events
         
         fit_params_changed_by_box;         % Requires updating the slider & axes
+        fit_params_changed_by_chckbox;        % Requires updating the fit button
         fit_params_changed_by_sldr;        % Requires updating *_val box & axes
         empirical_data_loaded;
         
@@ -95,7 +97,7 @@ classdef Model < handle
             
             % Default parametes when the program is initialized
             
-            obj.fit_param = {0      20     100     1;...    % sd                1
+            obj.fit_param = {0      100     100     1;...   % sd                1
                              0      1       1       1;...   % PD                2
                              0      1       1       1;...   % max skin PD       3   
                              0      25      100     1;...   % fuzziness         4
@@ -127,13 +129,17 @@ classdef Model < handle
         
         % getters
         
+        v = get_all_fit_param(obj,format);
+        
+        [lb,ub] = get_bounds(obj);
+        
         fp = get_fit_param(obj,tag_or_index);
         
         ind = get_fit_param_index(obj,tag);
         
-        v = get_all_fit_param(obj,format);
-        lb = get_min_bounds(obj);
-        hb = get_max_bounds(obj);
+        b  = get_fixed_status(obj);
+        
+        b = is_data_loaded(obj);
         
     end % public methods
     

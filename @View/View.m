@@ -34,6 +34,9 @@ classdef View < handle
             addlistener(obj.model,'fit_params_changed_by_sldr',...
                         @(src,evnt) handle_fit_param_events_by_sldr(obj,src,evnt));
                     
+            addlistener(obj.model,'fit_params_changed_by_chckbox',...
+                        @(src,evnt) handle_fit_param_events_by_chckbox(obj,src,evnt));        
+                    
             addlistener(obj.model,'empirical_data_loaded',...
                         @(src,evnt) handle_empirical_data_loaded(obj,src,evnt));       
             
@@ -43,9 +46,10 @@ classdef View < handle
         
         % Callbacks
         
+        close_btn_callback(obj,hObject);
         edit_box_callback(obj,hObject,inp,tag,type);
         slider_callback(obj,hObject,inp,tag);
-        chck_box_callback(obj,hObject,inp);
+        chck_box_callback(obj,inp,tag);
         about_menu_callback(obj);
         
         
@@ -71,6 +75,7 @@ classdef View < handle
         
         handle_property_events(obj,src,evnt);
         handle_fit_param_events_by_box(obj,src,evnt);
+        handle_fit_param_events_by_chckbox(obj,src,evnt);
         handle_fit_param_events_by_sldr(obj,src,evnt);
         handle_empirical_data_loaded(obj,src,evnt);
         

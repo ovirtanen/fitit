@@ -1,6 +1,7 @@
 function handle_fit_param_events_by_sldr(obj,src,evnt)
-%HANDLE_FIT_PARAM_EVENTS_BY_SLDR Summary of this function goes here
-%   Detailed explanation goes here
+%HANDLE_FIT_PARAM_EVENTS_BY_SLDR Handler for slider events
+%   
+% handle_fit_param_events_by_sldr(src,evnt)
 %
 % Parameters
 % obj           Calling View instance

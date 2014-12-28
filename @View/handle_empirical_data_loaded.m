@@ -29,6 +29,16 @@ if numel(ffa.Children) == 1
     ffa.XLim = [0 1.1.*max(m.q)];
     %ffa.YLim = [5e-6 0.2e1];
     
+    if all(obj.model.get_fixed_status())
+        
+        set(handles.calculate_btn,'String','All values fixed');
+        
+    else
+        
+        set(handles.calculate_btn,'String','Fit');
+        set(handles.calculate_btn,'Enable','on');
+        
+    end % if
     
 elseif numel(ffa.Children) == 2
     

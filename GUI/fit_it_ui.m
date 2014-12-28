@@ -22,7 +22,7 @@ function varargout = fit_it_ui(varargin)
 
 % Edit the above text to modify the response to help fit_it_ui
 
-% Last Modified by GUIDE v2.5 25-Dec-2014 15:36:45
+% Last Modified by GUIDE v2.5 28-Dec-2014 09:46:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -250,6 +250,11 @@ function meanr_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of meanr_chck
 
+tag = 'meanr_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function meanr_sldr_Callback(hObject, eventdata, handles)
@@ -434,6 +439,11 @@ function sd_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of sd_chck
 
+tag = 'sd_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function sd_sldr_Callback(hObject, eventdata, handles)
@@ -559,6 +569,11 @@ function epds_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of epds_chck
 
+tag = 'epds_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function epds_sldr_Callback(hObject, eventdata, handles)
@@ -683,6 +698,11 @@ function fuzz_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of fuzz_chck
 
+tag = 'fuzz_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function fuzz_sldr_Callback(hObject, eventdata, handles)
@@ -805,6 +825,11 @@ function amplitude_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of amplitude_chck
 
+tag = 'amplitude_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function amplitude_sldr_Callback(hObject, eventdata, handles)
@@ -896,6 +921,11 @@ function pdisp_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of amplitude_chck
 
+tag = 'pdisp_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --------------------------------------------------------------------
 function f_menu_Callback(hObject, eventdata, handles)
@@ -928,7 +958,7 @@ try
     
 catch ME
    
-    if strcmp(ME.message,'Open dialog cancelled')
+    if strcmp(ME.message,'Open dialog cancelled.')
         
         % do nothing
         
@@ -964,7 +994,8 @@ function q_smenu_Callback(hObject, eventdata, handles)
 % hObject    handle to q_smenu (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close(handles.fitit);
+handles.view.close_btn_callback(handles);
+
 
 
 % --------------------------------------------------------------------
@@ -1070,6 +1101,11 @@ function pd_chck_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of pd_chck
 
+tag = 'pd_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
 
 % --- Executes on slider movement.
 function pd_sldr_Callback(hObject, eventdata, handles)
@@ -1096,3 +1132,15 @@ function pd_sldr_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes when user attempts to close fitit.
+function fitit_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to fitit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: delete(hObject) closes the figure
+%delete(hObject);
+handles.view.close_btn_callback(handles);
+
