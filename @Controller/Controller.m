@@ -1,4 +1,4 @@
-classdef Controller
+classdef Controller < handle
     %CONTROLLER Controller for FitIt
     %   Detailed explanation goes here
     %
@@ -15,8 +15,8 @@ classdef Controller
     properties (SetAccess = private)
         
         model;
-        view;
         fr;
+        view;
         
     end
     
@@ -30,8 +30,10 @@ classdef Controller
            
         end % constructor
         
-        set_fit_param(obj,tag,value);
+        do_fit(obj);
         import_data(obj);
+        set_fit_param(obj,tag,value);
+        
  
     end % public methods
     

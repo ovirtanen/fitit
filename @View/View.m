@@ -28,6 +28,9 @@ classdef View < handle
             
             % Listeners for changes in Model
             
+            addlistener(obj.model,'all_fit_params_changed',...
+                        @(src,evnt) handle_all_fit_params_changed(obj,src,evnt)); 
+            
             addlistener(obj.model,'fit_params_changed_by_box',...
                         @(src,evnt) handle_fit_param_events_by_box(obj,src,evnt));
                     
@@ -43,11 +46,14 @@ classdef View < handle
         end % constructor
         
         b = ui_limits_check(obj,inp,type,tag);
+        disable_inputs(obj);
+        enable_inputs(obj);
         
         % Callbacks
         
         close_btn_callback(obj,hObject);
         edit_box_callback(obj,hObject,inp,tag,type);
+        fit_callback(obj);
         slider_callback(obj,hObject,inp,tag);
         chck_box_callback(obj,inp,tag);
         about_menu_callback(obj);
@@ -74,6 +80,7 @@ classdef View < handle
         % handlers
         
         handle_property_events(obj,src,evnt);
+        handle_all_fit_params_changed(obj,src,evnt);
         handle_fit_param_events_by_box(obj,src,evnt);
         handle_fit_param_events_by_chckbox(obj,src,evnt);
         handle_fit_param_events_by_sldr(obj,src,evnt);

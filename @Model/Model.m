@@ -41,8 +41,9 @@ classdef Model < handle
     
     events
         
+        all_fit_params_changed;            % sliders, boxes and axes
         fit_params_changed_by_box;         % Requires updating the slider & axes
-        fit_params_changed_by_chckbox;        % Requires updating the fit button
+        fit_params_changed_by_chckbox;     % Requires updating the fit button
         fit_params_changed_by_sldr;        % Requires updating *_val box & axes
         empirical_data_loaded;
         
@@ -98,9 +99,9 @@ classdef Model < handle
             % Default parametes when the program is initialized
             
             obj.fit_param = {0      100     100     1;...   % sd                1
-                             0      1       1       1;...   % PD                2
-                             0      1       1       1;...   % max skin PD       3   
-                             0      25      100     1;...   % fuzziness         4
+                             0.01   1       1       1;...   % PD                2
+                             0.01   1       1       1;...   % max skin PD       3   
+                             0.01   25      100     1;...   % fuzziness         4
                              1e-3   1       1       1;...   % amplitude         5
                              0      400     1000    1;...   % mean radius       6
                              0      5       20      1};     % polydispersity    7
@@ -115,9 +116,15 @@ classdef Model < handle
                 
         end % constructor
         
+        h = construct_handle(obj,f);
+        
         [min,val,max] = get_min_val_max(obj,lin_ind);
         
+        [p,exitflag,jacobian] = lsqfit(obj);
+        
         % setters
+        
+        set_all_fit_param(obj,p,format);
         
         set_empirical_data(obj,data)
         
@@ -131,7 +138,7 @@ classdef Model < handle
         
         v = get_all_fit_param(obj,format);
         
-        [lb,ub] = get_bounds(obj);
+        [lb,ub] = get_bounds(obj,format);
         
         fp = get_fit_param(obj,tag_or_index);
         

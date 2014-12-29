@@ -7,8 +7,7 @@ function [lb,ub] = get_bounds(obj,format)
 % format        Either 'literal' or 'fitting' whether the bounds
 %               can be directly used for lsqfit or they have to
 %               be converted to Model.scattered_intensity format from
-%               Model.fitting_param format, respectively. See
-%               get_all_fit_param
+%               Model.fitting_param format, respectively.
 %
 % Returns
 % lb        lower bounds as an array
@@ -26,10 +25,10 @@ switch format
         
     case 'fitting'
         
-        lb(1) = 1 - ub(1) / 100; % have to flip the limits
+        lb(1) = 1 - lb(1) .* 100;
         lb(7) = lb(7) .* lb(6) ./ 100; 
         
-        ub(1) = 1 - lb(1) / 100; % have to flip the limits
+        ub(1) = 1 - ub(1) .* 100; 
         ub(7) = ub(7) .* ub(6) ./ 100; 
         
     otherwise

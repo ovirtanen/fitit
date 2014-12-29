@@ -28,8 +28,8 @@ function [intst,rpd,rpsd,psd] = scattered_intensity(q,a,nc,rfrac,vcore,vskin,fuz
 % [intst,rpd,rpsd,psd] = Model.scattered_intensity(q,100,0.7,1,1.1,25,400,20);
 %
 
-rpsd = linspace(psd_m-4.*psd_w,psd_m+4.*psd_w,nc); % take collocation points 4 stds from the mean
-%rpsd = linspace(psd_m-7.*psd_w,psd_m+4.*psd_w,nc);
+rpsd = linspace(psd_m-4.*psd_w,psd_m+4.*psd_w,nc)'; % take collocation points 4 stds from the mean
+%rpsd = linspace(psd_m-7.*psd_w,psd_m+4.*psd_w,nc)';
 
 psd = normpdf(rpsd,psd_m,psd_w);
 %psd = evpdf(rpsd,psd_m,psd_w);

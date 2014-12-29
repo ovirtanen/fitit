@@ -29,6 +29,10 @@ switch format
         
         param(1) = 1 - param(1) ./ 100;
         param(7) = param(7) .* param(6) / 100;  % polydispersity = std / mean
+        
+    otherwise
+        
+        error('Unknown format.');
     
     
 end % switch

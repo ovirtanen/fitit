@@ -22,7 +22,7 @@ function varargout = fit_it_ui(varargin)
 
 % Edit the above text to modify the response to help fit_it_ui
 
-% Last Modified by GUIDE v2.5 28-Dec-2014 09:46:15
+% Last Modified by GUIDE v2.5 29-Dec-2014 10:50:32
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -153,6 +153,8 @@ function calculate_btn_Callback(hObject, eventdata, handles)
 % hObject    handle to calculate_btn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+handles.view.fit_callback();
 
 
 
@@ -1143,4 +1145,3 @@ function fitit_CloseRequestFcn(hObject, eventdata, handles)
 % Hint: delete(hObject) closes the figure
 %delete(hObject);
 handles.view.close_btn_callback(handles);
-

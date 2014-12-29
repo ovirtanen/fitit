@@ -1,0 +1,21 @@
+function disable_inputs(obj)
+%DISABLE_INPUTS Disables all user inputs
+
+handles = guidata(obj.gui);
+
+k = keys(obj.model.param_map);
+
+fnms = fieldnames(handles);
+
+sldrs = 
+
+for i = k
+   
+    ic = char(i);
+    set(handles.(ic),'Enable','off');
+    
+end
+
+
+end
+
