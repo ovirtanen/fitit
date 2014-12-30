@@ -35,6 +35,7 @@ b = zeros(numel(q),1);
 for i = 1:numel(q)
 
     b(i) = 4 .*pi .* sum(rc.^2 .* pd .* snc(q(i).* rc) .* w );
+    %b(i) = 4 .*pi .* sum(rc.^2 .* pd .* sin(q(i).* rc)./(q(i).* rc) .* w ); % shaves about 25 % off
     
 end % for
 

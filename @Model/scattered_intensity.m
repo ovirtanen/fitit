@@ -37,12 +37,12 @@ psd = normpdf(rpsd,psd_m,psd_w);
 
 w = mean(diff(rpsd)); % quadrature weight, average rounding errors
 
-intst = zeros(numel(1),1);
+intst = zeros(numel(q),1);
 
 for p = 1:numel(psd)
     
     [rpd, pd] = Model.pd_profile(nc,rpsd(p),rfrac,vcore,vskin,fuzz);
-    intst = intst + a .* psd(p).* Model.numP(rpd,pd,q) .* w;
+    intst = intst + a .* psd(p).* Model.vnumP(rpd,pd,q) .* w;
     
 end % for
 

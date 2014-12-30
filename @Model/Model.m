@@ -56,6 +56,10 @@ classdef Model < handle
         hri = trg3(r,rinc,rp,v,vm)
         [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)       % pd_profile has a problem. See documentation.
         p = numP(r,a,q)
+        p = vnumP(r,a,q)
+        
+        x = snc(x)
+        x = rm_nan(x,f)
           
     end
     
@@ -99,10 +103,10 @@ classdef Model < handle
             % Default parametes when the program is initialized
             
             obj.fit_param = {0      100     100     1;...   % sd                1
-                             0.01   1       1       1;...   % PD                2
+                             1e-3   1       1       1;...   % PD                2
                              0.01   1       1       1;...   % max skin PD       3   
                              0.01   25      100     1;...   % fuzziness         4
-                             1e-3   1       1       1;...   % amplitude         5
+                             1e-3   0.3     0.3     1;...   % amplitude         5
                              0      400     1000    1;...   % mean radius       6
                              0      5       20      1};     % polydispersity    7
             

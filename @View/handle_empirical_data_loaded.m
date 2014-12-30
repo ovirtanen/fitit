@@ -22,6 +22,10 @@ if numel(ffa.Children) == 1
     
     hold(ffa,'off');
     
+    % Flip children so that the calculated fit is on the top of the
+    % empirical data
+    ffa.Children = [ffa.Children(end) ffa.Children(1)];
+    
     ffa.YLabel.String = 'Intensity (cm^{-2})';
     ffa.XLabel.String = 'q (nm^{-1})';
     ffa.YScale = 'log';
@@ -42,10 +46,10 @@ if numel(ffa.Children) == 1
     
 elseif numel(ffa.Children) == 2
     
-    ffa.Children(1).XData = m.q;
-    ffa.Children(1).YData = m.intensity;
-    ffa.Children(1).LData = m.std;
-    ffa.Children(1).UData = m.std;
+    ffa.Children(end).XData = m.q;
+    ffa.Children(end).YData = m.intensity;
+    ffa.Children(end).LData = m.std;
+    ffa.Children(end).UData = m.std;
     
 else
     
