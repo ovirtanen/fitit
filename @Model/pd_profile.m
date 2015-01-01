@@ -25,10 +25,12 @@ function [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vskin,fuzz)
 % resolution.
 %
 
-rng = rhard+2.*fuzz;               % range of values
-rc = linspace(-(rng),rng,2.*nc)';
-             
-w = mean(diff(rc));                 % quadrature weight, average rounding errors
+rng = rhard+2.*fuzz;                % range of values
+%rc = linspace(-(rng),rng,2.*nc)';
+%w = mean(diff(rc));                % quadrature weight, average rounding errors
+
+w = rng ./ nc;                      % quadrature weight rng - (-rng) / nc
+rc = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
 
 %f = b(r,rbox,vfrac);
 %f = trg(r,rbox,vi,vf);

@@ -56,7 +56,7 @@ classdef Model < handle
         hri = trg3(r,rinc,rp,v,vm)
         [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)       % pd_profile has a problem. See documentation.
         p = numP(r,a,q)
-        p = vnumP(r,a,q)
+        p = vnumP(r,w,a,q)
         
         x = snc(x)
         x = rm_nan(x,f)

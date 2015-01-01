@@ -17,7 +17,7 @@ function [ hri ] = trg3(r,rinc,rp,v,vm)
 %
 
 fb = abs(r) <= rinc;                  % box
-fr = abs(r) > rinc & abs(r) <= rp;    % exponential ramp
+fr = not(fb) & abs(r) <= rp;          % exponential ramp
 
 hri = zeros(numel(r),1);
 

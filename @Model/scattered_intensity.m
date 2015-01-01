@@ -28,21 +28,24 @@ function [intst,rpd,rpsd,psd] = scattered_intensity(q,a,nc,rfrac,vcore,vskin,fuz
 % [intst,rpd,rpsd,psd] = Model.scattered_intensity(q,100,0.7,1,1.1,25,400,20);
 %
 
-rpsd = linspace(psd_m-4.*psd_w,psd_m+4.*psd_w,nc)'; % take collocation points 4 stds from the mean
+w = ((psd_m + 4.*psd_w) - (psd_m - 4.*psd_w)) ./ nc;    % take collocation points 4 stds from the mean
+rpsd = (psd_m-4.*psd_w) + w .* ((1:nc)-0.5)';           % equidistant grid points for psd
+
+%rpsd = linspace(psd_m-4.*psd_w,psd_m+4.*psd_w,nc)'; % take collocation points 4 stds from the mean
 %rpsd = linspace(psd_m-7.*psd_w,psd_m+4.*psd_w,nc)';
 
 psd = normpdf(rpsd,psd_m,psd_w);
 %psd = evpdf(rpsd,psd_m,psd_w);
 %psd = wblpdf(rpsd,psd_m,psd_w);
 
-w = mean(diff(rpsd)); % quadrature weight, average rounding errors
+%w = mean(diff(rpsd)); % quadrature weight, average rounding errors
 
 intst = zeros(numel(q),1);
 
 for p = 1:numel(psd)
     
     [rpd, pd] = Model.pd_profile(nc,rpsd(p),rfrac,vcore,vskin,fuzz);
-    intst = intst + a .* psd(p).* Model.vnumP(rpd,pd,q) .* w;
+    intst = intst + a .* psd(p).* Model.vnumP(rpd,w,pd,q) .* w;
     
 end % for
 
