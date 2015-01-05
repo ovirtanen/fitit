@@ -26,8 +26,6 @@ function [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vskin,fuzz)
 %
 
 rng = rhard+2.*fuzz;                % range of values
-%rc = linspace(-(rng),rng,2.*nc)';
-%w = mean(diff(rc));                % quadrature weight, average rounding errors
 
 w = rng ./ nc;                      % quadrature weight rng - (-rng) / nc
 rc = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
@@ -38,11 +36,10 @@ rc = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
 
 rbox = rhard .* rfrac;
 
-%f = Model.trg2(rc,rbox,rhard,vcore,vskin);
 f = Model.trg3(rc,rbox,rhard,vcore,vskin);
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rc.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
-a = conv(f,g.*w,'same');            % vector convolution, add weight
+a = conv2(f,g.*w,'same');            % vector convolution, add weight. Conv2 slightly faster than conv
 
 fil = rc > 0;
 
@@ -50,4 +47,3 @@ rc = rc(fil);
 a = a(fil);
 
 end
-

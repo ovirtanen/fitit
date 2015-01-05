@@ -1,6 +1,6 @@
 function [ hri ] = trg3(r,rinc,rp,v,vm)
 %TRG3 Hard polarization density profile for a microgel with a exponential ramp
-%at the periphery
+%at the periphery determined by predetermined points.
 %   [ hri ] = trg3( r,r1,r2,v,vm)
 %
 % Parameters

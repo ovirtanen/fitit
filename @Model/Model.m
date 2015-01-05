@@ -54,6 +54,7 @@ classdef Model < handle
         [intst,rpd,rpsd,psd] = scattered_intensity(q,a,nc,rfrac,vcore,vexc,fuzz,psd_m,psd_w);
         hri = trg2(r,rinc,rp,v,vm)
         hri = trg3(r,rinc,rp,v,vm)
+        hri = trg4(r,tau,rp,vm)
         [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)       % pd_profile has a problem. See documentation.
         p = numP(r,a,q)
         p = vnumP(r,w,a,q)
@@ -108,7 +109,7 @@ classdef Model < handle
                              0.01   25      100     1;...   % fuzziness         4
                              1e-3   0.3     0.3     1;...   % amplitude         5
                              0      400     1000    1;...   % mean radius       6
-                             0      5       20      1};     % polydispersity    7
+                             0.1    5       20      1};     % polydispersity    7
             
             obj.qfit = linspace(0,0.025,200)'; % dummy q for plotting
             obj.nc = 100;                      % collocation points
