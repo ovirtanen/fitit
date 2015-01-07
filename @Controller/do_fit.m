@@ -13,7 +13,7 @@ set(handles.calculate_btn,'String','Fitting...');
 obj.view.disable_inputs();
 drawnow;
 
-[p,exitflag,jacobian] = obj.model.lsqfit();
+[p,exitflag] = obj.model.lsqfit();
 
 obj.model.set_all_fit_param(p,'fitting');
 

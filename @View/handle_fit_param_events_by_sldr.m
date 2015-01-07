@@ -29,7 +29,7 @@ if any([strfind(tag,'meanr') strfind(tag,'pdisp')])
 end
 
 % tags that require polarization density profile to update
-if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'pd') strfind(tag,'epds') strfind(tag,'fuzz')])
+if any([strfind(tag,'meanr') strfind(tag,'dr') strfind(tag,'epds') strfind(tag,'fuzz')])
     
     obj.update_pd();
     

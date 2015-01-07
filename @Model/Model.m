@@ -2,7 +2,7 @@ classdef Model < handle
     %MODEL Model for FitIt
     %   Detailed explanation goes here
     
-    properties (SetObservable)
+    properties (SetAccess = private,SetObservable)
         
         intensity;          % empirical data
         std;                %       .
@@ -27,10 +27,9 @@ classdef Model < handle
         param_map;          % map containing indices for parameters and bounds
         fit_param;          % values for parameters and bounds
         
-        % fit_param structure <7 x 4 double>:
+        % fit_param structure <6 x 4 double>:
         %
-        % sd_min            sd_val          sd_max          sd_chck
-        % pd_min            pd_val          pd_max          pd_chck
+        % dr_min            dr_val          dr_max          dr_chck
         % epds_min          epds_val        epds_max        epds_chck
         % fuzz_min          fuzz_val        fuzz_max        fuzz_chck
         % amplitude_min     amplitude_val   amplitude_max   amplitude_chck
@@ -55,7 +54,7 @@ classdef Model < handle
         hri = trg2(r,rinc,rp,v,vm)
         hri = trg3(r,rinc,rp,v,vm)
         hri = trg4(r,tau,rp,vm)
-        [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)       % pd_profile has a problem. See documentation.
+        [rc, a] = pd_profile(nc,rhard,tau,vskin,fuzz)
         p = numP(r,a,q)
         p = vnumP(r,w,a,q)
         
@@ -68,29 +67,25 @@ classdef Model < handle
         
         function obj = Model()
             
-            keyset = {'sd_min',...
-                      'pd_min',...
+            keyset = {'dr_min',...
                       'epds_min',...
                       'fuzz_min',...
                       'amplitude_min',...
                       'meanr_min',...
                       'pdisp_min',...
-                      'sd_val',...
-                      'pd_val',...
+                      'dr_val',...
                       'epds_val',...
                       'fuzz_val',...
                       'amplitude_val',...
                       'meanr_val',...
                       'pdisp_val',...
-                      'sd_max',...
-                      'pd_max',...
+                      'dr_max',...
                       'epds_max',...
                       'fuzz_max',...
                       'amplitude_max',...
                       'meanr_max',...
                       'pdisp_max',...
-                      'sd_chck',...
-                      'pd_chck',...
+                      'dr_chck',...
                       'epds_chck',...
                       'fuzz_chck',...
                       'amplitude_chck',...
@@ -103,13 +98,12 @@ classdef Model < handle
             
             % Default parametes when the program is initialized
             
-            obj.fit_param = {0      100     100     1;...   % sd                1
-                             1e-3   1       1       1;...   % PD                2
-                             0.01   1       1       1;...   % max skin PD       3   
-                             0.01   25      100     1;...   % fuzziness         4
-                             1e-3   0.3     0.3     1;...   % amplitude         5
-                             0      400     1000    1;...   % mean radius       6
-                             0.1    5       20      1};     % polydispersity    7
+            obj.fit_param = {1e-5   1e-3    1e-2    1;...   % decay rate        1
+                             0.01   1       1       1;...   % max skin PD       2   
+                             0.01   25      100     1;...   % fuzziness         3
+                             1e-3   0.3     0.3     1;...   % amplitude         4
+                             0      400     1000    1;...   % mean radius       5
+                             0.1    5       20      1};     % polydispersity    6
             
             obj.qfit = linspace(0,0.025,200)'; % dummy q for plotting
             obj.nc = 100;                      % collocation points
@@ -117,7 +111,7 @@ classdef Model < handle
             p = obj.get_all_fit_param('fitting');
             obj.set_fit(p); % sets obj.fit, obj.rpsd, obj.psd
                                                                      
-           [~,obj.pd] = obj.pd_profile(obj.nc,p(6),p(1),p(2),p(3),p(4));
+           [~,obj.pd] = obj.pd_profile(obj.nc,p(5),p(1),p(2),p(3));
                 
         end % constructor
         
@@ -125,7 +119,7 @@ classdef Model < handle
         
         [min,val,max] = get_min_val_max(obj,lin_ind);
         
-        [p,exitflag,jacobian] = lsqfit(obj);
+        [p,exitflag] = lsqfit(obj);
         
         % setters
         

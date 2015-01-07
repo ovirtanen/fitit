@@ -5,13 +5,13 @@ function set_all_fit_param(obj,p,format)
 %
 % Parameters
 % p             fit parameter vector: 
-%                  sd          Skin depth          1
-%                  pd          pd of core          2
-%                  epds        Max pd of skin      3
-%                  fuzz        Fuzziness           4
-%                  amplitude   Amplitude           5
-%                  meanr       Mean of the PSD     6
-%                  pdist       Polydispersity      7
+%                  
+%                  dr          decay rate          1
+%                  epds        Max pd of skin      2
+%                  fuzz        Fuzziness           3
+%                  amplitude   Amplitude           4
+%                  meanr       Mean of the PSD     5
+%                  pdist       Polydispersity      6
 % format        Either 'literal' or 'fitting' whether the parameters in p
 %               can be directly set to Model.fitting_param or they have to
 %               be converted from Model.scattered_intensity format to
@@ -31,8 +31,7 @@ switch format
         
     case 'fitting'
         
-        p(1) = (1 - p(1)) .* 100; % Skin depth percentage from outside
-        p(7) = p(7) ./ p(6) .* 100; % As std / mean * 100
+        p(6) = p(6) ./ p(5) .* 100; % As std / mean * 100
         
     otherwise
         

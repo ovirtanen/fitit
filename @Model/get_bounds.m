@@ -26,11 +26,9 @@ switch format
         
     case 'fitting'
         
-        lb(1) = 1 - ub(1) / 100; % have to flip the limits
-        lb(7) = lb(7) .* lb(6) ./ 100; 
+        lb(6) = lb(6) .* lb(5) ./ 100; 
         
-        ub(1) = 1 - lb(1) / 100; % have to flip the limits
-        ub(7) = ub(7) .* ub(6) ./ 100; 
+        ub(6) = ub(6) .* ub(5) ./ 100; 
         
     otherwise
         

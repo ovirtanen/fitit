@@ -4,7 +4,7 @@ function set_pd(obj,p)
 %   Detailed explanation goes here
 
 
-[obj.rpd,obj.pd] = obj.pd_profile(obj.nc,p(6),p(1),p(2),p(3),p(4));
+[obj.rpd,obj.pd] = obj.pd_profile(obj.nc,p(5),p(1),p(2),p(3));
 
 end
 
