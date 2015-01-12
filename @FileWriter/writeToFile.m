@@ -5,7 +5,7 @@ function writeToFile(obj,pindarray, path)
 %   path is the file path to the file to be written, writes the contents of
 %   the specified PrintArray instances to the file.
 %
-% Throws: DLS-analyser:IOException:Could not write to the specified file.
+% Throws: 
 
 fid = fopen(path,'w');
 
@@ -19,9 +19,7 @@ for i = pindarray
         
         fclose('all');
         
-        err = MException('DLS-analyser:IOException',...
-                         'Could not write to the specified file.');
-        throw(err);
+        rethrow(ME);
         
     end % try-catch
     
@@ -32,19 +30,15 @@ fclose('all');
 function parrayToFile(parray)
 % Helper function to iterate through each parray
 
-% header
-fprintf(fid, [repmat('%s\t',1,parray.nVar-1) '%s' char(13) char(10)], parray.header{1,1:end});
+pa = parray.get_print_array();
 
-% units
-fprintf(fid, [repmat('%s\t',1,parray.nVar-1) '%s' char(13) char(10)], parray.units{1,1:end});
-
-% data
-
-[length,~] = size(parray.data);
+[length,~] = size(pa);
 
 for j = 1:length
     
-    fprintf(fid, [repmat('%d\t',1,parray.nVar-1) '%d' char(13) char(10)], parray.data{j,1:end});
+    d = pa(j,1:end);
+    
+    fprintf(fid, [obj.cellToSpec(d,'\t') char(13) char(10)], d{1,1:end});
     
 end % for
 

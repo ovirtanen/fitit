@@ -13,29 +13,35 @@ classdef (ConstructOnLoad = true) FileWriter < handle
     
     properties (Access = private)
         
-        cntrlr;
+        controller;
         filterspec;
         parrayIndex;
         lastSavePath;
         
     end
     
+    methods(Static)
+       
+       s =  cellToSpec(c,d);
+        
+    end
+    
     methods (Access = public)
         
-        function obj = FileWriter(cntrlr,fspec)
+        function obj = FileWriter(c,fspec)
            
-           obj.cntrlr = cntrlr;
+           obj.controller = c;
            obj.filterspec = fspec;
            
            obj.parrayIndex = 1;
            
            % set the default save path to the last load path if exists
            
-           llp = obj.cntrlr.filereader.lastLoadPath;
+           llp = obj.controller.fr.last_load_path;
            
            if exist(llp,'dir') == 7
                
-               obj.lastSavePath = obj.cntrlr.filereader.lastLoadPath;
+               obj.lastSavePath = llp;
            
            else
             
@@ -45,17 +51,16 @@ classdef (ConstructOnLoad = true) FileWriter < handle
             
         end % constructor
         
-        pind = addParray(obj,prealloc,nVar);
+        pind = addParray(obj,printarray);
         saveToFile(obj,pindarray)
         
     end
     
     methods (Access = private)
         
-       t = parrayToTable(obj,pind);
        p = getSavePath(obj);
        writeToFile(obj,pindarray,path);
-        
+ 
     end
     
 end

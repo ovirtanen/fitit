@@ -45,20 +45,24 @@ classdef View < handle
             
         end % constructor
         
+        % General
+        
         b = ui_limits_check(obj,inp,type,tag);
         disable_inputs(obj);
         enable_inputs(obj);
         
         % Callbacks
         
+        about_menu_callback(obj);
+        chck_box_callback(obj,inp,tag);
         close_btn_callback(obj,hObject);
         edit_box_callback(obj,hObject,inp,tag,type);
         fit_callback(obj);
+        import_data_callback(obj);
+        save_menu_callback(obj);
         slider_callback(obj,hObject,inp,tag);
-        chck_box_callback(obj,inp,tag);
-        about_menu_callback(obj);
         
-        
+         
         % Updates
         
         update_form_factor(obj);

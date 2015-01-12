@@ -854,33 +854,9 @@ function id_smenu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-try 
-    
-    handles.controller.import_data();
-    
-catch ME
-   
-    if strcmp(ME.message,'Open dialog cancelled.')
-        
-        % do nothing
-        
-    elseif strcmp(ME.message,'Data structure not recognized.')
-        
-        errstr = 'Data file does not seem to have three columns. There should be only three columns: q(nm^(-1)), intensity and std.';
-    
-        errordlg(errstr,'Invalid parameter','modal');
-        
-    elseif strcmp(ME.message,'No numeric data recognized.')
-        
-        errstr = 'Data file does not seem to contain numeric data.';
-    
-        errordlg(errstr,'Invalid parameter','modal');
-        
-    else rethrow(ME)
-        
-    end % if
-    
-end
+handles.view.import_data_callback();
+
+
 
 % --------------------------------------------------------------------
 function sd_smenu_Callback(hObject, eventdata, handles)
@@ -888,6 +864,8 @@ function sd_smenu_Callback(hObject, eventdata, handles)
 % hObject    handle to sd_smenu (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+handles.view.save_data_callback();
 
 
 % --------------------------------------------------------------------

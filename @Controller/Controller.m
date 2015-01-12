@@ -32,6 +32,7 @@ classdef Controller < handle
         
         do_fit(obj);
         import_data(obj);
+        save_data(obj);
         set_fit_param(obj,tag,value);
         
  

@@ -1,5 +1,5 @@
 classdef PrintArray < handle
-    %PRINTARRAY Holds header and data for writing to a file
+    %PRINTARRAY Class for holding a header and data for writing to a file
     %   
     
     properties (SetAccess = private)
@@ -24,16 +24,11 @@ classdef PrintArray < handle
             
         end
        
-        setHeader(obj,header);
-        setUnits(obj,unts);
-        addRow(obj,row);
-        addRows(obj,rows);
         
     end
     
     methods (Access = private)
        
-        extendPrintArray(obj)
         
     end
     
