@@ -57,6 +57,7 @@ classdef Model < handle
         [rc, a] = pd_profile(nc,rhard,tau,vskin,fuzz)
         p = numP(r,a,q)
         p = vnumP(r,w,a,q)
+        p = burrpdf(x,a,c,k);
         
         x = snc(x)
         x = rm_nan(x,f)
