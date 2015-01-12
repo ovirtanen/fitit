@@ -26,11 +26,9 @@ function [intst,rpd,rpsd,psd] = scattered_intensity(q,amp,nc,tau,vskin,fuzz,p_a,
 
 % Burr
 m1 = Model.burr_moments(1,p_a,p_c,p_k);
-%m2 = Model.burr_moments(2,p_a,p_c,p_k)
+m2 = Model.burr_moments(2,p_a,p_c,p_k)
 
-%std = sqrt(-m1.^2 + m2)
-
-lowlimit = p_a - 0.5 .* m1;                    % totally arbitrary limits
+lowlimit = p_a - 0.25 .* m1;                    % totally arbitrary limits
 highlimit =  p_a + 1 .* m1;
 
 w = (highlimit-lowlimit) ./ nc;                 % quadrature weight

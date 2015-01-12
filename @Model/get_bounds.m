@@ -26,9 +26,9 @@ switch format
         
     case 'fitting'
         
-        lb(6) = lb(6) .* lb(5) ./ 100; 
+        %lb(6) = lb(6) .* lb(5) ./ 100; 
         
-        ub(6) = ub(6) .* ub(5) ./ 100; 
+        %ub(6) = ub(6) .* ub(5) ./ 100; 
         
     otherwise
         

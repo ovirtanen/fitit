@@ -22,7 +22,7 @@ function varargout = fit_it_ui(varargin)
 
 % Edit the above text to modify the response to help fit_it_ui
 
-% Last Modified by GUIDE v2.5 07-Jan-2015 09:08:14
+% Last Modified by GUIDE v2.5 12-Jan-2015 14:56:59
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -158,15 +158,15 @@ handles.view.fit_callback();
 
 
 
-function meanr_min_Callback(hObject, eventdata, handles)
-% hObject    handle to meanr_min (see GCBO)
+function a_min_Callback(hObject, eventdata, handles)
+% hObject    handle to a_min (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of meanr_min as text
-%        str2double(get(hObject,'String')) returns contents of meanr_min as a double
+% Hints: get(hObject,'String') returns contents of a_min as text
+%        str2double(get(hObject,'String')) returns contents of a_min as a double
 
-tag = 'meanr_min';
+tag = 'a_min';
 type = 'min';
 inp = str2double(get(hObject,'String'));
 
@@ -174,8 +174,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function meanr_min_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to meanr_min (see GCBO)
+function a_min_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to a_min (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -187,15 +187,15 @@ end
 
 
 
-function meanr_val_Callback(hObject, eventdata, handles)
-% hObject    handle to meanr_val (see GCBO)
+function a_val_Callback(hObject, eventdata, handles)
+% hObject    handle to a_val (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of meanr_val as text
-%        str2double(get(hObject,'String')) returns contents of meanr_val as a double
+% Hints: get(hObject,'String') returns contents of a_val as text
+%        str2double(get(hObject,'String')) returns contents of a_val as a double
 
-tag = 'meanr_val';
+tag = 'a_val';
 type = 'val';
 inp = str2double(get(hObject,'String'));
 
@@ -203,8 +203,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function meanr_val_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to meanr_val (see GCBO)
+function a_val_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to a_val (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -216,15 +216,15 @@ end
 
 
 
-function meanr_max_Callback(hObject, eventdata, handles)
-% hObject    handle to meanr_max (see GCBO)
+function a_max_Callback(hObject, eventdata, handles)
+% hObject    handle to a_max (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of meanr_max as text
-%        str2double(get(hObject,'String')) returns contents of meanr_max as a double
+% Hints: get(hObject,'String') returns contents of a_max as text
+%        str2double(get(hObject,'String')) returns contents of a_max as a double
 
-tag = 'meanr_max';
+tag = 'a_max';
 type = 'max';
 inp = str2double(get(hObject,'String'));
 
@@ -232,8 +232,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function meanr_max_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to meanr_max (see GCBO)
+function a_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to a_max (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -244,30 +244,30 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in meanr_chck.
-function meanr_chck_Callback(hObject, eventdata, handles)
-% hObject    handle to meanr_chck (see GCBO)
+% --- Executes on button press in a_chck.
+function a_chck_Callback(hObject, eventdata, handles)
+% hObject    handle to a_chck (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of meanr_chck
+% Hint: get(hObject,'Value') returns toggle state of a_chck
 
-tag = 'meanr_chck';
+tag = 'a_chck';
 inp = get(hObject,'Value');
 
 handles.view.chck_box_callback(inp,tag);
 
 
 % --- Executes on slider movement.
-function meanr_sldr_Callback(hObject, eventdata, handles)
-% hObject    handle to meanr_sldr (see GCBO)
+function a_sldr_Callback(hObject, eventdata, handles)
+% hObject    handle to a_sldr (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-tag = 'meanr_sldr';
+tag = 'a_sldr';
 inp = get(hObject,'Value');
 
 handles.view.slider_callback(hObject,inp,tag);
@@ -276,8 +276,8 @@ handles.view.slider_callback(hObject,inp,tag);
 
 
 % --- Executes during object creation, after setting all properties.
-function meanr_sldr_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to meanr_sldr (see GCBO)
+function a_sldr_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to a_sldr (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -288,15 +288,15 @@ end
 
 
 
-function pdisp_min_Callback(hObject, eventdata, handles)
-% hObject    handle to pdisp_min (see GCBO)
+function c_min_Callback(hObject, eventdata, handles)
+% hObject    handle to c_min (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of pdisp_min as text
-%        str2double(get(hObject,'String')) returns contents of pdisp_min as a double
+% Hints: get(hObject,'String') returns contents of c_min as text
+%        str2double(get(hObject,'String')) returns contents of c_min as a double
 
-tag = 'pdisp_min';
+tag = 'c_min';
 type = 'min';
 inp = str2double(get(hObject,'String'));
 
@@ -304,8 +304,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function pdisp_min_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pdisp_min (see GCBO)
+function c_min_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to c_min (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -317,15 +317,15 @@ end
 
 
 
-function pdisp_val_Callback(hObject, eventdata, handles)
-% hObject    handle to pdisp_val (see GCBO)
+function c_val_Callback(hObject, eventdata, handles)
+% hObject    handle to c_val (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of pdisp_val as text
-%        str2double(get(hObject,'String')) returns contents of pdisp_val as a double
+% Hints: get(hObject,'String') returns contents of c_val as text
+%        str2double(get(hObject,'String')) returns contents of c_val as a double
 
-tag = 'pdisp_val';
+tag = 'c_val';
 type = 'val';
 inp = str2double(get(hObject,'String'));
 
@@ -333,8 +333,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function pdisp_val_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pdisp_val (see GCBO)
+function c_val_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to c_val (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -346,15 +346,15 @@ end
 
 
 
-function pdisp_max_Callback(hObject, eventdata, handles)
-% hObject    handle to pdisp_max (see GCBO)
+function c_max_Callback(hObject, eventdata, handles)
+% hObject    handle to c_max (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of pdisp_max as text
-%        str2double(get(hObject,'String')) returns contents of pdisp_max as a double
+% Hints: get(hObject,'String') returns contents of c_max as text
+%        str2double(get(hObject,'String')) returns contents of c_max as a double
 
-tag = 'pdisp_max';
+tag = 'c_max';
 type = 'max';
 inp = str2double(get(hObject,'String'));
 
@@ -363,8 +363,8 @@ handles.view.edit_box_callback(hObject,inp,tag,type);
 
 
 % --- Executes during object creation, after setting all properties.
-function pdisp_max_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pdisp_max (see GCBO)
+function c_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to c_max (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -790,23 +790,23 @@ end
 
 
 % --- Executes on slider movement.
-function pdisp_sldr_Callback(hObject, eventdata, handles)
-% hObject    handle to pdisp_sldr (see GCBO)
+function c_sldr_Callback(hObject, eventdata, handles)
+% hObject    handle to c_sldr (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-tag = 'pdisp_sldr';
+tag = 'c_sldr';
 inp = get(hObject,'Value');
 
 handles.view.slider_callback(hObject,inp,tag);
 
 
 % --- Executes during object creation, after setting all properties.
-function pdisp_sldr_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to pdisp_sldr (see GCBO)
+function c_sldr_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to c_sldr (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -815,15 +815,15 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-% --- Executes on button press in pdisp_chck.
-function pdisp_chck_Callback(hObject, eventdata, handles)
-% hObject    handle to pdisp_chck (see GCBO)
+% --- Executes on button press in c_chck.
+function c_chck_Callback(hObject, eventdata, handles)
+% hObject    handle to c_chck (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of amplitude_chck
 
-tag = 'pdisp_chck';
+tag = 'c_chck';
 inp = get(hObject,'Value');
 
 handles.view.chck_box_callback(inp,tag);
@@ -1023,3 +1023,131 @@ function fitit_CloseRequestFcn(hObject, eventdata, handles)
 % Hint: delete(hObject) closes the figure
 %delete(hObject);
 handles.view.close_btn_callback(handles);
+
+
+
+function k_min_Callback(hObject, eventdata, handles)
+% hObject    handle to k_min (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of k_min as text
+%        str2double(get(hObject,'String')) returns contents of k_min as a double
+
+tag = 'k_min';
+type = 'min';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function k_min_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to k_min (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function k_val_Callback(hObject, eventdata, handles)
+% hObject    handle to k_val (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of k_val as text
+%        str2double(get(hObject,'String')) returns contents of k_val as a double
+
+tag = 'k_val';
+type = 'val';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function k_val_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to k_val (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function k_max_Callback(hObject, eventdata, handles)
+% hObject    handle to k_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of k_max as text
+%        str2double(get(hObject,'String')) returns contents of k_max as a double
+
+tag = 'k_max';
+type = 'max';
+inp = str2double(get(hObject,'String'));
+
+handles.view.edit_box_callback(hObject,inp,tag,type);
+
+
+% --- Executes during object creation, after setting all properties.
+function k_max_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to k_max (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in k_chck.
+function k_chck_Callback(hObject, eventdata, handles)
+% hObject    handle to k_chck (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of k_chck
+
+tag = 'k_chck';
+inp = get(hObject,'Value');
+
+handles.view.chck_box_callback(inp,tag);
+
+
+% --- Executes on slider movement.
+function k_sldr_Callback(hObject, eventdata, handles)
+% hObject    handle to k_sldr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+tag = 'k_sldr';
+inp = get(hObject,'Value');
+
+handles.view.slider_callback(hObject,inp,tag);
+
+
+% --- Executes during object creation, after setting all properties.
+function k_sldr_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to k_sldr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

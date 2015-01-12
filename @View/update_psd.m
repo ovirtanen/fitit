@@ -11,7 +11,7 @@ psda = handles.psd_axes;
 psda.Children(1).XData = obj.model.rpsd;
 psda.Children(1).YData = obj.model.psd;
 psda.YLim = [0 1.1 .* max(obj.model.psd)];
-psda.XLim = [cell2mat(m.fit_param(m.param_map('meanr_min'))) cell2mat(m.fit_param(m.param_map('meanr_max')))];
+psda.XLim = [cell2mat(m.fit_param(m.param_map('a_min'))) cell2mat(m.fit_param(m.param_map('a_max')))];
 
 
 end

@@ -1,4 +1,4 @@
-function [rc, a] = pd_profile(nc,rhard,tau,vskin,fuzz)
+function [rc, alpha] = pd_profile(nc,rhard,tau,vskin,fuzz)
 %PD_PROFILE Calculates the radial polarization density profile for a
 %microgel with a skin. We like skin. Do you like skin? Skin skin skin.
 %
@@ -16,7 +16,7 @@ function [rc, a] = pd_profile(nc,rhard,tau,vskin,fuzz)
 % Returns
 %
 % rc        radial collocation points 
-% a         refractive index density at the collocation points
+% alpha     refractive index density at the collocation points
 %
 % PROBLEMS
 %
@@ -37,11 +37,11 @@ rc = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
 f = Model.trg4(rc,tau,rhard,vskin); % vcore is the deacay rate; rbox is unused
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rc.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
-a = conv2(f,g.*w,'same');            % vector convolution, add weight. Conv2 slightly faster than conv
+alpha = conv2(f,g.*w,'same');            % vector convolution, add weight. Conv2 slightly faster than conv
 
 fil = rc > 0;
 
 rc = rc(fil);
-a = a(fil);
+alpha = alpha(fil);
 
 end

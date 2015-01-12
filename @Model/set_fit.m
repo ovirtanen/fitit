@@ -5,13 +5,13 @@ function set_fit(obj,p)
 %
 % Parameters
 % p             Parameter vector with structure: 
-%                  sd          Skin depth          p(1)
-%                  pd          PD of core          p(2)
-%                  epds        Excess pd of skin   p(3)
-%                  fuzz        Fuzziness           p(4)
-%                  amplitude   Amplitude           p(5)
-%                  meanr       Mean of the PSD     p(6)
-%                  pdist       Polydispersity      p(7)
+%                  dr          Decay rate          p(1)
+%                  epds        Max pd of skin      p(2)
+%                  fuzz        Fuzziness           p(3)
+%                  amplitude   Amplitude           p(4)
+%                  Burr a      Burr parameter      p(5)
+%                  Burr c      Burr parameter c    p(6)
+%                  Burr k      Burr parameter k    p(7)
 
 [obj.fit,...,
  obj.rpd,...
@@ -23,7 +23,8 @@ function set_fit(obj,p)
                                     p(2),...
                                     p(3),...
                                     p(5),...
-                                    p(6));
+                                    p(6),...
+                                    p(7));
 
 
 end

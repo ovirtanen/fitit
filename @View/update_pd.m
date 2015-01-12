@@ -11,7 +11,7 @@ pda = handles.pd_axes;
 pda.Children(1).XData = obj.model.rpd;
 pda.Children(1).YData = obj.model.pd;
 pda.YLim = [0 1.1 .* max(obj.model.pd)];
-pda.XLim = [0 cell2mat(m.fit_param(m.param_map('meanr_max')))];
+pda.XLim = [0 cell2mat(m.fit_param(m.param_map('a_max')))];
 
 end
 

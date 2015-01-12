@@ -11,7 +11,7 @@ y = m.psd;
 plot(axes,x,y);
 
 axes.YLim = [0 1.1 .* max(y)];
-axes.XLim = [0 cell2mat(m.fit_param(m.param_map('meanr_max')))];
+axes.XLim = [0 cell2mat(m.fit_param(m.param_map('a_max')))];
 axes.YLabel.String = 'P(r)';
 axes.XLabel.String = 'Particle radius (nm)';
 

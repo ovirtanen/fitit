@@ -23,7 +23,7 @@ switch tag(end-3:end)
         set(handles.([tag(1:end-4) '_sldr']),'Min',min);
         
         % changes in min values that affect psd    
-        if strfind(tag,'meanr_min')
+        if strfind(tag,'a_min')
    
             obj.update_psd();
    
@@ -35,14 +35,14 @@ switch tag(end-3:end)
         obj.update_form_factor();
         
         % tags that require psd to update
-        if any([strfind(tag,'meanr') strfind(tag,'pdisp')])
+        if any([strfind(tag,'a') strfind(tag,'c') strfind(tag,'k')])
    
             obj.update_psd();
             
         end
         
         % tags that require polarization density profile to update
-        if any([strfind(tag,'meanr') strfind(tag,'sd') strfind(tag,'pd') strfind(tag,'epds') strfind(tag,'fuzz')])
+        if any([strfind(tag,'a') strfind(tag,'c') strfind(tag,'k') strfind(tag,'sd') strfind(tag,'pd') strfind(tag,'epds') strfind(tag,'fuzz')])
     
             obj.update_pd();    
     
@@ -54,7 +54,7 @@ switch tag(end-3:end)
         set(handles.([tag(1:end-4) '_sldr']),'Max',max);
         
         % changes in max values that affect psd and pd    
-        if strfind(tag,'meanr_max')
+        if strfind(tag,'a_max')
    
             obj.update_psd();
             obj.update_pd();

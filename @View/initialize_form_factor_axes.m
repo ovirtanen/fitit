@@ -13,7 +13,7 @@ y = m.fit;
 
 plot(axes,x,y);
 
-axes.YLabel.String = 'Intensity (cm^{-2})';
+axes.YLabel.String = 'Intensity (cm^{-1})';
 axes.XLabel.String = 'q (nm^{-1})';
 axes.YScale = 'log';
 axes.YLim = [0.5.*min(y) 5*max(y)];

@@ -10,8 +10,9 @@ function set_all_fit_param(obj,p,format)
 %                  epds        Max pd of skin      2
 %                  fuzz        Fuzziness           3
 %                  amplitude   Amplitude           4
-%                  meanr       Mean of the PSD     5
-%                  pdist       Polydispersity      6
+%                  a           Burr parameter a    5
+%                  c           Burr parameter c    6
+%                  k           Burr parameter k    7
 % format        Either 'literal' or 'fitting' whether the parameters in p
 %               can be directly set to Model.fitting_param or they have to
 %               be converted from Model.scattered_intensity format to
@@ -31,7 +32,7 @@ switch format
         
     case 'fitting'
         
-        p(6) = p(6) ./ p(5) .* 100; % As std / mean * 100
+        %p(6) = p(6) ./ p(5) .* 100; % As std / mean * 100
         
     otherwise
         

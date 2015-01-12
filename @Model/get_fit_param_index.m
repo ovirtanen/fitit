@@ -15,5 +15,6 @@ function ind = get_fit_param_index(obj,tag)
 
 ind = obj.param_map(tag);
 
+
 end
 
