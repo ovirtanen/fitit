@@ -16,6 +16,12 @@ end % if
 pa.add_data(m.qfit,'q','nm-1');
 pa.add_data(m.fit,'Intensity','cm-1');
 
+pa.add_data(m.rpd,'Radius','nm');
+pa.add_data(m.pd,'PD','a.u.');
+
+pa.add_data(m.rpsd,'Radius','nm');
+pa.add_data(m.psd,'PSD','PSD(R)');
+
 params = {'        Decay rate';...
           '            Max PD';...
           '    Fuzziness (nm)';...
@@ -29,6 +35,7 @@ pa.add_data(m.get_all_fit_param('literal'),'Fit values','');
 fw = FileWriter(obj,'.txt');
 pind = fw.addParray(pa);
 fw.saveToFile(pind);
+delete(fw);
 
 end
 
