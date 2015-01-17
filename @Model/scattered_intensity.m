@@ -25,13 +25,12 @@ function [intst,rpd,rpsd,psd] = scattered_intensity(q,amp,nc,tau,vskin,fuzz,p_a,
 
 
 % Burr
-m1 = Model.burr_moments(1,p_a,p_c,p_k);
-%m2 = Model.burr_moments(2,p_a,p_c,p_k)
+m1 = Model.burr_moments(1,p_a,p_c,p_k);         % 1st moment = mean
+m2 = Model.burr_moments(2,p_a,p_c,p_k);         % 2nd moment
+std = sqrt(-m1.^2 + m2);                        % variance = -m1.^2 + m2
 
-%std = sqrt(-m1.^2 + m2)
-
-lowlimit = p_a - 0.5 .* m1;                    % totally arbitrary limits
-highlimit =  p_a + 1 .* m1;
+lowlimit = max([0 m1 - 4.* max([1 p_k]) .* std]); % totally arbitrary limits
+highlimit =  m1 + 6 .* std;
 
 w = (highlimit-lowlimit) ./ nc;                 % quadrature weight
 rpsd = lowlimit + w .* ((1:nc)-0.5)';           % equidistant grid points for psd

@@ -105,13 +105,13 @@ classdef Model < handle
             
             % Default parametes when the program is initialized
             
-            obj.fit_param = {1e-5   1e-3    1e-2    1;...   % decay rate        1
+            obj.fit_param = {1e-5   1e-5    1e-2    1;...   % decay rate        1
                              0.01   1       1       1;...   % max skin PD       2   
-                             0.01   25      100     1;...   % fuzziness         3
+                             0.01   6       100     1;...   % fuzziness         3
                              1e-3   0.3     0.3     1;...   % amplitude         4
                              15     400     1000    1;...   % parameter a       5
-                             15     100     100     1;...   % parameter c       6
-                             0.04   0.2     1       1};     % parameter k       7  
+                             21     100     100     1;...   % parameter c       6
+                             0.1    1       1       1};     % parameter k       7  
                                                          
             
             obj.qfit = linspace(0,0.025,200)'; % dummy q for plotting

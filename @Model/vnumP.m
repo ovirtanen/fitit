@@ -2,7 +2,7 @@ function p = vnumP(rc,w,pd,q)
 %VNUMP Numerically evaluate the form factor of a spherical particle with arbitrary
 %polarization density. (Vectorized)
 %
-% p = numP(a,r,q)
+% p = numP(rc,w,pd,q)
 %
 % Parameters
 % 

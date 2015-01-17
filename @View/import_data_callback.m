@@ -29,6 +29,7 @@ catch ME
     
 end
 
+obj.update_form_factor();
 
 end
 
