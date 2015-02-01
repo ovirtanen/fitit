@@ -23,8 +23,8 @@ classdef (ConstructOnLoad = true) File_reader < handle
             
         end % constructor
         
-        m = read_files(obj); 
-        p = get_file_paths(obj,fs);
+        m = read_files(obj,ms); 
+        p = get_file_paths(obj,fs,ms);
         
         
     end % public methods

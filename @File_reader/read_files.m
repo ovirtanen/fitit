@@ -1,4 +1,4 @@
-function m = read_files(obj)
+function m = read_files(obj,ms)
 %READ_FILES Reads files specified by the user in an open dialog to cell
 %arrays of strings.
 %   m = read_files() opens an open dialog asking for the files to be opened
@@ -11,7 +11,7 @@ function m = read_files(obj)
 %   Rethrows: 
 %       FitIt:UIException:Open dialog cancelled.
 
-p = obj.get_file_paths(obj.filter_spec);
+p = obj.get_file_paths(obj.filter_spec,ms);
 
 m = cell(length(p),1); % initialize for speed
 

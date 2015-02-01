@@ -1,4 +1,4 @@
-function import_data(obj,ms)
+function import_data(obj)
 %IMPORT_DATA Imports user specified data and stores it in Model
 %   
 % import_data() Opens a dialog box for user to specify the data and makes
@@ -16,7 +16,7 @@ function import_data(obj,ms)
 % FitIt:UIException:Open dialog cancelled.
 %
 
-c = obj.fr.read_files(ms);
+c = obj.fr.read_files();
 c = c{1};
 
 datastart = 1;
@@ -52,7 +52,7 @@ if not(cols == 3)
       
 end % if
 
-obj.add_data_set_to_model(d);
+obj.model.set_empirical_data(d);
 
 end
 

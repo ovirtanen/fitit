@@ -47,11 +47,8 @@ freeprms = cellfun(f,nfree,'UniformOutput',0);
 call(freef) = freeprms;
 
 str = ['@(prm,q) obj.scattered_intensity(q,' call{4} ',obj.nc,' call{1} ',' call{2} ',' call{3} ',' call{5} ',' call{6} ',' call{7} ')'];
-%str = ['@(prm,q) log(obj.scattered_intensity(q,' call{4} ',obj.nc,' call{1} ',' call{2} ',' call{3} ',' call{5} ',' call{6} '))'];
-
 
 h = eval(str);
-
 
 end
 

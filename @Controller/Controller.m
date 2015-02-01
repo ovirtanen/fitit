@@ -1,22 +1,13 @@
 classdef Controller < handle
-    %CONTROLLER Controller for FitIt
+    %CONTROLLER Summary of this class goes here
     %   Detailed explanation goes here
-    %
-    % c = Controller(m)
-    % 
-    % Parameters
-    % m         Model instance
-    %
-    % Returns
-    % c         Controller instance
-    %
-
     
     properties (SetAccess = private)
         
         model;
-        fr;
         view;
+        fr;
+        fw;
         
     end
     
@@ -25,17 +16,27 @@ classdef Controller < handle
         function obj = Controller(m)
             
             obj.model = m;
+            
+            obj.view = View(obj,m);
+            
             obj.fr = File_reader('.txt');
-            obj.view = View(m,obj);
-           
+            obj.fw = [];
+            
         end % constructor
         
-        do_fit(obj);
-        import_data(obj);
-        save_data(obj);
-        set_fit_param(obj,tag,value);
+        import_data(obj,ms);
+        add_data_set_to_model(obj,ds);
         
- 
+        % CALLBACKS
+        
+        bg_enable_callback(obj,hObject,callbackdata);
+        check_box_callback(obj,hObject,callbackdata);
+        edit_box_callback(obj,hObject,callbackdata);
+        load_data_set_callback(obj,hObject,callbackdata);
+        slider_callback(obj,hObject,callbackdata);
+        
+        
+            
     end % public methods
     
 end
