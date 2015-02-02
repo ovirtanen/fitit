@@ -38,11 +38,14 @@ classdef Model < handle
             
         end % constructor
         
+        % OTHER PUBLIC
+        
         add_data_set(obj,ds);
         sm = get_active_s_model(obj);
         set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q);
         p = get_total_param_vector(obj,sm);
+        replace_s_model(obj,sm);
         
     end % public methods
     

@@ -29,9 +29,10 @@ cp.Box = 'on';
 
 % Add Graphics_source to the Axes_layout-----------------------------------
 
-sm = obj.view.model.get_active_s_model();
+al = @()obj.view.model.get_active_s_model().axis_lims;
+prf = @()obj.view.model.get_active_s_model().radial_profile();
 
-gs = Graphics_source(cp,'line',@sm.axis_lims,@()sm.radial_profile());
+gs = Graphics_source(cp,'line',al,prf);
 obj.g_sources = [obj.g_sources gs];
 
 si.Units = o_units;

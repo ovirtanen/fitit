@@ -1,16 +1,11 @@
-classdef SM_Hard_sphere < Scattering_model_spherical & handle
-%SM_HARD_SPHERE Scattering model for hard spheres
-%
-%   obj = SM_Hard_sphere(d)
-%
-%   Parameters
-%   d           Distribution instance
-%
-%
+classdef SM_Virtanen < Scattering_model_spherical & handle
+    %SM_VIRTANEN Summary of this class goes here
+    %   Detailed explanation goes here
+   
     
     properties (Constant)
        
-        name = 'Hard Sphere Model';
+        name = 'Virtanen Microgel Model';
         
     end
     
@@ -28,22 +23,31 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
 
     end
     
-    methods (Static)
+    methods(Static)
        
-        p = p_hard_sphere(qr);
+        
+        [rprf, prf] = pd_profile(nc,rhard,tau,vskin,fuzz)
+        p = vnumP(rc,w,pd,q);
+        hri = trg4(r,tau,rp,vm);
         
     end
     
     
     methods (Access = public)
        
-        function obj = SM_Hard_sphere(d)
+        function obj = SM_Virtanen(d)
             
             
             obj.dist = d;
             
-            obj.p_name_strings = {'Amplitude'};
-            obj.p_ids = {'a'};
+            obj.p_name_strings = {'Amplitude';
+                                  'Max decay rate';
+                                  'Max skin PD'
+                                  'Fuzziness (nm)'};
+            obj.p_ids = {'a';
+                         'dr';
+                         'mxspd'
+                         'fuzz'};
             
             % Model parameters map
             keyset = obj.param_ids_to_tags(obj.p_ids,'params');
@@ -52,12 +56,16 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
             obj.param_map = containers.Map(keyset(:),valueset);
             
             % Model parameter default values
-            obj.params = {0 1 1 1};               % Amplitude
+            obj.params = {0 1 1 1;          % Amplitude
+                          1e-5 1e-5 1e-2 1; % Decay rate
+                          0.01 1 1 1;       % Max skin PD
+                          1 20 100 1};      % Fuzziness               
             
         end % constructor  
         
         i_mod = scattered_intensity(obj,nc,q,p);
         [rprf,prf] = radial_profile(obj);
+        
         lims = axis_lims(obj);
         
     end % public methods

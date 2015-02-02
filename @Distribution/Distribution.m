@@ -22,11 +22,23 @@ classdef Distribution < handle
     %    lims = axis_lims(obj);
     %
     
+    properties (Constant)
+       
+        available_distributions = {'Burr Type XII PSD';...
+                                    'Gaussian PSD'};
+        
+    end
+    
+    properties (Abstract,Constant)
+        
+        name;
+        
+    end
     
     
     properties (Abstract, SetAccess = protected)
         
-        name;
+        
         p_name_strings;
         p_ids;
         

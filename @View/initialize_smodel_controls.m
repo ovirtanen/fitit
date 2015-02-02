@@ -18,17 +18,9 @@ if isempty(obj.layouts)
    error('Layout has to be initialized first.'); 
 end
 
-sm = obj.model.get_active_s_model;          % scattering model
-dist = sm.dist;                             % distribution
 
-bg = obj.initialize_bg_panel(f);            % BG panel
 
-pp = obj.initialize_param_panel(f,sm,'sm_panel');        % Panel for scattering model parameters
-dp = obj.initialize_param_panel(f,dist,'dist_panel');    % Panel for distribution parameters
 
-b = obj.initialize_fit_button(f);
-
-obj.initialize_menu(f);
 
 
 %%% Check that the controls fit into the root Figure and resize if

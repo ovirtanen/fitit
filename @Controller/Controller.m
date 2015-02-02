@@ -1,6 +1,11 @@
 classdef Controller < handle
-    %CONTROLLER Summary of this class goes here
-    %   Detailed explanation goes here
+    %CONTROLLER Controller class for FitIt
+    %   
+    %   obj = Controller(m)
+    %
+    %   Parametres
+    %   m           A Model instance
+    %
     
     properties (SetAccess = private)
         
@@ -24,19 +29,23 @@ classdef Controller < handle
             
         end % constructor
         
+        % OTHER PUBLIC
+        
         import_data(obj,ms);
         add_data_set_to_model(obj,ds);
+        swap_distribution(obj,dist);
+        swap_s_model(obj,sm);
         
         % CALLBACKS
         
         bg_enable_callback(obj,hObject,callbackdata);
         check_box_callback(obj,hObject,callbackdata);
+        dist_menu_callback(obj,hObject,callbackdata);
         edit_box_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
+        model_menu_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);
-        
-        
-            
+               
     end % public methods
     
 end

@@ -91,7 +91,7 @@ classdef Graphics_source
                    
                 case 'line'
                     
-                    p = @(x,y) plot(x,y);
+                    p = @(x,y) line(x,y,'LineWidth',2);
                     
                 case 'bar'
                     

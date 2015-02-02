@@ -1,4 +1,4 @@
-function p = p_hard_sphere(~,qr)
+function p = p_hard_sphere(qr)
 %P_HARD_SPHERE Form factor of a hard sphere
 %   
 %   p = p_hard_sphere(q,r)

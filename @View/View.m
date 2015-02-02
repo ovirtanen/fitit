@@ -34,6 +34,7 @@ classdef View < handle
     methods (Static)
        
         change_position(e,l,h);
+        th = total_height_elements(v_spacer,varargin);
         
     end
     
@@ -55,8 +56,7 @@ classdef View < handle
         
         %%% swappers
         
-        swap_p_panel(obj);
-        swap_d_panel(obj);
+        swap_panel(obj,tag);
         
         %%% Updaters
         
@@ -68,7 +68,7 @@ classdef View < handle
         
         %%% GUI initialization methods
         
-        align_control_panels(obj,h_spacer,top_spacer,v_spacer,varargin);
+        align_control_panels(obj,p,h_spacer,top_spacer,v_spacer,varargin);
         g = initialize_gui(obj);
         bg = initialize_bg_panel(obj,p);
         f = initialize_figure(obj);
@@ -76,7 +76,7 @@ classdef View < handle
         initialize_menu(obj,p);
         p = initialize_param_panel(obj,p,source,tag);
         [bg,pp,dp,b]=initialize_smodel_controls(obj,f)
-        resize_figure(obj,nh);
+        resize_figure(obj,bottom_spacer,new_height);
         
     end % private methods
     

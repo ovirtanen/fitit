@@ -1,12 +1,11 @@
-classdef DST_Gaussian < Distribution & handle
-    %GAUSSIAN Gaussian PSD for Scattering_model
+classdef DST_BurrXII < Distribution & handle
+    %BURRXII Burr Type XII PSD for Scattering_model
     
     properties (Constant)
        
-        name = 'Gaussian PSD';
+        name = 'Burr Type XII PSD';
         
     end
-    
     
     properties (SetAccess = protected)
         
@@ -21,17 +20,21 @@ classdef DST_Gaussian < Distribution & handle
     methods (Static)
         
         [rpsd,p,w] = psd(nc,mean,sigma);
+        d = burrpdf(r,a,c,k);
+        m = burr_moments(o,a,c,k);
         
     end
     
     methods (Access = public)
 
-        function obj = DST_Gaussian()
+        function obj = DST_BurrXII()
             
-            obj.p_name_strings = {'Mean radius (nm)';...
-                                  'Sigma (nm)'};
-            obj.p_ids = {'mean';
-                         'std'};
+            obj.p_name_strings = {'Size parameter a (nm)';...
+                                  'Parameter c';...
+                                  'Parameter k'};
+            obj.p_ids = {'a';
+                         'c';
+                         'k'};
                      
                      
              % Distribution parameters map
@@ -41,12 +44,10 @@ classdef DST_Gaussian < Distribution & handle
             obj.param_map = containers.Map(keyset(:),valueset);
             
             % Distribution paramter default values
-            %
-            %   {mean_min mean_val mean_max mean_chck;...
-            %    std_min  std_val  std_amx  std:chck}
             
-            obj.params = {10 300 1000 1;...         % Mean radius
-                          1  10  100  1};           % Std
+            obj.params = {15 400 1000 1;...         
+                          21 100  100  1;...
+                          0.1 1 1 1};           
                      
         end % constructor
         
@@ -55,6 +56,6 @@ classdef DST_Gaussian < Distribution & handle
         lims = axis_lims(obj);
         
     end % public methods
-
+    
 end
 

@@ -33,10 +33,10 @@ d.Box = 'on';
 
 % Add Graphics_source to the Axes_layout-----------------------------------
 
-sm = obj.view.model.get_active_s_model();
-di = sm.dist;
+al = @()obj.view.model.get_active_s_model().dist.axis_lims;
+di = @()obj.view.model.get_active_s_model().dist.psd(100,obj.view.model.get_active_s_model().dist.get_param_vector());
 
-gs = Graphics_source(d,'line',@di.axis_lims,@()di.psd(100,di.get_param_vector()));
+gs = Graphics_source(d,'line',al,di);
 obj.g_sources = [obj.g_sources gs];
 
 

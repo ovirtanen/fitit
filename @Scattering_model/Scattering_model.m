@@ -2,9 +2,22 @@ classdef Scattering_model < handle
     %SCATTERING_MODEL Abstract class for defining the interface for
     %scattering models
     
-    properties (Abstract, SetAccess = protected)
+    properties (Constant)
+       
+        available_models = {'Hard Sphere Model';
+                            'Stieger Microgel Model';
+                            'Virtanen Microgel Model'};
+        
+    end
+    
+    properties (Abstract, Constant)
         
         name;
+        
+    end
+    
+    properties (Abstract, SetAccess = protected)
+   
         dist;
         
         p_name_strings;
@@ -34,6 +47,7 @@ classdef Scattering_model < handle
         p = get_param(obj,tag);
         p = get_param_vector(obj)
         set_param(obj,tag,value);
+        set_distribution(obj,dist);        
         
     end
     
