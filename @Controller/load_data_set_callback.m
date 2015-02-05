@@ -19,6 +19,8 @@ switch hObject.Tag;
     
 end % switch
 
+obj.model.remove_exp_data();
+
 try 
     
     obj.import_data(ms);
@@ -45,9 +47,11 @@ catch ME
         
     end % if
     
-end
+end % try-catch
 
 obj.view.update_axes;
+
+obj.view.update_f_button_status();
 
 end
 

@@ -18,8 +18,10 @@ ds = obj.view.model.data_sets;
 % Add Graphics_sources to the Axes_layout
 for i = 1:numel(ds)
           
-    x = ds(i).q_mod;
-    gs = Graphics_source(si,'line',[0 0 0 0],x,@()m.total_scattered_intensity(100,x));
+    q = @()ds(i).q_mod();
+    intst = @()m.total_scattered_intensity(100,ds(i).q_mod());
+    
+    gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
     obj.g_sources = [obj.g_sources gs];
             
 end % for

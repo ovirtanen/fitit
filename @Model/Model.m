@@ -27,6 +27,14 @@ classdef Model < handle
         
     end
     
+    methods (Static)
+       
+        c = chi2(intst,std,p,handles);
+        p = get_total_s_model_param_vector(sm);
+        p = p0_to_p(p0,p,pf);
+        
+    end
+    
     methods (Access = public)
         
         function obj = Model(ds,sm)
@@ -42,9 +50,13 @@ classdef Model < handle
         
         add_data_set(obj,ds);
         sm = get_active_s_model(obj);
+        p = get_total_param_vector(obj);
+        l = get_total_free_params(obj);
+        [lb,ub] = get_total_param_bounds(obj);
+        p = lsq_fit(obj);
         set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q);
-        p = get_total_param_vector(obj,sm);
+        remove_exp_data(obj);
         replace_s_model(obj,sm);
         
     end % public methods

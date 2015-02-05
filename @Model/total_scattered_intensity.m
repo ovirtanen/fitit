@@ -18,7 +18,7 @@ i_mod = zeros(numel(q),1);
 for i = 1:numel(obj.s_models)
    
     sm = obj.s_models(i);
-    p = obj.get_total_param_vector(sm);
+    p = obj.get_total_s_model_param_vector(sm);
     i_mod = i_mod + sm.scattered_intensity(nc,q,p);
     
 end % for

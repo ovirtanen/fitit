@@ -26,6 +26,8 @@ obj.q_exp = d(:,1);
 obj.i_exp = d(:,2);
 obj.std_exp = d(:,3);
 
+obj.q_mod = linspace(0,max(obj.q_exp),200)'; 
+
 
 end
 

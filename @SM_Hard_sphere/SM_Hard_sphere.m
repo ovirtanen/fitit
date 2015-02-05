@@ -42,7 +42,7 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
             
             obj.dist = d;
             
-            obj.p_name_strings = {'Amplitude'};
+            obj.p_name_strings = {'Amplitude (1/cm)'};
             obj.p_ids = {'a'};
             
             % Model parameters map

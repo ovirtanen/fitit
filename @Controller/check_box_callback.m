@@ -28,6 +28,7 @@ switch panel.Tag
 end % switch
 
 target.set_param(tag,v);
+obj.view.update_f_button_status();
 
 
 end

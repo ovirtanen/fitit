@@ -32,29 +32,33 @@ classdef Data_set < handle
                
                 case 0 % no experimental data
                     
-                    
                    obj.q_exp = [];
                    obj.i_exp = [];
                    obj.std_exp = [];
         
-                    
+                   obj.q_mod = linspace(0,0.025,200)';    % arbitrary q range
+                   
                 case 3  % experimental data
-                     
+                   
+                   
                    obj.q_exp = varargin{1};
                    obj.i_exp = varargin{2};
                    obj.std_exp = varargin{3};
-                    
+                   
+                   obj.q_mod = linspace(0,max(obj.q_exp),200)'; 
+                   
                 otherwise
                     
                     error('Wrong number of input arguments.');
                      
             end % switch
     
-            obj.q_mod = linspace(0,0.025,200)';    % arbitrary q range
+            
     
         end % constructor
         
         add_experimental_data(obj,d);
+        remove_experimental_data(obj);
         
     end
     

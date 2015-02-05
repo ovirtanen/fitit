@@ -12,10 +12,16 @@ classdef View < handle
     
     properties (SetAccess = private)
         
+        version;
+        
         gui;
         controller;
         model;
         
+        bg_panel;   % background panel
+        p_panel;    % scattering model parameter panel
+        d_panel;    % distribution panel
+        f_button;   % fit button
         
     end % read-only
     
@@ -23,12 +29,7 @@ classdef View < handle
         
         active_layout;
         layouts;
-        
-        bg_panel;   % background panel
-        p_panel;    % scattering model parameter panel
-        d_panel;    % distribution panel
-        f_button;   % fit button
-        
+             
     end % internal
     
     methods (Static)
@@ -42,6 +43,8 @@ classdef View < handle
         
         function obj = View(c,m)
             
+            obj.version = 1.0;
+            
             obj.controller = c;
             obj.model = m;
             obj.layouts = [];
@@ -53,6 +56,15 @@ classdef View < handle
         %%% other public
         
         add_g_source_for_data_set(obj,ds);
+        display_about_box(obj);
+        display_comfort_me_box(obj);
+        
+        function disable_f_button(obj)
+           
+            obj.f_button.Enable = 'off';
+            obj.f_button.String = 'Fitting...';
+            
+        end
         
         %%% swappers
         
@@ -61,6 +73,8 @@ classdef View < handle
         %%% Updaters
         
         update_axes(obj);
+        update_f_button_status(obj);
+        update_vals_from_model(obj);
                     
     end % public methods
     

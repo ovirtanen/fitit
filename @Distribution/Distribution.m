@@ -66,6 +66,7 @@ classdef Distribution < handle
         p = get_param(obj,tag)
         p = get_param_vector(obj);
         set_param(obj,tag,value);
+        set_param_vector(obj,p);
         
     end
     

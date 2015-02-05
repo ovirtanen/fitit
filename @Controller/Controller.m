@@ -25,7 +25,7 @@ classdef Controller < handle
             obj.view = View(obj,m);
             
             obj.fr = File_reader('.txt');
-            obj.fw = [];
+            obj.fw = FileWriter(obj,'.txt');
             
         end % constructor
         
@@ -38,13 +38,18 @@ classdef Controller < handle
         
         % CALLBACKS
         
+        about_menu_callback(obj,hObject,callbackdata);
         bg_enable_callback(obj,hObject,callbackdata);
         check_box_callback(obj,hObject,callbackdata);
+        comfort_me_callback(obj,hObject,callbackdata);
         dist_menu_callback(obj,hObject,callbackdata);
         edit_box_callback(obj,hObject,callbackdata);
+        f_button_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
+        save_data_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);
+        quit_callback(obj,hObject,callbackdata);
                
     end % public methods
     

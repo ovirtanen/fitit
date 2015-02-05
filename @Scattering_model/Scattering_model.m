@@ -6,7 +6,8 @@ classdef Scattering_model < handle
        
         available_models = {'Hard Sphere Model';
                             'Stieger Microgel Model';
-                            'Virtanen Microgel Model'};
+                            'Virtanen Microgel Model'
+                            'Virtanen Microgel Model II'};
         
     end
     
@@ -47,6 +48,7 @@ classdef Scattering_model < handle
         p = get_param(obj,tag);
         p = get_param_vector(obj)
         set_param(obj,tag,value);
+        set_param_vector(obj,p);
         set_distribution(obj,dist);        
         
     end

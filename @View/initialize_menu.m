@@ -4,6 +4,7 @@ function initialize_menu(obj,p)
 % File menu ---------------------------------------------------------------
 f = uimenu(p,'Label','File');
 fa = uimenu(f,'Label','About');
+fa.Callback = @(hObject,callbackdata) obj.controller.about_menu_callback(hObject,callbackdata);
 
 fl = uimenu(f,'Label','Load dataset');
 fl.Tag = 'single_ds_loader';
@@ -14,7 +15,10 @@ flm.Enable = 'off';
 flm.Tag = 'multiple_ds_loader';
 
 fs = uimenu(f,'Label','Save dataset');
+fs.Callback = @(hObject,callbackdata) obj.controller.save_data_callback(hObject,callbackdata);
+
 fq = uimenu(f,'Label','Quit');
+fq.Callback = @(hObject,callbackdata) obj.controller.quit_callback(hObject,callbackdata);
 
 % Model menu --------------------------------------------------------------
 m = uimenu(p,'Label','Model');
@@ -45,6 +49,8 @@ end
 
 % Help menu ---------------------------------------------------------------
 h = uimenu(p,'Label','Help');
+c = uimenu(h,'Label','Comfort me');
+c.Callback = @(hObject,callbackdata) obj.controller.comfort_me_callback(hObject,callbackdata);
 
 end
 

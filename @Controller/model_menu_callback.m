@@ -23,6 +23,10 @@ switch hObject.Label
         sm = SM_Virtanen(d);
         obj.swap_s_model(sm);
         
+    case 'Virtanen Microgel Model II'
+        
+        sm = SM_Virtanen_II(d);
+        obj.swap_s_model(sm);
 
     otherwise
         

@@ -48,6 +48,7 @@ switch state
 end % switch
 
 obj.view.update_axes();
+obj.view.update_f_button_status();
 
 end
 

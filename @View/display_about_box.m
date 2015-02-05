@@ -1,5 +1,5 @@
-function about_menu_callback(obj,hObject,callbackdata)
-%ABOUT_MENU_CALLBACK Displays the about dialog box
+function display_about_box(obj)
+%DISPLAY_ABOUT_BOX Displays the about dialog box
 
 
 msg = {'FitIt',...

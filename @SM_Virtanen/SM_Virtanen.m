@@ -40,7 +40,7 @@ classdef SM_Virtanen < Scattering_model_spherical & handle
             
             obj.dist = d;
             
-            obj.p_name_strings = {'Amplitude';
+            obj.p_name_strings = {'Amplitude (1/cm)';
                                   'Max decay rate';
                                   'Max skin PD'
                                   'Fuzziness (nm)'};

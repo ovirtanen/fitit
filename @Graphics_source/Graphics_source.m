@@ -87,7 +87,7 @@ classdef Graphics_source
                 
                 case 'errorbar'
                     
-                    p = @(x,y,e) errorbar(x,y,e,'Marker','o','LineStyle','none');
+                    p = @(x,y,e) errorbar(x,y,e,'Marker','o','LineStyle','none','Color','black');
                    
                 case 'line'
                     
@@ -130,6 +130,9 @@ classdef Graphics_source
                 error('Initialization error.');
                 
             end % if
+            
+            % push the new object to the bottom
+            uistack(obj.g_handle,'bottom');
             
             % recognize the axis limit type -------------------------------
             

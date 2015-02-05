@@ -52,6 +52,7 @@ classdef (ConstructOnLoad = true) FileWriter < handle
         end % constructor
         
         pind = addParray(obj,printarray);
+        deleteParrays(obj);
         saveToFile(obj,pindarray)
         
     end
