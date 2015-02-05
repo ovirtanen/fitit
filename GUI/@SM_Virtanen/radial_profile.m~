@@ -1,9 +1,0 @@
-function [rprf, prf] = radial_profile()
-%RADIAL_PROFILE Radial profile for Stieger microgel
-%
-%   [rprf,prf] = radial_profile()
-%
-
-
-end
-
