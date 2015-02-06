@@ -31,8 +31,8 @@ classdef Controller < handle
         
         % OTHER PUBLIC
         
-        import_data(obj,ms);
-        add_data_set_to_model(obj,ds);
+        d = import_data(obj,ms);
+        add_data_set_to_model(obj,d);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
         

@@ -6,8 +6,9 @@ classdef Scattering_model < handle
        
         available_models = {'Hard Sphere Model';
                             'Stieger Microgel Model';
-                            'Virtanen Microgel Model'
-                            'Virtanen Microgel Model II'};
+                            'Virtanen Microgel Model';
+                            'Virtanen Microgel Model II';
+                            'Virtanen Microgel Model III'};
         
     end
     

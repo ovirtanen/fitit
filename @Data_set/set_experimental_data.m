@@ -1,8 +1,8 @@
-function add_experimental_data(obj,d)
-%ADD_EXPERIMENTAL_DATA Adds experimental data to the Data_set if
-%experimental variables are empty
+function set_experimental_data(obj,d)
+%ADD_EXPERIMENTAL_DATA Sets experimental data to the Data_set.
 % 
-%   add_experimental_data(d)
+%   add_experimental_data(d) sets the experimental data q_exp, i_exp and
+%   std_exp. If data has been loaded it will be replaced.
 %
 %   Parameters
 %
@@ -15,10 +15,6 @@ function add_experimental_data(obj,d)
 if not(all([cols == 3 rows >= 3]))
    
     error('Invalid data set structure.');
-    
-elseif not(all(cellfun(@isempty, {obj.q_exp obj.i_exp obj.std_exp})))
-    
-    error('Experimental data already loaded to this Data_set');
     
 end % if
 

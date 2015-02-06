@@ -32,7 +32,7 @@ i_mod = zeros(numel(q),1);
 for p = 1:numel(psd)
     
     [rprf, prf] = SM_Virtanen_II.pd_profile(nc,rpsd(p),sd,cpd,mxspd,fuzz);
-    i_mod = i_mod + a .* psd(p).* SM_Virtanen_II.vnumP(rprf,w,prf,q) .* w;
+    i_mod = i_mod + a .* psd(p).* Scattering_model_spherical.vnumP(rprf,w,prf,q) .* w;
     
 end % for
 

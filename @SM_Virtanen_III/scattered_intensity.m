@@ -7,21 +7,23 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
 %                   p(1)        Scattering amplitude
-%                   p(2)        Decay rate
-%                   p(3)        Max skin PD
-%                   p(4)        Surface fuzziness (nm)
-%                   p(5:end)    Parameters for the PSD
+%                   p(2)        Shell thickness
+%                   p(3)        Decay rate
+%                   p(4)        Max skin PD
+%                   p(5)        Surface fuzziness (nm)
+%                   p(6:end)    Parameters for the PSD
 %
 %   Returns
 %   i_mod       Scattered intensity at points q
 
 
 a = p(1);
-drate = p(2);
-vskin = p(3);
-fuzz = p(4);
+sthck = p(2);
+drate = p(3);
+vskin = p(4);
+fuzz = p(5);
 
-[rpsd,psd,w] = obj.dist.psd(nc,p(5:end));
+[rpsd,psd,w] = obj.dist.psd(nc,p(6:end));
 
 % Numerical integration over the distribution using the mid-point rule
 
@@ -29,7 +31,7 @@ i_mod = zeros(numel(q),1);
 
 for p = 1:numel(psd)
     
-    [rprf, prf] = SM_Virtanen.pd_profile(nc,rpsd(p),drate,vskin,fuzz);
+    [rprf, prf] = SM_Virtanen_III.pd_profile(nc,rpsd(p),sthck,drate,vskin,fuzz);
     i_mod = i_mod + a .* psd(p).* Scattering_model_spherical.vnumP(rprf,w,prf,q) .* w;
     
 end % for

@@ -11,25 +11,24 @@ switch hObject.Tag;
         
     case 'multiple_ds_loader'
         
-        ms = 'on';
+        error('Multiple loading is not supported yet.');
+        %ms = 'on';
         
     otherwise
         
-        error('Tag not recognized.');
+        error('Tag not recognized/supported.');
     
 end % switch
 
-obj.model.remove_exp_data();
-
 try 
     
-    obj.import_data(ms);
+    d = obj.import_data(ms); % d contains only one data set for now
     
 catch ME
    
     if strcmp(ME.message,'Open dialog cancelled.')
         
-        % do nothing
+        return;
         
     elseif strcmp(ME.message,'Data structure not recognized.')
         
@@ -48,6 +47,45 @@ catch ME
     end % if
     
 end % try-catch
+
+switch ms
+    
+    %case 'on' % add data set if multiselect on
+        
+    %    obj.model.remove_exp_data();
+    %    obj.add_data_set_to_model(d);
+        
+    case 'off'
+        
+        ds = obj.model.data_sets; 
+        
+        if numel(ds) == 1 && all(cellfun(@isempty, {ds.q_exp ds.i_exp ds.std_exp}))
+        % Graphics source has to be added
+        
+            obj.add_data_set_to_model(d);
+            
+        elseif numel(ds) == 1
+        % Graphics source exists, only replace data
+
+            ds.set_experimental_data(d);
+            
+        else
+            
+            error('Multiselect not supported');
+            % would need to get rid of obsolete Graphics_sources
+            % multiple data sets are in the model but only one new data
+            % sets is loaded. 
+            
+            obj.model_remove_exp_data();
+            obj.model.data_sets.set_experimental_data(d);
+            
+        end % if
+        
+    otherwise
+        
+        error('Multiselect not supported');
+        
+end % switch
 
 obj.view.update_axes;
 

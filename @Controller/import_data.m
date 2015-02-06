@@ -1,12 +1,13 @@
-function import_data(obj,ms)
+function d = import_data(obj,ms)
 %IMPORT_DATA Imports user specified data and stores it in Model
 %   
-% import_data() Opens a dialog box for user to specify the data and makes
+% d = import_data() Opens a dialog box for user to specify the data and makes
 % some lazy attempts to recognize if the data is the right format. Data
 % file should be a three column text file where the first column is q 
 % (in inverse nanometers), second column the intensity and the third column
 % the standard deviation of the intensity values. The first rows can be
-% column headers, e.g. names and units.
+% column headers, e.g. names and units. Returns three column double array
+% d.
 %
 % Throws
 % FitIt:InvalidFileStructure:No numeric data recognized.
@@ -51,8 +52,6 @@ if not(cols == 3)
     throw(err);
       
 end % if
-
-obj.add_data_set_to_model(d);
 
 end
 

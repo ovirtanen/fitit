@@ -57,7 +57,7 @@ classdef Data_set < handle
     
         end % constructor
         
-        add_experimental_data(obj,d);
+        set_experimental_data(obj,d);
         remove_experimental_data(obj);
         
     end

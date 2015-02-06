@@ -3,5 +3,7 @@ function update_axes(obj)
 
 obj.active_layout.update_sources();
 
+drawnow();
+
 end
 

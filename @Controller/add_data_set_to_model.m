@@ -23,12 +23,12 @@ switch numel(obj.model.data_sets)
 
     case 1 
         
-        ds = obj.model.data_sets(1);
+        ds = obj.model.data_sets;
         
         if all(cellfun(@isempty, {ds.q_exp ds.i_exp ds.std_exp}))
             % only plotting Data_set present without experimental data
             
-            ds.add_experimental_data(d);
+            ds.set_experimental_data(d);
             
         else % one complete data_set
             
@@ -46,7 +46,7 @@ switch numel(obj.model.data_sets)
         
 end % switch
 
-obj.view.add_g_source_for_data_set();
+obj.view.add_g_source_for_data_set(ds);
 
 end
 
