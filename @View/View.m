@@ -55,9 +55,10 @@ classdef View < handle
         
         %%% other public
         
-        add_g_source_for_data_set(obj,ds);
+        initialize_g_sources_for_data_set(obj,ds);
         display_about_box(obj);
         display_comfort_me_box(obj);
+        delete_g_sources_in_si_axes(obj);
         
         function disable_f_button(obj)
            

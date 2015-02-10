@@ -57,33 +57,13 @@ switch ms
         
     case 'off'
         
-        ds = obj.model.data_sets; 
-        
-        if numel(ds) == 1 && all(cellfun(@isempty, {ds.q_exp ds.i_exp ds.std_exp}))
-        % Graphics source has to be added
-        
-            obj.add_data_set_to_model(d);
-            
-        elseif numel(ds) == 1
-        % Graphics source exists, only replace data
-
-            ds.set_experimental_data(d);
-            
-        else
-            
-            error('Multiselect not supported');
-            % would need to get rid of obsolete Graphics_sources
-            % multiple data sets are in the model but only one new data
-            % sets is loaded. 
-            
-            obj.model_remove_exp_data();
-            obj.model.data_sets.set_experimental_data(d);
-            
-        end % if
-        
+       obj.view.delete_g_sources_in_si_axes();
+       obj.model.remove_experimental_data();
+       obj.add_data_set_to_model(d); 
+       
     otherwise
         
-        error('Multiselect not supported');
+        error('Data loading error.');
         
 end % switch
 

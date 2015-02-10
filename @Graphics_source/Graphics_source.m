@@ -1,4 +1,4 @@
-classdef Graphics_source
+classdef Graphics_source < handle
     %GRAPHICS_SOURCE A meta class for keeping track of graphics objects and
     %their data sources
     %  
@@ -27,11 +27,16 @@ classdef Graphics_source
     %   whenever the plot needs to be refreshed.
     %
     
+    properties (SetAccess = private)
+        
+        target_axis;
+        
+    end
+    
     
     properties (Access = private)
         
         g_handle;
-        target_axis;
         axis_lims;
         xy;
         x;
@@ -95,7 +100,7 @@ classdef Graphics_source
                     
                 case 'bar'
                     
-                    p = @(x,y) bar(x,y,'Width',1);
+                    p = @(x,y) bar(x,y,1,'LineStyle','none','FaceColor',[0 0.4470 0.7410]);
                     
                 otherwise
                     
@@ -132,7 +137,7 @@ classdef Graphics_source
             end % if
             
             % push the new object to the bottom
-            uistack(obj.g_handle,'bottom');
+            %uistack(obj.g_handle,'bottom');
             
             % recognize the axis limit type -------------------------------
             
@@ -168,6 +173,12 @@ classdef Graphics_source
         end % constructor
         
         update(obj);
+        
+        function delete(obj) 
+            
+            delete(obj.g_handle);
+            
+        end % delete
         
     end
     

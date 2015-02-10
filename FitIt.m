@@ -5,9 +5,7 @@ function FitIt()
 dist = DST_Gaussian();
 sm = SM_Hard_sphere(dist);
 
-ds = Data_set();
-
-m = Model(ds,sm);
+m = Model(sm);
 
 Controller(m);
 

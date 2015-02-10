@@ -35,10 +35,12 @@ qr = rc * q';                                   % form qr by matrix multiplicati
 pdr2w = (w .* pd .* rc.^2) * ones(size(q))';    % calculate dr * r^2 * pd(r) and extend to size(qr) 
 
 % Integration
+
+b = 4 .*pi .* sum(pdr2w .* sin(qr)./qr,1)';
+
 % Matlab 0/0 results in NaN. By definition sinc(0) = 1 so fix these
 % entries.
-
-b = 4 .*pi .* sum(pdr2w .* Scattering_model.rm_nan(sin(qr)./qr,qr==0),1)'; % Magic bullet!
+%b = 4 .*pi .* sum(pdr2w .* Scattering_model.rm_nan(sin(qr)./qr,qr==0),1)'; % Magic bullet!
 
 % Apparently calling an external m file enables in place computation
 % whereas nested version of rm_nan is about 30 - 40% slower. Summation down

@@ -1,10 +1,17 @@
 function initialize_menu(obj,p)
 %INITIALIZE_MENU Initializes the menu bar
 
+% FitIt! menu -------------------------------------------------------------
+fi = uimenu(p,'Label','FitIt!');
+fia = uimenu(fi,'Label','About');
+fia.Callback = @(hObject,callbackdata) obj.controller.about_menu_callback(hObject,callbackdata);
+
+fiq = uimenu(fi,'Label','Quit');
+fiq.Callback = @(hObject,callbackdata) obj.controller.quit_callback(hObject,callbackdata);
+
+
 % File menu ---------------------------------------------------------------
 f = uimenu(p,'Label','File');
-fa = uimenu(f,'Label','About');
-fa.Callback = @(hObject,callbackdata) obj.controller.about_menu_callback(hObject,callbackdata);
 
 fl = uimenu(f,'Label','Load dataset');
 fl.Tag = 'single_ds_loader';
@@ -17,8 +24,6 @@ flm.Tag = 'multiple_ds_loader';
 fs = uimenu(f,'Label','Save dataset');
 fs.Callback = @(hObject,callbackdata) obj.controller.save_data_callback(hObject,callbackdata);
 
-fq = uimenu(f,'Label','Quit');
-fq.Callback = @(hObject,callbackdata) obj.controller.quit_callback(hObject,callbackdata);
 
 % Model menu --------------------------------------------------------------
 m = uimenu(p,'Label','Model');

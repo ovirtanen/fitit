@@ -1,11 +1,9 @@
-classdef Data_set < handle
-    %DATA_SET Class for describing one data set
+classdef Data_set
+    %DATA_SET Class for holding measurement data
     %
-    %   obj = Data_set(sm)
-    %   obj = Data_set(sm,q_exp,i_exp, std_exp)
+    %   obj = Data_set(q_exp,i_exp, std_exp)
     %
     %   Parameters
-    %   sm              Scattering_model instance
     %   q_exp           Experimental q values as vector
     %   i_exp           Experimental scattered intensity as vector
     %   std_exp         Experimental std of the intensity
@@ -14,53 +12,24 @@ classdef Data_set < handle
     
     properties (SetAccess = private)
         
-        
-        q_mod;
-        
         q_exp;
         i_exp;
-        std_exp;
-        
+        std_exp;    
         
     end
     
     methods (Access = public)
         
-        function obj = Data_set(varargin)
+        function obj = Data_set(q,intst,std)
              
-            switch nargin
-               
-                case 0 % no experimental data
-                    
-                   obj.q_exp = [];
-                   obj.i_exp = [];
-                   obj.std_exp = [];
-        
-                   obj.q_mod = linspace(0,0.025,200)';    % arbitrary q range
-                   
-                case 3  % experimental data
-                   
-                   
-                   obj.q_exp = varargin{1};
-                   obj.i_exp = varargin{2};
-                   obj.std_exp = varargin{3};
-                   
-                   obj.q_mod = linspace(0,max(obj.q_exp),200)'; 
-                   
-                otherwise
-                    
-                    error('Wrong number of input arguments.');
-                     
-            end % switch
-    
-            
+            obj.q_exp = q;
+            obj.i_exp = intst;
+            obj.std_exp = std;
     
         end % constructor
         
-        set_experimental_data(obj,d);
-        remove_experimental_data(obj);
         
-    end
+    end 
     
 end
 

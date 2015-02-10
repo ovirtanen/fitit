@@ -13,19 +13,16 @@ si.YScale = 'log';
 si.Box = 'on';
 
 m = obj.view.model;
-ds = obj.view.model.data_sets;
 
-% Add Graphics_sources to the Axes_layout
-for i = 1:numel(ds)
+% Add Graphics_source to the Axes_layout for plotting the model
           
-    q = @()ds(i).q_mod();
-    intst = @()m.total_scattered_intensity(100,ds(i).q_mod());
+q = linspace(0.0001,0.025,200)'; % q for plotting
+intst = @()m.total_scattered_intensity(150,q);
     
-    gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
-    obj.g_sources = [obj.g_sources gs];
+gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
+obj.g_sources = [obj.g_sources gs];
             
-end % for
-
+% return to default units
 si.Units = 'pixels';
 
 end % initialize_si_axes()

@@ -89,32 +89,16 @@ chck.Callback = @(hObject,callbackdata) obj.controller.check_box_callback(hObjec
 v = source.get_param(chck.Tag);
 chck.Value = v;
 
+% leave toggle button enabled
 
-
-
-%Background is supported only for one dataset for now
-
-switch numel(obj.model.data_sets)
-    
-    case 1  % leave toggle button enabled
+sldr.Enable = 'off';
+eb_min.Enable = 'off';
+eb_val.Enable = 'off';
+eb_max.Enable = 'off';
+chck.Enable = 'off';
         
-        sldr.Enable = 'off';
-        eb_min.Enable = 'off';
-        eb_val.Enable = 'off';
-        eb_max.Enable = 'off';
-        chck.Enable = 'off';
-        
-        % A bit unorthodox. 
-        obj.model.bg.set_param('bg_val',0);
-        
-    otherwise % disable all
-        
-        p.Enable = 'off';
-        
-        % A bit unorthodox. 
-        obj.model.bg.set_param('bg_val') = 0;
-    
-end % switch
+% A bit unorthodox. 
+obj.model.bg.set_param('bg_val',0);
 
 end
 

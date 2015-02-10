@@ -82,6 +82,7 @@ classdef Axes_layout < handle
         end % constructor
        
         add_g_source(obj,gs);
+        delete_si_sources(obj);
         si = obj.initialize_si_axes(obj);
         cp = initialize_cp_axes(obj,si);
         d = initialize_dist_axes(obj,si);

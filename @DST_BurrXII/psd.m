@@ -26,7 +26,7 @@ m1 = DST_BurrXII.burr_moments(1,a,c,k);         % 1st moment = mean
 m2 = DST_BurrXII.burr_moments(2,a,c,k);         % 2nd moment
 std = sqrt(-m1.^2 + m2);                        % variance = -m1.^2 + m2
 
-lowlimit = max([0 m1 - 4.* max([1 k]) .* std]); % totally arbitrary limits
+lowlimit = max([0 m1 - 5.* min([1 3.*k]) .* std]); % totally arbitrary limits
 highlimit =  m1 + 6 .* std;
 
 w = (highlimit-lowlimit) ./ nc;                 % quadrature weight

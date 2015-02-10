@@ -25,9 +25,14 @@ for i = 1:numel(handles)
             
             case 1
                 
-               p = m.bg.get_param(v.Tag); 
-               v.String = num2str(p);
-                
+               p = m.bg.get_param(v.Tag);
+               
+               if p ~= 0
+                   % if p == 0, bg_panel is inactive and the value shown to
+                   % the user should not be replaced with 0
+                   v.String = num2str(p);
+               end
+               
             case 2
                 
                p = m.s_models.get_param(v.Tag); 

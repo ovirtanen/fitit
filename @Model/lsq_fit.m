@@ -19,7 +19,7 @@ end %
 q = obj.data_sets.q_exp;
 intst = obj.data_sets.i_exp;
 std = obj.data_sets.std_exp;
-nc = 100;
+nc = 150;
 
 if any(cellfun(@isempty,{q intst std}))
    

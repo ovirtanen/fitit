@@ -6,9 +6,15 @@ function add_data_set(obj,ds)
 %   Parameters
 %   ds          
 %
-
-
-obj.data_sets = [obj.data_sets ds];
+if isa(ds,'Data_set')
+    
+    obj.data_sets = [obj.data_sets ds];
+    
+else
+   
+    error('The parameter is not a Data_set.');
+    
+end
 
 
 end

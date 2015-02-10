@@ -1,10 +1,9 @@
 classdef Model < handle
     %MODEL Model class for FitIt
     %   
-    %   obj = Model(ds,sm)
+    %   obj = Model(sm)
     %
     %   Parameters
-    %   ds          Reference to a Data_set instance
     %   sm          Reference to a Scattering_model instance
     %
     %
@@ -37,10 +36,10 @@ classdef Model < handle
     
     methods (Access = public)
         
-        function obj = Model(ds,sm)
+        function obj = Model(sm)
             
             obj.active_s_model = 1;
-            obj.data_sets = ds;
+            obj.data_sets = [];
             obj.s_models = sm;
             obj.bg = SM_Background();
             
@@ -56,7 +55,7 @@ classdef Model < handle
         p = lsq_fit(obj);
         set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q);
-        remove_exp_data(obj);
+        remove_experimental_data(obj);
         replace_s_model(obj,sm);
         
     end % public methods

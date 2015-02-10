@@ -33,6 +33,12 @@ switch hObject.Label
         sm = SM_Virtanen_III(d);
         obj.swap_s_model(sm);
         
+    case 'Virtanen Microgel Model IV'
+         
+        sm = SM_Virtanen_IV(d);
+        obj.swap_s_model(sm);
+            
+        
     otherwise
         
         error('Distribution label not recognized.');

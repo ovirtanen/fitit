@@ -5,9 +5,9 @@ function set_total_parameter_vector(obj,p)
 %   set_total_parameter_vector(p)
 %
 %
-
+    
 obj.bg.set_param('bg_val',p(1));
-
+    
 p(1) = [];
 
 if numel(obj.s_models == 1)
