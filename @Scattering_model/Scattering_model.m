@@ -41,7 +41,7 @@ classdef Scattering_model < handle
     methods (Static)
       
        tags = param_ids_to_tags(param_names, mode);
-       x = rm_nan(x,f);
+       %x = rm_nan(x,f);
         
    end
     

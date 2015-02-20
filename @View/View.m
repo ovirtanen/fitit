@@ -59,11 +59,24 @@ classdef View < handle
         display_about_box(obj);
         display_comfort_me_box(obj);
         delete_g_sources_in_si_axes(obj);
-        
         function disable_f_button(obj)
            
             obj.f_button.Enable = 'off';
             obj.f_button.String = 'Fitting...';
+            
+        end
+        function disable_panels(obj)
+           
+            obj.bg_panel.Enable = 'off';
+            obj.p_panel.Enable = 'off';
+            obj.d_panel.Enable = 'off';
+            
+        end
+        function enable_panels(obj)
+           
+            obj.bg_panel.Enable = 'on';
+            obj.p_panel.Enable = 'on';
+            obj.d_panel.Enable = 'on';
             
         end
         
