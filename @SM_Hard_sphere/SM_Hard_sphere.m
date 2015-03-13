@@ -30,7 +30,7 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
     
     methods (Static)
        
-        p = p_hard_sphere(qr);
+        f = f_hard_sphere(qr);
         
     end
     

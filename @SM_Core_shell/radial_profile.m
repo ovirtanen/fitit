@@ -1,5 +1,5 @@
 function [rprf,prf] = radial_profile(obj)
-%RADIAL_PROFILE Radial profile of a hard sphere for the mean particle
+%RADIAL_PROFILE Radial profile of a core shell particle for the mean particle
 %radius
 %   
 %   [rprf,prf] = radial_profile()
@@ -11,13 +11,13 @@ function [rprf,prf] = radial_profile(obj)
 %
 
 m = obj.dist.mean();
-n_points = 99;
-rprf = zeros(n_points+1,1);
-rprf(1:end-1) = linspace(0,m,n_points)';
-rprf(end) = rprf(end-1);
+rc = m .* obj.get_param('frc_val') ./ 100;
+pdc = obj.get_param('pdc_val');
+pds = obj.get_param('pds_val');
 
-prf = ones(n_points+1,1);
-prf(end) = 0;
+rprf = [0 rc rc m m];
+prf = [pdc pdc pds pds 0];
+
 
 end
 

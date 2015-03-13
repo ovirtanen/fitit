@@ -32,6 +32,7 @@ classdef Controller < handle
         % OTHER PUBLIC
         
         d = import_data(obj,ms);
+        d = import_histogram_data(obj);
         add_data_set_to_model(obj,d);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
@@ -46,6 +47,7 @@ classdef Controller < handle
         edit_box_callback(obj,hObject,callbackdata);
         f_button_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
+        load_histogram_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);

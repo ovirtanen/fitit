@@ -11,7 +11,7 @@ function p = p_mg_stieger(qr,q,f)
 %   f           fuzziness parameter
 
 
-p = SM_Hard_sphere.p_hard_sphere(qr) .* (exp(-f.*q./2)).^2;
+p = (SM_Hard_sphere.f_hard_sphere(qr) .* exp(-f.*q./2)).^2;
 
 end
 

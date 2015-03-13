@@ -25,7 +25,7 @@ qr = rpsd(:) * q(:)';
 psdw = psd(:) * (w .* ones(1,numel(q)));
 q = ones(numel(rpsd),1) * q(:)';
 
-i_mod = a .* sum(psdw .* obj.rm_nan(obj.p_mg_stieger(qr,q,f),qr==0))'; 
+i_mod = a .* sum(psdw .* obj.p_mg_stieger(qr,q,f))'; 
 
 end
 

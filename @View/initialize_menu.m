@@ -43,6 +43,10 @@ end
 d = uimenu(p,'Label','Distribution');
 d.Tag = 'dist_menu';
 
+di = uimenu(d);
+di.Label = 'Load histogram...';
+di.Callback = @(hObject,callbackdata) obj.controller.load_histogram_callback(hObject,callbackdata);
+
 ad = Distribution.available_distributions;
 for i = 1 : numel(ad)
    

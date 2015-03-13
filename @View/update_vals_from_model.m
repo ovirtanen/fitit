@@ -1,6 +1,6 @@
 function update_vals_from_model(obj)
 %UPDATE_VALS_FROM_MODEL Fetches values for '*_val' boxes from the model and
-%updates the edit boxe strings
+%updates the edit box strings
 %   
 %   update_vals_from_model()
 %

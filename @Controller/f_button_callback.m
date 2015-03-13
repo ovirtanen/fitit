@@ -15,6 +15,7 @@ p = obj.model.lsq_fit();
 
 obj.model.set_total_parameter_vector(p);
 obj.view.update_vals_from_model();
+obj.view.update_sliders();
 obj.view.update_axes();
 
 obj.view.enable_panels();

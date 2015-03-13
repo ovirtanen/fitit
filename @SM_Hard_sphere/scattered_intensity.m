@@ -22,7 +22,7 @@ a = p(1);
 qr = rpsd(:) * q(:)';
 psdw = psd(:) * (w .* ones(1,numel(q)));
 
-i_mod = a .* sum(psdw .* SM_Hard_sphere.p_hard_sphere(qr))'; 
+i_mod = a .* sum(psdw .* SM_Hard_sphere.f_hard_sphere(qr).^2)'; 
 
 
 

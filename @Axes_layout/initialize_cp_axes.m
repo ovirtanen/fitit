@@ -27,13 +27,23 @@ cp.XLabel.String = 'Radial distance (nm)';
         
 cp.Box = 'on';
 
-% Add Graphics_source to the Axes_layout-----------------------------------
+% Add Graphics_sources to the Axes_layout-----------------------------------
 
-al = @()obj.view.model.get_active_s_model().axis_lims;
+% zero line
+al = @()obj.view.model.get_active_s_model().axis_lims();
+
+xlims = @(x)x(1:2);
+gs = Graphics_source(cp,'line',al(),xlims(al()),[0 0]);
+gs.set_grapho_properties('Color',[0 0 0],'LineWidth',0.25);
+obj.g_sources = [obj.g_sources gs];
+
+% Radial profile
+
 prf = @()obj.view.model.get_active_s_model().radial_profile();
 
 gs = Graphics_source(cp,'line',al,prf);
 obj.g_sources = [obj.g_sources gs];
+
 
 si.Units = o_units;
 

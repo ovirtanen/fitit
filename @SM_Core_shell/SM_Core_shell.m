@@ -30,7 +30,7 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
     
     methods (Static)
        
-        p = p_hard_sphere(qr);
+        v = vol_sphere(r);
         
     end
     
@@ -42,8 +42,14 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
             
             obj.dist = d;
             
-            obj.p_name_strings = {'Amplitude (1/cm)'};
-            obj.p_ids = {'a'};
+            obj.p_name_strings = {'Amplitude (1/cm)';...
+                                  'Frctnl radius of core (%)';...
+                                  'PD core';...
+                                  'PD shell'};
+            obj.p_ids = {'a';
+                         'frc';...
+                         'pdc';...
+                         'pds'};
             
             % Model parameters map
             keyset = obj.param_ids_to_tags(obj.p_ids,'params');
@@ -52,7 +58,10 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
             obj.param_map = containers.Map(keyset(:),valueset);
             
             % Model parameter default values
-            obj.params = {0 1 1 1};               % Amplitude
+            obj.params = {0 1 1 1;
+                          0 50 100 1;
+                          -1 1 1 1;
+                          -1 1 1 1};               
             
         end % constructor  
         

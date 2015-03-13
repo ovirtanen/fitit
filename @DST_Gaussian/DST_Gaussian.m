@@ -20,7 +20,7 @@ classdef DST_Gaussian < Distribution & handle
     
     methods (Static)
         
-        [rpsd,p,w] = psd(nc,mean,sigma);
+        [rpsd,p,w] = psd(nc,p);
         
     end
     

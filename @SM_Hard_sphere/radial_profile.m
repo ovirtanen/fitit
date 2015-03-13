@@ -11,13 +11,9 @@ function [rprf,prf] = radial_profile(obj)
 %
 
 m = obj.dist.mean();
-n_points = 99;
-rprf = zeros(n_points+1,1);
-rprf(1:end-1) = linspace(0,m,n_points)';
-rprf(end) = rprf(end-1);
 
-prf = ones(n_points+1,1);
-prf(end) = 0;
+rprf = [0 m m]; 
+prf = [1 1 0];
 
 end
 

@@ -5,10 +5,11 @@ classdef Scattering_model < handle
     properties (Constant)
        
         available_models = {'Hard Sphere Model';
+                            'Core Shell Model';
                             'Stieger Microgel Model';
                             'Virtanen Microgel Model';
                             'Virtanen Microgel Model II';
-                            'Virtanen Microgel Model III'
+                            'Virtanen Microgel Model III';
                             'Virtanen Microgel Model IV'};
         
     end

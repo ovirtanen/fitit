@@ -172,6 +172,7 @@ classdef Graphics_source < handle
             
         end % constructor
         
+        set_grapho_properties(obj,varargin);
         update(obj);
         
         function delete(obj) 

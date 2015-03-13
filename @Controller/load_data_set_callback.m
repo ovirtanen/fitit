@@ -36,11 +36,15 @@ catch ME
     
         errordlg(errstr,'Invalid parameter','modal');
         
+        return;
+        
     elseif strcmp(ME.message,'No numeric data recognized.')
         
         errstr = 'Data file does not seem to contain numeric data.';
     
         errordlg(errstr,'Invalid parameter','modal');
+        
+        return;
         
     else rethrow(ME)
         
