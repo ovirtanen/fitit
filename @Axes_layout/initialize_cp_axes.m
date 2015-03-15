@@ -32,8 +32,8 @@ cp.Box = 'on';
 % zero line
 al = @()obj.view.model.get_active_s_model().axis_lims();
 
-xlims = @(x)x(1:2);
-gs = Graphics_source(cp,'line',al(),xlims(al()),[0 0]);
+% cheap solution
+gs = Graphics_source(cp,'line',al(),[0 5000],[0 0]);
 gs.set_grapho_properties('Color',[0 0 0],'LineWidth',0.25);
 obj.g_sources = [obj.g_sources gs];
 

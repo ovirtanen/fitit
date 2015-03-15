@@ -7,7 +7,8 @@ function m = mean(obj,~)
 %
 %
 
-m = sum(obj.rpsd .* obj.hpsd);
+w = mean(diff(obj.rpsd));
+m = sum(obj.rpsd .* obj.hpsd  .* w);
 
 end
 

@@ -13,6 +13,12 @@ classdef (ConstructOnLoad = true) File_reader < handle
     end
     
     
+    methods (Static)
+       
+        [size,dcoeff,bool] = read_ns_file(filename, startRow, endRow);
+        
+    end
+    
     methods (Access = public)
         
         function obj = File_reader(fSpec)
@@ -24,6 +30,7 @@ classdef (ConstructOnLoad = true) File_reader < handle
         end % constructor
         
         m = read_files(obj,ms); 
+        m = read_ns_files(obj,ms);
         p = get_file_paths(obj,fs,ms);
         
         
