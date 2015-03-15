@@ -8,7 +8,7 @@ b.Callback = @(hObject,callbackdata) obj.controller.f_button_callback(hObject,ca
 b.Position = [0 0 120 40];
 
 b.Tag = 'fit_btn';
-b.String = 'Data not loaded';
+b.String = 'No data loaded';
 b.Enable = 'off';
 
 b.Visible = 'off';

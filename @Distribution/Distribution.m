@@ -25,7 +25,9 @@ classdef Distribution < handle
     properties (Constant)
        
         available_distributions = {'Burr Type XII PSD';...
-                                    'Gaussian PSD'};
+                                    'Gaussian PSD';...
+                                    'Lognormal PSD';...
+                                    'Skew normal PSD'};
         
     end
     

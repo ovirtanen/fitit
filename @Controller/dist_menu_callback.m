@@ -15,6 +15,16 @@ switch hObject.Label
         d = DST_Gaussian();
         obj.swap_distribution(d);
         
+     case 'Lognormal PSD'
+        
+        d = DST_Lognrml();
+        obj.swap_distribution(d);
+        
+     case 'Skew normal PSD'
+        
+        d = DST_Skewnrml();
+        obj.swap_distribution(d);
+        
     otherwise
         
         error('Distribution label not recognized.');

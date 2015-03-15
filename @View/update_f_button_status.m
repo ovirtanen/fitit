@@ -12,7 +12,7 @@ function update_f_button_status(obj)
 
 ds = obj.model.data_sets;
 
-if numel(ds) == 1 && any(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp}))
+if isempty (ds) || any(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp}))
     
     % no experimental data loaded
     obj.f_button.String = 'No data loaded';
