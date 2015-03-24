@@ -18,6 +18,11 @@ switch hObject.Label
         sm = SM_Core_shell(d);
         obj.swap_s_model(sm);
         
+    case 'Microgel dumbbell aggregation model'
+        
+        sm = SM_MG_dumbbell(d);
+        obj.swap_s_model(sm);
+        
     case 'Stieger Microgel Model'
         
         sm = SM_Stieger(d);

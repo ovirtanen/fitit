@@ -1,5 +1,6 @@
-classdef SM_Core_shell < Scattering_model_spherical & handle
-%SM_CORE_SHELL Scattering model for a core-shell a particle
+classdef SM_MG_dumbbell < Scattering_model_spherical & handle
+%SM_CORE_SHELL Scattering model for dumbbells formed by random aggregation
+%of microgels
 %
 %   obj = SM_Core_shell(d)
 %
@@ -10,7 +11,7 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
     
     properties (Constant)
        
-        name = 'Core-shell Model';
+        name = 'Microgel dumbbell aggregation model';
         
     end
     
@@ -30,8 +31,9 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
     
     methods (Static)
        
-        f = f3(q,rp,rc,pds,pdc);
-        m = m3(rp,rc,pds,pdc);
+        p = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc);
+        p = p4g(q,r1,r2);
+        p = p4(q,xc,r1,r2,pds,pdc);
         v = vol_sphere(r);
         
     end
@@ -39,16 +41,18 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
     
     methods (Access = public)
        
-        function obj = SM_Core_shell(d)
+        function obj = SM_MG_dumbbell(d)
             
             
             obj.dist = d;
             
             obj.p_name_strings = {'Amplitude (1/cm)';...
+                                  'Fraction singlets (%)';...
                                   'Frctnl radius of core (%)';...
                                   'PD core';...
                                   'PD shell'};
-            obj.p_ids = {'a';
+            obj.p_ids = {'a';...
+                         'frs';...
                          'frc';...
                          'pdc';...
                          'pds'};
@@ -61,6 +65,7 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
             
             % Model parameter default values
             obj.params = {0 1 1 1;
+                          0 50 100 1;
                           0 50 100 1;
                           -1 1 1 1;
                           -1 1 1 1};               

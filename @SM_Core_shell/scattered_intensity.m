@@ -18,7 +18,6 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171?210.
 
 
-
 a = p(1);
 frc = p(2);
 pdc = p(3);
@@ -42,10 +41,12 @@ psdw = psd(:) * (w .* ones(1,numel(q)));            % PSD and quadrature weight
 
 q = ones(numel(rpsd),1) * q(:)';
 
-i_mod = a .* sum(psdw .* ...
-                ((pds .* SM_Core_shell.vol_sphere(rt) .* SM_Hard_sphere.f_hard_sphere(q.*rt) + ...
-                (pdc - pds) .* SM_Core_shell.vol_sphere(rc) .* SM_Hard_sphere.f_hard_sphere(q.*rc)) ./ ...
-                (pds .* SM_Core_shell.vol_sphere(rt) + (pdc - pds) .* SM_Core_shell.vol_sphere(rc))).^2)'; 
+i_mod = a .* sum(psdw .* SM_Core_shell.f3(q,rt,rc,pds,pdc).^2)';
+
+%i_mod = a .* sum(psdw .* ...
+                %((pds .* SM_Core_shell.vol_sphere(rt) .* SM_Hard_sphere.f_hard_sphere(q.*rt) + ...
+                %(pdc - pds) .* SM_Core_shell.vol_sphere(rc) .* SM_Hard_sphere.f_hard_sphere(q.*rc)) ./ ...
+                %(pds .* SM_Core_shell.vol_sphere(rt) + (pdc - pds) .* SM_Core_shell.vol_sphere(rc))).^2)'; 
 
 end
 
