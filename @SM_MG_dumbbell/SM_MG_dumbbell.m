@@ -31,8 +31,9 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & handle
     
     methods (Static)
        
+        p = i_dumbbell(q,rpsd,psd,w,xc,pds,pdc);
         p = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc);
-        p = p4g(q,r1,r2);
+        p = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc);
         p = p4(q,xc,r1,r2,pds,pdc);
         v = vol_sphere(r);
         

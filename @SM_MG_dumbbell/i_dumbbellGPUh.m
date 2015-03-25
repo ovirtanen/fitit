@@ -1,7 +1,7 @@
-function id = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc)
-%I_DUMBBELLGPU Form factor for dumbbells comprised of two core-shell
-%particles calculated with GPU. Performance 12x my previous CPU
-%implementation.
+function id = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
+%I_DUMBBELLGPUh Form factor for dumbbells comprised of two core-shell
+%particles calculated with GPU. Performance 23x my previous CPU
+%implementation. 
 %
 %   id = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc) 
 %
@@ -30,28 +30,40 @@ r1 = gpuArray(rpsd(:)) * ones(1,numel(rpsd));
 r2 = r1';
 
 % Weight grid for the integral in 2d, psd.^2.*w.^2
-psdw = gpuArray(psd(:)) * psd(:)' .* w.^2; 
+% The factor two comes because only triu(psdw) is needed for the calculation
+% as the other half is just duplication. However only values triu(psdw,1)
+% should be doubled, and not the diagonal
+psdw = 2.* gpuArray(psd(:)) * psd(:)' .* w.^2;
+d = 1:length(psdw)+1:(length(psdw)+1)*length(psdw); % diagonal indices
+psdw(d) = psdw(d) ./ 2;
 
-% Expand to 3D so that each entry in the 3rd dimension corresponds to one
-% q value
-r1g = repmat(r1,[1 1 numel(q)]);
-r2g = repmat(r2,[1 1 numel(q)]);
-psdwg = repmat(psdw,[1 1 numel(q)]);
+% logical array for upper diagonal of r1,r2 and psdw
+fil = gpuArray(logical(triu(ones(size(r1)))));
 
-% q cube, each grid has only one q value
-% q(:,:,1) =  [q1 q1 q1 ... q1
-%              q1 q1 q1 ... q1
-%               . .  .      .  
-%              q1 q1 q1 ... q1]
-qg = reshape(kron(gpuArray(q(:)'),ones(size(r1))),length(r1),length(r1),length(q));
+% column vectors
+r1 = r1(fil);
+r2 = r2(fil);
+psdw = psdw(fil);
+
+% expand arrays for each q entry
+r1g = repmat(r1,1,numel(q));
+r2g = repmat(r2,1,numel(q));
+psdwg = repmat(psdw,1,numel(q));
+qg = repelem(q(:)',numel(r1),1);
+
+% qg = [q1 q2 q3 ... qn
+%       q1 q2 q3 ... qn
+%       .  .  .      .
+%       q1 q2 q3 ... qn]
+%
+% size(qg) = [length(rq1g), length(qg)]
 
 % calculate the value of the form factor for each parameter combination
 % weighted by the psd
-%allc = arrayfun(@pdb,qg,r1g,r2g,xc,pds,pdc) .* psdwg;
+
 allc = arrayfun(@pdb,qg,r1g,r2g,xc,pds,pdc,psdwg);
 
-% sum up to obtain values for each q
-allc = sum(sum(allc,1),2);
+allc = sum(allc);
 
 id = gather(allc(:));
 

@@ -53,7 +53,8 @@ i_sing = sum(psdw .* SM_Core_shell.f3(qq,rt,(frc ./ 100 .* rt),pds,pdc).^2)';
 
 
 %t = tic();
-i_dum = SM_MG_dumbbell.i_dumbbellGPU(q,rpsd,psd,w,frc./100,pds,pdc);
+%i_dum = SM_MG_dumbbell.i_dumbbell(q,rpsd,psd,w,frc./100,pds,pdc);
+i_dum = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,psd,w,frc./100,pds,pdc);
 %display(toc(t));
 i_mod = a .* (frs./100 .* i_sing + (100-frs)./100 .* i_dum);
 
