@@ -1,11 +1,11 @@
-classdef SM_Virtanen_III < Scattering_model_spherical & handle
+classdef SM_MG_numerical_III < Scattering_model_spherical & handle
     %SM_VIRTANEN Summary of this class goes here
     %   Detailed explanation goes here
    
     
     properties (Constant)
        
-        name = 'Virtanen Microgel Model III';
+        name = 'Numerical Microgel Model III';
         
     end
     
@@ -35,7 +35,7 @@ classdef SM_Virtanen_III < Scattering_model_spherical & handle
     
     methods (Access = public)
        
-        function obj = SM_Virtanen_III(d)
+        function obj = SM_MG_numerical_III(d)
             
             
             obj.dist = d;

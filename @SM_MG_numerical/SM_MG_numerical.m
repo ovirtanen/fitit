@@ -1,11 +1,11 @@
-classdef SM_Virtanen_IV < Scattering_model_spherical & handle
+classdef SM_MG_numerical < Scattering_model_spherical & handle
     %SM_VIRTANEN Summary of this class goes here
     %   Detailed explanation goes here
    
     
     properties (Constant)
        
-        name = 'Virtanen Microgel Model IV';
+        name = 'Numerical Microgel Model';
         
     end
     
@@ -26,31 +26,27 @@ classdef SM_Virtanen_IV < Scattering_model_spherical & handle
     methods(Static)
        
         
-        [rprf, prf] = pd_profile(nc,rinc,rhard,sthck,vcore,vskin,fuzz)
+        [rprf, prf] = pd_profile(nc,rhard,tau,vskin,fuzz)
         p = vnumP(rc,w,pd,q);
-        hri = trg6(r,rinc,rp,sthck,v,vm);
+        hri = trg4(r,tau,rp,vm);
         
     end
     
     
     methods (Access = public)
        
-        function obj = SM_Virtanen_IV(d)
+        function obj = SM_MG_numerical(d)
             
             
             obj.dist = d;
             
             obj.p_name_strings = {'Amplitude (1/cm)';
-                                  'Penetration depth (%)'
-                                  'Shell thickness (nm)'
-                                  'Core PD'
+                                  'Max decay rate';
                                   'Max skin PD'
                                   'Fuzziness (nm)'};
             obj.p_ids = {'a';
-                         'pnd'
-                         'sth';
-                         'cpd';
-                         'mxspd';
+                         'dr';
+                         'mxspd'
                          'fuzz'};
             
             % Model parameters map
@@ -61,9 +57,7 @@ classdef SM_Virtanen_IV < Scattering_model_spherical & handle
             
             % Model parameter default values
             obj.params = {0 1 1 1;          % Amplitude
-                          0 10 100 1;       % Penetration depth
-                          0 100 300 1;      % Shell thickness
-                          0.01 1 1 1;       % Core PD
+                          1e-5 1e-5 1e-2 1; % Decay rate
                           0.01 1 1 1;       % Max skin PD
                           1 20 100 1};      % Fuzziness               
             

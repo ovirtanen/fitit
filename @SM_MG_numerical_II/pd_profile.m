@@ -1,4 +1,4 @@
-function [rprf, prf] = pd_profile(nc,rinc,rhard,sthck,vcore,vskin,fuzz)
+function [rprf, prf] = pd_profile(nc,rhard,sd,cpd,mxspd,fuzz)
 %PD_PROFILE Calculates the radial polarization density profile for a
 %microgel with a skin. We like skin. Do you like skin? Skin skin skin.
 %
@@ -8,8 +8,8 @@ function [rprf, prf] = pd_profile(nc,rinc,rhard,sthck,vcore,vskin,fuzz)
 %
 % nc        number of collocation points
 % rhard     hard radius without convolution
-% sthick    shell thickness as a percentage of the overall radius
 % rfrac     fraction of rhard when the ramp begins, e.g. 0.5
+% vcore     relative polarization density of the core
 % vskin     relative polarization density at the top of the ramp
 % fuzz      fuzziness factor, std of the gaussian
 %
@@ -30,7 +30,7 @@ rng = rhard+2.*fuzz;                % range of values
 w = rng ./ nc;                      % quadrature weight rng - (-rng) / nc
 rprf = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
 
-f = SM_Virtanen_IV.trg6(rprf,rinc./100,rhard,sthck,vcore,vskin); % vcore is the deacay rate; rbox is unused
+f = SM_MG_numerical_II.trg3(rprf,rhard.*sd./100,rhard,cpd,mxspd); 
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rprf.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
 prf = conv2(f,g.*w,'same');            % vector convolution, add weight. Conv2 slightly faster than conv

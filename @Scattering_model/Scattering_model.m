@@ -8,10 +8,10 @@ classdef Scattering_model < handle
                             'Core Shell Model';
                             'Microgel dumbbell aggregation model';
                             'Stieger Microgel Model';
-                            'Virtanen Microgel Model';
-                            'Virtanen Microgel Model II';
-                            'Virtanen Microgel Model III';
-                            'Virtanen Microgel Model IV'};
+                            'Numerical Microgel Model';
+                            'Numerical Microgel Model II';
+                            'Numerical Microgel Model III';
+                            'Numerical Microgel Model IV'};
         
     end
     

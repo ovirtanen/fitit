@@ -5,15 +5,14 @@ function [rprf, prf] = radial_profile(obj)
 %
 
 nc = 100;
-rinc = obj.get_param('pnd_val');
 rhard = obj.dist.mean();
 sthck = obj.get_param('sth_val');
-vcore = obj.get_param('cpd_val');
+tau = obj.get_param('dr_val');
 vskin = obj.get_param('mxspd_val');
 fuzz = obj.get_param('fuzz_val');
 
 
-[rprf, prf] = SM_Virtanen_IV.pd_profile(nc,rinc,rhard,sthck,vcore,vskin,fuzz);
+[rprf, prf] = SM_MG_numerical_III.pd_profile(nc,rhard,sthck,tau,vskin,fuzz);
 
 end
 

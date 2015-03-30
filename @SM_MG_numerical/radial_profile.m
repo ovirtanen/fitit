@@ -6,12 +6,11 @@ function [rprf, prf] = radial_profile(obj)
 
 nc = 100;
 rhard = obj.dist.mean();
-sd = obj.get_param('sd_val');
-cpd = obj.get_param('cpd_val');
-mxspd = obj.get_param('mxspd_val');
+tau = obj.get_param('dr_val');
+vskin = obj.get_param('mxspd_val');
 fuzz = obj.get_param('fuzz_val');
 
-[rprf, prf] = SM_Virtanen_II.pd_profile(nc,rhard,sd,cpd,mxspd,fuzz);
+[rprf, prf] = SM_MG_numerical.pd_profile(nc,rhard,tau,vskin,fuzz);
 
 end
 

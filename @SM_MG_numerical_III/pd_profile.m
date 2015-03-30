@@ -30,7 +30,7 @@ rng = rhard+2.*fuzz;                % range of values
 w = rng ./ nc;                      % quadrature weight rng - (-rng) / nc
 rprf = -rng + w .* ((1:2*nc)-0.5)';   % equidistant grid points
 
-f = SM_Virtanen_III.trg5(rprf,tau,rhard,sthick,vskin); % vcore is the deacay rate; rbox is unused
+f = SM_MG_numerical_III.trg5(rprf,tau,rhard,sthick,vskin); % vcore is the deacay rate; rbox is unused
 g = sqrt(2)./(fuzz.*sqrt(pi)).*exp(-2.*rprf.^2./(fuzz.^2));      % Pedersen's gaussian, A = 1
 
 prf = conv2(f,g.*w,'same');            % vector convolution, add weight. Conv2 slightly faster than conv

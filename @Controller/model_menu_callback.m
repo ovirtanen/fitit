@@ -28,24 +28,24 @@ switch hObject.Label
         sm = SM_Stieger(d);
         obj.swap_s_model(sm);
         
-    case 'Virtanen Microgel Model'
+    case 'Numerical Microgel Model'
         
-        sm = SM_Virtanen(d);
+        sm = SM_MG_numerical(d);
         obj.swap_s_model(sm);
         
-    case 'Virtanen Microgel Model II'
+    case 'Numerical Microgel Model II'
         
-        sm = SM_Virtanen_II(d);
+        sm = SM_MG_numerical_II(d);
         obj.swap_s_model(sm);
         
-    case 'Virtanen Microgel Model III'
+    case 'Numerical Microgel Model III'
 
-        sm = SM_Virtanen_III(d);
+        sm = SM_MG_numerical_III(d);
         obj.swap_s_model(sm);
         
-    case 'Virtanen Microgel Model IV'
+    case 'Numerical Microgel Model IV'
          
-        sm = SM_Virtanen_IV(d);
+        sm = SM_MG_numerical_IV(d);
         obj.swap_s_model(sm);
             
         

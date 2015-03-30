@@ -1,11 +1,11 @@
-classdef SM_Virtanen_II < Scattering_model_spherical & handle
+classdef SM_MG_numerical_IV < Scattering_model_spherical & handle
     %SM_VIRTANEN Summary of this class goes here
     %   Detailed explanation goes here
    
     
     properties (Constant)
        
-        name = 'Virtanen Microgel Model II';
+        name = 'Numerical Microgel Model IV';
         
     end
     
@@ -26,27 +26,29 @@ classdef SM_Virtanen_II < Scattering_model_spherical & handle
     methods(Static)
        
         
-        [rprf, prf] = pd_profile(nc,rhard,sd,cpd,mxspd,fuzz)
+        [rprf, prf] = pd_profile(nc,rinc,rhard,sthck,vcore,vskin,fuzz)
         p = vnumP(rc,w,pd,q);
-        hri = trg3(r,rinc,rp,v,vm);
+        hri = trg6(r,rinc,rp,sthck,v,vm);
         
     end
     
     
     methods (Access = public)
        
-        function obj = SM_Virtanen_II(d)
+        function obj = SM_MG_numerical_IV(d)
             
             
             obj.dist = d;
             
             obj.p_name_strings = {'Amplitude (1/cm)';
-                                  'Skin depth (%)'
-                                  'Core PD (a.u.)';
-                                  'Max skin PD (a.u.)'
+                                  'Penetration depth (%)'
+                                  'Shell thickness (nm)'
+                                  'Core PD'
+                                  'Max skin PD'
                                   'Fuzziness (nm)'};
             obj.p_ids = {'a';
-                         'sd';
+                         'pnd'
+                         'sth';
                          'cpd';
                          'mxspd';
                          'fuzz'};
@@ -59,8 +61,9 @@ classdef SM_Virtanen_II < Scattering_model_spherical & handle
             
             % Model parameter default values
             obj.params = {0 1 1 1;          % Amplitude
-                          0 0 100 1;        % Skin depth 
-                          0 1 1 1;            % Core PD
+                          0 10 100 1;       % Penetration depth
+                          0 100 300 1;      % Shell thickness
+                          0.01 1 1 1;       % Core PD
                           0.01 1 1 1;       % Max skin PD
                           1 20 100 1};      % Fuzziness               
             
