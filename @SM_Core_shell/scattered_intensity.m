@@ -34,14 +34,20 @@ pds = p(4);
 %
 
 
-rt = rpsd(:) * ones(1,numel(q));                    % total particle radius
-rc = frc ./ 100 .* rpsd(:) * ones(1,numel(q));      % core radius
+rt = rpsd(:) * ones(1,numel(q));                            % total particle radius
+rc = frc ./ 100 .* rt;                                      % core radius
 
-psdw = psd(:) * (w .* ones(1,numel(q)));            % PSD and quadrature weight
+psdw = psd(:) * (w .* ones(1,numel(q)));                    % PSD and quadrature weight
+
+% scattering weight normalizer. Because each fraction is weighted by the
+% (scattering mass).^2, dividing the intensity will normalizer will result
+% in P(0) = 1.
+mw = sum(SM_Core_shell.m3(rpsd(:),frc./100.*rpsd(:),pds,pdc).^2 .*w .* psd(:)); 
 
 q = ones(numel(rpsd),1) * q(:)';
 
-i_mod = a .* sum(psdw .* SM_Core_shell.f3(q,rt,rc,pds,pdc).^2)';
+%i_mod = a .* sum(psdw .* SM_Core_shell.f3(q,rt,rc,pds,pdc).^2)';
+i_mod = a ./mw .* sum(psdw  .* SM_Core_shell.m3(rt,frc./100.*rt,pds,pdc).^2 .*  SM_Core_shell.f3(q,rt,rc,pds,pdc).^2)';
 
 %i_mod = a .* sum(psdw .* ...
                 %((pds .* SM_Core_shell.vol_sphere(rt) .* SM_Hard_sphere.f_hard_sphere(q.*rt) + ...

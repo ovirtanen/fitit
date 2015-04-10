@@ -13,7 +13,6 @@ classdef Model < handle
     
     properties (SetAccess = private)
         
-        
         data_sets;
         s_models;
         bg;

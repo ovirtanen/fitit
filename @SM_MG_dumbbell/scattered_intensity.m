@@ -18,13 +18,13 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   Returns
 %   i_mod       Scattered intensity at points q
 %
-%   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171?210.
+%   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
 
 
 
 a = p(1);
-frs = p(2);
-frc = p(3);
+frs = p(2) ./ 100;      % note change to fraction
+frc = p(3) ./ 100;      % note change to fraction
 pdc = p(4);
 pds = p(5);
 
@@ -43,38 +43,41 @@ pds = p(5);
 
 rt = rpsd(:) * ones(1,numel(q));                    % total particle radius
 
-psdw = psd(:) * (w .* ones(1,numel(q)));            % PSD and quadrature weight
+psdw = frs .* psd(:) * (w .* ones(1,numel(q)));     % PSD and quadrature weight FOR SINGLETS (frs)
+
+% scattering weight normalizer for singlets
+mwns = sum(SM_Core_shell.m3(rpsd(:),frc.*rpsd(:),pds,pdc).^2 .* w .* frs.* psd(:)); 
 
 qq = ones(numel(rpsd),1) * q(:)';
 
-i_sing = sum(psdw .* SM_Core_shell.f3(qq,rt,(frc ./ 100 .* rt),pds,pdc).^2)';
+i_sing = sum(psdw .* SM_Core_shell.m3(rt,frc.*rt,pds,pdc).^2 .* SM_Core_shell.f3(qq,rt,(frc .* rt),pds,pdc).^2)';
 
 % Dumbbels ----------------------------------------------------------------
+% PSD given to dumbbells = (1-frs) .* psd
 
 
 %t = tic();
-%i_dum = SM_MG_dumbbell.i_dumbbell(q,rpsd,psd,w,frc./100,pds,pdc);
-i_dum = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,psd,w,frc./100,pds,pdc);
-%display(toc(t));
-i_mod = a .* (frs./100 .* i_sing + (100-frs)./100 .* i_dum);
 
-%{
-i_dum = zeros(numel(q),1);
-t = tic();
-for i = 1:numel(q)
-    
-    % Grid, where (i,j) is the contribution of dumbbells comprised of
-    % particles with total radii of r1(i) and r2(j) at scattering vector
-    % magnitude q
-    allc = SM_MG_dumbbell.p4(q(i),frc./100,r1,r2,pds,pdc) .* psdw;
-    
-    i_dum(i) = sum(allc(:));
+switch obj.gpu_enabled
+   
+    case 1 
+        
+        [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+   
+    case 0
+        
+        [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbell(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+        
+    otherwise
+        
+        error('Invalid GPU capability.');
     
 end
 
-i_mod = a .* (frs./100 .* i_sing + (100-frs)./100 .* i_dum);
-display(toc(t));
+%display(toc(t));
 
-%}
+% normalize according to the scattering weights
+i_mod = a ./ (mwns + mwnd) .* (i_sing + i_dum);
+
 end
 

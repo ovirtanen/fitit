@@ -8,10 +8,8 @@ obj.view.disable_f_button();
 obj.view.disable_panels();
 drawnow();
 
-%profile clear;
-%profile on;
+
 p = obj.model.lsq_fit();
-%profile off;
 
 obj.model.set_total_parameter_vector(p);
 obj.view.update_vals_from_model();

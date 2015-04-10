@@ -23,6 +23,11 @@ switch hObject.Label
         sm = SM_MG_dumbbell(d);
         obj.swap_s_model(sm);
         
+    case 'Microgel triplet model'
+        
+        sm = SM_MG_triplets(d);
+        obj.swap_s_model(sm);
+        
     case 'Stieger Microgel Model'
         
         sm = SM_Stieger(d);

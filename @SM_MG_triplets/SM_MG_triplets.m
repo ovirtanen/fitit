@@ -1,8 +1,7 @@
-classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
-%SM_CORE_SHELL Scattering model for dumbbells formed by random aggregation
-%of microgels
+classdef SM_MG_triplets < Scattering_model_spherical & GPU_capable & handle
+%SM_CORE_SHELL Scattering model for core-shell triplets
 %
-%   obj = SM_Core_shell(d)
+%   obj = SM_MG_triplets(d)
 %
 %   Parameters
 %   d           Distribution instance
@@ -11,7 +10,7 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
     
     properties (Constant)
        
-        name = 'Microgel dumbbell aggregation model';
+        name = 'Microgel triplet model';
         
     end
     
@@ -30,28 +29,30 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
     
     methods (Static)
        
-        p = i_dumbbell(q,rpsd,psd,w,xc,pds,pdc);
-        p = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc);
-        [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc);
-        p = p4(q,xc,r1,r2,pds,pdc);
-        v = vol_sphere(r);
-        
+        [id,swdbl] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc);
+        [i_trpl, swtrpl] = i_tripletsGPU(q,rpsd,psd,w,xl,xc,pds,pdc);
+        [i_trpl, swtrpl] = i_tripletsPAR(q,rpsd,psd,w,xl,xc,pds,pdc);
+ 
     end
     
     
     methods (Access = public)
        
-        function obj = SM_MG_dumbbell(d)
+        function obj = SM_MG_triplets(d)
             
             obj.dist = d;
             
             obj.p_name_strings = {'Amplitude (1/cm)';...
-                                  'Fraction singlets (%)';...
+                                  'Fraction multiplets';...
+                                  'Fraction triplets (of mps)'; ...
+                                  'Fraction linears (%)';...
                                   'Frctnl radius of core (%)';...
                                   'PD core';...
                                   'PD shell'};
             obj.p_ids = {'a';...
-                         'frs';...
+                         'frml';...
+                         'frtr';...
+                         'frl';...
                          'frc';...
                          'pdc';...
                          'pds'};
@@ -64,6 +65,8 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
             
             % Model parameter default values
             obj.params = {0 1 1 1;
+                          0 0 100 1;
+                          0 0 100 1;
                           0 50 100 1;
                           0 50 100 1;
                           -1 1 1 1;

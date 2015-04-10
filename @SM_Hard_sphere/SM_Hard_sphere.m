@@ -16,7 +16,6 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
     
     properties (SetAccess = protected)
         
-        
         dist;                   % Distribution instance
         
         p_name_strings;         % parameter name strings for gui
@@ -38,7 +37,6 @@ classdef SM_Hard_sphere < Scattering_model_spherical & handle
     methods (Access = public)
        
         function obj = SM_Hard_sphere(d)
-            
             
             obj.dist = d;
             

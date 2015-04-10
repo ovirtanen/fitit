@@ -11,11 +11,28 @@ n_data_sets = numel(ds);
 pa = Print_array(2 + 3.*n_data_sets + 8.*n_smodels);
 
 
-if n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})) % one data set with empirical data
+if n_data_sets == 0 % only calculated model
+    
+    % A bit crappy, but model q values are not saved anywhere expect the
+    % si_axes
+    op = findobj(obj.view.gui.Children,'Tag','output_panel');
+    si = findobj(op.Children,'Tag','si_axes');
+    xl = si.XLim;
+    
+    q = linspace(xl(1),xl(2),200);
+    
+    pa.add_data(q,'q fit','nm-1');
+    pa.add_data(m.total_scattered_intensity(100,q),'Intensity','cm-1');   
+
+elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})) % one data set with empirical data
     
     pa.add_data(ds.q_exp,'q experimental','nm-1');
     pa.add_data(ds.i_exp,'Intensity','cm-1');
     pa.add_data(ds.std_exp,'STD','cm-1');
+    
+    % Fit
+    pa.add_data(ds.q_exp,'q fit','nm-1');
+    pa.add_data(m.total_scattered_intensity(100,ds.q_exp),'Intensity','cm-1');
 
     %{ 
     % multiple data sets are not supported at this time
@@ -36,8 +53,6 @@ elseif n_data_sets > 1
     
 end % if
 
-pa.add_data(ds.q_mod,'q','nm-1');
-pa.add_data(m.total_scattered_intensity(100,ds.q_mod),'Intensity','cm-1');
 
 for i = 1:numel(m.s_models)
 
