@@ -53,15 +53,15 @@ classdef (ConstructOnLoad = true) FileWriter < handle
         
         pind = addParray(obj,printarray);
         deleteParrays(obj);
-        saveToFile(obj,pindarray)
+        saveToFile(obj,pindarray);
+        writeToFile(obj,pindarray,path);
         
     end
     
     methods (Access = private)
         
        p = getSavePath(obj);
-       writeToFile(obj,pindarray,path);
- 
+       
     end
     
 end

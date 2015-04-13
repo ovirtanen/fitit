@@ -1,6 +1,12 @@
-function save_data(obj)
+function save_data(obj,varargin)
 %SAVE_DATA Fetches the relevant information from the Model and writes it to
 %user specified text file.
+%
+%   save_data() opens save dialog to specify save destination
+%   save_data(file_path) saves the file to destination specified by
+%   file_path
+%
+%
 
 m = obj.model;
 ds = m.data_sets;
@@ -91,8 +97,29 @@ for i = 1:numel(m.s_models)
 
 end % for
 
-pind = obj.fw.addParray(pa);
-obj.fw.saveToFile(pind);
+pindarray = obj.fw.addParray(pa);
+
+switch nargin
+    
+    case 1
+        
+        obj.fw.saveToFile(pindarray);
+        
+    case 2
+        
+        path = varargin{1};
+        
+        % throws FitIt:InvalidSavePath
+        obj.fw.writeToFile(pindarray,path);
+        
+    otherwise
+        
+        error('Invalid number of inargs.');
+    
+    
+end
+
+
 obj.fw.deleteParrays();
 
 end

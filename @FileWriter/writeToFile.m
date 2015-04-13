@@ -5,9 +5,20 @@ function writeToFile(obj,pindarray, path)
 %   path is the file path to the file to be written, writes the contents of
 %   the specified PrintArray instances to the file.
 %
-% Throws: 
+% Throws:
+% FitIt:InvalidSavePath
+%
+%
 
 fid = fopen(path,'w');
+
+if fid == -1
+   
+    err = MException('FitIt:InvalidSavePath',...
+        'Invalid save path.');
+    throw(err);
+    
+end
 
 for i = pindarray
     

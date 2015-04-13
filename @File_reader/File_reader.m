@@ -8,7 +8,7 @@ classdef (ConstructOnLoad = true) File_reader < handle
     properties (SetAccess = private)
         
         last_load_path;
-        filter_spec;
+        filter_spec;            % cellstr of file allowd extensions, e.g. {'.txt'}
         
     end
     
@@ -25,13 +25,25 @@ classdef (ConstructOnLoad = true) File_reader < handle
             
             obj.last_load_path = '';
             
-            obj.filter_spec = fSpec; 
+            if iscellstr(fSpec)
+            
+                obj.filter_spec = fSpec;
+            
+            elseif ischar(fSpec)
+                
+                obj.filter_spec = {fSpec};
+                
+            else
+            
+                error('Invalid inarg type. Should be str or cellstr.');
+                
+            end
             
         end % constructor
         
         m = read_files(obj,ms); 
         m = read_ns_files(obj,ms);
-        p = get_file_paths(obj,fs,ms);
+        p = get_file_paths(obj,ms);
         
         
     end % public methods

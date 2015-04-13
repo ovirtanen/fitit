@@ -1,5 +1,5 @@
 function d = import_data(obj,ms)
-%IMPORT_DATA Import data using GUI
+%IMPORT_DATA Import data with GUI
 %
 %   d = import_data(ms)
 %
@@ -14,7 +14,7 @@ p = obj.fr.get_file_paths(ms);
 
 c = obj.fr.read_files(p);
 
-d = obj.raw_data_to_array(c);
+d 
 
 end
 
