@@ -17,34 +17,23 @@ switch state
     
     case 0
         
-            
-        target.set_param('bg_val',0);
+        target.toggle_bg('off');              % scattering contribution 0
         target.set_param('bg_chck',1)
             
+        set(controls,'Enable','off');
 
-        for c = 1:numel(controls)
-           
-            controls(c).Enable = 'off';
-            
-        end;
         
     case 1
         
-            
-        val = findobj(panel,'Tag','bg_val');
-        target.set_param('bg_val',str2num(val.String));
-            
+        target.toggle_bg('on');              % bg scattering
+        
+        % update fixed status for the bg
         chck = findobj(panel,'Tag','bg_chck');
         target.set_param('bg_chck',chck.Value);
             
         
+        set(controls,'Enable','on');
         
-        for c = 1:numel(controls)
-           
-            controls(c).Enable = 'on';
-            
-        end;
-    
 end % switch
 
 obj.view.update_axes();

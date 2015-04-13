@@ -1,8 +1,8 @@
-function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
-%I_DUMBBELLGPUh Form factor for dumbbells comprised of two core-shell
-%particles calculated with GPU.
+function [id,swdbl] = i_dumbbellPAR(q,rpsd,psd,w,xc,pds,pdc)
+%I_DUMBBELLPAR Form factor for dumbbells comprised of two core-shell
+%particles calculated with multiple workers.
 %
-%   [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc) 
+%   [id,mwnd] = i_dumbbellPAR(q,rpsd,psd,w,xc,pds,pdc) 
 %
 %   Parameters
 %   q               Scattering vector magnitude
@@ -14,7 +14,7 @@ function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
 %
 %   Returns
 %   id              Scattered intensity from dumbbells
-%   mwnd            Scattering mass normalizer, note: P(q) = id./swnd
+%   swdbl            Scattering mass normalizer, note: P(q) = id./swnd
 %
 %   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
 
@@ -27,24 +27,25 @@ function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
 % Dumbbell:
 % r1 - r2
 %
-r1 = gpuArray(rpsd(:)) * ones(1,numel(rpsd));
+r1 = rpsd(:) * ones(1,numel(rpsd));
 r2 = r1';
 
 % Weight grid for the integral in 2d, psd.^2.*w.^2
 % The factor two comes because only triu(psdw) is needed for the calculation
 % as the other half is just duplication. However only values triu(psdw,1)
 % should be doubled, and not the diagonal
-psdw = 2.* gpuArray(psd(:)) * psd(:)' .* w.^2;
+psdw = 2.* psd(:) * psd(:)' .* w.^2;
 d = 1:length(psdw)+1:(length(psdw)+1)*length(psdw); % diagonal indices
 psdw(d) = psdw(d) ./ 2;
 
 % logical array for upper diagonal of r1,r2 and psdw
-fil = gpuArray(logical(triu(ones(size(r1)))));
+fil = logical(triu(ones(size(r1))));
 
 % column vectors
 r1 = r1(fil);
 r2 = r2(fil);
 psdw = psdw(fil);
+
 
 % expand arrays for each q entry
 r1g = repmat(r1,1,numel(q));
@@ -62,42 +63,27 @@ qg = repelem(q(:)',numel(r1),1);
 % calculate the value of the form factor for each parameter combination
 % weighted by the psd
 
-allc = arrayfun(@pdb,qg,r1g,r2g,xc,pds,pdc,psdwg);
+id = SM_MG_triplets.pdb(qg,r1g,r2g,xc,pds,pdc,psdwg);
 
-allc = sum(allc);
-
-mwnd = sum((arrayfun(@m3,r1,(xc.*r1),pds,pdc) + arrayfun(@m3,r2,(xc.*r2),pds,pdc)) .^2 .*psdw);
-
-mwnd = gather(mwnd);
-id = gather(allc(:));
-
-end
-
-function p = pdb(q,r1,r2,xc,pds,pdc,psdwg)
-% Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
-% See M_3 and F_3 in the article. This function returns P4(q).*M4.^2
+id = sum(id);
 
 
-m3r1 = m3(r1,xc.*r1,pds,pdc);
-m3r2 = m3(r2,xc.*r2,pds,pdc);
+%{
 
-
-f3r1 = (pds .* 4.*pi./3.*r1.^3 .* (3.* (sin(q.*r1) - q.*r1.*cos(q.*r1))./ (q.*r1).^3)...
-        + (pdc - pds) .* 4.*pi./3.*(xc.*r1).^3 .* (3.* (sin(q.*(xc.*r1)) - q.*(xc.*r1).*cos(q.*(xc.*r1)))./ (q.*(xc.*r1)).^3))...
-        ./ m3r1;
-
-f3r2 = (pds .* 4.*pi./3.*r2.^3 .* (3.* (sin(q.*r2) - q.*r2.*cos(q.*r2))./ (q.*r2).^3)...
-        + (pdc - pds) .* 4.*pi./3.*(xc.*r2).^3 .* (3.* (sin(q.*(xc.*r2)) - q.*(xc.*r2).*cos(q.*(xc.*r2)))./ (q.*(xc.*r2)).^3))...
-        ./ m3r2;
+id = zeros(numel(q),1);
+parfor i = 1:numel(q)
+   
+    id(i) = sum(SM_MG_triplets.pdb(q(i),r1,r2,xc,pds,pdc,psdw));
     
-p = ((m3r1.^2 .* f3r1 .^2 + m3r2.^2 .* f3r2.^2 ...
-    + 2.* m3r1 .* m3r2 .* f3r1 .* f3r2 .* sin(q.*(r1+r2))./ (q.*(r1+r2)))) .* psdwg;% ...
-    %./ (m3r1 + m3r2).^2).*psdwg;
+end
+
+%}
+
+id = id(:);
+
+swdbl = sum((SM_MG_triplets.m3(r1,(xc.*r1),pds,pdc) + SM_MG_triplets.m3(r2,(xc.*r2),pds,pdc)) .^2 .*psdw);
+
 
 end
 
-function w = m3(rp,rc,pds,pdc)
 
-w = pds .* 4.*pi./3.*rp.^3 + (pdc - pds) .* 4.*pi./3.*rc.^3;
-
-end

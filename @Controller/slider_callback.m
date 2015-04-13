@@ -31,7 +31,9 @@ target.set_param([id '_val'],value);
 eb_val = findobj(panel.Children,'Tag',[id '_val']);
 eb_val.String = num2str(value);
 
+%obj.view.switch_enable_panels('off');
 obj.view.update_axes();
+%obj.view.switch_enable_panels('on');
 
 end
 

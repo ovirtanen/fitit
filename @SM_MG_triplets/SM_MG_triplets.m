@@ -1,4 +1,4 @@
-classdef SM_MG_triplets < Scattering_model_spherical & GPU_capable & handle
+classdef SM_MG_triplets < Scattering_model_spherical & Parallel_capable & handle
 %SM_CORE_SHELL Scattering model for core-shell triplets
 %
 %   obj = SM_MG_triplets(d)
@@ -10,7 +10,7 @@ classdef SM_MG_triplets < Scattering_model_spherical & GPU_capable & handle
     
     properties (Constant)
        
-        name = 'Microgel triplet model';
+        name = 'Microgel triplet aggregation model';
         
     end
     
@@ -32,7 +32,15 @@ classdef SM_MG_triplets < Scattering_model_spherical & GPU_capable & handle
         [id,swdbl] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc);
         [i_trpl, swtrpl] = i_tripletsGPU(q,rpsd,psd,w,xl,xc,pds,pdc);
         [i_trpl, swtrpl] = i_tripletsPAR(q,rpsd,psd,w,xl,xc,pds,pdc);
- 
+        [id,swdbl] = i_dumbbellPAR(q,rpsd,psd,w,xc,pds,pdc)
+        p = itrpl(q,r1,r2,r3,xc,xl,pds,pdc,psdw);
+        p = pdb(q,r1,r2,xc,pds,pdc,psdwg);
+        a = nullify(a);
+        p = weight(p,r1,r2,r3,w);
+        w = m3(rp,rc,pds,pdc);
+        
+        
+        
     end
     
     

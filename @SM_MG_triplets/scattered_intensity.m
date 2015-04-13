@@ -65,21 +65,16 @@ if frml > 0 && frtr == 0
 
 frdbl = frml .* (1-frtr); % fraction doublets    
 
-    switch obj.gpu_enabled
-   
-        case 1 
+    if obj.gpu_enabled
+            
+        [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellGPUh(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
         
-            [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellGPUh(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
-   
-        case 0
+    else
         
-            error('CPU model not yet implemented.');
-        
-        otherwise
-        
-            error('Invalid GPU capability.');
+        % i_dumbbellPAR doesn't use any explicit parallel functions
+        [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellPAR(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
     
-    end % switch
+    end % if
     
 else
     
@@ -101,21 +96,18 @@ if frml > 0 && frtr > 0
     
 frtr = frml .* frtr; % fraction triplets    
 
-    switch obj.gpu_enabled
+    if obj.gpu_enabled
+        
+        [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
    
-        case 1 
+    elseif obj.par_enabled
         
-            %[i_trpl, swtrpl] = SM_MG_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
-            [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsPAR(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
-   
-        case 0
+        [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsPAR(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
         
-            error('CPU model not yet implemented.');
+    else
         
-        otherwise
+        error('Parallel execution recommended.');
         
-            error('Invalid GPU capability.');
-    
     end % switch
     
 else

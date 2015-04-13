@@ -65,20 +65,7 @@ classdef View < handle
             obj.f_button.String = 'Fitting...';
             
         end
-        function disable_panels(obj)
-           
-            %obj.bg_panel.Enable = 'off';
-            %obj.p_panel.Enable = 'off';
-            %obj.d_panel.Enable = 'off';
-            
-        end
-        function enable_panels(obj)
-           
-            %obj.bg_panel.Enable = 'on';
-            %obj.p_panel.Enable = 'on';
-            %obj.d_panel.Enable = 'on';
-            
-        end
+        switch_enable_panels(obj,toggle);
         
         %%% swappers
         

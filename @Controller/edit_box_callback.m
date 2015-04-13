@@ -140,7 +140,9 @@ switch type
         
 end % switch
 
+%obj.view.switch_enable_panels('off');
 obj.view.update_axes();
+%obj.view.switch_enable_panels('on');
 
 %%% HELPER FUNCTION
 

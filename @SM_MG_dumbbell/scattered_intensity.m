@@ -58,21 +58,15 @@ i_sing = sum(psdw .* SM_Core_shell.m3(rt,frc.*rt,pds,pdc).^2 .* SM_Core_shell.f3
 
 %t = tic();
 
-switch obj.gpu_enabled
+if obj.gpu_enabled
+        
+    [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
    
-    case 1 
-        
-        [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
-   
-    case 0
-        
-        [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbell(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
-        
-    otherwise
-        
-        error('Invalid GPU capability.');
+else
     
-end
+    [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbell(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+    
+end % else
 
 %display(toc(t));
 

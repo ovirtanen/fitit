@@ -21,6 +21,7 @@ properties (SetAccess = protected)
     params;
     param_map;
 
+    enabled;                % background enabled
 
 end
     
@@ -42,13 +43,43 @@ methods (Access = public)
             
         % Model parameter default values
         obj.params = {1e-6 1e-5 1e-4 1};               % BG
+        
+        obj.enabled = 0;
             
     end % constructor
         
     function i_mod = scattered_intensity(obj)
         
-        i_mod = obj.params{2};
+        if obj.enabled
             
+            i_mod = obj.params{2};
+            
+        else
+           
+            i_mod = 0;
+            
+        end
+            
+    end
+    
+    function toggle_bg(obj,toggle)
+       
+        switch toggle
+            
+            case 'on'
+                
+                obj.enabled = 1;
+                
+            case 'off'
+                
+                obj.enabled = 0;
+                
+            otherwise
+                
+                error('Invalid toggle value.');
+                
+        end % switch
+        
     end
            
         

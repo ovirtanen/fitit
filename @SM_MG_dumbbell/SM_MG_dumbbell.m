@@ -1,4 +1,4 @@
-classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
+classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
 %SM_CORE_SHELL Scattering model for dumbbells formed by random aggregation
 %of microgels
 %
@@ -30,11 +30,9 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & GPU_capable & handle
     
     methods (Static)
        
-        p = i_dumbbell(q,rpsd,psd,w,xc,pds,pdc);
-        p = i_dumbbellGPU(q,rpsd,psd,w,xc,pds,pdc);
+        [id,mwnd] = i_dumbbell(q,rpsd,psd,w,xc,pds,pdc);
         [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc);
-        p = p4(q,xc,r1,r2,pds,pdc);
-        v = vol_sphere(r);
+        %v = vol_sphere(r);
         
     end
     

@@ -5,7 +5,7 @@ function f_button_callback(obj,hObject,callbackdata)
 %
 
 obj.view.disable_f_button();
-obj.view.disable_panels();
+obj.view.switch_enable_panels('off');
 drawnow();
 
 
@@ -16,7 +16,7 @@ obj.view.update_vals_from_model();
 obj.view.update_sliders();
 obj.view.update_axes();
 
-obj.view.enable_panels();
+obj.view.switch_enable_panels('on');
 obj.view.update_f_button_status();
 
 end
