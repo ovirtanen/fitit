@@ -7,7 +7,7 @@ sm = SM_Hard_sphere(dist);
 
 m = Model(sm);
 
-Controller(m);
+Controller(m,'local');
 
 
 end

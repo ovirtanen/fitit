@@ -18,7 +18,6 @@ end % id
 
 ds = Data_set(d(:,1),d(:,2),d(:,3));
 obj.model.add_data_set(ds);
-obj.view.initialize_g_sources_for_data_set(ds);
 
 end
 

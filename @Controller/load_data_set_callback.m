@@ -64,6 +64,7 @@ switch ms
        obj.view.delete_g_sources_in_si_axes();
        obj.model.remove_experimental_data();
        obj.add_data_set_to_model(d{1}); 
+       obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        
     otherwise
         

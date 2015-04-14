@@ -1,10 +1,12 @@
 classdef Controller < handle
     %CONTROLLER Controller class for FitIt
     %   
-    %   obj = Controller(m)
+    %   obj = Controller(m,mode)
     %
     %   Parametres
     %   m           A Model instance
+    %   mode        Either 'local' or 'cluster'. In local mode gui is
+    %               initialized, in cluster mode not.
     %
     
     properties (SetAccess = private)
@@ -18,14 +20,27 @@ classdef Controller < handle
     
     methods (Access = public)
         
-        function obj = Controller(m)
+        function obj = Controller(m,mode)
             
             obj.model = m;
-            
-            obj.view = View(obj,m);
-            
             obj.fr = File_reader('.txt');
             obj.fw = FileWriter(obj,'.txt');
+            
+            switch mode
+               
+                case 'local'
+                    
+                    obj.view = View(obj,m);
+                    
+                case 'cluster'
+                    
+                    obj.view = [];
+                    
+                otherwise
+                    
+                    error('Invalid mode.')
+                
+            end
             
         end % constructor
         

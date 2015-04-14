@@ -51,7 +51,8 @@ classdef Scattering_model < handle
     methods (Access = public)
        
         p = get_param(obj,tag);
-        p = get_param_vector(obj)
+        p = get_param_vector(obj);
+        set_fixed_vector(obj,pf);
         set_param(obj,tag,value);
         set_param_vector(obj,p);
         set_distribution(obj,dist);        
