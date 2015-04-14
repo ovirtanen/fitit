@@ -2,14 +2,16 @@
 % models on data
 %
 
+% add path to FitIt at RWTH Linux cluster
+addpath(genpath('/home/ov117132/MATLAB/FitIt'));
 
 % Initialize --------------------------------------------------------------
 
 % Distribution
-dist = DST_Gaussian();
+dist = DST_BurrXII();
 
 % Scattering model
-sm = SM_Core_shell(dist);
+sm = SM_MG_triplets(dist);
 
 m = Model(sm);
 
@@ -23,28 +25,35 @@ if isa(sm,'Parallel_capable')
     % sm.enable_gpu();
     
     % Multiple worker capability
-    % parpool(4);
-    % sm.enable_par();
+     parpool(12);
+     sm.enable_par();
+     
+     if not(sm.par_enabled)
+       
+         error('Multiple workers not enabled!');
+         
+     end
+     
     
 end
 
 % Load and save paths -----------------------------------------------------
 
-data_paths = {'Example data sets/HAM-0,0-60C-2m-const-KPS-0,3143 cleaned.txt';...
-              'Example data sets/HAM-0,0-60C-2m-const-KPS-0,3143 cleaned.txt'};
+data_paths = {'/home/ov117132/FitItData/20150309 OV-55C-0,274-KPS-xxxx in water/OV-55C-0,274-KPS-0,500 20C water cleaned.txt';...
+              };
           
-save_paths = {'Testit/test1.txt';...
-              'Testit/test2.txt'};
+save_paths = {'/home/ov117132/FitItResults/20150414 OV-55C-0,274-KPS-0,500 20C water/20150414ClusterFit.txt';...
+              };
 
 % Set initial guesses -----------------------------------------------------
 
-p = {[0.079494 60.8574 0.81046 1 402.1756 9.4612];...
-     [0.079494 60.8574 0.81046 1 402.1756 9.4612]};
+p = {[0.12 80 60 80 53.0371 0.70693 1 545.0393 182.3666 0.1];...
+     };
  
  % Set fixed parameters
  
-pf = {[0 0 0 1 0 0];...
-      [0 0 0 1 0 0]};
+pf = {[0 0 0 0 0 0 1 0 0 0];...
+      };
           
 % Check inputs ------------------------------------------------------------
           
@@ -71,6 +80,8 @@ b = cellfun(f,p);
 
 if not(all(b == (numel(sm.p_name_strings) + numel(dist.p_name_strings))))
    
+    display(['Number of parameter vector parameters: ' num2str(b)]);
+    display(['Number of required parameters: ' num2str(numel(sm.p_name_strings) + numel(dist.p_name_strings))]);
     error('Parameter vectors have wrong number of paramters.')
     
 end
@@ -79,7 +90,9 @@ b = cellfun(f,pf);
 
 if not(all(b == (numel(sm.p_name_strings) + numel(dist.p_name_strings))))
    
-    error('Fixed values vectors have wrong number of paramters.')
+    display(['Number of parameter vector parameters: ' num2str(b)]);
+    display(['Number of required parameters: ' num2str(numel(sm.p_name_strings) + numel(dist.p_name_strings))]);
+    error('Fixed values vectors have wrong number of parameters.')
     
 end
 

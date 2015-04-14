@@ -61,7 +61,7 @@ i_sing = sum(psdw .* SM_Core_shell.m3(rt,frc.*rt,pds,pdc).^2 .* SM_Core_shell.f3
 % Doublets ----------------------------------------------------------------
 
 % calculate doublets only if there are doublets
-if frml > 0 && frtr == 0
+if frml > 0 && frtr ~= 100
 
 frdbl = frml .* (1-frtr); % fraction doublets    
 
