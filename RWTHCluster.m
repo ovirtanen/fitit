@@ -1,3 +1,5 @@
+function RWTHCluster()
+
 % FitIt cluster script for fitting computationally intensive scattering
 % models on data
 %
@@ -25,7 +27,7 @@ if isa(sm,'Parallel_capable')
     % sm.enable_gpu();
     
     % Multiple worker capability
-     parpool(12);
+     pool = gcp();
      sm.enable_par();
      
      if not(sm.par_enabled)
@@ -34,7 +36,8 @@ if isa(sm,'Parallel_capable')
          
      end
      
-    
+     display(['Proceeding with ' num2str(pool.NumWorkers) ' workers.']);
+     
 end
 
 % Load and save paths -----------------------------------------------------
@@ -42,12 +45,15 @@ end
 data_paths = {'/home/ov117132/FitItData/20150309 OV-55C-0,274-KPS-xxxx in water/OV-55C-0,274-KPS-0,500 20C water cleaned.txt';...
               };
           
+%data_paths = {'/Users/otto/Documents/Arbeit/Data/SLS/Microgel structure/20150309 OV-55C-0,274-KPS-xxxx in water/OV-55C-0,274-KPS-0,500 20C water cleaned.txt'};
+              
 save_paths = {'/home/ov117132/FitItResults/20150414 OV-55C-0,274-KPS-0,500 20C water/20150414ClusterFit.txt';...
               };
+%save_paths = {'Testit/testi1.txt'};
 
 % Set initial guesses -----------------------------------------------------
 
-p = {[0.12 80 60 80 53.0371 0.70693 1 545.0393 182.3666 0.1];...
+p = {[0.12 80 80 80 53.0371 0.70693 1 545.0393 182.3666 0.1];...
      };
  
  % Set fixed parameters
@@ -127,6 +133,44 @@ end
 f = @(x) fclose(x);
 cellfun(f,num2cell(fids));
 
+% Output function ---------------------------------------------------------
+
+function stop = opfcn(x,optimvalues,state,interval,i)
+% Prints the parameter function to the standard output every <interval>
+% iterations
+%
+    stop = false;
+    
+    switch state
+        
+        case 'init'
+            
+            % do nothing
+            
+        case 'iter'
+            
+            if mod((optimvalues.iteration + 1),interval) == 0;
+                
+                display(['Iteration no. ' num2str((optimvalues.iteration + 1))]);
+                pi = p{i};
+                pi(not(pf{i})) = x;
+                display(pi');
+                
+            end % if
+            
+        case 'done'
+            
+            display(['Exit value at iteration no. ' num2str((optimvalues.iteration + 1))]);
+            pi = p{i};
+            pi(not(pf{i})) = x;
+            display(pi');
+                
+            
+    end % switch
+
+end
+
+
 % Do the actual calculation -----------------------------------------------
 
 for i = 1:numel(data_paths)
@@ -143,11 +187,21 @@ for i = 1:numel(data_paths)
     % set fixed values
     sm.set_fixed_vector(pf{i});
     
+    % set optimization options
+    
+    options = optimoptions('fmincon');
+    save_interval = 10;
+    options.OutputFcn = @(x,optimvalues,state) opfcn (x,optimvalues,state,save_interval,i);
+    
     % do the fit
-    p_fit = m.lsq_fit();
+    p_fit = m.lsq_fit(options);
     m.set_total_parameter_vector(p_fit);
     
     % save results
     c.save_data(save_paths{i});
     
 end
+
+end
+
+

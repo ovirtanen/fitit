@@ -4,7 +4,7 @@ classdef Parallel_capable < handle
     
     properties (SetAccess = private)
         
-        device;
+        g_device;
         gpu_enabled;
         par_enabled;
         
@@ -24,12 +24,12 @@ classdef Parallel_capable < handle
             if gpuDeviceCount() >= 1
                 
                 obj.gpu_enabled = 1;
-                obj.device = gpuDevice();
+                obj.g_device = gpuDevice();
                 
             else
                 
                 obj.gpu_enabled = 0;
-                obj.device = [];
+                obj.g_device = [];
                 
             end
             

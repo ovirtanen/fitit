@@ -1,14 +1,44 @@
-function p = lsq_fit(obj)
+function p = lsq_fit(obj,varargin)
 %LSQ_FIT Least squares fit on the experimental data
 %   
 %   p = lsq_fit() performs a least squares fit on single experimental data
 %   set and returns total parameter vector for all the included models and
 %   their distributions
 %
+%   p = lsq_fit(options), performs the fit using options. Can be used e.g.
+%   to set an output function
+%
+%   Parameters
+%   options     optim.options.Fmincon
+%
 %   Returns
 %   p           Total parameter vector
 %
 %
+
+switch nargin
+   
+    case 1
+        
+        options = [];
+        
+    case 2
+        
+        if isa(varargin{1},'optim.options.Fmincon')
+            
+            options = varargin{1};
+            
+        else
+            
+            options = [];
+            
+        end
+        
+    otherwise
+        
+        error('Wrong number of inargs.');
+    
+end
 
 if numel(obj.data_sets) ~= 1
     
@@ -83,7 +113,15 @@ prm = @(p0) obj.p0_to_p(p0,p,pf);
 % the actual handle that can be finally fed to fmincon
 f = @(x) Model.chi2(intst,std,prm(x),handles);
 
-[pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub);
+if isempty(options)
+
+    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub);
+    
+else
+    
+    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
+    
+end % if
 
 p(pf) = pfit;
 

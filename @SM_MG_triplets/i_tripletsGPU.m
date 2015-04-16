@@ -88,6 +88,7 @@ mwnd = sum((arrayfun(@m3,r1(:),(xc.*r1(:)),pds,pdc) + arrayfun(@m3,r2(:),(xc.*r2
 mwnd = gather(mwnd);
 id = gather(allc(:));
 
+
 end
 
 function p = itrpl(q,r1,r2,r3,xc,xl,pds,pdc,psdw)

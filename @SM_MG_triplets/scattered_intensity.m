@@ -68,6 +68,7 @@ frdbl = frml .* (1-frtr); % fraction doublets
     if obj.gpu_enabled
             
         [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellGPUh(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
+        obj.g_device.reset();
         
     else
         
@@ -99,6 +100,7 @@ frtr = frml .* frtr; % fraction triplets
     if obj.gpu_enabled
         
         [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
+        obj.g_device.reset();
    
     elseif obj.par_enabled
         
