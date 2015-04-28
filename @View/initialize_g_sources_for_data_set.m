@@ -5,17 +5,19 @@ function initialize_g_sources_for_data_set(obj,ds)
 
 si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
-% Graphics_source for plotting the model intensity
-q = linspace(0.0001,max(ds.q_exp),200)';
+%% Graphics_source for plotting the model intensity
+
+
+q = logspace(-3,log10(max(ds.q_exp)),200)'; % logspace works well for both log and lin XScale
 intst = @()obj.model.total_scattered_intensity(150,q);
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);
 
-% Graphics_source for showing the experimental data
+%% Graphics_source for showing the experimental data
 
 switch all(ds.std_exp == 1)
     
-    case 1  % STD is missing. Bad thing, bad!
+    case 1  % Artificial STD of 1 was added. Bad thing, bad!
         
         gs = Graphics_source(si,'scatter',[0 max(ds.q_exp) 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
         

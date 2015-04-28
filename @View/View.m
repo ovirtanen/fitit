@@ -53,7 +53,7 @@ classdef View < handle
             
         end % constructor
         
-        %%% other public
+        %% other public
         
         initialize_g_sources_for_data_set(obj,ds);
         display_about_box(obj);
@@ -67,11 +67,11 @@ classdef View < handle
         end
         switch_enable_panels(obj,toggle);
         
-        %%% swappers
+        %% swappers
         
         swap_panel(obj,tag);
         
-        %%% Updaters
+        %% Updaters
         
         update_axes(obj);
         update_f_button_status(obj);
@@ -82,7 +82,7 @@ classdef View < handle
     
     methods (Access = private)
         
-        %%% GUI initialization methods
+        %% GUI initialization methods
         
         align_control_panels(obj,p,h_spacer,top_spacer,v_spacer,varargin);
         g = initialize_gui(obj);

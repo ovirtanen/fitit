@@ -10,7 +10,7 @@ classdef Controller < handle
     %
     
     properties (SetAccess = private)
-        
+       
         model;
         view;
         fr;
@@ -18,8 +18,10 @@ classdef Controller < handle
         
     end
     
+    
     methods (Access = public)
         
+        %% Constructor
         function obj = Controller(m,mode)
             
             obj.model = m;
@@ -44,7 +46,7 @@ classdef Controller < handle
             
         end % constructor
         
-        % OTHER PUBLIC
+        %% OTHER PUBLIC
         
         d = import_data(obj,ms);
         d = import_histogram_data(obj);
@@ -53,7 +55,7 @@ classdef Controller < handle
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
         
-        % CALLBACKS
+        %% CALLBACKS
         
         about_menu_callback(obj,hObject,callbackdata);
         bg_enable_callback(obj,hObject,callbackdata);
@@ -66,6 +68,7 @@ classdef Controller < handle
         load_histogram_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);
+        si_scale_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);
         quit_callback(obj,hObject,callbackdata);
                

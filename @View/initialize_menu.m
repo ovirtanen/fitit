@@ -63,11 +63,11 @@ v.Tag = 'view_menu';
 
 vloglin = uimenu(v,'Label','Log-lin');
 vloglin.Tag = 'loglin_scale';
-vloglin.Callback = @(hObject,callbackdata) obj.controller.loglin_callback(hObject,callbackdata);
+vloglin.Callback = @(hObject,callbackdata) obj.controller.si_scale_callback(hObject,callbackdata);
 
 vloglog = uimenu(v,'Label','Log-log');
 vloglog.Tag = 'loglog_scale';
-vloglog.Callback = @(hObject,callbackdata) obj.controller.loglog_callback(hObject,callbackdata);
+vloglog.Callback = @(hObject,callbackdata) obj.controller.si_scale_callback(hObject,callbackdata);
 
 %% Help menu --------------------------------------------------------------
 h = uimenu(p,'Label','Help');
