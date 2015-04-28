@@ -58,8 +58,12 @@ for j = 1:numel(c)
 
     [~,cols] = size(d{j});
 
-    if not(cols == 3)
+    if (cols == 2)
    
+        warning('Only two columns, STD appears to be missing. Using STD = 1.');
+        
+    elseif not(cols == 3)
+        
         err = MException('FitIt:InvalidFileStructure',...
             'Data structure not recognized.');
         throw(err);

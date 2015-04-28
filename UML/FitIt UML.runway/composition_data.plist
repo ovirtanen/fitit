@@ -105,7 +105,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -151,7 +151,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -271,7 +271,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -317,7 +317,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -428,7 +428,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -474,7 +474,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -569,7 +569,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -615,7 +615,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -737,7 +737,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -783,7 +783,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -858,7 +858,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -902,7 +902,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1022,7 +1022,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -1068,7 +1068,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1149,7 +1149,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -1195,7 +1195,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1276,7 +1276,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -1322,7 +1322,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1402,7 +1402,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -1448,7 +1448,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1528,7 +1528,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -1574,7 +1574,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1645,7 +1645,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -1689,7 +1689,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1760,7 +1760,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -1804,7 +1804,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -1875,7 +1875,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -1919,7 +1919,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2027,11 +2027,11 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
-					<string>{{1120, 680}, {100, 100}}</string>
+					<string>{{1120, 700}, {100, 80}}</string>
 					<key>hidden</key>
 					<false/>
 					<key>identifier</key>
@@ -2073,7 +2073,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2151,7 +2151,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -2191,7 +2191,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -2269,7 +2269,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -2309,7 +2309,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -2380,15 +2380,15 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
 					<true/>
 					<key>frame</key>
-					<string>{{1210, 510}, {-40, 170}}</string>
+					<string>{{1210, 510}, {-40, 190}}</string>
 					<key>hidden</key>
-					<false/>
+					<true/>
 					<key>identifier</key>
 					<string>7208FE30-8655-4071-8663-FF64B7A9040E</string>
 					<key>imageAnchorRatio</key>
@@ -2424,7 +2424,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2482,7 +2482,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -2526,7 +2526,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2588,7 +2588,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -2632,7 +2632,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2690,7 +2690,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -2734,7 +2734,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2848,7 +2848,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -2894,7 +2894,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -2952,7 +2952,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -2996,7 +2996,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3054,7 +3054,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -3098,7 +3098,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3156,7 +3156,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -3200,7 +3200,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3315,7 +3315,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -3361,7 +3361,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3419,7 +3419,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -3463,7 +3463,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3521,7 +3521,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -3565,7 +3565,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3666,7 +3666,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -3712,7 +3712,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3792,7 +3792,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -3838,7 +3838,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -3896,7 +3896,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -3940,7 +3940,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4048,7 +4048,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -4094,7 +4094,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4152,7 +4152,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -4196,7 +4196,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4254,7 +4254,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -4298,7 +4298,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4356,7 +4356,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -4400,7 +4400,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4458,7 +4458,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -4502,7 +4502,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -4525,6 +4525,108 @@
 					<integer>0</integer>
 					<key>title</key>
 					<string>Line</string>
+					<key>userSetTitle</key>
+					<false/>
+				</dict>
+				<dict>
+					<key>adjustmentRatioX</key>
+					<real>0.5</real>
+					<key>adjustmentRatioY</key>
+					<real>0.0</real>
+					<key>arrowTypeA</key>
+					<integer>6</integer>
+					<key>arrowTypeB</key>
+					<integer>0</integer>
+					<key>className</key>
+					<string>SegmentedLine</string>
+					<key>constrainAspectRatio</key>
+					<false/>
+					<key>contentFilterSpecs</key>
+					<array/>
+					<key>curveRatio</key>
+					<real>0.0</real>
+					<key>fillAngle</key>
+					<integer>0</integer>
+					<key>fillColor</key>
+					<string>1.000000:1.000000:1.000000:1.000000</string>
+					<key>fillGradientElements</key>
+					<array/>
+					<key>fillShadowBlur</key>
+					<real>3</real>
+					<key>fillShadowColor</key>
+					<string>0.000000:0.000000:0.000000:0.333000</string>
+					<key>fillShadowHidden</key>
+					<false/>
+					<key>fillShadowOffsetX</key>
+					<real>2</real>
+					<key>fillShadowOffsetY</key>
+					<real>2</real>
+					<key>fillType</key>
+					<integer>5</integer>
+					<key>flipped</key>
+					<true/>
+					<key>frame</key>
+					<string>{{1150, 510}, {20, 190}}</string>
+					<key>hidden</key>
+					<false/>
+					<key>identifier</key>
+					<string>A72FF57E-BD69-4AE1-882B-86864267EB18</string>
+					<key>imageAnchorRatio</key>
+					<string>{0.5, 0.5}</string>
+					<key>imageType</key>
+					<integer>0</integer>
+					<key>locked</key>
+					<false/>
+					<key>opacity</key>
+					<real>1</real>
+					<key>pathType</key>
+					<integer>0</integer>
+					<key>rotationAngle</key>
+					<integer>0</integer>
+					<key>rotationHandleRadius</key>
+					<real>100</real>
+					<key>scaleImage</key>
+					<true/>
+					<key>strokeColor</key>
+					<string>0.000000:0.000000:0.000000:1.000000</string>
+					<key>strokeLineCap</key>
+					<integer>0</integer>
+					<key>strokeLineJoin</key>
+					<integer>1</integer>
+					<key>strokeLineWidth</key>
+					<real>1</real>
+					<key>strokeShadowBlur</key>
+					<real>5</real>
+					<key>strokeShadowColor</key>
+					<string>0.000000:0.000000:0.000000:0.333000</string>
+					<key>strokeShadowHidden</key>
+					<true/>
+					<key>strokeShadowOffsetX</key>
+					<real>2</real>
+					<key>strokeShadowOffsetY</key>
+					<real>2</real>
+					<key>strokeType</key>
+					<integer>0</integer>
+					<key>textAlign</key>
+					<integer>2</integer>
+					<key>textAppearanceType</key>
+					<integer>0</integer>
+					<key>textDrawOnPath</key>
+					<false/>
+					<key>textShadowBlur</key>
+					<real>5</real>
+					<key>textShadowColor</key>
+					<string>0.000000:0.000000:0.000000:1.000000</string>
+					<key>textShadowHidden</key>
+					<true/>
+					<key>textShadowOffsetX</key>
+					<real>0.0</real>
+					<key>textShadowOffsetY</key>
+					<real>0.0</real>
+					<key>textVerticalAlign</key>
+					<integer>0</integer>
+					<key>title</key>
+					<string>Segmented Line</string>
 					<key>userSetTitle</key>
 					<false/>
 				</dict>
@@ -4895,6 +4997,18 @@
 				</dict>
 				<dict>
 					<key>pointerCorner</key>
+					<integer>0</integer>
+					<key>pointerIdentifier</key>
+					<string>A72FF57E-BD69-4AE1-882B-86864267EB18</string>
+					<key>shapeEdge</key>
+					<integer>3</integer>
+					<key>shapeIdentifier</key>
+					<string>DD9DBA4C-035C-40BD-93E1-F28159F464F8</string>
+					<key>shapeRatio</key>
+					<real>0.5</real>
+				</dict>
+				<dict>
+					<key>pointerCorner</key>
 					<integer>8</integer>
 					<key>pointerIdentifier</key>
 					<string>466EB89F-F479-42FA-B470-E3DD7A1FAD8B</string>
@@ -4922,6 +5036,18 @@
 					<integer>8</integer>
 					<key>pointerIdentifier</key>
 					<string>7208FE30-8655-4071-8663-FF64B7A9040E</string>
+					<key>shapeEdge</key>
+					<integer>2</integer>
+					<key>shapeIdentifier</key>
+					<string>FD214F23-FFCE-4000-B61A-1DD1E750EA83</string>
+					<key>shapeRatio</key>
+					<real>0.5</real>
+				</dict>
+				<dict>
+					<key>pointerCorner</key>
+					<integer>8</integer>
+					<key>pointerIdentifier</key>
+					<string>A72FF57E-BD69-4AE1-882B-86864267EB18</string>
 					<key>shapeEdge</key>
 					<integer>2</integer>
 					<key>shapeIdentifier</key>
@@ -4962,7 +5088,7 @@
 			<key>fillShadowOffsetX</key>
 			<real>2</real>
 			<key>fillShadowOffsetY</key>
-			<real>-2</real>
+			<real>2</real>
 			<key>fillType</key>
 			<integer>0</integer>
 			<key>frame</key>
@@ -4999,7 +5125,7 @@
 			<key>scaleImage</key>
 			<true/>
 			<key>scrollCenterPoint</key>
-			<string>{640.5, 449.5}</string>
+			<string>{639.33333333333326, 399.33333333333331}</string>
 			<key>strokeColor</key>
 			<string>0.000000:0.000000:0.000000:1.000000</string>
 			<key>strokeLineCap</key>
@@ -5017,7 +5143,7 @@
 			<key>strokeShadowOffsetX</key>
 			<real>2</real>
 			<key>strokeShadowOffsetY</key>
-			<real>-2</real>
+			<real>2</real>
 			<key>strokeType</key>
 			<integer>0</integer>
 			<key>textAlign</key>
@@ -5054,7 +5180,7 @@
 			<key>userSetTitle</key>
 			<false/>
 			<key>zoomScaleIndex</key>
-			<integer>-1</integer>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>adjustmentRatioX</key>
@@ -5102,7 +5228,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -5142,7 +5268,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -5220,7 +5346,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -5260,7 +5386,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -5338,7 +5464,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -5378,7 +5504,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -5456,7 +5582,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -5496,7 +5622,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -5574,7 +5700,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -5614,7 +5740,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -5693,7 +5819,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -5733,7 +5859,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -5811,7 +5937,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -5851,7 +5977,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -5916,7 +6042,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>frame</key>
@@ -5956,7 +6082,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6027,7 +6153,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>flipped</key>
@@ -6077,7 +6203,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6155,7 +6281,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -6195,7 +6321,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -6266,7 +6392,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6310,7 +6436,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6381,7 +6507,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6425,7 +6551,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6496,7 +6622,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6540,7 +6666,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6611,7 +6737,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6655,7 +6781,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6726,7 +6852,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6770,7 +6896,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6841,7 +6967,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -6885,7 +7011,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -6956,7 +7082,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -7000,7 +7126,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -7071,7 +7197,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -7115,7 +7241,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -7186,7 +7312,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -7230,7 +7356,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -7308,7 +7434,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7348,7 +7474,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -7426,7 +7552,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7466,7 +7592,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -7544,7 +7670,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7584,7 +7710,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -7662,7 +7788,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7702,7 +7828,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -7780,7 +7906,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7820,7 +7946,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -7898,7 +8024,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -7938,7 +8064,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8016,7 +8142,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -8056,7 +8182,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8134,7 +8260,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -8174,7 +8300,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8252,7 +8378,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -8292,7 +8418,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8370,7 +8496,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -8410,7 +8536,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8488,7 +8614,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>5</integer>
 					<key>frame</key>
@@ -8528,7 +8654,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>3</integer>
 					<key>textAlign</key>
@@ -8599,7 +8725,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -8643,7 +8769,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -8714,7 +8840,7 @@
 					<key>fillShadowOffsetX</key>
 					<real>2</real>
 					<key>fillShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>fillType</key>
 					<integer>0</integer>
 					<key>flipped</key>
@@ -8758,7 +8884,7 @@
 					<key>strokeShadowOffsetX</key>
 					<real>2</real>
 					<key>strokeShadowOffsetY</key>
-					<real>-2</real>
+					<real>2</real>
 					<key>strokeType</key>
 					<integer>0</integer>
 					<key>textAlign</key>
@@ -8821,7 +8947,7 @@
 			<key>fillShadowOffsetX</key>
 			<real>2</real>
 			<key>fillShadowOffsetY</key>
-			<real>-2</real>
+			<real>2</real>
 			<key>fillType</key>
 			<integer>0</integer>
 			<key>frame</key>
@@ -8876,7 +9002,7 @@
 			<key>strokeShadowOffsetX</key>
 			<real>2</real>
 			<key>strokeShadowOffsetY</key>
-			<real>-2</real>
+			<real>2</real>
 			<key>strokeType</key>
 			<integer>0</integer>
 			<key>textAlign</key>
@@ -8910,6 +9036,6 @@
 	<key>image_ref_counts</key>
 	<dict/>
 	<key>version</key>
-	<integer>6</integer>
+	<integer>7</integer>
 </dict>
 </plist>

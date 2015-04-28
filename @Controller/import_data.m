@@ -9,11 +9,20 @@ function d = import_data(obj,ms)
 %   Returns
 %   d           Cell array, each cell holding a measurement data as three
 %               column array
+%
+% Rethrows
+% FitIt:InvalidFileStructure:No numeric data recognized.
+% FitIt:InvalidFileStructure:Std missing.
+% FitIt:InvalidFileStructure:Data structure not recognized.
+% FitIt:UIException:Open dialog cancelled.
+%
 
 p = obj.fr.get_file_paths(ms);
 
 c = obj.fr.read_files(p);
 
+
+% FitIt:InvalidFileStructure:Data structure not recognized.
 d = obj.raw_data_to_array(c);
 
 end

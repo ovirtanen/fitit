@@ -1,7 +1,7 @@
 function initialize_menu(obj,p)
 %INITIALIZE_MENU Initializes the menu bar
 
-% FitIt! menu -------------------------------------------------------------
+%% FitIt! menu ------------------------------------------------------------
 fi = uimenu(p,'Label','FitIt!');
 fia = uimenu(fi,'Label','About');
 fia.Callback = @(hObject,callbackdata) obj.controller.about_menu_callback(hObject,callbackdata);
@@ -10,7 +10,7 @@ fiq = uimenu(fi,'Label','Quit');
 fiq.Callback = @(hObject,callbackdata) obj.controller.quit_callback(hObject,callbackdata);
 
 
-% File menu ---------------------------------------------------------------
+%% File menu --------------------------------------------------------------
 f = uimenu(p,'Label','File');
 
 fl = uimenu(f,'Label','Load dataset');
@@ -25,7 +25,7 @@ fs = uimenu(f,'Label','Save dataset');
 fs.Callback = @(hObject,callbackdata) obj.controller.save_data_callback(hObject,callbackdata);
 
 
-% Model menu --------------------------------------------------------------
+%% Model menu -------------------------------------------------------------
 m = uimenu(p,'Label','Model');
 m.Tag = 'model_menu';
 
@@ -39,7 +39,7 @@ for i = 1 : numel(am)
     
 end
 
-% Distribution menu -------------------------------------------------------
+%% Distribution menu ------------------------------------------------------
 d = uimenu(p,'Label','Distribution');
 d.Tag = 'dist_menu';
 
@@ -56,7 +56,20 @@ for i = 1 : numel(ad)
     
 end
 
-% Help menu ---------------------------------------------------------------
+%% View menu
+
+v = uimenu(p,'Label','View');
+v.Tag = 'view_menu';
+
+vloglin = uimenu(v,'Label','Log-lin');
+vloglin.Tag = 'loglin_scale';
+vloglin.Callback = @(hObject,callbackdata) obj.controller.loglin_callback(hObject,callbackdata);
+
+vloglog = uimenu(v,'Label','Log-log');
+vloglog.Tag = 'loglog_scale';
+vloglog.Callback = @(hObject,callbackdata) obj.controller.loglog_callback(hObject,callbackdata);
+
+%% Help menu --------------------------------------------------------------
 h = uimenu(p,'Label','Help');
 c = uimenu(h,'Label','Comfort me');
 c.Callback = @(hObject,callbackdata) obj.controller.comfort_me_callback(hObject,callbackdata);

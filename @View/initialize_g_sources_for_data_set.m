@@ -12,7 +12,20 @@ gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);
 
 % Graphics_source for showing the experimental data
-gs = Graphics_source(si,'errorbar',[0 0 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
+
+switch all(ds.std_exp == 1)
+    
+    case 1  % STD is missing. Bad thing, bad!
+        
+        gs = Graphics_source(si,'scatter',[0 max(ds.q_exp) 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
+        
+    case 0 % STD is there like it should be.
+        
+        gs = Graphics_source(si,'errorbar',[0 0 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
+        
+end % switch
+
+
 obj.active_layout.add_g_source(gs);
 
 end

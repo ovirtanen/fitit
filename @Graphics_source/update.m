@@ -8,18 +8,24 @@ h = obj.g_handle;
 
 l = cellfun(@isempty, {obj.xy obj.x obj.y obj.e});
             
-if all([0 1 1 1] == l)      % xy
+if all([0 1 1 1] == l)    % xy
                 
     [xx,yy] = obj.xy();
     
     h.XData = xx;
     h.YData = yy;
                 
-elseif all([1 0 0 1] == l)  % x,y
+elseif all([1 0 0 1] == l)% x,y
                 
     h.XData = obj.x();
     h.YData = obj.y();
                 
+elseif all([1 0 0 0] == l) && not(isa(h,'matlab.graphics.chart.primitive.ErrorBar')) % x,y,e; eclude e
+                  
+    % error is included in the data, but we don't want to plot it
+    h.XData = obj.x();
+    h.YData = obj.y();
+    
 elseif all([1 0 0 0] == l)  % x,y,e
                   
     h.XData = obj.x();

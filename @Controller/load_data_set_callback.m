@@ -28,7 +28,7 @@ catch ME
    
     if strcmp(ME.message,'Open dialog cancelled.')
         
-        return;
+        return;  
         
     elseif strcmp(ME.message,'Data structure not recognized.')
         
@@ -63,7 +63,22 @@ switch ms
         
        obj.view.delete_g_sources_in_si_axes();
        obj.model.remove_experimental_data();
-       obj.add_data_set_to_model(d{1}); 
+       
+       % check whether STD is included
+       data = d{1};
+       [r,c] = size(data);
+       
+       if c == 2
+           
+           % add STD  = 1
+           data = [data ones(r,1)];
+           
+       end % if
+       
+       data = rm_neg(data);
+       
+       obj.add_data_set_to_model(data); 
+       
        obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        
     otherwise
@@ -75,6 +90,39 @@ end % switch
 obj.view.update_axes;
 
 obj.view.update_f_button_status();
+
+end
+
+function d = rm_neg(d)
+% removes negative intensity values from the data
+
+f = d(:,2) > 0;
+
+s = size(d);
+
+switch s(2)
+   
+    case 2
+        
+        d1 = d(:,1);
+        d2 = d(:,2);
+        
+        d = [d1(f) d2(f)];
+        
+    case 3
+        
+        d1 = d(:,1);
+        d2 = d(:,2);
+        d3 = d(:,3);
+        
+        d = [d1(f) d2(f) d3(f)];
+        
+    otherwise
+        
+        error('Invalid data structure.');
+    
+end
+
 
 end
 

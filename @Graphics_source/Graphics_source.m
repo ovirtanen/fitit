@@ -12,6 +12,7 @@ classdef Graphics_source < handle
     %                           'errorbar'
     %                           'line'
     %                           'bar'
+    %                           'scatter'
     %   axis_lim            variable or function handle returning the axis
     %                       limits [xmin xmax ymin ymax]. If xmin and xmax
     %                       or ymin and ymax are both 0, their update mode
@@ -98,6 +99,10 @@ classdef Graphics_source < handle
                     
                     p = @(x,y) line(x,y,'LineWidth',2);
                     
+                case 'scatter'
+                    
+                    p = @(x,y) scatter(x,y,'MarkerEdgeColor','black');
+                    
                 case 'bar'
                     
                     p = @(x,y) bar(x,y,1,'LineStyle','none','FaceColor',[0 0.4470 0.7410]);
@@ -112,18 +117,26 @@ classdef Graphics_source < handle
             
             l = cellfun(@isempty, {obj.xy obj.x obj.y obj.e});
             
-            if all([0 1 1 1] == l)      % xy
+            if all([0 1 1 1] == l)  && nargin(p) == 2    % xy
                 
                 [xx,yy] = obj.xy();
                 obj.g_handle = p(xx,yy);
                 
-            elseif all([1 0 0 1] == l)  % x,y
+            elseif all([1 0 0 1] == l) && nargin(p) == 2 % x,y
                 
                 xx = obj.x();
                 yy = obj.y();
                 obj.g_handle = p(xx,yy);
                 
-            elseif all([1 0 0 0] == l)  % x,y,e
+            elseif all([1 0 0 0] == l) && nargin(p) == 2 % x,y,e, but exclude e
+                
+                % error is included in the data, but we don't want to plot
+                % it
+                xx = obj.x();
+                yy = obj.y();
+                obj.g_handle = p(xx,yy);
+                
+            elseif all([1 0 0 0] == l) && nargin(p) == 3 % x,y,e
                 
                 xx = obj.x();
                 yy = obj.y();
