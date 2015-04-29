@@ -16,6 +16,9 @@ function hri = trg5(r,tau,rp,sthck,vm)
 % hri           Hard polarization density at points r
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 hri = zeros(numel(r),1);
 hri(abs(r) <= rp) = vm;
 fr = abs(r) <= rp-sthck;

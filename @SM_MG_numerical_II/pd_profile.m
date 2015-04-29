@@ -25,6 +25,9 @@ function [rprf, prf] = pd_profile(nc,rhard,sd,cpd,mxspd,fuzz)
 % resolution.
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 rng = rhard+2.*fuzz;                % range of values
 
 w = rng ./ nc;                      % quadrature weight rng - (-rng) / nc

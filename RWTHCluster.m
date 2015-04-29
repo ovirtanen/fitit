@@ -4,6 +4,9 @@ function RWTHCluster()
 % models on data
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 % add path to FitIt at RWTH Linux cluster
 addpath(genpath('/home/ov117132/MATLAB/FitIt'));
 

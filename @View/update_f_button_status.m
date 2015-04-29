@@ -10,6 +10,9 @@ function update_f_button_status(obj)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 ds = obj.model.data_sets;
 
 if isempty (ds) || any(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp}))

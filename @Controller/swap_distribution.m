@@ -9,6 +9,9 @@ function swap_distribution(obj,dist)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 if not(isa(dist,'Distribution'))
     
     error('Parameter is not a Distribution instance.');

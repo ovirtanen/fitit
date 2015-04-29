@@ -1,6 +1,9 @@
 classdef DST_Lognrml < Distribution & handle
     %GAUSSIAN Lognormal PSD for Scattering_model
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         name = 'Lognormal PSD';

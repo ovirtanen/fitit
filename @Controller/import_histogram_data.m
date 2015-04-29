@@ -16,6 +16,9 @@ function d = import_histogram_data( obj )
 % FitIt:UIException:Open dialog cancelled.
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 c = obj.fr.read_files('off');
 c = c{1};
 

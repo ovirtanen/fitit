@@ -7,6 +7,9 @@ function m = mean(obj,~)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 % ack(1): a, ack(2): c, ack(3):k
 ack = cell2mat(obj.params(:,2));
 

@@ -9,6 +9,10 @@ classdef Controller < handle
     %               initialized, in cluster mode not.
     %
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
+    
     properties (SetAccess = private)
        
         model;

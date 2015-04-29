@@ -8,6 +8,9 @@ function p = get_param_vector(obj)
 %                     
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 p = cell2mat(obj.params(:,2));
 
 

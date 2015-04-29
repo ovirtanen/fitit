@@ -13,6 +13,9 @@ function [bg,pp,dp,b] = initialize_smodel_controls(obj,f)
 %   b           handle to the fit button
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 
 if isempty(obj.layouts)
    error('Layout has to be initialized first.'); 

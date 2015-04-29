@@ -5,6 +5,9 @@ classdef (ConstructOnLoad = true) File_reader < handle
     %   documentation), returns a FileReader instance
     %   
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (SetAccess = private)
         
         last_load_path;

@@ -8,6 +8,8 @@ function swap_panel(obj,tag)
 %   tag         Tag of the parameter panel to be swapped, 'dist_panel' or
 %               'sm_panel'
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 obj.d_panel.Visible = 'off';
 obj.f_button.Visible = 'off';

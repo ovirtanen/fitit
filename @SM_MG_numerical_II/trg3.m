@@ -16,6 +16,9 @@ function [ hri ] = trg3(r,rinc,rp,v,vm)
 % hri           Hard polarization density at points r
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 fb = abs(r) <= rinc;                  % box
 fr = not(fb) & abs(r) <= rp;          % exponential ramp
 

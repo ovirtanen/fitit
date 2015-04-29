@@ -9,6 +9,8 @@ classdef Model < handle
     %
     %
 
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
 
     
     properties (SetAccess = private)

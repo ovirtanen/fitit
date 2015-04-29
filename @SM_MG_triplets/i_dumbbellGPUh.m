@@ -18,6 +18,10 @@ function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
 %
 %   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
+
 % Form grids for both sub units of the dumbbell
 % r1 =[r1 r1 r1 ... r1          r2 =[r1 r2 r3 ... rn
 %      r2 r2 r2 ... r2               r1 r2 r3 ... rn

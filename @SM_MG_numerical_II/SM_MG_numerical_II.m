@@ -3,6 +3,9 @@ classdef SM_MG_numerical_II < Scattering_model_spherical & handle
     %   Detailed explanation goes here
    
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         name = 'Numerical Microgel Model II';

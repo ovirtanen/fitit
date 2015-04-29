@@ -3,6 +3,9 @@ classdef Axes_layout < handle
     %their Graphics_sources
     % 
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (SetAccess = private)
         
         % minimum dimensions of the output panel

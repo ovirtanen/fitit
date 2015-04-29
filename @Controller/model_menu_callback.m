@@ -3,6 +3,9 @@ function model_menu_callback(obj,hObject,callbackdata)
 %bar model menu
 %  
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 asm = obj.model.get_active_s_model();
 d = asm.dist;
 

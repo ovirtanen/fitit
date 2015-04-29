@@ -16,6 +16,8 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   Returns
 %   i_mod       Scattered intensity at points q
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 a = p(1);
 sthck = p(2);

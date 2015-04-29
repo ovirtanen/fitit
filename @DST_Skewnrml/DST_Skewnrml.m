@@ -1,6 +1,9 @@
 classdef DST_Skewnrml < Distribution & handle
     %DST_SKEWNRML Skewed normal PSD for Scattering_model
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         name = 'Skew normal PSD';

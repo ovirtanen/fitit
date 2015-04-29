@@ -2,6 +2,9 @@ function quit_callback(obj,hObject,callbackdata)
 %QUIT_CALLBACK Deletes Model, View and Controller
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 sms = obj.model.s_models;
 sms = sms(isa(sms,'GPU'));
 

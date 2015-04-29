@@ -17,6 +17,9 @@ function hri = trg6(r,rinc,rp,sthck,v,vm)
 % hri           Hard polarization density at points r
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 hri = zeros(numel(r),1);
 
 fb = abs(r) <= rinc.*rp;              % box

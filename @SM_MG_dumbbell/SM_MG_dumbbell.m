@@ -9,6 +9,9 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
 %
 %
     
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
     properties (Constant)
        
         name = 'Microgel dumbbell aggregation model';

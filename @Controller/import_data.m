@@ -17,6 +17,9 @@ function d = import_data(obj,ms)
 % FitIt:UIException:Open dialog cancelled.
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 p = obj.fr.get_file_paths(ms);
 
 c = obj.fr.read_files(p);

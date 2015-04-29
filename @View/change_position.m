@@ -9,6 +9,8 @@ function change_position(element,l,h)
 %   h               New height
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 current_pos = element.Position;
 

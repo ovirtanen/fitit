@@ -8,6 +8,9 @@ function add_data_set_to_model(obj,d)
 %   d          Data array with three columns [q_exp i_exp std_exp]
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 [rows,cols] = size(d);
 
 if not(all([cols == 3 rows >= 3]))

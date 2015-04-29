@@ -7,6 +7,9 @@ function edit_box_callback(obj,hObject,callbackdata)
 %   will be retrieved from the model and rendered.
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 tag = hObject.Tag;
 v = hObject.String;
 

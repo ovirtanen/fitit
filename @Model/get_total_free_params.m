@@ -3,6 +3,9 @@ function l = get_total_free_params(obj)
 %the total parameter vector are not fixed.
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 l = logical(obj.bg.get_param('bg_chck'));
 
 if numel(obj.s_models) == 1

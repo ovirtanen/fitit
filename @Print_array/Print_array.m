@@ -2,6 +2,9 @@ classdef Print_array < handle
     %PRINT_ARRAY Class for holding for writing to a file column wise
     %   
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Access = private)
         
         op_columns;             % output columns

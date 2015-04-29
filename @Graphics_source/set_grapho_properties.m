@@ -9,6 +9,9 @@ function set_grapho_properties( obj, varargin )
 %   Propertyvalue       Value for the property
 %
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
     
 if mod(numel(varargin),2) ~= 0
     

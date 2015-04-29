@@ -7,6 +7,8 @@ function replace_s_model(obj,sm)
 %   sm      Scattering_model instance that deletes and replaces the
 %           currently active Scattering_model
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 switch numel(obj.s_models)
    

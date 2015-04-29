@@ -1,6 +1,8 @@
 function display_about_box(obj)
 %DISPLAY_ABOUT_BOX Displays the about dialog box
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 msg = {'FitIt',...
        ['version ' num2str(obj.version)],...

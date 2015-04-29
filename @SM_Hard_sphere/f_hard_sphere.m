@@ -11,6 +11,9 @@ function f = f_hard_sphere(qr)
 %   p           Scattering amplitude of the sphere at points q
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 f = (3.* (sin(qr) - qr.*cos(qr))./ (qr).^3);
 
 end

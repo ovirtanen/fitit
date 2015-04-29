@@ -2,6 +2,9 @@ function update_sliders( obj )
 %UPDATE_SLIDERS Fetches values for '*_val' boxes from the model and
 %updates the corresponding slider positions
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 m = obj.model;
 handles = {obj.bg_panel.Children obj.p_panel.Children obj.d_panel.Children};
 

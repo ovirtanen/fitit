@@ -4,6 +4,9 @@ function [rprf,prf] = radial_profile(obj)
 %   [rprf,prf] = radial_profile()
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 mean = obj.dist.mean();
 fuzz = obj.get_param('fuzz_val');
 nc = 100;

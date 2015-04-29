@@ -2,6 +2,9 @@ function load_data_set_callback(obj,hObject,callbackdata)
 %LOAD_DATA_SET_CALLBACK Callback for loading datasets
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 ms = [];
 switch hObject.Tag;
     

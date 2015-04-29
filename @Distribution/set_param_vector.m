@@ -8,6 +8,9 @@ function set_param_vector(obj,p)
 %   p           Parameter vector
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 if numel(p) ~= numel(obj.p_ids)
     
     error('Parameter vector does not have the right number of parameters');

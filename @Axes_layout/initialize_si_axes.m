@@ -1,5 +1,8 @@
 function si = initialize_si_axes(obj)
 % scattered intensity
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
         
 si = axes('Parent',obj.axes_panel);
 si.Tag = 'si_axes';

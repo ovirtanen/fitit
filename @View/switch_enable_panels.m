@@ -8,6 +8,9 @@ function switch_enable_panels(obj,toggle)
 %                   disabled
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 controls = {obj.bg_panel obj.p_panel obj.d_panel};
 
 f = @(x) [x.Children];

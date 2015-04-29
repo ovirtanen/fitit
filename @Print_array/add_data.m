@@ -12,6 +12,9 @@ function add_data(obj,varargin)
 %   header      column header string
 %   units       column units string
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 ind = find(cellfun(@isempty,obj.op_columns),1);
 
 if isempty(ind) % if obj.op_columns is full

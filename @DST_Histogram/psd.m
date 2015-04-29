@@ -13,7 +13,8 @@ function [rpsd,psd,w] = psd(obj,~,p)
 %   psd         Value of the PSD at rpsd
 %   w           Quadrature weight for midpoint rule
 
-
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 
 shift = p(1);

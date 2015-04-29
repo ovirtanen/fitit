@@ -15,6 +15,9 @@ function m = read_ns_files(obj,ms)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 p = obj.get_file_paths(obj.filter_spec,ms);
 m = cell(numel(p),1);
 

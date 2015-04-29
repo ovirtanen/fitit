@@ -7,6 +7,9 @@ function h = initialize_figure(obj)
 % h         handle for the Figure instance, 'Visible' 'off'
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 h = figure('Name','FitIt!','Visible','off');
 h.Tag = 'Root';
 h.NumberTitle = 'off';

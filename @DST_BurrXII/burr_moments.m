@@ -12,6 +12,8 @@ function m = burr_moments(o,a,c,k)
 % Returns
 % m         the oth moment of the distribution
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 try
     m = a.^o .* k .* beta((c.*k-o)./c,(c+o)./c);

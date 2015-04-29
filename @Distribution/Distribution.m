@@ -22,6 +22,9 @@ classdef Distribution < handle
     %    lims = axis_lims(obj);
     %
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         available_distributions = {'Burr Type XII PSD';...

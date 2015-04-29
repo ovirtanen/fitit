@@ -25,6 +25,9 @@ function p = vnumP(rc,w,pd,q)
 % See Scattering Bible, Stieger, notes or whatever.
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 % Force to column vectors
 pd = pd(:);
 rc = rc(:);

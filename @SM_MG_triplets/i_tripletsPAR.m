@@ -20,6 +20,9 @@ function [id,mwnd] = i_tripletsPAR(q,rpsd,psd,w,xl,xc,pds,pdc)
 %
 %   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 
 
 r1 = rpsd(:) * ones(1,numel(rpsd));

@@ -4,6 +4,9 @@ classdef (ConstructOnLoad = true) FileWriter < handle
     %instance and fspec the filterspec string, initializes a new FileWriter
     %instance.
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (SetAccess = private)
        
         printArrays;

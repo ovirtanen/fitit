@@ -1,6 +1,8 @@
 function b = initialize_fit_button(obj,p)
 %INITIALIZE_FIT_BUTTON Initializes fit button
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 b = uicontrol(p,'Style','pushbutton','Units','pixels');
 b.Callback = @(hObject,callbackdata) obj.controller.f_button_callback(hObject,callbackdata);

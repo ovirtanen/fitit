@@ -3,6 +3,9 @@ classdef Scattering_model_spherical < Scattering_model & handle
     %scattering models with spherical symmetry
     %  
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     methods (Static)
        
         p = vnumP(rc,w,pd,q);

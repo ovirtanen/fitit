@@ -7,6 +7,9 @@ function m = mean(obj,~)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 w = mean(diff(obj.rpsd));
 m = sum(obj.rpsd .* obj.hpsd  .* w);
 

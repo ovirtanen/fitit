@@ -15,7 +15,8 @@ function m = read_files(obj,p)
 %   Rethrows: 
 %       FitIt:UIException:Open dialog cancelled.
 
-%p = obj.get_file_paths(obj.filter_spec,ms);
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 if not(iscellstr(p))
    

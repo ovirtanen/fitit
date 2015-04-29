@@ -5,6 +5,9 @@ function remove_experimental_data(obj)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 obj.data_sets = [];
 
 end

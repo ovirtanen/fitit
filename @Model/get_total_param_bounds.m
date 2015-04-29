@@ -2,6 +2,8 @@ function [lb,ub] = get_total_param_bounds(obj)
 %GET_TOTAL_PARAM_BOUNDS Lower and upper bounds for the total parameter
 %vector
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 lb = obj.bg.get_param('bg_min');
 ub = obj.bg.get_param('bg_max');

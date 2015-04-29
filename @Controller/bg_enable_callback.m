@@ -3,6 +3,9 @@ function bg_enable_callback(obj,hObject,callbackdata)
 %scattering
 %  
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 state = hObject.Value;
 
 panel = ancestor(hObject,'uipanel');

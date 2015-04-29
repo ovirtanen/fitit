@@ -7,6 +7,9 @@ function m = mean(obj,~)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 loc = obj.get_param('loc_val');
 wdth = obj.get_param('b_val');
 skwns = obj.get_param('c_val');

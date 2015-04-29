@@ -10,6 +10,9 @@ function writeToFile(obj,pindarray, path)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 fid = fopen(path,'w');
 
 if fid == -1

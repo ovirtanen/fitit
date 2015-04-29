@@ -5,6 +5,9 @@ function d = initialize_dist_axes(obj,si)
 % pos = [left bottom width height]
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 o_units = si.Units;
 si.Units = 'normalized';
 

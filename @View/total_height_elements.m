@@ -13,6 +13,9 @@ function th = total_height_elements(v_spacer,varargin)
 %   Returns
 %   th              Total height in the same units as the elements p1,...
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 f = @(x) x.Units;
 
 if numel(unique(cellfun(f,varargin,'UniformOutput',0))) ~= 1

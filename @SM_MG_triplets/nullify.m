@@ -10,6 +10,9 @@ function a = nullify(a)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 [~,~,z] = size(a);
 
 for i = 2:z

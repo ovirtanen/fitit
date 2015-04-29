@@ -2,6 +2,8 @@ function load_histogram_callback(obj,hObject,callbackdata)
 %LOAD_HISTOGRAM_CALLBACK Callback for loading custom histogram as
 %PSD distribution
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 try 
     

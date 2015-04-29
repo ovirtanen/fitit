@@ -2,6 +2,9 @@ classdef SM_Stieger < Scattering_model_spherical & handle
     %SM_STIEGER Scattering model for Stieger microgel
     %   Detailed explanation goes here
     
+    % Copyright (c) 2015, Otto Virtanen
+	% All rights reserved.
+    
     properties (Constant)
        
         name = 'Stieger Microgel Model';

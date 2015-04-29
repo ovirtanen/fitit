@@ -8,6 +8,9 @@ function p = get_file_paths(obj,ms)
 %   Throws:
 %       FitIt:UIException:Open dialog cancelled.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 [filenames, pathnames, ~] = uigetfile(obj.filter_spec,'Select files for import','MultiSelect',ms,obj.last_load_path);
             
 if isequal(filenames,0) || isequal(pathnames,0)

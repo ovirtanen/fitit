@@ -28,6 +28,9 @@ classdef Graphics_source < handle
     %   whenever the plot needs to be refreshed.
     %
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (SetAccess = private)
         
         target_axis;

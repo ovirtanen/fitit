@@ -1,6 +1,9 @@
 function initialize_menu(obj,p)
 %INITIALIZE_MENU Initializes the menu bar
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 %% FitIt! menu ------------------------------------------------------------
 fi = uimenu(p,'Label','FitIt!');
 fia = uimenu(fi,'Label','About');

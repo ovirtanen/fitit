@@ -4,6 +4,9 @@ function pind = addParray(obj, pa)
 %   FileWriter. Returns Print_array index pind for further reference to 
 %   this instance.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 pind = obj.parrayIndex;
 obj.printArrays = [obj.printArrays pa];
 obj.parrayIndex = obj.parrayIndex + 1;

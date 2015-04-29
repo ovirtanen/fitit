@@ -8,6 +8,8 @@ classdef Data_set
     %   i_exp           Experimental scattered intensity as vector
     %   std_exp         Experimental std of the intensity
 
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
     
     
     properties (SetAccess = private)

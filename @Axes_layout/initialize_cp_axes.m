@@ -1,6 +1,9 @@
 function cp = initialize_cp_axes(obj,si)
 % contrast profiles
 % expects si units to be normalized
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
      
 o_units = si.Units;
 si.Units = 'normalized';

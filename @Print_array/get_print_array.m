@@ -2,6 +2,9 @@ function pa = get_print_array(obj)
 %GET_PRINT_ARRAY Returns a cell array containing the data to be printed
 %   pa = get_print_array() returns a x b cellarray containing
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 cols = obj.op_columns;
 
 % There might be empty cells in cols because the size of the cols is always

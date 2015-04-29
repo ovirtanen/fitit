@@ -2,6 +2,8 @@ classdef SM_MG_numerical_IV < Scattering_model_spherical & handle
     %SM_VIRTANEN Summary of this class goes here
     %   Detailed explanation goes here
    
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
     
     properties (Constant)
        

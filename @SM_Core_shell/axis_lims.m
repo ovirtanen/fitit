@@ -7,6 +7,9 @@ function lims = axis_lims(obj)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 pdc = obj.get_param('pdc_val');
 pds = obj.get_param('pds_val');
 

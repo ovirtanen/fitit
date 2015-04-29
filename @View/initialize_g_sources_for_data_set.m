@@ -3,6 +3,9 @@ function initialize_g_sources_for_data_set(obj,ds)
 %the last added Data_set instance
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
 %% Graphics_source for plotting the model intensity

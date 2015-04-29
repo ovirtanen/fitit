@@ -7,6 +7,9 @@ classdef SM_MG_triplets < Scattering_model_spherical & Parallel_capable & handle
 %   d           Distribution instance
 %
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
     
     properties (Constant)
        

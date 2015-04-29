@@ -4,6 +4,9 @@ function [rprf, prf] = radial_profile(obj)
 %   [rprf,prf] = radial_profile()
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 nc = 100;
 rhard = obj.dist.mean();
 sd = obj.get_param('sd_val');

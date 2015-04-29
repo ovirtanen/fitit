@@ -2,6 +2,9 @@ classdef Parallel_capable < handle
     %PARALLEL_capable Meta Class for checking GPU and multiple worker
     %support
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (SetAccess = private)
         
         g_device;

@@ -10,6 +10,9 @@ function p = p_mg_stieger(qr,q,f)
 %               values
 %   f           fuzziness parameter
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 
 p = (SM_Hard_sphere.f_hard_sphere(qr) .* exp(-f.*q./2)).^2;
 

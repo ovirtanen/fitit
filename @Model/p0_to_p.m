@@ -14,6 +14,9 @@ function p = p0_to_p(p0,p,pf)
 %               elements of p0
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 p(pf) = p0;
 
 

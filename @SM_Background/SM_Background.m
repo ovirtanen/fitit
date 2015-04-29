@@ -3,6 +3,9 @@ classdef SM_Background < Scattering_model & handle
 %
 %   obj = SM_Background()
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
     
 properties (Constant)
             

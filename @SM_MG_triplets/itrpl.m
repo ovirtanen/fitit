@@ -13,6 +13,9 @@ function p = itrpl(q,r1,r2,r3,xc,xl,pds,pdc,psdw)
 %   pdc         Polarization density of the shell
 %   psdw        Total mole fraction of particles consisting of r1 r2 and r3
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 
 
 m3r1 = SM_MG_triplets.m3(r1,xc.*r1,pds,pdc);

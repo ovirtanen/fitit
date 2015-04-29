@@ -13,6 +13,8 @@ function resize_figure(obj,bottom_spacer,new_height)
 %                       spacers
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 
 op = findobj(obj.gui,'Tag','output_panel');

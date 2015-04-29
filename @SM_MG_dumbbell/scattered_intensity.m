@@ -20,7 +20,8 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %
 %   Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
 
-
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 a = p(1);
 frs = p(2) ./ 100;      % note change to fraction

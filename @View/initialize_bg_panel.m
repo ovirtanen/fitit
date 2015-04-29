@@ -2,6 +2,9 @@ function p = initialize_bg_panel(obj,p)
 %INITIALIZE_BG_PANEL Initializes the background parameter panel for GUI
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 parent = p;
 source = obj.model.bg;
 tags = Scattering_model.param_ids_to_tags(source.p_ids,'gui');

@@ -2,6 +2,9 @@ function update(obj)
 %UPDATE Updates the contents of graphics objects
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 h = obj.g_handle;
 
 % update data -------------------------------------------------------------

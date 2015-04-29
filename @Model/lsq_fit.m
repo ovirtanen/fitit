@@ -16,6 +16,9 @@ function p = lsq_fit(obj,varargin)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 switch nargin
    
     case 1

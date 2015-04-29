@@ -6,6 +6,9 @@ function p = getSavePath(obj)
 %  THROWS
 %   DLS_analyzer:UIException:Save dialog cancelled.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 [filename, pathname, ~] = uiputfile(obj.filterspec,'Specify save destination',obj.lastSavePath);
             
 if isequal(filename,0) || isequal(pathname,0)

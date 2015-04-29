@@ -6,6 +6,9 @@ function p = weight(p,r1,r2,r3,w)
 % P(r1,r1,r3) = 3 * x1^2 * x3
 % P(r1,r1,r1) = x1^3
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 if r1 == r2 == r3       % all particles in triplet have the same size
     
     p = p .* w.^3;

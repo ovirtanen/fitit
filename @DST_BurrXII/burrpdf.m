@@ -8,6 +8,8 @@ function d = burrpdf(r,a,c,k)
 % p_c           Burr parameter c, "left skewness" parameter
 % p_k           Burr parameter k, "right skewness" parameter
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 d = (k.*c./a).*(r./a).^(c-1)./ (1 + (r./a).^c).^(k+1);
 d = real(d);        % for some reason Matlab wants to add 0.00...i component to output

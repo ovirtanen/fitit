@@ -6,6 +6,10 @@ function add_data_set(obj,ds)
 %   Parameters
 %   ds          
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 if isa(ds,'Data_set')
     
     obj.data_sets = [obj.data_sets ds];

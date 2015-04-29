@@ -14,6 +14,8 @@ function p = initialize_param_panel(obj,prnt,source,tag)
 %   p               Panel with elements specified by source
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 if not(any([isa(source,'Scattering_model') isa(source,'Distribution')]))
    

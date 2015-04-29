@@ -8,6 +8,9 @@ function g = initialize_gui(obj)
 %   g           handle for the root Figure
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 
 g = obj.initialize_figure();                % Root Figure
 

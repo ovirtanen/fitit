@@ -7,6 +7,9 @@ function lims = axis_lims(obj)
 %   lims            [xmin xmax ymin ymax], if either pair is 0 0, LimMode
 %                   is set to 'auto' in Graphics_source
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 xmin = obj.get_param('a_min');
 xmax = obj.get_param('a_max');
 

@@ -8,8 +8,8 @@ classdef DST_Histogram < Distribution & handle
     % rpsd          Evenly distributed collocation points of the PSD
     % hpsd          Values of the PSD at points rpsd
     
-    %
-    
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
     
     properties (Constant)
        

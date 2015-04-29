@@ -7,6 +7,8 @@ function swap_s_model(obj,sm)
 %   sm          A Scattering_model instance
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 if not(isa(sm,'Scattering_model'))
     

@@ -1,6 +1,9 @@
 classdef DST_Gaussian < Distribution & handle
     %GAUSSIAN Gaussian PSD for Scattering_model
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         name = 'Gaussian PSD';

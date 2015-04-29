@@ -8,6 +8,9 @@ function save_data(obj,varargin)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 m = obj.model;
 ds = m.data_sets;
 

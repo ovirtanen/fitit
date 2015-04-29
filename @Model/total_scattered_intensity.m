@@ -13,6 +13,9 @@ function [i_mod] = total_scattered_intensity(obj,nc,q)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 i_mod = zeros(numel(q),1);
 
 for i = 1:numel(obj.s_models)

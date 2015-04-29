@@ -3,6 +3,9 @@ function dist_menu_callback(obj,hObject,callbackdata)
 %menu bar menu
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 switch hObject.Label
     
     case 'Burr Type XII PSD'

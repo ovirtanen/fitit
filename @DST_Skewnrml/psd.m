@@ -15,7 +15,8 @@ function [rpsd,psd,w] = psd(nc,p)
 %   psd         Value of the PSD at rpsd
 %   w           Quadrature weight for midpoint rule
 
-
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 
 loc = p(1);

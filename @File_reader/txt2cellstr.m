@@ -9,6 +9,9 @@ function [c] = txt2cellstr(~, fid, eol)
 % Unix eol: char(10)
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 s = transpose(fread(fid, 'uchar=>char'));
 s = strrep(s, eol, char(10));
 

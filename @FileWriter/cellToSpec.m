@@ -6,6 +6,9 @@ function spc = cellToSpec(c,d)
 %
 %   Example: cellToSpec({2 3 'shit'},'\t') returns '%d\t%d\t%s'
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 if min(size(c)) ~= 1
    error('Only one dimensional cellstrings are supported by cellToSpec.'); 
 end

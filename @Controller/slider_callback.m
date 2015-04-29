@@ -2,6 +2,9 @@ function slider_callback(obj,hObject,callbackdata)
 %SLIDER_CALLBACK Callback for parameter sliders in FitIt GUI
 %   
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 tag = hObject.Tag;
 id = tag(1:end-5);
 panel = ancestor(hObject,'uipanel');

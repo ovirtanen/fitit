@@ -7,7 +7,9 @@ classdef View < handle
     %   Parameters
     %   c       Controller instance
     %   m       Model instance
-    %
+    
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
     
     
     properties (SetAccess = private)

@@ -4,6 +4,9 @@ function delete_si_sources(obj)
 %
 %   delete_si_sources()
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 switch numel(obj.g_sources)
    
     case 0

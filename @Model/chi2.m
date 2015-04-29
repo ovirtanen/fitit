@@ -17,6 +17,9 @@ function c = chi2(i_exp,std,p,handles)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 i_mod = zeros(numel(i_exp),1);
 
 % combined intensity from all the models

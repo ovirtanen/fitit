@@ -5,6 +5,9 @@ function set_total_parameter_vector(obj,p)
 %   set_total_parameter_vector(p)
 %
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
     
 obj.bg.set_param('bg_val',p(1));
     

@@ -1,6 +1,9 @@
 classdef DST_BurrXII < Distribution & handle
     %BURRXII Burr Type XII PSD for Scattering_model
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
+    
     properties (Constant)
        
         name = 'Burr Type XII PSD';

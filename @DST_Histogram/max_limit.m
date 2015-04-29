@@ -2,6 +2,8 @@ function mx = max_limit(obj)
 %MAX_LIMIT Maximum limit of the distribution
 %  
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 if max(obj.rpsd) <= 1000
    

@@ -25,7 +25,8 @@ function d = raw_data_to_array(obj,c)
 % FitIt:UIException:Open dialog cancelled.
 %
 
-%c = obj.fr.read_files(ms);
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 d = cell(numel(c),1);
 

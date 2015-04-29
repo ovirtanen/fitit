@@ -4,6 +4,9 @@ function f_button_callback(obj,hObject,callbackdata)
 %   f_button_callback(hObject,callbackdata)
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 obj.view.disable_f_button();
 obj.view.switch_enable_panels('off');
 drawnow();

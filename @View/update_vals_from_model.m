@@ -6,6 +6,9 @@ function update_vals_from_model(obj)
 %
 %   Does not handle multiple scattering models yet!
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 m = obj.model;
 handles = {obj.bg_panel.Children obj.p_panel.Children obj.d_panel.Children};
 

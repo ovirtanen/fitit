@@ -7,6 +7,9 @@ classdef SM_Core_shell < Scattering_model_spherical & handle
 %   d           Distribution instance
 %
 %
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
     
     properties (Constant)
        

@@ -1,6 +1,9 @@
 function si_scale_callback(obj,hObject,callbackdata)
 %SI_SCALE_CALLBACK Callback for changing the scale of si axis
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 si = findobj(obj.view.gui,'Tag','si_axes');
 
 switch hObject.Tag

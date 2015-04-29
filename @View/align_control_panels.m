@@ -13,6 +13,9 @@ function align_control_panels(obj,p,h_spacer,top_spacer,v_spacer,varargin)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 f = @(x) isa(x,'matlab.ui.container.Panel');
 
 if not(all(cellfun(f,varargin)))

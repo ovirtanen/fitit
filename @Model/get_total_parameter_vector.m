@@ -11,6 +11,9 @@ function p = get_total_parameter_vector(obj)
 %               background scattering
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 p = obj.bg.get_param('bg_val');
 
 if numel(obj.s_models) == 1

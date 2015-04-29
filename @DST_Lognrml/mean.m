@@ -7,6 +7,9 @@ function m = mean(obj,~)
 %
 %
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 u = obj.get_param('mean_val');
 s = obj.get_param('b_val');
 

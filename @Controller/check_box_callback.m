@@ -2,6 +2,8 @@ function check_box_callback(obj,hObject,callbackdata)
 %CHECK_BOX_CALLBACK Callback for parameter fixing checkboxes in FitIt GUI
 %  
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 tag = hObject.Tag;
 v = hObject.Value;
