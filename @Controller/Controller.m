@@ -13,6 +13,8 @@ classdef Controller < handle
     % All rights reserved.
     
     
+    %% Properties
+    
     properties (SetAccess = private)
        
         model;
@@ -20,9 +22,19 @@ classdef Controller < handle
         fr;
         fw;
         
+        gpu;
+        
     end
     
+    properties (Access = private)
+       
+        gpu_enabled_global;
+        par_enabled_global;
+       
+        
+    end
     
+    %%
     methods (Access = public)
         
         %% Constructor
@@ -31,6 +43,12 @@ classdef Controller < handle
             obj.model = m;
             obj.fr = File_reader('.txt');
             obj.fw = FileWriter(obj,'.txt');
+            
+            obj.gpu_enabled_global = 0;
+            obj.par_enabled_global = 0;
+            
+            % Select the default GPU if available
+            obj.gpu = gpuDevice(1);
             
             switch mode
                
@@ -68,9 +86,11 @@ classdef Controller < handle
         dist_menu_callback(obj,hObject,callbackdata);
         edit_box_callback(obj,hObject,callbackdata);
         f_button_callback(obj,hObject,callbackdata);
+        gpu_switch_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
         load_histogram_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
+        par_switch_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);
         si_scale_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);

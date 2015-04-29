@@ -59,6 +59,36 @@ for i = 1 : numel(ad)
     
 end
 
+%% Tools menu
+
+t = uimenu(p,'Label','Tools');
+t.Tag = 'tools_menu';
+
+tgpu = uimenu(t,'Label','Enable GPU');
+tgpu.Tag = 'gpu_switch';
+tgpu.Callback = @(hObject,callbackdata) obj.controller.gpu_switch_callback(hObject,callbackdata);
+
+tpar = uimenu(t,'Label','Enable Multiple Workers');
+tpar.Tag = 'par_switch';
+tpar.Callback = @(hObject,callbackdata) obj.controller.par_switch_callback(hObject,callbackdata);
+
+% Check whether Parallel Computing Toolbox is installed
+
+v = ver();
+tbs = {v.Name}';
+
+if not(any(strcmp(tbs,'Parallel Computing Toolbox')))
+    
+    tgpu.Enable = 'off';
+    tpar.Enable = 'off';
+    
+elseif isempty(obj.controller.gpu)
+    
+    % no GPU available
+    tgpu.Enable = 'off';
+    
+end % if
+
 %% View menu
 
 v = uimenu(p,'Label','View');

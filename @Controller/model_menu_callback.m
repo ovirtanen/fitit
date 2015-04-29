@@ -23,12 +23,12 @@ switch hObject.Label
         
     case 'Microgel dumbbell aggregation model'
         
-        sm = SM_MG_dumbbell(d);
+        sm = SM_MG_dumbbell(d,obj.gpu_enabled_global,obj.par_enabled_global);
         obj.swap_s_model(sm);
         
     case 'Microgel triplet aggregation model'
         
-        sm = SM_MG_triplets(d);
+        sm = SM_MG_triplets(d,obj.gpu_enabled_global,obj.par_enabled_global);
         obj.swap_s_model(sm);
         
     case 'Stieger Microgel Model'
@@ -59,7 +59,7 @@ switch hObject.Label
         
     otherwise
         
-        error('Distribution label not recognized.');
+        error('Model label not recognized.');
     
 end % switch
 

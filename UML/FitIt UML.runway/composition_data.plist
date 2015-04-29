@@ -4010,7 +4010,8 @@
 					NDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0
 					NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4
 					NjcyMFxwYXJkaXJuYXR1cmFsXHFjCgpcZjBc
-					ZnMyNCBcY2YwIFx1cDAgR1BVX2NhcGFibGV9
+					ZnMyNCBcY2YwIFx1cDAgUGFyYWxsZWxfY2Fw
+					YWJsZX0=
 					</data>
 					<key>attributesHidden</key>
 					<false/>
@@ -5125,7 +5126,7 @@
 			<key>scaleImage</key>
 			<true/>
 			<key>scrollCenterPoint</key>
-			<string>{639.33333333333326, 399.33333333333331}</string>
+			<string>{639.5, 399.5}</string>
 			<key>strokeColor</key>
 			<string>0.000000:0.000000:0.000000:1.000000</string>
 			<key>strokeLineCap</key>

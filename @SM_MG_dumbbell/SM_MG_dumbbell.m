@@ -42,7 +42,9 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
     
     methods (Access = public)
        
-        function obj = SM_MG_dumbbell(d)
+        function obj = SM_MG_dumbbell(d,b_gpu,b_par)
+            
+            obj = obj@Parallel_capable(b_gpu,b_par);
             
             obj.dist = d;
             

@@ -29,58 +29,78 @@ function [id,mwnd] = i_dumbbell(q,rpsd,psd,w,xc,pds,pdc)
 % Dumbbell:
 % r1 - r2
 %
-r1 = (rpsd(:)) * ones(1,numel(rpsd));
+r1 = rpsd(:) * ones(1,numel(rpsd));
 r2 = r1';
 
 % Weight grid for the integral in 2d, psd.^2.*w.^2
-psdw = (psd(:)) * psd(:)' .* w.^2; 
+% The factor two comes because only triu(psdw) is needed for the calculation
+% as the other half is just duplication. However only values triu(psdw,1)
+% should be doubled, and not the diagonal
+psdw = 2.* psd(:) * psd(:)' .* w.^2;
+d = 1:length(psdw)+1:(length(psdw)+1)*length(psdw); % diagonal indices
+psdw(d) = psdw(d) ./ 2;
 
-% Expand to 3D so that each entry in the 3rd dimension corresponds to one
-% q value
-l= size(r1);
-r1 = repmat(r1,[1 1 numel(q)]);
-r2 = repmat(r2,[1 1 numel(q)]);
-psdwg = repmat(psdw,[1 1 numel(q)]);
+% logical array for upper diagonal of r1,r2 and psdw
+fil = logical(triu(ones(size(r1))));
 
-% q cube, each grid has only one q value
-% q(:,:,1) =  [q1 q1 q1 ... q1
-%              q1 q1 q1 ... q1
-%               . .  .      .  
-%              q1 q1 q1 ... q1]
-q = reshape(kron(q(:)',ones(l)),max(l),max(l),length(q));
+% column vectors
+r1 = r1(fil);
+r2 = r2(fil);
+psdw = psdw(fil);
+
+% expand arrays for each q entry
+r1g = repmat(r1,1,numel(q));
+r2g = repmat(r2,1,numel(q));
+psdwg = repmat(psdw,1,numel(q));
+qg = repelem(q(:)',numel(r1),1);
+
+% qg = [q1 q2 q3 ... qn
+%       q1 q2 q3 ... qn
+%       .  .  .      .
+%       q1 q2 q3 ... qn]
+%
+% size(qg) = [length(rq1g), length(qg)]
 
 % calculate the value of the form factor for each parameter combination
 % weighted by the psd
 
-id = pdb(q,r1,r2,xc,pds,pdc,psdwg);
+id = pdb(qg,r1g,r2g,xc,pds,pdc,psdwg);
 
-% sum up to obtain values for each q
-id = sum(sum(id,1),2);
+id = sum(id);
 
-mwnd = (pds .* 4.*pi./3.*r1.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r1).^3 + pds .* 4.*pi./3.*r2.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r2).^3) .^2;
-
-mwnd = sum(mwnd(:));
 id = id(:);
+
+mwnd = sum((m3(r1,(xc.*r1),pds,pdc) + m3(r2,(xc.*r2),pds,pdc)) .^2 .*psdw);
+
+
 
 end
 
 function p = pdb(q,r1,r2,xc,pds,pdc,psdwg)
 % Pedersen, J. S. Advances in Colloid and Interface Science 1997, 70, 171-210.
-% See M_3 and F_3 in the article.
-%
+% See M_3 and F_3 in the article. This function returns P4(q).*M4.^2
 
-m3r1 = pds .* 4.*pi./3.*r1.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r1).^3;
-m3r2 = pds .* 4.*pi./3.*r2.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r2).^3;
+
+m3r1 = m3(r1,xc.*r1,pds,pdc);
+m3r2 = m3(r2,xc.*r2,pds,pdc);
+
 
 f3r1 = (pds .* 4.*pi./3.*r1.^3 .* (3.* (sin(q.*r1) - q.*r1.*cos(q.*r1))./ (q.*r1).^3)...
         + (pdc - pds) .* 4.*pi./3.*(xc.*r1).^3 .* (3.* (sin(q.*(xc.*r1)) - q.*(xc.*r1).*cos(q.*(xc.*r1)))./ (q.*(xc.*r1)).^3))...
-        ./ (pds .* 4.*pi./3.*r1.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r1).^3);
+        ./ m3r1;
 
 f3r2 = (pds .* 4.*pi./3.*r2.^3 .* (3.* (sin(q.*r2) - q.*r2.*cos(q.*r2))./ (q.*r2).^3)...
         + (pdc - pds) .* 4.*pi./3.*(xc.*r2).^3 .* (3.* (sin(q.*(xc.*r2)) - q.*(xc.*r2).*cos(q.*(xc.*r2)))./ (q.*(xc.*r2)).^3))...
-        ./ (pds .* 4.*pi./3.*r2.^3 + (pdc - pds) .* 4.*pi./3.*(xc.*r2).^3);
+        ./ m3r2;
     
 p = ((m3r1.^2 .* f3r1 .^2 + m3r2.^2 .* f3r2.^2 ...
-    + 2.* m3r1 .* m3r2 .* f3r1 .* f3r2 .* sin(q.*(r1+r2))./ (q.*(r1+r2)))).*psdwg;
+    + 2.* m3r1 .* m3r2 .* f3r1 .* f3r2 .* sin(q.*(r1+r2))./ (q.*(r1+r2)))) .* psdwg;% ...
+    %./ (m3r1 + m3r2).^2).*psdwg;
+
+end
+
+function w = m3(rp,rc,pds,pdc)
+
+w = pds .* 4.*pi./3.*rp.^3 + (pdc - pds) .* 4.*pi./3.*rc.^3;
 
 end
