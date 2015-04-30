@@ -48,7 +48,11 @@ classdef Controller < handle
             obj.par_enabled_global = 0;
             
             % Select the default GPU if available
-            obj.gpu = gpuDevice(1);
+            if gpuDeviceCount > 0
+                obj.gpu = gpuDevice(1);
+            else
+                obj.gpu = [];
+            end
             
             switch mode
                
