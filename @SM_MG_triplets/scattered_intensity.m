@@ -102,7 +102,7 @@ frtr = frml .* frtr; % fraction triplets
     if obj.gpu_enabled
         
         [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
-        obj.g_device.reset();
+        %obj.g_device.reset();
    
     elseif obj.par_enabled
         

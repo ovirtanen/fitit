@@ -43,7 +43,7 @@ psdw = psd(:) * psd(:)';
 psdw = repmat(psdw,1,1,numel(rpsd)) .* reshape(repelem(psd,numel(psd),numel(psd)),[numel(psd) numel(psd) numel(psd)]); 
 
 % logical array used to extract the non repeated
-l = tril(logical(ones(numel(rpsd))));
+l = tril(logical(true(numel(rpsd),1,'gpuArray')));
 l = repmat(l,1,1,numel(rpsd));
 l = nullify(l);
 
@@ -56,7 +56,7 @@ psdw = psdw(l);
 % Obtain mole fractions of each combination r1 r2 r3 (adds also the integral weight w.^3)
 psdw = arrayfun(@weight,psdw,r1,r2,r3,w);
 
-allc = gpuArray(zeros(1,numel(q)));
+allc = zeros(1,numel(q),'gpuArray');
 
 % calculate several q values at once to increase performance but avoid
 % running out of memory on gpu.
@@ -90,7 +90,6 @@ mwnd = sum((arrayfun(@m3,r1(:),(xc.*r1(:)),pds,pdc) + arrayfun(@m3,r2(:),(xc.*r2
 
 mwnd = gather(mwnd);
 id = gather(allc(:));
-
 
 end
 

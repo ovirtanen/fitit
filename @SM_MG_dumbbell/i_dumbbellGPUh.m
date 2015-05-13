@@ -21,6 +21,10 @@ function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+% Transfer to GPU
+rpsd = gpuArray(rpsd(:));
+psd = gpuArray(psd(:));
+
 % Form grids for both sub units of the dumbbell
 % r1 =[r1 r1 r1 ... r1          r2 =[r1 r2 r3 ... rn
 %      r2 r2 r2 ... r2               r1 r2 r3 ... rn
@@ -30,19 +34,21 @@ function [id,mwnd] = i_dumbbellGPUh(q,rpsd,psd,w,xc,pds,pdc)
 % Dumbbell:
 % r1 - r2
 %
-r1 = gpuArray(rpsd(:)) * ones(1,numel(rpsd));
+
+r1 = rpsd(:) * ones(1,numel(rpsd));
 r2 = r1';
 
 % Weight grid for the integral in 2d, psd.^2.*w.^2
 % The factor two comes because only triu(psdw) is needed for the calculation
 % as the other half is just duplication. However only values triu(psdw,1)
 % should be doubled, and not the diagonal
-psdw = 2.* gpuArray(psd(:)) * psd(:)' .* w.^2;
+
+psdw = 2.* psd(:) * psd(:)' .* w.^2;
 d = 1:length(psdw)+1:(length(psdw)+1)*length(psdw); % diagonal indices
 psdw(d) = psdw(d) ./ 2;
 
 % logical array for upper diagonal of r1,r2 and psdw
-fil = gpuArray(logical(triu(ones(size(r1)))));
+fil = logical(triu(ones(size(r1),'gpuArray')));
 
 % column vectors
 r1 = r1(fil);
@@ -65,9 +71,7 @@ qg = repelem(q(:)',numel(r1),1);
 % calculate the value of the form factor for each parameter combination
 % weighted by the psd
 
-allc = arrayfun(@pdb,qg,r1g,r2g,xc,pds,pdc,psdwg);
-
-allc = sum(allc);
+allc = sum(arrayfun(@pdb,qg,r1g,r2g,xc,pds,pdc,psdwg));
 
 mwnd = sum((arrayfun(@m3,r1,(xc.*r1),pds,pdc) + arrayfun(@m3,r2,(xc.*r2),pds,pdc)) .^2 .*psdw);
 

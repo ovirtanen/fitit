@@ -29,7 +29,7 @@ frc = p(3) ./ 100;      % note change to fraction
 pdc = p(4);
 pds = p(5);
 
-% Singlets ----------------------------------------------------------------
+%% Singlets ---------------------------------------------------------------
 
 [rpsd,psd,w] = obj.dist.psd(nc,p(6:end));
 
@@ -53,15 +53,15 @@ qq = ones(numel(rpsd),1) * q(:)';
 
 i_sing = sum(psdw .* SM_Core_shell.m3(rt,frc.*rt,pds,pdc).^2 .* SM_Core_shell.f3(qq,rt,(frc .* rt),pds,pdc).^2)';
 
-% Dumbbels ----------------------------------------------------------------
+%% Dumbbels ---------------------------------------------------------------
 % PSD given to dumbbells = (1-frs) .* psd
-
 
 %t = tic();
 
 if obj.gpu_enabled
         
     [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+    %obj.g_device.reset();
    
 else
     
@@ -71,6 +71,7 @@ end % else
 
 %display(toc(t));
 
+%% Total intensity
 % normalize according to the scattering weights
 i_mod = a ./ (mwns + mwnd) .* (i_sing + i_dum);
 

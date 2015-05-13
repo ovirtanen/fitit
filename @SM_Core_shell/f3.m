@@ -9,8 +9,6 @@ function f = f3(q,rp,rc,pds,pdc)
 %   pds         Contrast of the shell (particles)
 %   pdc         Contrast of the core
 %
-%   Returns
-%   m           The normalization term
 %
 % 
 %   F3 = 1/m3 * (pds * V(rp) *F1(q,rp) + (pdc-pds) * V(rp)*F1(q,rc))
