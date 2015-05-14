@@ -28,7 +28,7 @@ classdef SM_MG_numerical_III < Scattering_model_spherical & handle
     methods(Static)
        
         
-        [rprf, prf] = pd_profile(nc,rhard,sthck,tau,vskin,fuzz)
+        [rprf, prf, w] = pd_profile(nc,rhard,sthck,tau,vskin,fuzz)
         p = vnumP(rc,w,pd,q);
         hri = trg5(r,tau,rp,sthck,vm);
         

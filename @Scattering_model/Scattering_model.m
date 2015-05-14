@@ -9,10 +9,10 @@ classdef Scattering_model < handle
                             'Microgel dumbbell aggregation model';
                             'Microgel triplet aggregation model';
                             ...'Stieger Microgel Model';
-                            ...'Numerical Microgel Model';
-                            ...'Numerical Microgel Model II';
-                            ...'Numerical Microgel Model III';
-                            ...'Numerical Microgel Model IV';
+                            'Numerical Microgel Model';
+                            'Numerical Microgel Model II';
+                            'Numerical Microgel Model III';
+                            'Numerical Microgel Model IV';
                             };
         
     end

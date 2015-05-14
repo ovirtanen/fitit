@@ -1,12 +1,12 @@
-function [rprf, prf] = pd_profile(nc,rhard,sthick,tau,vskin,fuzz)
+function [rprf, prf, w] = pd_profile(nc,rhard,sthick,tau,vskin,fuzz)
 %PD_PROFILE Calculates the radial polarization density profile for a
 %microgel with a skin. We like skin. Do you like skin? Skin skin skin.
 %
-% [rc, a] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)
+% [rprf, prf, w] = pd_profile(nc,rhard,rfrac,vcore,vexc,sigma)
 %
 % Parameters 
 %
-% nc        number of collocation points
+% nc        number of integration points
 % rhard     hard radius without convolution
 % sthick    shell thickness as a percentage of the overall radius
 % rfrac     fraction of rhard when the ramp begins, e.g. 0.5
@@ -15,12 +15,13 @@ function [rprf, prf] = pd_profile(nc,rhard,sthick,tau,vskin,fuzz)
 %
 % Returns
 %
-% rc        radial collocation points 
-% alpha     refractive index density at the collocation points
+% rprf      radial integration points 
+% prf       refractive index density at the collocation points
+% w         quadrature weight
 %
 % PROBLEMS
 %
-% If the number of collocation points is small and the gaussian becomes very
+% If the number of integration points is small and the gaussian becomes very
 % narrow its area starts to shrink, i.e. A ~= 1, because of insufficient
 % resolution.
 %

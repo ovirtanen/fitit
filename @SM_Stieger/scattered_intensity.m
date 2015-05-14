@@ -7,7 +7,7 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
 %                   p(1)        Scattering amplitude
-%                    p(2)        Surface fuzziness (nm)
+%                   p(2)        Surface fuzziness (nm)
 %                   p(3:end)    Parameters for the PSD
 %
 %   Returns

@@ -32,13 +32,20 @@ fuzz = p(6);
 % Numerical integration over the distribution using the mid-point rule
 
 i_mod = zeros(numel(q),1);
+smn = zeros(numel(psd),1);        % collect all scattering masses to calculate the scattering mass normalizer
 
-for p = 1:numel(psd)
+for f = 1:numel(psd)
 
-    [rprf, prf] = SM_MG_numerical_IV.pd_profile(nc,pnd,rpsd(p),sthck,vcore,vskin,fuzz);
-    i_mod = i_mod + a .* psd(p).* Scattering_model_spherical.vnumP(rprf,w,prf,q) .* w;
+    [rprf, prf, wprf] = SM_MG_numerical_IV.pd_profile(nc,pnd,rpsd(f),sthck,vcore,vskin,fuzz);
+    [pf,smf] = Scattering_model_spherical.vnumP(rprf,wprf,prf,q);
+    smn(f) = smf;
+    i_mod = i_mod + psd(f) .* w .* smf.^2 .* pf ;
     
 end % for
+
+smn = w .* psd(:)' * smn(:).^2;
+
+i_mod = a ./ smn .* i_mod;
 
 end
 

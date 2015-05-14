@@ -1,4 +1,4 @@
-function p = vnumP(rc,w,pd,q)
+function [p,sm] = vnumP(rc,w,pd,q)
 %VNUMP Numerically evaluate the form factor of a spherical particle with arbitrary
 %polarization density. (Vectorized)
 %
@@ -6,13 +6,14 @@ function p = vnumP(rc,w,pd,q)
 %
 % Parameters
 % 
-% rc        Radial collocation points within the microgel
+% rc        Radial integration points within the microgel
 % w         quadrature weight
 % pd        Polarization density at points rc
 % q         Scattering vector magnitudes where form factor is evaluated
 %
 % Returns
 % p         Form factor at points q
+% sm        Scattering mass of the particle
 % -----------------------------------
 % Scattering length is given by
 %
@@ -33,13 +34,20 @@ pd = pd(:);
 rc = rc(:);
 q = q(:);
 
-%w = mean(diff(rc));                            % quadrature weight, average rounding errors
 qr = rc * q';                                   % form qr by matrix multiplication
 pdr2w = (w .* pd .* rc.^2) * ones(size(q))';    % calculate dr * r^2 * pd(r) and extend to size(qr) 
 
-% Integration
+% Integration by midpoint rule
 
 b = 4 .*pi .* sum(pdr2w .* sin(qr)./qr,1)';
+
+sm = 4.* pi .* w .* pd' * rc.^2;
+
+p = (b./sm).^2;
+
+% return
+
+%% Don't remove zero points. Waste of time.
 
 % Matlab 0/0 results in NaN. By definition sinc(0) = 1 so fix these
 % entries.
@@ -56,10 +64,6 @@ b = 4 .*pi .* sum(pdr2w .* sin(qr)./qr,1)';
 %b = 4 .*pi .* sum(pdr2w .* qr,2);
 
 %b = 4 .*pi .* sum(pdr2w .* Model.snc(qr),2);
-
-% Form factor
-p = (b./(4 .*pi .* sum(pdr2w,1))').^2;
-
        
 end
 
