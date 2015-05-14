@@ -10,8 +10,8 @@ si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
 %% Graphics_source for plotting the model intensity
 
-
-q = logspace(-3,log10(max(ds.q_exp)),200)'; % logspace works well for both log and lin XScale
+%q = logspace(-4,log10(max(ds.q_exp)),200)'; % logspace works ok for both log and lin XScale
+q = linspace(0.0001,max(ds.q_exp),200)';
 intst = @()obj.model.total_scattered_intensity(150,q);
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);
