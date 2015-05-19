@@ -10,9 +10,21 @@ si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
 %% Graphics_source for plotting the model intensity
 
-%q = logspace(-4,log10(max(ds.q_exp)),200)'; % logspace works ok for both log and lin XScale
-q = linspace(0.0001,max(ds.q_exp),200)';
-intst = @()obj.model.total_scattered_intensity(150,q);
+m = obj.view.model;
+q = m.q_fit;
+
+switch isempty(m.q_br) % check if back reflection is in use
+    
+    case 0
+        
+        intst = @()m.total_scattered_intensity(150,q,m.q_br,m.eta);
+        
+    case 1
+        
+        intst = @()m.total_scattered_intensity(150,q);
+        
+end % switch
+
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);
 
@@ -29,7 +41,6 @@ switch all(ds.std_exp == 1)
         gs = Graphics_source(si,'errorbar',[0 0 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
         
 end % switch
-
 
 obj.active_layout.add_g_source(gs);
 

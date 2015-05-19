@@ -10,8 +10,8 @@ l = logical(obj.bg.get_param('bg_chck'));
 
 if numel(obj.s_models) == 1
     
-    lsm = obj.s_models.params(:,4);
-    ldist = obj.s_models.dist.params(:,4);
+    lsm = obj.s_models{1}.params(:,4);
+    ldist = obj.s_models{1}.dist.params(:,4);
     t = cell2mat([lsm; ldist]);
     
     l = [l;logical(t)];   % fixed parameters

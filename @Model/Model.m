@@ -15,6 +15,11 @@ classdef Model < handle
     
     properties (SetAccess = private)
         
+        q_fit;              % q values for plotting
+        
+        q_br;               % back reflected q
+        eta;                % fraction of backreflected intensity
+        
         data_sets;
         s_models;
         bg;
@@ -32,6 +37,7 @@ classdef Model < handle
         c = chi2(intst,std,p,handles);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
+        qbr = q_brefl(q,n,lambda);
         
     end
     
@@ -39,9 +45,14 @@ classdef Model < handle
         
         function obj = Model(sm)
             
+            obj.q_fit = linspace(0.0001,0.025,200)';
+            
+            obj.q_br = [];
+            obj.eta = [];
+ 
             obj.active_s_model = 1;
             obj.data_sets = [];
-            obj.s_models = sm;
+            obj.s_models = {sm};
             obj.bg = SM_Background();
             
         end % constructor
@@ -54,8 +65,8 @@ classdef Model < handle
         l = get_total_free_params(obj);
         [lb,ub] = get_total_param_bounds(obj);
         p = lsq_fit(obj,options);
-        set_active_s_model(obj,asm);
-        i_mod = total_scattered_intensity(obj,nc,q);
+        %set_active_s_model(obj,asm);
+        i_mod = total_scattered_intensity(obj,nc,q,varargin);
         remove_experimental_data(obj);
         replace_s_model(obj,sm);
         

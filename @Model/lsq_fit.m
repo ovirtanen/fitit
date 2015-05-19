@@ -88,10 +88,20 @@ switch numel(obj.s_models)
         
         error('Model not initialized.');
     
-    case 1  % obj.s_models is non-structural, 1 model 
+    case 1  %  1 model 
         
-        sm = obj.s_models;
-        h = @(x) sm.scattered_intensity(nc,q,x(2:end));
+        sm = obj.s_models{1};
+        
+        if isempty(obj.q_br) % check for back reflection
+            
+            h = @(x) sm.scattered_intensity(nc,q,x(2:end));
+            
+        else
+            
+            h = @(x) sm.scattered_intensity(nc,q,x(2:end)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(2:end));
+            
+        end % if
+        
         handles = {handles h};
         
     otherwise   % more than one model 
@@ -99,9 +109,19 @@ switch numel(obj.s_models)
         ps = 2;     % start indice of parameters in parameter vector for the model
         for i = 1:numel(obj.s_models)
             
-            sm = obj.s_models(i);
+            sm = obj.s_models{i};
             np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
-            h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1));
+            
+            if isempty(obj.q_br) % check for back reflection
+            
+                h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1));
+                
+            else
+                
+                h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(ps:ps+np-1));
+                
+            end % if
+                
             handles = {handles h};
             ps = ps + np;
             

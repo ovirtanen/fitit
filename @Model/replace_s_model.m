@@ -12,18 +12,19 @@ function replace_s_model(obj,sm)
 
 switch numel(obj.s_models)
    
-    case 0
+    case 0 % error
         
         error('Model uninitialized');
+        
     
-    case 1
+    case 1 % background + scattering model
         
         obj.active_s_model = 1;
-        obj.s_models = sm;
+        obj.s_models{obj.active_s_model} = sm;
         
-    otherwise
+    otherwise % background and several scattering mdoels
         
-        obj.s_models(obj.active_s_model) = sm;
+        obj.s_models{obj.active_s_model} = sm;
     
 end
 

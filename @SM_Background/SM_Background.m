@@ -51,7 +51,7 @@ methods (Access = public)
             
     end % constructor
         
-    function i_mod = scattered_intensity(obj)
+    function i_mod = scattered_intensity(obj,p)
         
         if obj.enabled
             
