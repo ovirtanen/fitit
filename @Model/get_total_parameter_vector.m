@@ -18,14 +18,14 @@ p = obj.bg.get_param('bg_val');
 
 if numel(obj.s_models) == 1
     
-    p = [p; obj.get_total_s_model_param_vector(obj.s_models)];
+    p = [p; obj.get_total_s_model_param_vector(obj.s_models{1})];
     return;
     
 end
 
 for i = 1:numel(obj.s_models)
     
-    sm = obj.s_models(i);
+    sm = obj.s_models{i};
     p = [p; get_total_s_model_param_vector(sm)];
     
 end

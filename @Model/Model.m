@@ -45,10 +45,10 @@ classdef Model < handle
         
         function obj = Model(sm)
             
-            obj.q_fit = linspace(0.0001,0.025,200)';
+            obj.q_fit = 4.*pi.*1.332./658.*sind((15:146)./2)';
             
-            obj.q_br = [];
-            obj.eta = [];
+            obj.q_br = obj.q_brefl(obj.q_fit,1.332,658);
+            obj.eta = 0.005;
  
             obj.active_s_model = 1;
             obj.data_sets = [];

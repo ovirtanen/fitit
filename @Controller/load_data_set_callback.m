@@ -80,7 +80,7 @@ switch ms
        
        data = rm_neg(data);
        
-       obj.add_data_set_to_model(data); 
+       obj.add_data_set_to_model(data);
        
        obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        

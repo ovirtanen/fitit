@@ -10,7 +10,7 @@ si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
 %% Graphics_source for plotting the model intensity
 
-m = obj.view.model;
+m = obj.model;
 q = m.q_fit;
 
 switch isempty(m.q_br) % check if back reflection is in use

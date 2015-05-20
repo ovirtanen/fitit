@@ -36,12 +36,12 @@ for i = 1:numel(handles)
                
             case 2
                 
-               p = m.s_models.get_param(valtag); 
+               p = m.s_models{1}.get_param(valtag); 
                v.Value = p;
                 
             case 3
                 
-               p = m.s_models.dist.get_param(valtag); 
+               p = m.s_models{1}.dist.get_param(valtag); 
                v.Value = p;
    
         end % switch

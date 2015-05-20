@@ -64,6 +64,10 @@ end
 t = uimenu(p,'Label','Tools');
 t.Tag = 'tools_menu';
 
+tbr = uimenu(t,'Label','SLS Backreflection');
+tbr.Tag = 'br_switch';
+tbr.Callback = @(hObject,callbackdata) obj.controller.br_switch_callback(hObject,callbackdata);
+
 tgpu = uimenu(t,'Label','Enable GPU');
 tgpu.Tag = 'gpu_switch';
 tgpu.Callback = @(hObject,callbackdata) obj.controller.gpu_switch_callback(hObject,callbackdata);

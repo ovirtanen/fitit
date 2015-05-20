@@ -38,12 +38,12 @@ for i = 1:numel(handles)
                
             case 2
                 
-               p = m.s_models.get_param(v.Tag); 
+               p = m.s_models{1}.get_param(v.Tag); 
                v.String = num2str(p);
                 
             case 3
                 
-               p = m.s_models.dist.get_param(v.Tag); 
+               p = m.s_models{1}.dist.get_param(v.Tag); 
                v.String = num2str(p);
    
         end % switch

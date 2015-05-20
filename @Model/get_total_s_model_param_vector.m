@@ -12,15 +12,8 @@ function p = get_total_s_model_param_vector(sm)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-if strcmp(sm.name,'Background scattering')
 
-    p = sm.get_param_vector();
-    
-else
-    
-    p = [sm.get_param_vector(); sm.dist.get_param_vector()];
-
-end % if
+p = [sm.get_param_vector(); sm.dist.get_param_vector()];
 
 end
 

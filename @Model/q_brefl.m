@@ -15,9 +15,10 @@ function qbr = q_brefl(q,n,lambda)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+tic();
 a = 2.*asin(q.*lambda./(4.*pi.*n));
 
 qbr = 4.*pi.*n./lambda.*sin((pi-a)./2);
-
+toc();
 end
 

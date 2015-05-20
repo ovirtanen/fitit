@@ -97,7 +97,7 @@ switch numel(obj.s_models)
             h = @(x) sm.scattered_intensity(nc,q,x(2:end));
             
         else
-            
+
             h = @(x) sm.scattered_intensity(nc,q,x(2:end)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(2:end));
             
         end % if
