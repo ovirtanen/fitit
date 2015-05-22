@@ -5,22 +5,28 @@ function [lb,ub] = get_total_param_bounds(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-lb = obj.bg.get_param('bg_min');
-ub = obj.bg.get_param('bg_max');
+lb = [];
+ub = [];
 
-if numel(obj.s_models) == 1
+%% Background
+
+if obj.bg.enabled
     
-    sm = obj.s_models{1};
+    lb = [lb obj.bg.get_param('bg_min')];
+    ub = [ub obj.bg.get_param('bg_max')];
+        
+end
+
+%% Backreflection
+
+if not(isempty(obj.sls_br)) && obj.sls_br.enabled
     
-    lb = [lb; sm.params(:,1); sm.dist.params(:,1)];
-    ub = [ub; sm.params(:,3); sm.dist.params(:,3)];
+    lb = [lb; obj.sls_br.eta(1)];
+    ub = [ub; obj.sls_br.eta(3)];
     
-    lb = cell2mat(lb);
-    ub = cell2mat(ub);
-    
-    return;
-    
-end % if
+end
+
+%% Scattering models
 
 for i = 1:numel(obj.s_models)
     

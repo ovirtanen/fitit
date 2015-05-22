@@ -6,24 +6,29 @@ function l = get_total_free_params(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-l = logical(obj.bg.get_param('bg_chck'));
+l = [];
 
-if numel(obj.s_models) == 1
+%% Background
+
+if obj.bg.enabled
     
-    lsm = obj.s_models{1}.params(:,4);
-    ldist = obj.s_models{1}.dist.params(:,4);
-    t = cell2mat([lsm; ldist]);
+    l = [l; logical(obj.bg.get_param('bg_chck'))];
+        
+end
     
-    l = [l;logical(t)];   % fixed parameters
-    l = not(l);
+%% Backreflection
+
+if not(isempty(obj.sls_br)) && obj.sls_br.enabled
     
-    return;
+    l = [l; logical(obj.sls_br.eta{4})];
     
 end
 
+%% Scattering models
+
 for i = 1:numel(obj.s_models)
     
-    sm = obj.s_models(i);
+    sm = obj.s_models{i};
     
     lsm = sm.params(:,4);
     ldist = sm.dist.params(:,4);

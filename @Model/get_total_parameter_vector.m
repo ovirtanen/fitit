@@ -16,16 +16,25 @@ function p = get_total_parameter_vector(obj)
 % All rights reserved.
 
 sms = obj.s_models;
+p = [];
+
+%% Background
 
 if obj.bg.enabled
     
-    p = obj.bg.get_param('bg_val');
-    
-else
-    
-    p = [];
+    p = [p; obj.bg.get_param('bg_val')];
     
 end
+  
+%% Backreflection
+
+if not(isempty(obj.sls_br)) && obj.sls_br.enabled
+    
+    p = [p; obj.sls_br.eta{2}];
+    
+end
+
+%% Scattering models
 
 for i = 1:numel(sms)
     

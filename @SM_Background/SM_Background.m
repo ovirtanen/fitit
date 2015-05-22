@@ -84,7 +84,9 @@ methods (Access = public)
         end % switch
         
     end
-           
+        
+    set_param_vector(obj,p);
+    
         
 end % public methods
     

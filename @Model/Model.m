@@ -20,15 +20,15 @@ classdef Model < handle
         bg;                 % Background SM
         sls_br;             % SLS backreflection object
         
-        
+        handles;           % Cell array holding all the relevant handles 
+                           % to calculate total scattered intensity
         
     end
     
     properties (Access = private)
         
         active_s_model;
-        handles;           % Cell array holding all the relevant handles 
-                           % to calculate total scattered intensity
+        
         
     end
     
@@ -64,6 +64,7 @@ classdef Model < handle
         p = lsq_fit(obj,options);
         %set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
+        initialize_sls_backreflection(obj,ri,wl);
         remove_experimental_data(obj);
         replace_s_model(obj,sm);
         update_handles(obj);

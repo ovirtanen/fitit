@@ -1,9 +1,9 @@
 function update_handles(obj)
 %UPDATE_HANDLES Creates a handle set for calculating the total scattered
 %intensity. Implements special features such as SLS backreflection and q
-%smeating due to instrument resolution function.
+%smearing due to instrument resolution function.
 %   
-% update_handles(obj)
+% update_handles()
 %
 
 % Copyright (c) 2015, Otto Virtanen
@@ -29,7 +29,7 @@ elseif not(isempty(obj.sls_br)) && obj.sls_br.enabled % backreflection
     
     sms = obj.s_models;
     
-    handles = cell(1 + 2.*numel(sms),1); % +1 for accomodating background
+    handles = cell(1 + numel(sms),1); % +1 for accomodating background
     
     fq = @(x) obj.sls_br.q_brefl(x);
     
@@ -38,8 +38,8 @@ elseif not(isempty(obj.sls_br)) && obj.sls_br.enabled % backreflection
         sm = sms{i};
         np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model 
         
-        h = @(nc,q,p) sm.scattered_intensity(nc,q,p(ps:ps+np-1)) + p(2) .* sm.scattered_intensity(nc,fq(q),p(ps:ps+np-1));
-                           
+        h = @(nc,q,p) sm.scattered_intensity(nc,q,p(ps:ps+np-1)) + p(ps-1) .* sm.scattered_intensity(nc,fq(q),p(ps:ps+np-1));
+        
         handles{i} = h;
         ps = ps + np;
            

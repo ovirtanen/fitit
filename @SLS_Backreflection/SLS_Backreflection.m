@@ -9,6 +9,8 @@ classdef SLS_Backreflection <  handle
     % wl            Wave length of the laser
     % eta           Fraction of the back reflected light
     
+    % Copyright (c) 2015, Otto Virtanen
+    % All rights reserved.
     
     properties (SetAccess = private)
         
@@ -23,11 +25,11 @@ classdef SLS_Backreflection <  handle
          
     methods (Access = public)
         
-        function obj = SLS_Backreflection(ri,wl,eta)
+        function obj = SLS_Backreflection(ri,wl)
             
         obj.refr_index = ri;
         obj.w_length = wl;
-        obj.eta = eta;
+        obj.eta = {1e-3 6e-3 3e-2 1};
 
         obj.enabled = 0;
                    
@@ -44,6 +46,12 @@ classdef SLS_Backreflection <  handle
         function disable(obj)
             
             obj.enabled = 0;
+            
+        end
+        
+        function set_param_vector(obj,p)
+           
+            obj.eta{2} = p;
             
         end
         
