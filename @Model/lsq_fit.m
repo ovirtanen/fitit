@@ -80,30 +80,14 @@ ub = ub(pf);
 
 % initialize handles for chi2 ---------------------------------------------
 
-handles = @(x) x(1);            % Background intensity
+handles = obj.handles;
 
-ps = 2;     % start indice of parameters in parameter vector for the model
-for i = 1:numel(obj.s_models)
-            
-    sm = obj.s_models{i};
-    np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
-          
-    % check for back reflection ----------- FIX THIS
+for i = 1:numel(handles)
     
-    if isempty(obj.q_br) 
-            
-        h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1));
-                
-    else
-                
-        h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(ps:ps+np-1));
-                
-    end % if
-                
-handles = {handles h};
-ps = ps + np;
-           
+    handles{i} = @(x) handles{i}(nc,q,x);
+    
 end % for
+
 
 % p0_to_p maps the free parameters to their right places in the total
 % parameter vector.
