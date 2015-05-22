@@ -3,7 +3,7 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   i_mod = scattered_intensity(nc,q,p)
 %
 %   Parameters
-%   nc          Number of collcation points for the distribution
+%   nc          Number of integration points for the distribution
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
 %                   p(1)        Scattering amplitude

@@ -22,12 +22,13 @@ switch numel(obj.s_models)
         obj.active_s_model = 1;
         obj.s_models{obj.active_s_model} = sm;
         
-    otherwise % background and several scattering mdoels
+    otherwise % background and several scattering models
         
         obj.s_models{obj.active_s_model} = sm;
     
 end
 
+obj.update_handles();
 
 end
 

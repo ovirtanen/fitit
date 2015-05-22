@@ -21,6 +21,7 @@ end
 sm = obj.model.get_active_s_model();
 
 sm.set_distribution(dist);
+obj.model.update_handles();
 
 obj.view.swap_panel('dist_panel');
 

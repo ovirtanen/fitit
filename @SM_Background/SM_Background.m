@@ -55,7 +55,7 @@ methods (Access = public)
         
         if obj.enabled
             
-            i_mod = obj.params{2};
+            i_mod = p(1);
             
         else
            

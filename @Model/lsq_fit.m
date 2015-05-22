@@ -82,52 +82,28 @@ ub = ub(pf);
 
 handles = @(x) x(1);            % Background intensity
 
-switch numel(obj.s_models)
-   
-    case 0
-        
-        error('Model not initialized.');
+ps = 2;     % start indice of parameters in parameter vector for the model
+for i = 1:numel(obj.s_models)
+            
+    sm = obj.s_models{i};
+    np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
+          
+    % check for back reflection ----------- FIX THIS
     
-    case 1  %  1 model 
-        
-        sm = obj.s_models{1};
-        
-        if isempty(obj.q_br) % check for back reflection
+    if isempty(obj.q_br) 
             
-            h = @(x) sm.scattered_intensity(nc,q,x(2:end));
-            
-        else
-
-            h = @(x) sm.scattered_intensity(nc,q,x(2:end)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(2:end));
-            
-        end % if
-        
-        handles = {handles h};
-        
-    otherwise   % more than one model 
-        
-        ps = 2;     % start indice of parameters in parameter vector for the model
-        for i = 1:numel(obj.s_models)
-            
-            sm = obj.s_models{i};
-            np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
-            
-            if isempty(obj.q_br) % check for back reflection
-            
-                h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1));
+        h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1));
                 
-            else
+    else
                 
-                h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(ps:ps+np-1));
+        h = @(x) sm.scattered_intensity(nc,q,x(ps:ps+np-1)) + obj.eta .* sm.scattered_intensity(nc,obj.q_br,x(ps:ps+np-1));
                 
-            end % if
+    end % if
                 
-            handles = {handles h};
-            ps = ps + np;
-            
-        end % for
-    
-end % switch
+handles = {handles h};
+ps = ps + np;
+           
+end % for
 
 % p0_to_p maps the free parameters to their right places in the total
 % parameter vector.

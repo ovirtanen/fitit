@@ -21,7 +21,6 @@ switch state
     case 0
         
         target.toggle_bg('off');              % scattering contribution 0
-        target.set_param('bg_chck',1)
             
         set(controls,'Enable','off');
 
@@ -29,16 +28,12 @@ switch state
     case 1
         
         target.toggle_bg('on');              % bg scattering
-        
-        % update fixed status for the bg
-        chck = findobj(panel,'Tag','bg_chck');
-        target.set_param('bg_chck',chck.Value);
-            
-        
+               
         set(controls,'Enable','on');
         
 end % switch
 
+obj.model.update_handles();
 obj.view.update_axes();
 obj.view.update_f_button_status();
 

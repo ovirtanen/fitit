@@ -99,9 +99,6 @@ eb_min.Enable = 'off';
 eb_val.Enable = 'off';
 eb_max.Enable = 'off';
 chck.Enable = 'off';
-        
-% A bit unorthodox. 
-obj.model.bg.set_param('bg_val',0);
 
 end
 

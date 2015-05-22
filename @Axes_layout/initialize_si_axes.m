@@ -23,20 +23,9 @@ si.Box = 'on';
 %% Add Graphics_source to the Axes_layout for plotting the model
  
 m = obj.view.model;
-q = m.q_fit;
-
-switch isempty(m.q_br) % check if back reflection is in use
-    
-    case 0
+q = linspace(0.0001,0.025,200)';
+intst = @()m.total_scattered_intensity(150,q);
         
-        intst = @()m.total_scattered_intensity(150,q,m.q_br,m.eta);
-        
-    case 1
-        
-        intst = @()m.total_scattered_intensity(150,q);
-        
-end % switch
-
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.g_sources = [obj.g_sources gs];
     

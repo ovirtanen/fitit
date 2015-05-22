@@ -15,20 +15,20 @@ classdef Model < handle
     
     properties (SetAccess = private)
         
-        q_fit;              % q values for plotting
+        data_sets;          % Empirical data
+        s_models;           % All the scattering models
+        bg;                 % Background SM
+        sls_br;             % SLS backreflection object
         
-        q_br;               % back reflected q
-        eta;                % fraction of backreflected intensity
         
-        data_sets;
-        s_models;
-        bg;
         
     end
     
     properties (Access = private)
         
         active_s_model;
+        handles;           % Cell array holding all the relevant handles 
+                           % to calculate total scattered intensity
         
     end
     
@@ -37,7 +37,6 @@ classdef Model < handle
         c = chi2(intst,std,p,handles);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
-        qbr = q_brefl(q,n,lambda);
         
     end
     
@@ -45,15 +44,13 @@ classdef Model < handle
         
         function obj = Model(sm)
             
-            obj.q_fit = 4.*pi.*1.332./658.*sind((15:146)./2)';
-            
-            obj.q_br = obj.q_brefl(obj.q_fit,1.332,658);
-            obj.eta = 0.005;
- 
             obj.active_s_model = 1;
             obj.data_sets = [];
             obj.s_models = {sm};
             obj.bg = SM_Background();
+            obj.sls_br = [];
+            
+            obj.update_handles();
             
         end % constructor
         
@@ -69,6 +66,7 @@ classdef Model < handle
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
         remove_experimental_data(obj);
         replace_s_model(obj,sm);
+        update_handles(obj);
         
     end % public methods
     

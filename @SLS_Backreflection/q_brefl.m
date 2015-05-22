@@ -1,12 +1,10 @@
-function qbr = q_brefl(q,n,lambda)
+function qbr = q_brefl(obj,q)
 %Q_BREFL Calculates the backreflected q for cuvette backrefection in SLS
 %
-%   qbr = q_brefl(q,n,lambda)
+%   qbr = q_brefl(q)
 %
 % Arguments
 % q         Nominal scattering vector magnitudes
-% n         Refractive index of the scattering medium
-% lambda    Wavelength of the laser (nm)
 %
 % Returns
 % qbr       Backreflected q magnitudes for each nominal q
@@ -15,10 +13,13 @@ function qbr = q_brefl(q,n,lambda)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-tic();
-a = 2.*asin(q.*lambda./(4.*pi.*n));
+wl = obj.w_length;
+ri = obj.refr_index;
 
-qbr = 4.*pi.*n./lambda.*sin((pi-a)./2);
-toc();
+a = 2.*asin(q.*wl./(4.*pi.*ri));
+
+qbr = 4.*pi.*ri./wl.*sin((pi-a)./2);
+
+
 end
 

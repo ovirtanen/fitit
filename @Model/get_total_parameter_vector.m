@@ -7,26 +7,30 @@ function p = get_total_parameter_vector(obj)
 %   Returns
 %   p           Total parameter vector
 %               p : [bg p1; p2; ... pn], where p1..pn are total parameter
-%               vectors for Scattering_models 1..n in the model and bg the
-%               background scattering
+%               vectors for Scattering_models 1..n in the model. The first
+%               entry is background (bg) if bg is enabled in SM_Background,
+%               otherwise p: [p1; p2; ... pn]
 %
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-p = obj.bg.get_param('bg_val');
+sms = obj.s_models;
 
-if numel(obj.s_models) == 1
+if obj.bg.enabled
     
-    p = [p; obj.get_total_s_model_param_vector(obj.s_models{1})];
-    return;
+    p = obj.bg.get_param('bg_val');
+    
+else
+    
+    p = [];
     
 end
 
-for i = 1:numel(obj.s_models)
+for i = 1:numel(sms)
     
-    sm = obj.s_models{i};
-    p = [p; get_total_s_model_param_vector(sm)];
+    sm = sms{i};
+    p = [p; obj.get_total_s_model_param_vector(sm)];
     
 end
 

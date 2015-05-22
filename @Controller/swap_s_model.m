@@ -16,7 +16,7 @@ if not(isa(sm,'Scattering_model'))
     
 end
 
-obj.model.replace_s_model(sm);
+obj.model.replace_s_model(sm); % includes model.update_handles()
 
 obj.view.swap_panel('sm_panel');
 
