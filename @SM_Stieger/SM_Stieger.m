@@ -51,8 +51,8 @@ classdef SM_Stieger < Scattering_model_spherical & handle
             obj.param_map = containers.Map(keyset(:),valueset);
             
             % Model parameter default values
-            obj.params = {0 1 1 1;
-                          1 20 100 1};               % Amplitude
+            obj.params = {0 1 1 1;              % Amplitude
+                          0 20 100 1};          % Fuzziness               
             
         end % constructor  
         

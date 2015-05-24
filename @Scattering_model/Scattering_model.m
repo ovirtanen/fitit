@@ -9,7 +9,7 @@ classdef Scattering_model < handle
                             'Core Shell Model';
                             'Microgel dumbbell aggregation model';
                             'Microgel triplet aggregation model';
-                            ...'Stieger Microgel Model';
+                            'Stieger Microgel Model';
                             'Numerical Microgel Model';
                             'Numerical Microgel Model II';
                             'Numerical Microgel Model III';

@@ -29,7 +29,7 @@ classdef SLS_Backreflection <  handle
             
         obj.refr_index = ri;
         obj.w_length = wl;
-        obj.eta = {1e-3 1e-2 3e-2 1};
+        obj.eta = {1e-3 0.8e-2 3e-2 1};
 
         obj.enabled = 0;
                    
