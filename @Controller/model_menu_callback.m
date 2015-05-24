@@ -16,6 +16,11 @@ switch hObject.Label
         sm = SM_Hard_sphere(d);
         obj.swap_s_model(sm);
         
+    case 'Hollow Microgel Model'
+        
+        sm = SM_Hollow_microgel(d);
+        obj.swap_s_model(sm);
+        
     case 'Core Shell Model'
         
         sm = SM_Core_shell(d);

@@ -5,6 +5,7 @@ classdef Scattering_model < handle
     properties (Constant)
        
         available_models = {'Hard Sphere Model';
+                            'Hollow Microgel Model';
                             'Core Shell Model';
                             'Microgel dumbbell aggregation model';
                             'Microgel triplet aggregation model';
