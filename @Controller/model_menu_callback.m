@@ -26,6 +26,11 @@ switch hObject.Label
         sm = SM_Core_shell(d);
         obj.swap_s_model(sm);
         
+    case 'Free Profile Model'
+        
+        sm = SM_Free_profile(d,5);
+        obj.swap_s_model(sm);
+        
     case 'Microgel dumbbell aggregation model'
         
         sm = SM_MG_dumbbell(d,obj.gpu_enabled_global,obj.par_enabled_global);
