@@ -40,7 +40,7 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 n = obj.n;
 a = p(1);
 prf = p(2:n+1);              % polarization density profile
-rprf = ((1:n)./n)';           % radii of the cocentric shells (normalized)
+rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 
 [rpsd,psd,w] = obj.dist.psd(nc,p(n+2:end));
 
@@ -73,7 +73,7 @@ m3f3 = smw .* bsxfun(@times,dprf,m3f3);
 m3f3 = sum(m3f3,1);                     % sum down the columns to get scattering amplitude of each particle size fraction
 m3f3 = squeeze(m3f3);                   % remove the singleton dimension, now each column contains m3f3(q) for each particle size fraction
 
-m3f3 = m3f3 * (w.* psd(:));             % weight each fraction according to the PSD
+v2p = m3f3.^2 * (w .* psd(:));          % weight each fraction according to the PSD. v2 = m3.^2; p = f3.^2
 
 %% Scattering mass normalizer. 
 % Dividing the scattered intensity with the
@@ -88,5 +88,5 @@ smn = (smn(:).^2)' * (w .* psd(:));
 
 %% Scattered intensity
 
-i_mod = a ./smn .* m3f3.^2;
+i_mod = a ./smn .* v2p;
 
