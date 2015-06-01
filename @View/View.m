@@ -59,6 +59,7 @@ classdef View < handle
         
         initialize_g_sources_for_data_set(obj,ds);
         display_about_box(obj);
+        [enable,ri,wl,eta,fixed] = display_br_dialog(obj,enable,dri,dwl,deta,dfixed);
         display_comfort_me_box(obj);
         delete_g_sources_in_si_axes(obj);
         function disable_f_button(obj)

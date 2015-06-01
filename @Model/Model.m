@@ -64,7 +64,7 @@ classdef Model < handle
         p = lsq_fit(obj,options);
         %set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
-        initialize_sls_backreflection(obj,ri,wl);
+        initialize_sls_backreflection(obj,ri,wl,eta,fixed);
         remove_experimental_data(obj);
         replace_s_model(obj,sm);
         update_handles(obj);

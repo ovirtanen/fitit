@@ -2,12 +2,13 @@ classdef SLS_Backreflection <  handle
     %SLS_BACKREFLECTION Class for storing parameters for cuvette back
     %reflection in SLS
     %   
-    %   obj = SLS_Backreflection(ri,wl,eta)
+    %   obj = SLS_Backreflection(ri,wl,eta,fixed)
     %
     % Parameters
     % ri            Refractive index of the medium
     % wl            Wave length of the laser
     % eta           Fraction of the back reflected light
+    % fixed         1 if eta is fixed parameter, otherwise 0
     
     % Copyright (c) 2015, Otto Virtanen
     % All rights reserved.
@@ -25,13 +26,13 @@ classdef SLS_Backreflection <  handle
          
     methods (Access = public)
         
-        function obj = SLS_Backreflection(ri,wl)
+        function obj = SLS_Backreflection(ri,wl,eta,fixed)
             
         obj.refr_index = ri;
         obj.w_length = wl;
-        obj.eta = {1e-3 0.8e-2 3e-2 0};
+        obj.eta = {0 eta 1 fixed};
 
-        obj.enabled = 0;
+        obj.enabled = false;
                    
         end % constructor
         
@@ -39,13 +40,13 @@ classdef SLS_Backreflection <  handle
         
         function enable(obj)
            
-            obj.enabled = 1;
+            obj.enabled = true;
             
         end
         
         function disable(obj)
             
-            obj.enabled = 0;
+            obj.enabled = false;
             
         end
         
