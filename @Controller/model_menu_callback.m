@@ -28,7 +28,7 @@ switch hObject.Label
         
     case 'Free Profile Model'
         
-        sm = SM_Free_profile(d,9);
+        sm = SM_Free_profile(d,10);
         obj.swap_s_model(sm);
         
     case 'Microgel dumbbell aggregation model'

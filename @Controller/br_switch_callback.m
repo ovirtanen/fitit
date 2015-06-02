@@ -1,6 +1,9 @@
 function br_switch_callback(obj,hObject,callbackdata)
 %BR_SWITCH_CALLBACK Callback for toggling SLS back reflection
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 sbr = obj.model.sls_br;
 
 if not(isempty(sbr))

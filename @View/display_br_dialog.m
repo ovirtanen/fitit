@@ -18,6 +18,9 @@ function [enable,ri,wl,eta,fixed] = display_br_dialog(obj,dri,dwl,deta,dfixed)
 %
 % If the dialog box is cancelled, empty arrays will be returned.
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 %% Dialog
 d = dialog();
 d.Visible = 'off';
@@ -138,6 +141,7 @@ cbtn.Callback = @cbtncallback;
 d.Visible = 'on';
 uiwait(d);
 
+%% Dialog callbacks
 
     function ebtncallback(hObject,callbackdata)
         

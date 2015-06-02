@@ -19,6 +19,8 @@ function p = lsq_fit(obj,varargin)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+%% Check for Fmincon options
+
 switch nargin
    
     case 1
@@ -49,6 +51,8 @@ if numel(obj.data_sets) ~= 1
     
 end %
 
+%% Other inputs
+
 q = obj.data_sets.q_exp;
 intst = obj.data_sets.i_exp;
 std = obj.data_sets.std_exp;
@@ -59,6 +63,8 @@ if any(cellfun(@isempty,{q intst std}))
     error('No empirical data loaded.');
     
 end % if
+
+%% Prepare parameter vector and bounds
 
 % Parameter vector
 p = obj.get_total_parameter_vector();
@@ -78,7 +84,7 @@ lb = lb(pf);
 ub = ub(pf);
 
 
-% initialize handles for chi2 ---------------------------------------------
+%% Initialize handles for chi2
 
 handles = obj.handles;
 
@@ -93,8 +99,34 @@ end % for
 % parameter vector.
 prm = @(p0) obj.p0_to_p(p0,p,pf);
 
-% the actual handle that can be finally fed to fmincon
-f = @(x) Model.chi2(intst,std,prm(x),handles);
+%% Handle for fmincon
+
+% Special case for a regularized fit using SM_Free_profile
+smfp = cellfun(@(x)isa(x,'SM_Free_profile'),obj.s_models);
+
+if any(smfp)
+    
+    % Warning: this goes south if logical indexing gets more than one
+    % model, sm will be the first match.
+    
+    sm = obj.s_models{smfp};
+    
+    % The second thing that goes south here is that the length of p changes
+    % if background and backreflection (in future maybe more?) are enabled.
+    % This is taken care of in Model.update_handles for regular models, but
+    % has to be recognized here for SM_Free_profile.reg(p).
+    
+    ps = double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
+    rh = @(x) sm.reg(x(ps+1:end));
+    f = @(x) Model.chi2reg(intst,std,prm(x),handles,rh);
+    
+else % All the other models without regularization
+    
+    f = @(x) Model.chi2(intst,std,prm(x),handles);
+
+end
+
+%% Minimize & return
 
 if isempty(options)
 

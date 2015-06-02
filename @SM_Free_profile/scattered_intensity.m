@@ -8,11 +8,12 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
 %                   p(1)        Scattering amplitude
-%                   p(2)        Polariszation density of the 1st step
+%                   p(2)        Regularization parameter lambda (not needed here)
+%                   p(3)        Polariszation density of the 1st step
 %                   .
 %                   .
-%                   p(n)        Polarization density of the nth step
-%                   p(n+1:end)  Parameters for the PSD
+%                   p(n+2)      Polarization density of the nth step
+%                   p(n+3:end)  Parameters for the PSD
 %
 %   Returns
 %   i_mod       Scattered intensity at points q
@@ -37,12 +38,16 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 % rp: radius of the particle
 
 %% Collect inputs
-n = obj.n;
+
+n = obj.n;                   % number of shells or steps in the profile
 a = p(1);
-prf = p(2:n+1);              % polarization density profile
+%l = p(2)                    % lambda is unnecessary for intensity
+                             % calculation. see obj.reg(p)
+                             
+prf = p(3:n+2);              % polarization density profile
 rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 
-[rpsd,psd,w] = obj.dist.psd(nc,p(n+2:end));
+[rpsd,psd,w] = obj.dist.psd(nc,p(n+3:end));
 
 % Numerical integration over the distribution using the mid-point rule
 
@@ -57,7 +62,7 @@ rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 rs = rprf(:) * ones(1,numel(q));
 
 rs = repmat(rs,[1,1,numel(rpsd)]);  % Fractional 3d particle radii matrix
-rs = obj.mult3(rs,rpsd(:));
+rs = obj.mult3(rs,rpsd(:));         % Convert each particle size fraction from fractional radius to real radius
 
 %% Expand q to the same dimensions
 

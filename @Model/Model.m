@@ -35,6 +35,7 @@ classdef Model < handle
     methods (Static)
        
         c = chi2(intst,std,p,handles);
+        c = chi2reg(i_exp,std,p,handles,regh);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
         

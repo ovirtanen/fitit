@@ -2,6 +2,9 @@ function A = mult3(A,x)
 %MULT3 Multiplies the third dimension of A elementwise with x 
 %   Detailed explanation goes here
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 sA = size(A);
 sx = size(x);
 
