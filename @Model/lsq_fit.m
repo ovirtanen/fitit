@@ -116,8 +116,8 @@ if any(smfp)
     % This is taken care of in Model.update_handles for regular models, but
     % has to be recognized here for SM_Free_profile.reg(p).
     
-    ps = double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
-    rh = @(x) sm.reg(x(ps+1:end));
+    ps = 1 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
+    rh = @(x) sm.reg(x(ps:end));
     f = @(x) Model.chi2reg(intst,std,prm(x),handles,rh);
     
 else % All the other models without regularization

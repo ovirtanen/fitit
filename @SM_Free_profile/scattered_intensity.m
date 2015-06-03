@@ -73,7 +73,7 @@ qq = repmat(qq,[1,1,numel(rpsd)]);
 m3f3 = obj.f_hard_sphere(rs .* qq);     % m3f3 is the scattering amplitude multiplied by the scattering mass weight
 dprf = prf - [prf(2:end); 0];           % polarization density differences between adjacent shells
 smw = 4./3.*pi.*(rs).^3;                % Scattering mass weight for each shell in each particle size fraction
-m3f3 = smw .* bsxfun(@times,dprf,m3f3);
+m3f3 = bsxfun(@times,dprf,smw .* m3f3);
 m3f3 = sum(m3f3,1);                     % sum down the columns to get scattering amplitude of each particle size fraction
 m3f3 = squeeze(m3f3);                   % remove the singleton dimension, now each column contains m3f3(q) for each particle size fraction
 
