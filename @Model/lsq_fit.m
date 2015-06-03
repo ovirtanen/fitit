@@ -117,7 +117,7 @@ if any(smfp)
     % has to be recognized here for SM_Free_profile.reg(p).
     
     ps = 1 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
-    rh = @(x) sm.reg(x(ps:end));
+    rh = @(x) sm.reg(x(ps:end),2);  % second derivative smoothing norm
     f = @(x) Model.chi2reg(intst,std,prm(x),handles,rh);
     
 else % All the other models without regularization
