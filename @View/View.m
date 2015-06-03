@@ -20,6 +20,7 @@ classdef View < handle
         controller;
         model;
         
+        menu;       % struct for top menu
         bg_panel;   % background panel
         p_panel;    % scattering model parameter panel
         d_panel;    % distribution panel

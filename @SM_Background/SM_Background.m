@@ -45,7 +45,7 @@ methods (Access = public)
         obj.param_map = containers.Map(keyset(:),valueset);
             
         % Model parameter default values
-        obj.params = {1e-6 1e-5 1e-4 1};               % BG
+        obj.params = {1e-7 1e-7 1e-5 1};               % BG
         
         obj.enabled = 0;
             

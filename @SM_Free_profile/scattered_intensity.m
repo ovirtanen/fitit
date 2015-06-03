@@ -7,8 +7,8 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   nc          Number of integration points for the distribution
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
-%                   p(1)        Scattering amplitude
-%                   p(2)        Regularization parameter lambda (not needed here)
+%                   p(1)        Regularization parameter lambda (not needed here)
+%                   p(2)        Scattering amplitude
 %                   p(3)        Polariszation density of the 1st step
 %                   .
 %                   .
@@ -40,10 +40,9 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %% Collect inputs
 
 n = obj.n;                   % number of shells or steps in the profile
-a = p(1);
-%l = p(2)                    % lambda is unnecessary for intensity
+%l = p(1)                    % lambda is unnecessary for intensity
                              % calculation. see obj.reg(p)
-                             
+a = p(2);                                               
 prf = p(3:n+2);              % polarization density profile
 rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 

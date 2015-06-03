@@ -6,6 +6,9 @@ function initialize_menu(obj,p)
 
 %% FitIt! menu ------------------------------------------------------------
 fi = uimenu(p,'Label','FitIt!');
+fi.Tag = 'fitit_menu';
+obj.menu.fitit = fi;
+
 fia = uimenu(fi,'Label','About');
 fia.Callback = @(hObject,callbackdata) obj.controller.about_menu_callback(hObject,callbackdata);
 
@@ -15,6 +18,8 @@ fiq.Callback = @(hObject,callbackdata) obj.controller.quit_callback(hObject,call
 
 %% File menu --------------------------------------------------------------
 f = uimenu(p,'Label','File');
+f.Tag = 'file_menu';
+obj.menu.file = f;
 
 fl = uimenu(f,'Label','Load dataset');
 fl.Tag = 'single_ds_loader';
@@ -31,6 +36,7 @@ fs.Callback = @(hObject,callbackdata) obj.controller.save_data_callback(hObject,
 %% Model menu -------------------------------------------------------------
 m = uimenu(p,'Label','Model');
 m.Tag = 'model_menu';
+obj.menu.model = m;
 
 am = Scattering_model.available_models;
 
@@ -45,6 +51,7 @@ end
 %% Distribution menu ------------------------------------------------------
 d = uimenu(p,'Label','Distribution');
 d.Tag = 'dist_menu';
+obj.menu.dist = d;
 
 di = uimenu(d);
 di.Label = 'Load histogram...';
@@ -60,13 +67,18 @@ for i = 1 : numel(ad)
 end
 
 %% Tools menu
-
 t = uimenu(p,'Label','Tools');
 t.Tag = 'tools_menu';
+obj.menu.tools = t;
 
 tbr = uimenu(t,'Label','SLS Backreflection');
 tbr.Tag = 'br_switch';
 tbr.Callback = @(hObject,callbackdata) obj.controller.br_switch_callback(hObject,callbackdata);
+
+tlc = uimenu(t,'Label','Determine L-Curve');
+tlc.Tag = 'l_curve';
+tlc.Callback = @(hObject,callbackdata) obj.controller.l_curve_callback(hObject,callbackdata);
+tlc.Enable = 'off';
 
 tgpu = uimenu(t,'Label','Enable GPU');
 tgpu.Tag = 'gpu_switch';
@@ -94,9 +106,9 @@ elseif isempty(obj.controller.gpu)
 end % if
 
 %% View menu
-
 v = uimenu(p,'Label','View');
 v.Tag = 'view_menu';
+obj.menu.view = v;
 
 vloglin = uimenu(v,'Label','Log-lin');
 vloglin.Tag = 'loglin_scale';
@@ -108,6 +120,9 @@ vloglog.Callback = @(hObject,callbackdata) obj.controller.si_scale_callback(hObj
 
 %% Help menu --------------------------------------------------------------
 h = uimenu(p,'Label','Help');
+h.Tag = 'help_menu';
+obj.menu.help = h;
+
 c = uimenu(h,'Label','Comfort me');
 c.Callback = @(hObject,callbackdata) obj.controller.comfort_me_callback(hObject,callbackdata);
 

@@ -92,6 +92,7 @@ classdef Controller < handle
         edit_box_callback(obj,hObject,callbackdata);
         f_button_callback(obj,hObject,callbackdata);
         gpu_switch_callback(obj,hObject,callbackdata);
+        l_curve_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
         load_histogram_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);

@@ -52,15 +52,15 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             steps = repmat({'Step '},n,1);
             inds  = strsplit(num2str((1:n)))';
             
-            obj.p_name_strings = {'Amplitude (1/cm)';...
-                                  'log lambda'}; 
+            obj.p_name_strings = {'log lambda';...
+                                  'Amplitude (1/cm)';}; 
             obj.p_name_strings = [obj.p_name_strings; strcat(steps,inds)];
             
             % Parameter ids
             ids = repmat({'stp'},n,1);
             
-            obj.p_ids = {'a';...
-                         'lambda'};
+            obj.p_ids = {'lambda';...
+                         'a'};
             obj.p_ids = [obj.p_ids; strcat(ids,inds)];
             
             % Model parameters map
@@ -70,8 +70,8 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             obj.param_map = containers.Map(keyset(:),valueset);
             
             % Model parameter default values
-            obj.params = {0 1 1 1;...                           % Amplitude
-                          -5 -5 5 1};                           % log lambda     
+            obj.params = {-3 -3 3 1;...                         % log lambda
+                          0 1 1 1 };                            % Amplitude     
             obj.params = [obj.params; repmat({0 1 1 1},n,1)];   % Steps: Default values [0 ... 1]
             
         end % constructor  

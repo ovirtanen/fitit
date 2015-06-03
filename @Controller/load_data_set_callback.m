@@ -94,6 +94,18 @@ obj.view.update_axes;
 
 obj.view.update_f_button_status();
 
+% Check for SM_Free_profile
+l = findobj(obj.view.menu.tools,'Tag','l_curve');
+if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
+   
+    l.Enable = 'on';
+    
+else
+    
+    l.Enable = 'off';
+    
+end
+
 end
 
 function d = rm_neg(d)
