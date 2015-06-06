@@ -11,7 +11,6 @@ obj.view.disable_f_button();
 obj.view.switch_enable_panels('off');
 drawnow();
 
-
 p = obj.model.lsq_fit();
 
 obj.model.set_total_parameter_vector(p);

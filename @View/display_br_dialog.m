@@ -23,6 +23,7 @@ function [enable,ri,wl,eta,fixed] = display_br_dialog(obj,dri,dwl,deta,dfixed)
 
 %% Dialog
 d = dialog();
+d.CloseRequestFcn = @cbtncallback;
 d.Visible = 'off';
 d.Name = 'SLS backreflection';
 d.Units = 'pixels';

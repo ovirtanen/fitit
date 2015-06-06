@@ -12,10 +12,10 @@ function r = reg(obj,p,d)
 %                   .
 %                   p(n+2)      Polarization density of the nth step
 %                   p(n+3:end)  Parameters for the PSD
-% d                 order of the smoothing norm        
-%                   0       Standard norm
-%                   1       1st derivative norm
-%                   2       2nd derivative norm
+% d                 order of the smoothing norm:       
+%                       0       Standard norm
+%                       1       1st derivative norm
+%                       2       2nd derivative norm
 %
 % Returns
 % r             Regularization term

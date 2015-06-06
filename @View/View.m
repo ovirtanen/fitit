@@ -62,6 +62,7 @@ classdef View < handle
         display_about_box(obj);
         [enable,ri,wl,eta,fixed] = display_br_dialog(obj,enable,dri,dwl,deta,dfixed);
         display_comfort_me_box(obj);
+        display_l_curve(obj,snorm,rnorm,lambda);
         delete_g_sources_in_si_axes(obj);
         function disable_f_button(obj)
            

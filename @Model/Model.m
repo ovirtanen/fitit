@@ -62,6 +62,7 @@ classdef Model < handle
         p = get_total_param_vector(obj);
         l = get_total_free_params(obj);
         [lb,ub] = get_total_param_bounds(obj);
+        [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,prg);
         p = lsq_fit(obj,options);
         %set_active_s_model(obj,asm);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
