@@ -10,7 +10,7 @@ function lims = axis_lims(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-xmax = exp(obj.get_param('a_max'));
+xmax = obj.get_param('pos_max');
 
 lims = [0 xmax 0 0];
 

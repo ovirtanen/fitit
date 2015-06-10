@@ -1,12 +1,12 @@
-classdef DST_Lognrml < Distribution & handle
-    %GAUSSIAN Lognormal PSD for Scattering_model
+classdef DST_Gumbel < Distribution & handle
+    %DST_Gumbel Gumbel PSD for Scattering_model
     
     % Copyright (c) 2015, Otto Virtanen
     % All rights reserved.
     
     properties (Constant)
        
-        name = 'Lognormal PSD';
+        name = 'Gumbel PSD';
         
     end
     
@@ -29,12 +29,12 @@ classdef DST_Lognrml < Distribution & handle
     
     methods (Access = public)
 
-        function obj = DST_Lognrml()
+        function obj = DST_Gumbel()
             
-            obj.p_name_strings = {'A';...
-                                  'B'};
-            obj.p_ids = {'a';
-                         'b'};
+            obj.p_name_strings = {'Position (nm)';...
+                                  'Width '};
+            obj.p_ids = {'pos';
+                         'wdth'};
                      
                      
              % Distribution parameters map
@@ -48,8 +48,8 @@ classdef DST_Lognrml < Distribution & handle
             %   {mean_min mean_val mean_max mean_chck;...
             %    std_min  std_val  std_amx  std:chck}
             
-            obj.params = {3 6 7 1;...               % a
-                          0.01  0.06  0.6  1};       % b
+            obj.params = {10 300 1000 1;...         % Position
+                          1  10  100  1};           % width
                      
         end % constructor
         

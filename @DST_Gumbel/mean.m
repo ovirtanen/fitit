@@ -10,10 +10,7 @@ function m = mean(obj,~)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-a = obj.get_param('a_val');
-b = obj.get_param('b_val');
-
-m = exp(a+b.^2./2);
+m = obj.get_param('pos_val') + obj.get_param('wdth_val').* 0.57721566;
 
 end
 
