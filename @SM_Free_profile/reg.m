@@ -5,7 +5,7 @@ function r = reg(obj,p,d)
 %
 % Parameters
 % p             Model parameter vector, where
-%                   p(1)        Regularization parameter lambda (not needed here)
+%                   p(1)        Regularization parameter lambda
 %                   p(2)        Scattering amplitude
 %                   p(3)        Polariszation density of the 1st step
 %                   .

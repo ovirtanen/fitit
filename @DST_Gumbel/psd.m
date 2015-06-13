@@ -23,7 +23,7 @@ b = p(2);
 std = sqrt((pi.*b).^2./2);
 
 % integration limits 4 stds from the mean
-lowlimit = max([0 (a - 4.* std)]);
+lowlimit = max([0 (a - 1.3.* std)]);
 highlimit =  a + 4.* std;
 
 w = (highlimit-lowlimit) ./ nc;                 % quadrature weight

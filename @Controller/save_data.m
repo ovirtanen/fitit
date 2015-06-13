@@ -65,16 +65,9 @@ end % if
 
 for i = 1:numel(m.s_models)
 
-    if numel(m.s_models) == 1
        
-        sm = m.s_models;
-        
-    else
-        
-        sm = m.s_models(1);
-        
-    end
-    
+    sm = m.s_models{i};
+            
     params = sm.p_name_strings(:);
     
     pa.add_data(params,sm.name,'');

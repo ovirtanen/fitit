@@ -60,9 +60,18 @@ for i = 1:numel(lambda)
     obj.set_total_parameter_vector(p_l);
     
     prf = p_l(3+p_off:2+n+p_off);
-    isolnorm(i) = 1./ sqrt((prf(:)' * prf(:)));
+    % normalization doesn't affect the scattering curve because only
+    % relative differences in the density profile matter, but scaling the
+    % absolute profile values helps to distinguish excessive
+    % regularization. Large regularization values force to profile to box
+    % profile, but the height of the profile is not necessarily 1 when a
+    % smoothing norm is used, which messes up the "real" solution norm.
+    prf = prf ./ max(prf); 
+    prf = 1./prf;
+    isolnorm(i) = sqrt((prf(:)' * prf(:)));
     
     res = obj.total_scattered_intensity(150,q) - data;
+    res = res ./ max(res);
     resnorm(i) = sqrt(res(:)' * res(:));
     
     prg(i/numel(lambda));

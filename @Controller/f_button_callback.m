@@ -11,7 +11,18 @@ obj.view.disable_f_button();
 obj.view.switch_enable_panels('off');
 drawnow();
 
-p = obj.model.lsq_fit();
+if any(cellfun(@(x)isa(x,'SM_Free_model'),obj.model.s_models))
+    
+    options = optimoptions('fmincon');
+    options.MaxFunEvals = 5000;
+    
+    p = obj.model.lsq_fit(options);
+    
+else
+    
+    p = obj.model.lsq_fit();
+    
+end
 
 obj.model.set_total_parameter_vector(p);
 obj.view.update_vals_from_model();
