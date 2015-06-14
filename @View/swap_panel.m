@@ -41,18 +41,13 @@ op = obj.active_layout.axes_panel;
 top_spacer = obj.gui.Position(4) - (op.Position(2) + op.Position(4)); % px
 h_spacer = 10; % px
 v_spacer = 10; % px
+b_spacer = 30; % px; bottom spacer
 
 % Resize root Figure if necessary -----------------------------------------
 
-% one v_spacer for the bottom
-total_height = top_spacer + View.total_height_elements(v_spacer,obj.bg_panel,obj.p_panel,obj.d_panel,obj.f_button) + v_spacer;
+total_height = top_spacer + View.total_height_elements(v_spacer,obj.bg_panel,obj.p_panel,obj.d_panel,obj.f_button) + b_spacer;
 
-% check whether the panels fit to the root figure
-if total_height > obj.gui.Position(4) + v_spacer
-   
-    obj.resize_figure(v_spacer,total_height);
-    
-end % if
+obj.resize_figure(obj.gui,b_spacer,total_height);
 
 % Model controls alignment ------------------------------------------------
 

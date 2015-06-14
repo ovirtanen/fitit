@@ -96,8 +96,8 @@ classdef View < handle
         b = initialize_fit_button(obj,p)
         initialize_menu(obj,p);
         p = initialize_param_panel(obj,p,source,tag);
-        [bg,pp,dp,b]=initialize_smodel_controls(obj,f)
-        resize_figure(obj,bottom_spacer,new_height);
+        [bg,pp,dp,b] = initialize_smodel_controls(obj,f)
+        resize_figure(obj,rfig,bottom_spacer,new_height);
         
     end % private methods
     

@@ -82,6 +82,7 @@ classdef Axes_layout < handle
             obj.axes_panel.Visible = 'on';
             gui.Units = o_units;
             
+            
         end % constructor
        
         add_g_source(obj,gs);
