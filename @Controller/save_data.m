@@ -28,10 +28,10 @@ if n_data_sets == 0 % only calculated model
     si = findobj(op.Children,'Tag','si_axes');
     xl = si.XLim;
     
-    q = linspace(xl(1),xl(2),200);
+    qfit = linspace(1e-4,xl(2),200);
     
-    pa.add_data(q,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(100,q),'Intensity','cm-1');   
+    pa.add_data(qfit,'q fit','nm-1');
+    pa.add_data(m.total_scattered_intensity(100,qfit),'Intensity','cm-1');   
 
 elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})) % one data set with empirical data
     
@@ -40,8 +40,9 @@ elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})
     pa.add_data(ds.std_exp,'STD','cm-1');
     
     % Fit
-    pa.add_data(ds.q_exp,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(100,ds.q_exp),'Intensity','cm-1');
+    qfit = linspace(1e-4,max(ds.q_exp),200);
+    pa.add_data(qfit,'q fit','nm-1');
+    pa.add_data(m.total_scattered_intensity(100,qfit),'Intensity','cm-1');
 
     %{ 
     % multiple data sets are not supported at this time
