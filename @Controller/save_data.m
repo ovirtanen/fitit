@@ -93,6 +93,23 @@ for i = 1:numel(m.s_models)
 
 end % for
 
+br = obj.model.sls_br;
+
+% add backreflection data if it is enabled
+if not(isempty(br)) && br.enabled
+   
+    params = {'Refractive index';...
+              'Wave length (nm)';...
+              'eta'};
+    values = {br.refr_index;...
+              br.w_length;...
+              br.eta{2}};
+          
+   pa.add_data(params,'SLS Backreflection','');
+   pa.add_data(values,'Fit values','');
+    
+end
+
 pindarray = obj.fw.addParray(pa);
 
 switch nargin
