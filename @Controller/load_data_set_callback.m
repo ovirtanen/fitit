@@ -5,6 +5,9 @@ function load_data_set_callback(obj,hObject,callbackdata)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+
+%% Import the raw data
+
 ms = [];
 switch hObject.Tag;
     
@@ -14,8 +17,7 @@ switch hObject.Tag;
         
     case 'multiple_ds_loader'
         
-        error('Multiple loading is not supported yet.');
-        %ms = 'on';
+        ms = 'on';
         
     otherwise
         
@@ -55,30 +57,32 @@ catch ME
     
 end % try-catch
 
+%% Clean up data 
+
+data = std_chck(d);
+data = rm_neg(data);
+
+obj.view.delete_g_sources_in_si_axes();
+obj.model.remove_experimental_data();
+
+%% Initialize according to the number of datasets
+
 switch ms
     
-    %case 'on' % add data set if multiselect on
+    case 'on'
         
-    %    obj.model.remove_exp_data();
-    %    obj.add_data_set_to_model(d);
+       for i = 1 : numel(data)
+          
+        obj.add_data_set_to_model(data{i});
+       
+        obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
+           
+       end
+       
         
     case 'off'
         
-       obj.view.delete_g_sources_in_si_axes();
-       obj.model.remove_experimental_data();
-       
-       % check whether STD is included
-       data = d{1};
-       [r,c] = size(data);
-       
-       if c == 2
-           
-           % add STD  = 1
-           data = [data ones(r,1)];
-           
-       end % if
-       
-       data = rm_neg(data);
+       data = data{1};
        
        obj.add_data_set_to_model(data);
        
@@ -94,7 +98,7 @@ obj.view.update_axes;
 
 obj.view.update_f_button_status();
 
-% Check for SM_Free_profile
+%% Check for SM_Free_profile
 l = findobj(obj.view.menu.tools,'Tag','l_curve');
 if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
    
@@ -108,36 +112,40 @@ end
 
 end
 
+function d = std_chck(d)
+   % check whether STD is included and if not, add STD = 1
+
+   dcols = cellfun(@(x)size(x,2), d);
+
+   std_missing = dcols == 2;
+
+   if any(std_missing)
+
+       f = @(x) [x ones(size(x,1),1)];
+       d = cellfun(f,d(std_missing),'UniformOutput',false);
+
+   end
+
+end
+
 function d = rm_neg(d)
 % removes negative intensity values from the data
 
-f = d(:,2) > 0;
-
-s = size(d);
-
-switch s(2)
+for i = 1 : numel(d)
    
-    case 2
-        
-        d1 = d(:,1);
-        d2 = d(:,2);
-        
-        d = [d1(f) d2(f)];
-        
-    case 3
-        
-        d1 = d(:,1);
-        d2 = d(:,2);
-        d3 = d(:,3);
-        
-        d = [d1(f) d2(f) d3(f)];
-        
-    otherwise
-        
-        error('Invalid data structure.');
+    di = d{i};
+    
+    q = di(:,1);
+    intst = di(:,2);
+    std = di(:,3);
+    
+    f = intst > 0;
+    
+    di = [q(f) intst(f) std(f)];
+    d{i} = di;
+    
     
 end
-
 
 end
 

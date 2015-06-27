@@ -32,7 +32,7 @@ switch hObject.Label
         
     case 'Free Profile Model'
         
-        sm = SM_Free_profile(d,10);
+        sm = SM_Free_profile(d,15);
         obj.swap_s_model(sm);
         
         % get rid of the checkbox for the regularization parameter

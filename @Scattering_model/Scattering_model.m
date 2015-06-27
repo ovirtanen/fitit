@@ -19,6 +19,12 @@ classdef Scattering_model < handle
         
     end
     
+    properties (Access = private)
+       
+        scale_param_rows;
+        
+    end
+    
     properties (Abstract, Constant)
         
         name;
@@ -52,9 +58,16 @@ classdef Scattering_model < handle
    end
     
     methods (Access = public)
+        
+        function obj = Scattering_model()
+           
+            obj.scale_param_rows = 1;   % default value
+            
+        end
        
         p = get_param(obj,tag);
         p = get_param_vector(obj);
+        match_scale_factors_to_ds(obj,nds);
         set_fixed_vector(obj,pf);
         set_param(obj,tag,value);
         set_param_vector(obj,p);
