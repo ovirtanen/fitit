@@ -48,6 +48,9 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             obj.dist = d;
             obj.n = n;
             
+            % Indice of the amplitude paramter
+            obj.scale_param_rows = 2;
+            
             % Parameter name strings
             steps = repmat({'Step '},n,1);
             inds  = strsplit(num2str((1:n)))';

@@ -19,7 +19,7 @@ classdef Scattering_model < handle
         
     end
     
-    properties (Access = private)
+    properties (Access = protected)
        
         scale_param_rows;
         
@@ -59,10 +59,10 @@ classdef Scattering_model < handle
     
     methods (Access = public)
         
-        function obj = Scattering_model()
+        function obj = Scattering_model(varargin)
            
-            obj.scale_param_rows = 1;   % default value
-            
+             obj.scale_param_rows = 1;   % default value
+             
         end
        
         p = get_param(obj,tag);

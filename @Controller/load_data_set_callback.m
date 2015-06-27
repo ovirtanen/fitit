@@ -73,18 +73,16 @@ switch ms
         
        for i = 1 : numel(data)
           
-        obj.add_data_set_to_model(data{i});
+            obj.add_data_set_to_model(data{i});
        
-        obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
+            obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
            
        end
        
         
     case 'off'
         
-       data = data{1};
-       
-       obj.add_data_set_to_model(data);
+       obj.add_data_set_to_model(data{1});
        
        obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        
@@ -93,6 +91,21 @@ switch ms
         error('Data loading error.');
         
 end % switch
+
+%% Adjust the number of paramters in the scattering models
+
+numel(data)
+
+for i = 1:numel(obj.model.s_models)
+   
+    sm = obj.model.s_models{i};
+    sm.match_scale_factors_to_ds(numel(data));
+    
+end
+       
+%% update UI
+
+obj.view.swap_panel('sm_panel');
 
 obj.view.update_axes;
 
