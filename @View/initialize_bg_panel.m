@@ -7,7 +7,17 @@ function p = initialize_bg_panel(obj,p)
 
 parent = p;
 source = obj.model.bg;
+pdescriptions = source.p_name_strings;
 tags = Scattering_model.param_ids_to_tags(source.p_ids,'gui');
+
+[nrows,ncols] = size(pdescriptions);
+[srows,scols] = size(tags);
+
+if not(all([ncols == 1 nrows == srows scols == 5]))
+   
+    error('Inputs have wrong dimensions.');
+    
+end
 
 %%% Panel size and properties
 
@@ -47,58 +57,58 @@ u2 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
 lpos = lpos + h_spacer + box_width;
 u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag','bg_max_txt','Style','text','String','Max');
 
-% h_spacers in this section affect the panel width
+
+    % h_spacers in this section affect the panel width
+
+    vpos = p_height - 2 .* (v_spacer + element_height) - p_title_spacer;
+
+    lpos = h_spacer;
+    u4 = uicontrol('Parent',p,'Position',[lpos vpos onoff_box_width element_height],'Tag','bgonoff_chck','Style','checkbox','String','BG not substracted');
+    u4.Callback = @(hObject,callbackdata) obj.controller.bg_enable_callback(hObject,callbackdata);
+    u4.Value = 0;
+
+    lpos = lpos + h_spacer + onoff_box_width;
+    sldr = uicontrol('Parent',p,'Position',[lpos vpos-2 onoff_box_width element_height],'Tag',tags{1},'Style','slider');
+    sldr.Callback = @(hObject,callbackdata) obj.controller.slider_callback(hObject,callbackdata);
 
 
-vpos = p_height - 2 .* (v_spacer + element_height) - p_title_spacer;
-    
-lpos = h_spacer;
-u4 = uicontrol('Parent',p,'Position',[lpos vpos onoff_box_width element_height],'Tag','bgonoff_chck','Style','checkbox','String','BG not substracted');
-u4.Callback = @(hObject,callbackdata) obj.controller.bg_enable_callback(hObject,callbackdata);
-u4.Value = 0;
-
-lpos = lpos + h_spacer + onoff_box_width;
-sldr = uicontrol('Parent',p,'Position',[lpos vpos-2 onoff_box_width element_height],'Tag',tags{1},'Style','slider');
-sldr.Callback = @(hObject,callbackdata) obj.controller.slider_callback(hObject,callbackdata);
+    lpos = lpos + 3.* h_spacer + slider_width;
+    eb_min = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{2},'Style','edit');
+    eb_min.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    v = source.get_param(eb_min.Tag);
+    eb_min.String = num2str(v);
+    sldr.Min = v;
 
 
-lpos = lpos + 3.* h_spacer + slider_width;
-eb_min = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{2},'Style','edit');
-eb_min.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
-v = source.get_param(eb_min.Tag);
-eb_min.String = num2str(v);
-sldr.Min = v;
+    lpos = lpos + h_spacer + box_width;
+    eb_val = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{3},'Style','edit');
+    eb_val.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    v = source.get_param(eb_val.Tag);
+    eb_val.String = num2str(v);
+    sldr.Value = v;
 
-    
-lpos = lpos + h_spacer + box_width;
-eb_val = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{3},'Style','edit');
-eb_val.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
-v = source.get_param(eb_val.Tag);
-eb_val.String = num2str(v);
-sldr.Value = v;
 
-    
-lpos = lpos + h_spacer + box_width;
-eb_max = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{4},'Style','edit');
-eb_max.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
-v = source.get_param(eb_max.Tag);
-eb_max.String = num2str(v);
-sldr.Max = v;
+    lpos = lpos + h_spacer + box_width;
+    eb_max = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{4},'Style','edit');
+    eb_max.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    v = source.get_param(eb_max.Tag);
+    eb_max.String = num2str(v);
+    sldr.Max = v;
 
-    
-lpos = lpos + 2 .* h_spacer + box_width;
-chck = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{5},'Style','checkbox','String','fixed');
-chck.Callback = @(hObject,callbackdata) obj.controller.check_box_callback(hObject,callbackdata);
-v = source.get_param(chck.Tag);
-chck.Value = v;
 
-% leave toggle button enabled
+    lpos = lpos + 2 .* h_spacer + box_width;
+    chck = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{5},'Style','checkbox','String','fixed');
+    chck.Callback = @(hObject,callbackdata) obj.controller.check_box_callback(hObject,callbackdata);
+    v = source.get_param(chck.Tag);
+    chck.Value = v;
 
-sldr.Enable = 'off';
-eb_min.Enable = 'off';
-eb_val.Enable = 'off';
-eb_max.Enable = 'off';
-chck.Enable = 'off';
+    % leave toggle button enabled
+
+    sldr.Enable = 'off';
+    eb_min.Enable = 'off';
+    eb_val.Enable = 'off';
+    eb_max.Enable = 'off';
+    chck.Enable = 'off';
 
 end
 

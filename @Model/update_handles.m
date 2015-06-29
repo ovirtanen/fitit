@@ -9,73 +9,118 @@ function update_handles(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-%% Parameter vector start index
-% Start index of the parameters for the scattering models in parameter
-% vector p. Background and backreflection both reserve one place at the
-% beginning of p, so that scattering models' parameters start at p(3) if both
-% are in use.
+%% Book keeping
 
-ps = 1 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
+% number of backgrounds
+ebg = [obj.bg.enabled];
+nbg = ebg(ebg ~= 0);
+nbg = numel(nbg);
 
-
-%% Create SM handles
-
-if false && not(isempty(obj.sls_br)) && obj.sls_br.enabled % q smearing & backreflection
-    
-    % Implement q smearing here. In the place of false use q smearing
-    % enabled check.
-    
-elseif not(isempty(obj.sls_br)) && obj.sls_br.enabled % backreflection
-    
-    sms = obj.s_models;
-    
-    handles = cell(1 + numel(sms),1); % +1 for accomodating background
-    
-    fq = @(x) obj.sls_br.q_brefl(x);
-    
-    for i = 1:numel(sms)
-            
-        sm = sms{i};
-        np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model 
-        
-        h = @(nc,q,p) sm.scattered_intensity(nc,q,p(ps:ps+np-1)) + p(ps-1) .* sm.scattered_intensity(nc,fq(q),p(ps:ps+np-1));
-        
-        handles{i} = h;
-        ps = ps + np;
-           
-    end % for
-    
-else % neither
-    
-    sms = obj.s_models;
-    
-    handles = cell(1 + numel(sms),1); % +1 for accomodating background
-    
-    for i = 1:numel(sms)
+% number of backreflections
+if not(isempty(obj.sls_br))
    
-        sm = sms{i};
-        np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
-
-        h = @(nc,q,p) sm.scattered_intensity(nc,q,p(ps:ps+np-1));
-        
-        handles{i} = h;
-        ps = ps + np;
-           
-    end % for    
+    ebr = [obj.sls_br.enabled];
+    nbr = ebr(ebr ~= 0);
+    nbr = numel(nbr);
+    
+else
+    
+    nbr = 0;
     
 end
 
-%% Background
+% Parameter vector start index
+% Start index of the parameters for the scattering models in parameter
+% vector p. Background and backreflection both reserve places at the
+% beginning of p, so that scattering models' parameters start after them
 
-if obj.bg.enabled
-    
-    handles{end} = @(nc,q,p) p(1);
+ps = 1 + nbg + nbr;
 
-else
+
+ds = obj.data_sets;
+sms = obj.s_models;
+handles = cell(numel(ds) + numel(ds) .* numel(sms),1); % + numel(ds) for accomodating backgrounds
+
+for d = 1:max(1,numel(ds))
+
+    a_handles = [];
     
-    handles(end) = [];
+    %% Create SM handles
     
-end % if
+    if false && not(isempty(obj.sls_br)) && obj.sls_br(d).enabled % q smearing & backreflection
+
+        % Implement q smearing here. In the place of false use q smearing
+        % enabled check.
+
+    elseif not(isempty(obj.sls_br)) && numel(obj.sls_br) >= d && obj.sls_br{d}.enabled % backreflection enabled for this ds
+
+        fq = @(x) obj.sls_br(d).q_brefl(x);
+
+        for i = 1:numel(sms)
+
+            sm = sms{i};
+            np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model 
+            
+            % parameter indices in the total parameter vector p
+            pinds = ps:ps+np-1;
+            % remove amplitude parameters that are not for this data_set
+            spr = sm.scale_param_rows;
+            spr(d) = [];
+            pinds(spr) = [];
+            
+            h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds)) + p(ps-(nbr+1)+d) .* sm.scattered_intensity(nc,fq(q),p(pinds));
+
+            handles{(d-1) .* numel(sms) + i} = h;
+            ps = ps + np;
+
+        end % for
+
+    else % neither
+        
+        for i = 1:numel(sms)
+
+            sm = sms{i};
+            np = numel(sm.p_ids) + numel(sm.dist.p_ids); % number of parameters for the model
+            
+            % parameter indices in the total parameter vector p
+            pinds = ps:ps+np-1;
+            % remove amplitude parameters that are not for this data_set
+            spr = sm.scale_param_rows;
+            spr(d) = [];
+            pinds(spr) = [];
+
+            h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds));
+
+            handles{(d-1) .* numel(sms) + i} = h;
+            ps = ps + np;
+
+        end % for    
+
+    end
+    
+    a_handles = (d-1) .* numel(sms) + (1:numel(sms));
+
+    %% Background
+
+    if obj.bg(d).enabled
+        
+        handles{max(1,numel(ds)) .* numel(sms) + d} = @(nc,q,p) p(ps-(nbg+nbr+1)+d);
+        
+        a_handles = [a_handles (max(1,numel(ds)) .* numel(sms) + d)];
+
+        max(1,numel(ds)) .* numel(sms) + d
+
+    end % if
+    
+    if not(isempty(ds))
+        
+        ds(d).set_active_handles(a_handles);
+        
+    end
+    
+end % ds for
+
+handles(cellfun(@isempty,handles)) = []; 
 
 obj.handles = handles;
 

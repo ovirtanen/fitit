@@ -74,10 +74,12 @@ switch ms
        for i = 1 : numel(data)
           
             obj.add_data_set_to_model(data{i});
-       
+            
             obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
            
        end
+       
+       obj.model.bg.match_scale_factors_to_ds(numel(data));
        
         
     case 'off'
@@ -106,6 +108,7 @@ end
 %% update UI
 
 obj.view.swap_panel('sm_panel');
+obj.view.swap_panel('bg_panel');
 
 obj.view.update_axes;
 

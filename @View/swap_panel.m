@@ -29,6 +29,11 @@ switch tag
         delete(obj.p_panel);
         obj.p_panel = obj.initialize_param_panel(obj.gui,sm,tag);
         
+    case 'bg_panel'
+        
+        delete(obj.bg_panel);
+        obj.p_panel = obj.initialize_bg_panel(obj.gui);
+        
     otherwise
         
         error('Panel tag not recognized.')

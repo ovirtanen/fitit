@@ -74,6 +74,13 @@ elseif nds > numel(sprs) % increase
     % them
     
     e_inds = cellfun(@(x) regexp(x,'\d*$'),spids,'UniformOutput',false);
+
+    if any(cellfun(@isempty,e_inds))
+       
+        e_inds = cellfun(@(x) length(x)+1,spids,'UniformOutput',false);
+        
+    end
+    
     spids = cellfun(@(x,y) x(1:y-1), spids,e_inds,'UniformOutput',false);
     
     ns = cellfun(@num2str,num2cell(1:size(spids,1))','UniformOutput',false);

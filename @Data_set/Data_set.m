@@ -16,7 +16,9 @@ classdef Data_set
         
         q_exp;
         i_exp;
-        std_exp;    
+        std_exp;
+        
+        active_handles;
         
     end
     
@@ -27,8 +29,14 @@ classdef Data_set
             obj.q_exp = q;
             obj.i_exp = intst;
             obj.std_exp = std;
+            
+            % Indice array that indicates which handles are necessary to 
+            % calculate the total scattered intensity for this dataset.
+            obj.active_handles = []; 
     
         end % constructor
+        
+        set_active_handles(obj,indices);
         
         
     end 

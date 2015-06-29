@@ -19,7 +19,7 @@ classdef Scattering_model < handle
         
     end
     
-    properties (Access = protected)
+    properties (SetAccess = protected)
        
         scale_param_rows;
         

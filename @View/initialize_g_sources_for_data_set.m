@@ -11,7 +11,7 @@ si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 %% Graphics_source for plotting the model intensity
 
 m = obj.model;
-q = linspace(0.0001,max(m.data_sets(1).q_exp),200)';
+q = linspace(0.0001,max(ds.q_exp),200)';
 intst = @()m.total_scattered_intensity(150,q);
         
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
