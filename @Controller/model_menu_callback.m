@@ -32,8 +32,6 @@ switch hObject.Label
         
         sm = SM_Free_profile(d,15);
         
-
-        
     case 'Microgel dumbbell aggregation model'
         
         sm = SM_MG_dumbbell(d,obj.gpu_enabled_global,obj.par_enabled_global);

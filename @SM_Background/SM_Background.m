@@ -47,13 +47,14 @@ methods (Access = public)
         % Model parameter default values
         obj.params = {1e-7 1e-7 1e-5 1};               % BG
         
-        obj.enabled = 0;
+        obj.enabled = false;
             
     end % constructor
         
-    function i_mod = scattered_intensity(obj,p)
+    function i_mod = scattered_intensity(obj,nbg,p)
         
-        if obj.enabled
+        e = obj.enabled;
+        if e(nbg)
             
             i_mod = p(1);
             
@@ -65,17 +66,25 @@ methods (Access = public)
             
     end
     
-    function toggle_bg(obj,toggle)
+    function toggle_bg(obj,nbg,toggle)
+        % TOGGLE_BG Toggles the SM_Backgrounds enabled property
+        %
+        % Parameters
+        % nbg           the number of the background to be toggled
+        % toggle        'on' or 'off'
+        %
        
+        Lib.inargtchck(nbg,@(x)all([nbg >= 1 rem(nbg,1)==0 nbg <= numel(obj.enabled)]));
+        
         switch toggle
             
             case 'on'
                 
-                obj.enabled = 1;
+                obj.enabled(nbg) = true;
                 
             case 'off'
                 
-                obj.enabled = 0;
+                obj.enabled(nbg) = false;
                 
             otherwise
                 
@@ -84,6 +93,8 @@ methods (Access = public)
         end % switch
         
     end
+    
+    match_scale_factors_to_ds(obj,nds);
         
     set_param_vector(obj,p);
     

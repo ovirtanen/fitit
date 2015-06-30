@@ -5,6 +5,15 @@ function update_handles(obj)
 %   
 % update_handles()
 %
+% Structure of the parameter vector
+% 
+% p = 
+%   [bg1 bg2 .. bgn br1 br2 .. brm p1 p2 ..pk]'
+%
+% There can be maximum numel(Model.data_sets) backgrounds and
+% backreflections. Some of them or all of them might not be present in p if
+% they are not enabled.
+%
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
@@ -12,15 +21,15 @@ function update_handles(obj)
 %% Book keeping
 
 % number of backgrounds
-ebg = [obj.bg.enabled];
-nbg = ebg(ebg ~= 0);
+ebg = obj.bg.enabled;
+nbg = ebg(ebg == true);
 nbg = numel(nbg);
 
 % number of backreflections
 if not(isempty(obj.sls_br))
    
     ebr = [obj.sls_br.enabled];
-    nbr = ebr(ebr ~= 0);
+    nbr = ebr(ebr == true);
     nbr = numel(nbr);
     
 else
@@ -29,21 +38,30 @@ else
     
 end
 
-% Parameter vector start index
-% Start index of the parameters for the scattering models in parameter
-% vector p. Background and backreflection both reserve places at the
-% beginning of p, so that scattering models' parameters start after them
-
-ps = 1 + nbg + nbr;
-
 
 ds = obj.data_sets;
 sms = obj.s_models;
-handles = cell(numel(ds) + numel(ds) .* numel(sms),1); % + numel(ds) for accomodating backgrounds
+handles = cell(nbg + numel(ds) .* numel(sms),1); % + nbg for accomodating backgrounds
 
 for d = 1:max(1,numel(ds))
+    
+    % Parameter vector start index
+    % Start index of the parameters for the scattering models in parameter
+    % vector p. Background and backreflection both reserve places at the
+    % beginning of p, so that scattering models' parameters start after them
 
+    ps = 1 + nbg + nbr;
     a_handles = [];
+    
+    %% Background
+
+    if ebg(d)
+        
+        handles{sum(ebg(1:d))} = @(nc,q,p) p(ps-(nbg+1-sum(ebg(1:d)) + nbr));
+        a_handles = [a_handles sum(ebg(1:d))];
+
+
+    end % if
     
     %% Create SM handles
     
@@ -70,7 +88,7 @@ for d = 1:max(1,numel(ds))
             
             h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds)) + p(ps-(nbr+1)+d) .* sm.scattered_intensity(nc,fq(q),p(pinds));
 
-            handles{(d-1) .* numel(sms) + i} = h;
+            handles{nbg + (d-1) .* numel(sms) + i} = h;
             ps = ps + np;
 
         end % for
@@ -88,29 +106,17 @@ for d = 1:max(1,numel(ds))
             spr = sm.scale_param_rows;
             spr(d) = [];
             pinds(spr) = [];
-
+            
             h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds));
 
-            handles{(d-1) .* numel(sms) + i} = h;
+            handles{nbg + (d-1) .* numel(sms) + i} = h;
             ps = ps + np;
 
         end % for    
 
     end
     
-    a_handles = (d-1) .* numel(sms) + (1:numel(sms));
-
-    %% Background
-
-    if obj.bg(d).enabled
-        
-        handles{max(1,numel(ds)) .* numel(sms) + d} = @(nc,q,p) p(ps-(nbg+nbr+1)+d);
-        
-        a_handles = [a_handles (max(1,numel(ds)) .* numel(sms) + d)];
-
-        max(1,numel(ds)) .* numel(sms) + d
-
-    end % if
+    a_handles = [a_handles nbg + (d-1) .* numel(sms) + (1:numel(sms))];
     
     if not(isempty(ds))
         
@@ -119,8 +125,6 @@ for d = 1:max(1,numel(ds))
     end
     
 end % ds for
-
-handles(cellfun(@isempty,handles)) = []; 
 
 obj.handles = handles;
 

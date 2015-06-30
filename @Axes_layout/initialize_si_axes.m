@@ -24,14 +24,12 @@ si.Box = 'on';
  
 m = obj.view.model;
 q = linspace(0.0001,0.025,200)';
-intst = @()m.total_scattered_intensity(150,q);
+ihandles = @() 1:numel(obj.view.model.handles);
+intst = @()m.total_scattered_intensity(150,ihandles(),q);
         
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.g_sources = [obj.g_sources gs];
     
-gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
-obj.g_sources = [obj.g_sources gs];
-            
             
 %% return to default units
 si.Units = 'pixels';

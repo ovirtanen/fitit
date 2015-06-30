@@ -7,27 +7,30 @@ function bg_enable_callback(obj,hObject,callbackdata)
 % All rights reserved.
 
 state = hObject.Value;
-
+nbg = str2num(hObject.Tag(8));
 panel = ancestor(hObject,'uipanel');
 
-controls = panel.Children;
+controls = panel.Children(1:end-3);
+controls = reshape(controls,[6 numel(controls)./6]);
+controls = controls(:,size(controls,2)+1-nbg);
 % exclude the BG checkbox
 controls = controls(not(strcmp(hObject.Tag, {controls.Tag})));
 
 target = obj.model.bg;
 
+
 switch state
     
     case 0
         
-        target.toggle_bg('off');              % scattering contribution 0
+        target.toggle_bg(nbg,'off');              % bg scattering off
             
         set(controls,'Enable','off');
 
         
     case 1
         
-        target.toggle_bg('on');              % bg scattering
+        target.toggle_bg(nbg,'on');              % bg scattering
                
         set(controls,'Enable','on');
         

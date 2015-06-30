@@ -9,5 +9,6 @@ sm = SM_Hard_sphere(dist);
 m = Model(sm);
 
 c = Controller(m,'local');
+%c = Controller(m,'cluster');
 
 v = c.view;

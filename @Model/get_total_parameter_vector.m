@@ -19,10 +19,13 @@ sms = obj.s_models;
 p = [];
 
 %% Background
+bg_enabled = obj.bg.enabled;
 
-if obj.bg.enabled
+if any(bg_enabled)
     
-    p = [p; obj.bg.get_param('bg_val')];
+    bg_vals = cell2mat(obj.bg.params(:,2));
+    
+    p = [p; bg_vals(bg_enabled)];
     
 end
   

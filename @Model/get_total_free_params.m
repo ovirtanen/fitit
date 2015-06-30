@@ -9,10 +9,13 @@ function l = get_total_free_params(obj)
 l = [];
 
 %% Background
+bg_enabled = obj.bg.enabled;
 
-if obj.bg.enabled
+if any(bg_enabled)
     
-    l = [l; logical(obj.bg.get_param('bg_chck'))];
+    bg_chcks = cell2mat(obj.bg.params(:,4));
+    
+    l = [l; logical(bg_chcks(bg_enabled))];
         
 end
     

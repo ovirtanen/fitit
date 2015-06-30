@@ -1,4 +1,4 @@
-classdef Data_set
+classdef Data_set < handle
     %DATA_SET Class for holding measurement data
     %
     %   obj = Data_set(q_exp,i_exp, std_exp)

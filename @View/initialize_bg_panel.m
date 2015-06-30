@@ -33,7 +33,8 @@ element_height = 20;    %px
 p_title_spacer = 10;    %px
 
 p_width = 10 * h_spacer + onoff_box_width + slider_width + 4 * box_width;
-p_height = p_title_spacer + 2.*element_height + 4 * v_spacer;
+%p_height = p_title_spacer + 2.*element_height + 4 * v_spacer;
+p_height = p_title_spacer + (numel(pdescriptions) + 1) * element_height + (numel(pdescriptions) + 2) * v_spacer;
 
 p = uipanel('Parent',parent,...
             'Units','pixels',...
@@ -57,23 +58,30 @@ u2 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
 lpos = lpos + h_spacer + box_width;
 u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag','bg_max_txt','Style','text','String','Max');
 
-
+for i = 1:nrows
     % h_spacers in this section affect the panel width
+    
+    trow = tags(i,:);
+    %vpos = p_height - 2 .* (v_spacer + element_height) - p_title_spacer;
+    vpos = p_height - (i+1) .* (v_spacer + element_height) - p_title_spacer;
 
-    vpos = p_height - 2 .* (v_spacer + element_height) - p_title_spacer;
-
+    if nrows == 1
+        bg_txt = 'BG not substracted';
+    else
+        bg_txt = ['BG' num2str(i) ' not substracted'];
+    end
     lpos = h_spacer;
-    u4 = uicontrol('Parent',p,'Position',[lpos vpos onoff_box_width element_height],'Tag','bgonoff_chck','Style','checkbox','String','BG not substracted');
+    u4 = uicontrol('Parent',p,'Position',[lpos vpos onoff_box_width element_height],'Tag',['bgonoff' num2str(i) '_chck'],'Style','checkbox','String',bg_txt);
     u4.Callback = @(hObject,callbackdata) obj.controller.bg_enable_callback(hObject,callbackdata);
     u4.Value = 0;
 
     lpos = lpos + h_spacer + onoff_box_width;
-    sldr = uicontrol('Parent',p,'Position',[lpos vpos-2 onoff_box_width element_height],'Tag',tags{1},'Style','slider');
+    sldr = uicontrol('Parent',p,'Position',[lpos vpos-2 onoff_box_width element_height],'Tag',trow{1},'Style','slider');
     sldr.Callback = @(hObject,callbackdata) obj.controller.slider_callback(hObject,callbackdata);
 
 
     lpos = lpos + 3.* h_spacer + slider_width;
-    eb_min = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{2},'Style','edit');
+    eb_min = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',trow{2},'Style','edit');
     eb_min.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
     v = source.get_param(eb_min.Tag);
     eb_min.String = num2str(v);
@@ -81,7 +89,7 @@ u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
 
 
     lpos = lpos + h_spacer + box_width;
-    eb_val = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{3},'Style','edit');
+    eb_val = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',trow{3},'Style','edit');
     eb_val.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
     v = source.get_param(eb_val.Tag);
     eb_val.String = num2str(v);
@@ -89,7 +97,7 @@ u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
 
 
     lpos = lpos + h_spacer + box_width;
-    eb_max = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{4},'Style','edit');
+    eb_max = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',trow{4},'Style','edit');
     eb_max.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
     v = source.get_param(eb_max.Tag);
     eb_max.String = num2str(v);
@@ -97,7 +105,7 @@ u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
 
 
     lpos = lpos + 2 .* h_spacer + box_width;
-    chck = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',tags{5},'Style','checkbox','String','fixed');
+    chck = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',trow{5},'Style','checkbox','String','fixed');
     chck.Callback = @(hObject,callbackdata) obj.controller.check_box_callback(hObject,callbackdata);
     v = source.get_param(chck.Tag);
     chck.Value = v;
@@ -109,6 +117,8 @@ u3 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',
     eb_val.Enable = 'off';
     eb_max.Enable = 'off';
     chck.Enable = 'off';
+    
+end % for
 
 end
 

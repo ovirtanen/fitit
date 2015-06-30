@@ -26,12 +26,14 @@ classdef View < handle
         d_panel;    % distribution panel
         f_button;   % fit button
         
+        layouts;
+        
     end % read-only
     
     properties (Access = private)
         
         active_layout;
-        layouts;
+        
              
     end % internal
     

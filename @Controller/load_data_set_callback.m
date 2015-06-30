@@ -75,18 +75,15 @@ switch ms
           
             obj.add_data_set_to_model(data{i});
             
-            obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
+            %obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
            
        end
-       
-       obj.model.bg.match_scale_factors_to_ds(numel(data));
-       
         
     case 'off'
         
        obj.add_data_set_to_model(data{1});
        
-       obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
+       %obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        
     otherwise
         
@@ -96,12 +93,25 @@ end % switch
 
 %% Adjust the number of paramters in the scattering models
 
-numel(data)
 
 for i = 1:numel(obj.model.s_models)
    
     sm = obj.model.s_models{i};
     sm.match_scale_factors_to_ds(numel(data));
+    
+end
+
+obj.model.bg.match_scale_factors_to_ds(numel(data));
+
+%% Update handles
+
+obj.model.update_handles();
+
+%% Initialize g_sources
+
+for i = 1:numel(obj.model.data_sets)
+   
+    obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
     
 end
        

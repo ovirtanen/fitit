@@ -32,7 +32,7 @@ switch tag
     case 'bg_panel'
         
         delete(obj.bg_panel);
-        obj.p_panel = obj.initialize_bg_panel(obj.gui);
+        obj.bg_panel = obj.initialize_bg_panel(obj.gui);
         
     otherwise
         
@@ -60,6 +60,7 @@ obj.align_control_panels(obj.gui,h_spacer,top_spacer,v_spacer,obj.bg_panel,obj.p
 
 obj.p_panel.Visible = 'on';
 obj.d_panel.Visible = 'on';
+obj.bg_panel.Visible = 'on';
 
 % Fit button alignment ----------------------------------------------------
 b = obj.f_button;
