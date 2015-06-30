@@ -1,39 +1,14 @@
-function edit_box_callback(obj,hObject,callbackdata)
-%EDIT_BOX_CALLBACK Callback for parameter edit boxes in FitIt GUI
-%   
-%   edit_box_callback(hObject,callbackdata) does a primitive validity check
-%   for the user supplied value and if it passes, updates the model
-%   parameter with the new value. If the value is invalid, the old value
-%   will be retrieved from the model and rendered.
-%
+function br_edit_box_callback(obj,hObject,callbackdata)
+%BR_EDIT_BOX_CALLBACK Callback for SLS_Backreflection parameter edit boxes 
+% in FitIt GUI
 
-% Copyright (c) 2015, Otto Virtanen
-% All rights reserved.
 
 tag = hObject.Tag;
 v = hObject.String;
 
 panel = ancestor(hObject,'uipanel');
 
-target = [];
-
-switch panel.Tag
-    
-    case 'bg_panel'
-        
-        target = obj.model.bg();
-        
-    case 'sm_panel'
-        
-        target = obj.model.get_active_s_model();
-        
-    case 'dist_panel'
-        
-        sm = obj.model.get_active_s_model();
-        target = sm.dist;
-        
-end % switch
-
+target = obj.sls_br(str2double(regexp(tag,'\d','match')));
 
 
 if isnan(str2double(v))
@@ -51,7 +26,7 @@ else
     
 end %
 
-id = tag(1:end-4);
+id = regexp(tag,'\D*','match','once');
 type = tag(end-2:end);
 
 sldr = findobj(panel.Children,'Tag', [id '_sldr']);
@@ -149,7 +124,7 @@ obj.view.update_axes();
 
     function abort_eb_value()
         % Helper function for resetting the editbox value
- 
+        
         v = target.get_param(tag);
         hObject.String = num2str(v);
         

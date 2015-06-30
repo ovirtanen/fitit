@@ -72,7 +72,7 @@ t = uimenu(p,'Label','Tools');
 t.Tag = 'tools_menu';
 obj.menu.tools = t;
 
-tbr = uimenu(t,'Label','SLS Backreflection');
+tbr = uimenu(t,'Label','Enable SLS Backreflection');
 tbr.Tag = 'br_switch';
 tbr.Callback = @(hObject,callbackdata) obj.controller.br_switch_callback(hObject,callbackdata);
 

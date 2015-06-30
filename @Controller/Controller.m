@@ -85,6 +85,8 @@ classdef Controller < handle
         
         about_menu_callback(obj,hObject,callbackdata);
         bg_enable_callback(obj,hObject,callbackdata);
+        br_edit_box_callback(obj,hObject,callbackdata);
+        br_enable_callback(obj,hObject,callbackdata);
         br_switch_callback(obj,hObject,callbackdata)
         check_box_callback(obj,hObject,callbackdata);
         comfort_me_callback(obj,hObject,callbackdata);

@@ -22,11 +22,26 @@ classdef View < handle
         
         menu;       % struct for top menu
         bg_panel;   % background panel
+        br_panel;   % backreflection panel
         p_panel;    % scattering model parameter panel
         d_panel;    % distribution panel
         f_button;   % fit button
         
         layouts;
+        
+        spacers = struct('top_spacer', 50,...       % GUI top spacer
+                         'bottom_spacer', 20,...    % GUI bottom spacer
+                         'v_spacer',10,...          % GUI vertical spacer
+                         'h_spacer',10,...          % GUI horizontal spacer
+                         'p_v_spacer',4,...         % parameter panel vertical spacer
+                         'p_h_spacer',4,...         % parameter panel horizontal spacer
+                         'p_title_spacer',10,...    % parameter panel title spacer
+                         'p_element_height',20,...  % parameter panel element height
+                         'p_onoff_box_width',120,...% parameter panel enable toggle width
+                         'p_slider_width',120,...   % parameter panel slider width
+                         'br_text_tag_width',20,... % br parameter panel WL and RI text width
+                         'p_text_width',120,...     % parameter panel parameter name text width
+                         'p_box_width',60);         % parameter panel edit box width
         
     end % read-only
     
@@ -72,6 +87,14 @@ classdef View < handle
             obj.f_button.String = 'Fitting...';
             
         end
+        initialize_br_panel(obj);
+        function delete_br_panel(obj)
+           
+            delete(obj.br_panel);
+            obj.br_panel = [];
+            obj.realign_all_controls;
+            
+        end
         switch_enable_panels(obj,toggle);
         
         %% swappers
@@ -98,7 +121,8 @@ classdef View < handle
         b = initialize_fit_button(obj,p)
         initialize_menu(obj,p);
         p = initialize_param_panel(obj,p,source,tag);
-        [bg,pp,dp,b] = initialize_smodel_controls(obj,f)
+        [bg,pp,dp,b] = initialize_smodel_controls(obj,f);
+        realign_all_controls(obj);
         resize_figure(obj,rfig,bottom_spacer,new_height);
         
     end % private methods

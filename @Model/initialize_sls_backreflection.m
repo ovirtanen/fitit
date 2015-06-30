@@ -1,6 +1,6 @@
 function initialize_sls_backreflection(obj,ri,wl,eta,fixed)
-%INITIALIZE_SLS_BACKREFLECTION Initializes SLS_Backreflection instance to
-%the Model
+%INITIALIZE_SLS_BACKREFLECTION Initializes and adds an SLS_Backreflection 
+%instance to the Model
 %
 %   initialize_sls_backreflection(ri,wl,eta)
 %
@@ -13,10 +13,8 @@ function initialize_sls_backreflection(obj,ri,wl,eta,fixed)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-
-obj.sls_br = SLS_Backreflection(ri,wl,eta,fixed);
-
-obj.sls_br.enable();
+sbr = SLS_Backreflection(ri,wl,eta,fixed);
+obj.sls_br = [obj.sls_br sbr];
 
 obj.update_handles();
 

@@ -30,7 +30,7 @@ classdef SLS_Backreflection <  handle
             
         obj.refr_index = ri;
         obj.w_length = wl;
-        obj.eta = {0 eta 1 fixed};
+        obj.eta = {0 min(eta,0.02) 0.02 fixed};
 
         obj.enabled = false;
                    
@@ -38,6 +38,10 @@ classdef SLS_Backreflection <  handle
         
         qbr = q_brefl(obj,q);
         
+        p = get_param(obj,tag);
+        
+        set_param(obj,tag,param);
+    
         function enable(obj)
            
             obj.enabled = true;

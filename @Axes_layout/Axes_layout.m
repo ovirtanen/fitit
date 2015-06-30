@@ -51,8 +51,8 @@ classdef Axes_layout < handle
             obj.min_width = 800;        % px
             obj.min_height = 480;       % px
             
-            obj.top_spacer = 50;        % px
-            obj.bottom_spacer = 20;     % px
+            obj.top_spacer = view.spacers.top_spacer;        % px
+            obj.bottom_spacer = view.spacers.bottom_spacer;     % px
 
             pos_l = 520 + 20; % Controls width = 520 px + 20 px spacer
 

@@ -7,7 +7,7 @@ function bg_enable_callback(obj,hObject,callbackdata)
 % All rights reserved.
 
 state = hObject.Value;
-nbg = str2num(hObject.Tag(8));
+nbg = str2double(hObject.Tag(8));
 panel = ancestor(hObject,'uipanel');
 
 controls = panel.Children(1:end-3);

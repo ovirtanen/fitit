@@ -4,39 +4,29 @@ function br_switch_callback(obj,hObject,callbackdata)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-sbr = obj.model.sls_br;
 
-if not(isempty(sbr))
-
-    [enable,ri,wl,eta,fixed] = obj.view.display_br_dialog(sbr.refr_index,sbr.w_length,sbr.eta{2},sbr.eta{4});
-
-else
+switch isempty(obj.model.sls_br)
     
-    [enable,ri,wl,eta,fixed] = obj.view.display_br_dialog(1.332,658,0.003,1);
-    
+    case true
+        
+        obj.model.initialize_sls_backreflection(1.332,658,0.003,1);
+        obj.view.initialize_br_panel();
+
+        obj.view.update_axes();
+
+        hObject.Label = 'Disable SLS Backreflection';
+        
+    case false
+        
+        obj.model.remove_sls_backreflection();
+        obj.view.delete_br_panel();
+        
+        obj.model.update_handles();
+        obj.view.update_axes();
+        
+        hObject.Label = 'Enable SLS Backreflection';
 end
 
-if isempty([enable ri wl eta fixed])
-    return; % box was cancelled
-end
 
-Lib.inargtchck(enable, @islogical,...
-               ri, @isfloat,...
-               wl, @isfloat,...
-               eta, @isfloat,...
-               fixed, @islogical);
-
-if enable % initializes and replaces if update
-    
-    obj.model.initialize_sls_backreflection(ri,wl,eta,fixed);
-    
-else
-    
-    sbr.disable();
-    obj.model.update_handles();
-    
-end
-           
-obj.view.update_axes();
 
 end

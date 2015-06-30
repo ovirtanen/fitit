@@ -22,15 +22,15 @@ end
 %%% Panel size and properties
 
 % Horizontal spacers
-h_spacer = 4;           %px
-onoff_box_width = 120;  %px
-slider_width = 120;     %px
-box_width = 60;         %px
+h_spacer = obj.spacers.p_h_spacer;                  %px
+onoff_box_width = obj.spacers.p_onoff_box_width;    %px
+slider_width = obj.spacers.p_slider_width;          %px
+box_width = obj.spacers.p_box_width;                   %px
 
 % Vertical spacers
-v_spacer = 4;           %px
-element_height = 20;    %px
-p_title_spacer = 10;    %px
+v_spacer = obj.spacers.p_v_spacer;                  %px
+element_height = obj.spacers.p_element_height;      %px
+p_title_spacer = obj.spacers.p_title_spacer;        %px
 
 p_width = 10 * h_spacer + onoff_box_width + slider_width + 4 * box_width;
 %p_height = p_title_spacer + 2.*element_height + 4 * v_spacer;

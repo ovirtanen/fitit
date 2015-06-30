@@ -70,7 +70,7 @@ for d = 1:max(1,numel(ds))
         % Implement q smearing here. In the place of false use q smearing
         % enabled check.
 
-    elseif not(isempty(obj.sls_br)) && numel(obj.sls_br) >= d && obj.sls_br{d}.enabled % backreflection enabled for this ds
+    elseif not(isempty(obj.sls_br)) && numel(obj.sls_br) >= d && obj.sls_br(d).enabled % backreflection enabled for this ds
 
         fq = @(x) obj.sls_br(d).q_brefl(x);
 
@@ -86,7 +86,7 @@ for d = 1:max(1,numel(ds))
             spr(d) = [];
             pinds(spr) = [];
             
-            h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds)) + p(ps-(nbr+1)+d) .* sm.scattered_intensity(nc,fq(q),p(pinds));
+            h = @(nc,q,p) sm.scattered_intensity(nc,q,p(pinds)) + p(ps-(nbr+1-sum(ebr(1:d)))) .* sm.scattered_intensity(nc,fq(q),p(pinds));
 
             handles{nbg + (d-1) .* numel(sms) + i} = h;
             ps = ps + np;
