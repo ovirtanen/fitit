@@ -103,6 +103,12 @@ end
 
 obj.model.bg.match_scale_factors_to_ds(numel(data));
 
+if not(isempty(obj.model.sls_br))
+   
+    obj.model.match_br_to_ds(numel(data));
+    
+end
+
 %% Update handles
 
 obj.model.update_handles();
@@ -119,6 +125,7 @@ end
 
 obj.view.swap_panel('sm_panel');
 obj.view.swap_panel('bg_panel');
+obj.view.swap_panel('br_panel');
 
 obj.view.update_axes;
 

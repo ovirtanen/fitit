@@ -19,10 +19,17 @@ end
 
 %% Backreflection
 
-if not(isempty(obj.sls_br)) && obj.sls_br.enabled
+brs = obj.sls_br;
+
+if not(isempty(brs)) && any([brs.enabled])
     
-    lb = [lb; obj.sls_br.eta(1)];
-    ub = [ub; obj.sls_br.eta(3)];
+    etas = {brs.eta};
+    
+    lb_br = cellfun(@(x)x{1},etas([brs.enabled]));
+    ub_br = cellfun(@(x)x{3},etas([brs.enabled]));
+    
+    lb = [lb; lb_br(:)];
+    ub = [ub; ub_br(:)];
     
 end
 

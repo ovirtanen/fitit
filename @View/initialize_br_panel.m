@@ -1,11 +1,11 @@
-function p = initialize_br_panel(obj)
+function p = initialize_br_panel(obj,p)
 %INITIALIZE_BR_PANEL Initializes the back reflection parameter panel for GUI
 %   
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-parent = obj.gui;
+parent = p;
 source = obj.model.sls_br;
 
 %%% Panel size and properties
@@ -23,7 +23,10 @@ element_height = obj.spacers.p_element_height;      %px
 p_title_spacer = obj.spacers.p_title_spacer;        %px
 
 p_width = 10 * h_spacer + onoff_box_width + slider_width + 4 * box_width;
-p_height = p_title_spacer + (numel(source) + 1) * element_height + (numel(source) + 2) * v_spacer;
+
+% FIX THIS WHEN YOU HAVE TIME
+%p_height = p_title_spacer + (numel(source) + 1) * element_height + (numel(source) + 2) * v_spacer;
+p_height = p_title_spacer + numel(source) .* (2.5 .* element_height +  2.* v_spacer);
 
 p = uipanel('Parent',parent,...
             'Units','pixels',...
@@ -42,7 +45,7 @@ for i = 1:numel(source)
     if numel(source) == 1
         br_txt = 'BR on';
     else
-        br_txt = ['BR' num2str(i) on];
+        br_txt = ['BR ' num2str(i) ' on'];
     end
     
     lpos = h_spacer;
@@ -50,7 +53,7 @@ for i = 1:numel(source)
     u1.Callback = @(hObject,callbackdata) obj.controller.br_enable_callback(hObject,callbackdata);
     u1.Value = 0;
     
-    lpos = lpos + box_width + h_spacer;
+    lpos = lpos + box_width + 3.*h_spacer;
     u2 = uicontrol('Parent',p,'Position',[lpos vpos-3 br_text_tag_width element_height],'Tag','wl_txt','Style','text','String','WL');
     
     lpos = lpos + br_text_tag_width + h_spacer;
@@ -59,7 +62,7 @@ for i = 1:numel(source)
     v = source(i).w_length;
     wl.String = num2str(v);
     
-    lpos = lpos + box_width + 3.*h_spacer;
+    lpos = lpos + box_width + h_spacer;
     u3 = uicontrol('Parent',p,'Position',[lpos vpos-3 br_text_tag_width element_height],'Tag','wl_txt','Style','text','String','RI');
     
     lpos = lpos + br_text_tag_width + h_spacer;
@@ -95,7 +98,7 @@ for i = 1:numel(source)
 
     lpos = lpos + 3.* h_spacer + slider_width;
     eta_min = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',['eta' num2str(i) '_min'],'Style','edit');
-    eta_min.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    eta_min.Callback = @(hObject,callbackdata) obj.controller.br_edit_box_callback(hObject,callbackdata);
     v = source(i).eta{1};
     eta_min.String = num2str(v);
     sldr.Min = v;
@@ -103,7 +106,7 @@ for i = 1:numel(source)
 
     lpos = lpos + h_spacer + box_width;
     eta_val = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',['eta' num2str(i) '_val'],'Style','edit');
-    eta_val.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    eta_val.Callback = @(hObject,callbackdata) obj.controller.br_edit_box_callback(hObject,callbackdata);
     v = source(i).eta{2};
     eta_val.String = num2str(v);
     sldr.Value = v;
@@ -111,7 +114,7 @@ for i = 1:numel(source)
 
     lpos = lpos + h_spacer + box_width;
     eta_max = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',['eta' num2str(i) '_max'],'Style','edit');
-    eta_max.Callback = @(hObject,callbackdata) obj.controller.edit_box_callback(hObject,callbackdata);
+    eta_max.Callback = @(hObject,callbackdata) obj.controller.br_edit_box_callback(hObject,callbackdata);
     v = source(i).eta{3};
     eta_max.String = num2str(v);
     sldr.Max = v;

@@ -13,7 +13,6 @@ si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 m = obj.model;
 q = linspace(0.0001,max(ds.q_exp),200)';
 ihandles = @() ds.active_handles;
-ds
 intst = @()m.total_scattered_intensity(150,ihandles(),q);
 
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
@@ -34,7 +33,6 @@ switch all(ds.std_exp == 1)
 end % switch
 
 obj.active_layout.add_g_source(gs);
-gs
 
 end
 

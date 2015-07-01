@@ -34,41 +34,18 @@ switch tag
         delete(obj.bg_panel);
         obj.bg_panel = obj.initialize_bg_panel(obj.gui);
         
+    case 'br_panel'
+        
+        delete(obj.br_panel);
+        obj.initialize_br_panel(obj.gui);
+        
     otherwise
         
         error('Panel tag not recognized.')
    
 end
 
-% Spacers -----------------------------------------------------------------
-
-op = obj.active_layout.axes_panel;
-top_spacer = obj.gui.Position(4) - (op.Position(2) + op.Position(4)); % px
-h_spacer = 10; % px
-v_spacer = 10; % px
-b_spacer = 30; % px; bottom spacer
-
-% Resize root Figure if necessary -----------------------------------------
-
-total_height = top_spacer + View.total_height_elements(v_spacer,obj.bg_panel,obj.p_panel,obj.d_panel,obj.f_button) + b_spacer;
-
-obj.resize_figure(obj.gui,b_spacer,total_height);
-
-% Model controls alignment ------------------------------------------------
-
-obj.align_control_panels(obj.gui,h_spacer,top_spacer,v_spacer,obj.bg_panel,obj.p_panel,obj.d_panel);
-
-obj.p_panel.Visible = 'on';
-obj.d_panel.Visible = 'on';
-obj.bg_panel.Visible = 'on';
-
-% Fit button alignment ----------------------------------------------------
-b = obj.f_button;
-h_pos = obj.d_panel.Position(1) + obj.d_panel.Position(3) - b.Position(3);
-v_pos = obj.d_panel.Position(2) - v_spacer - b.Position(4);
-obj.change_position(b,h_pos,v_pos);
-
-b.Visible = 'on';
+obj.realign_all_controls();
 
 obj.update_axes();
 

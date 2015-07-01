@@ -27,9 +27,9 @@ classdef View < handle
         d_panel;    % distribution panel
         f_button;   % fit button
         
-        layouts;
         
-        spacers = struct('top_spacer', 50,...       % GUI top spacer
+        
+        spacers = struct('top_spacer', 10,...       % GUI top spacer
                          'bottom_spacer', 20,...    % GUI bottom spacer
                          'v_spacer',10,...          % GUI vertical spacer
                          'h_spacer',10,...          % GUI horizontal spacer
@@ -46,8 +46,9 @@ classdef View < handle
     end % read-only
     
     properties (Access = private)
-        
+
         active_layout;
+        layouts;
         
              
     end % internal
@@ -87,7 +88,7 @@ classdef View < handle
             obj.f_button.String = 'Fitting...';
             
         end
-        initialize_br_panel(obj);
+        initialize_br_panel(obj,p);
         function delete_br_panel(obj)
            
             delete(obj.br_panel);

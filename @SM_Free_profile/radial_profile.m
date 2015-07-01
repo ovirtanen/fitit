@@ -22,7 +22,7 @@ rprf(numel(rprf)) = [];
 rprf = [0;rprf];
 
 prf = cell2mat(obj.params(:,2));
-prf([1 2]) = [];
+prf = prf(end-n+1:end);
 prf = repelem(prf,3);
 prf(3:3:end) = 0;
 

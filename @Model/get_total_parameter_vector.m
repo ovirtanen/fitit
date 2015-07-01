@@ -31,9 +31,13 @@ end
   
 %% Backreflection
 
-if not(isempty(obj.sls_br)) && obj.sls_br.enabled
+brs = obj.sls_br;
+
+if not(isempty(brs)) && any([brs.enabled])
     
-    p = [p; obj.sls_br.eta{2}];
+    etas = {brs.eta};
+    etas = cellfun(@(x)x{2},etas([brs.enabled]));
+    p = [p; etas(:)];
     
 end
 

@@ -27,6 +27,15 @@ switch panel.Tag
         sm = obj.model.get_active_s_model();
         target = sm.dist;
         
+    case 'br_panel'
+        
+        target = obj.model.sls_br(str2double(regexp(tag,'\d','match')));
+        tag(regexp(tag,'\d')) = [];
+        
+    otherwise
+        
+        error('Panel type not recognized');
+        
 end % switch
 
 target.set_param(tag,v);

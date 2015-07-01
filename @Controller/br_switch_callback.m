@@ -9,9 +9,14 @@ switch isempty(obj.model.sls_br)
     
     case true
         
-        obj.model.initialize_sls_backreflection(1.332,658,0.003,1);
-        obj.view.initialize_br_panel();
+        for i = 1:max(1,numel(obj.model.data_sets))
+        
+            obj.model.initialize_sls_backreflection(1.332,658,0.003,1);
+ 
+        end
 
+        obj.view.initialize_br_panel(obj.view.gui);
+        
         obj.view.update_axes();
 
         hObject.Label = 'Disable SLS Backreflection';

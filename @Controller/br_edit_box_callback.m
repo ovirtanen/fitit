@@ -8,7 +8,7 @@ v = hObject.String;
 
 panel = ancestor(hObject,'uipanel');
 
-target = obj.sls_br(str2double(regexp(tag,'\d','match')));
+target = obj.model.sls_br(str2double(regexp(tag,'\d','match')));
 
 
 if isnan(str2double(v))
@@ -27,9 +27,55 @@ else
 end %
 
 id = regexp(tag,'\D*','match','once');
+number = str2double(regexp(tag,'\d','match'));
 type = tag(end-2:end);
 
 sldr = findobj(panel.Children,'Tag', [id '_sldr']);
+
+switch id   % recognize WL and RI boxes that don't have min and max limits
+   
+    case 'wl'
+        
+        if v < 0
+            
+            abort_eb_value();
+            
+            errstr = 'Wavelength has to be greater than zero.';
+    
+            errordlg(errstr,'Invalid parameter','modal');
+            
+        else
+
+            target.set_param([id '_' type],v);
+            
+        end
+        
+        obj.view.update_axes();
+        return;
+        
+    case 'ir'
+    
+        if v < 0
+            
+            abort_eb_value();
+            
+            errstr = 'Refractive index has to be greater than zero.';
+    
+            errordlg(errstr,'Invalid parameter','modal');
+            
+        else
+            
+            target.set_param([id '_' type],v);
+            
+        end
+        
+        obj.view.update_axes();
+        return;
+        
+    % FALL THROUGH!
+    
+end
+
 
 switch type
     
@@ -49,7 +95,7 @@ switch type
             target.set_param([id '_val'],v);
             target.set_param(tag,v);
             
-            val = findobj(panel.Children,'Tag', [id '_val']);
+            val = findobj(panel.Children,'Tag', [id num2str(number) '_val']);
             val.String = num2str(v);
             
             sldr.Min = v;
@@ -57,7 +103,7 @@ switch type
             
         else
             
-            target.set_param(tag,v);
+            target.set_param([id '_' type],v);
             
             sldr.Min = v;
             
@@ -75,7 +121,7 @@ switch type
             
         else
             
-            target.set_param(tag,v);
+            target.set_param([id '_' type],v);
             
             sldr.Value = v;
             
@@ -95,7 +141,7 @@ switch type
             % if maximum is smaller than value, push value down to maximum
             
             target.set_param([id '_val'],v);
-            target.set_param(tag,v);
+            target.set_param([id '_' type],v);
             
             val = findobj(panel.Children,'Tag', [id '_val']);
             val.String = num2str(v);
@@ -105,7 +151,7 @@ switch type
     
         else
             
-            target.set_param(tag,v);
+            target.set_param([id '_' type],v);
             
             sldr.Max = v;
             

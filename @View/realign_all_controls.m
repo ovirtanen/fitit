@@ -14,7 +14,7 @@ b_spacer = obj.spacers.bottom_spacer;
 
 %% Resize root Figure if necessary -----------------------------------------
 
-total_height = top_spacer + View.total_height_elements(v_spacer,panels{:}) + b_spacer;
+total_height = top_spacer + View.total_height_elements(v_spacer,obj.f_button,panels{:}) + b_spacer;
 
 obj.resize_figure(g,b_spacer,total_height);   
 
@@ -27,6 +27,12 @@ obj.align_control_panels(g,h_spacer,top_spacer,v_spacer,panels{:});
 h_pos = obj.d_panel.Position(1) + obj.d_panel.Position(3) - obj.f_button.Position(3);
 v_pos = obj.d_panel.Position(2) - v_spacer - obj.f_button.Position(4);
 obj.change_position(obj.f_button,h_pos,v_pos);
+
+for i = 1:numel(panels)
+   
+    panels{i}.Visible = 'on';
+    
+end
 
 obj.f_button.Visible = 'on';
 

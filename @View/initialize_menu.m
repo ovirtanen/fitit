@@ -25,7 +25,7 @@ fl = uimenu(f,'Label','Load dataset');
 fl.Tag = 'single_ds_loader';
 fl.Callback = @(hObject,callbackdata) obj.controller.load_data_set_callback(hObject,callbackdata);
 
-flm = uimenu(f,'Label','Load multiple datasets');
+flm = uimenu(f,'Label','Load multiset');
 %flm.Enable = 'off';
 flm.Tag = 'multiple_ds_loader';
 flm.Callback = @(hObject,callbackdata) obj.controller.load_data_set_callback(hObject,callbackdata);

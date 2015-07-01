@@ -21,9 +21,14 @@ end
     
 %% Backreflection
 
-if not(isempty(obj.sls_br)) && obj.sls_br.enabled
+brs = obj.sls_br;
+
+if not(isempty(brs)) && any([brs.enabled])
     
-    l = [l; logical(obj.sls_br.eta{4})];
+    fixed = {brs.eta};
+    fixed = cellfun(@(x)x{4},fixed([brs.enabled]));
+    
+    l = [l; fixed(:)];
     
 end
 
