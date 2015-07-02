@@ -74,16 +74,12 @@ switch ms
        for i = 1 : numel(data)
           
             obj.add_data_set_to_model(data{i});
-            
-            %obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
            
        end
         
     case 'off'
         
        obj.add_data_set_to_model(data{1});
-       
-       %obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(1));
        
     otherwise
         
@@ -125,7 +121,13 @@ end
 
 obj.view.swap_panel('sm_panel');
 obj.view.swap_panel('bg_panel');
-obj.view.swap_panel('br_panel');
+
+if not(isempty(obj.model.sls_br))
+   
+    obj.view.swap_panel('br_panel');
+    
+end
+
 
 obj.view.update_axes;
 

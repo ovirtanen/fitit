@@ -8,7 +8,7 @@ function f_button_callback(obj,hObject,callbackdata)
 % All rights reserved.
 
 obj.view.disable_f_button();
-obj.view.switch_enable_panels('off');
+prev_state = obj.view.switch_enable_panels('off');
 drawnow();
 
 if any(cellfun(@(x)isa(x,'SM_Free_model'),obj.model.s_models))
@@ -29,8 +29,9 @@ obj.view.update_vals_from_model();
 obj.view.update_sliders();
 obj.view.update_axes();
 
-obj.view.switch_enable_panels('on');
+obj.view.switch_enable_panels(prev_state);
 obj.view.update_f_button_status();
+drawnow();
 
 end
 

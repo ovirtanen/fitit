@@ -51,9 +51,9 @@ for i = 1:numel(source)
     lpos = h_spacer;
     u1 = uicontrol('Parent',p,'Position',[lpos vpos box_width element_height],'Tag',['bronoff' num2str(i) '_chck'],'Style','checkbox','String',br_txt);
     u1.Callback = @(hObject,callbackdata) obj.controller.br_enable_callback(hObject,callbackdata);
-    u1.Value = 0;
+    u1.Value = source(i).enabled;
     
-    lpos = lpos + box_width + 3.*h_spacer;
+    lpos = lpos + box_width + 5.*h_spacer;
     u2 = uicontrol('Parent',p,'Position',[lpos vpos-3 br_text_tag_width element_height],'Tag','wl_txt','Style','text','String','WL');
     
     lpos = lpos + br_text_tag_width + h_spacer;
@@ -128,13 +128,27 @@ for i = 1:numel(source)
 
     % leave toggle button enabled
     
-    wl.Enable = 'off';
-    ri.Enable = 'off';
-    sldr.Enable = 'off';
-    eta_min.Enable = 'off';
-    eta_val.Enable = 'off';
-    eta_max.Enable = 'off';
-    chck.Enable = 'off';
+    if u1.Value
+    
+        wl.Enable = 'on';
+        ri.Enable = 'on';
+        sldr.Enable = 'on';
+        eta_min.Enable = 'on';
+        eta_val.Enable = 'on';
+        eta_max.Enable = 'on';
+        chck.Enable = 'on';
+    
+    else
+        
+        wl.Enable = 'off';
+        ri.Enable = 'off';
+        sldr.Enable = 'off';
+        eta_min.Enable = 'off';
+        eta_val.Enable = 'off';
+        eta_max.Enable = 'off';
+        chck.Enable = 'off';
+        
+    end
     
 end % for
 

@@ -11,21 +11,43 @@ function set_total_parameter_vector(obj,p)
 
 %% Starting index for scattering models' parameters
 
-ps = 1 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
+% number of backgrounds
+ebg = obj.bg.enabled;
+nbg = ebg(ebg == true);
+nbg = numel(nbg);
+
+% number of backreflections
+if not(isempty(obj.sls_br))
+   
+    ebr = [obj.sls_br.enabled];
+    nbr = ebr(ebr == true);
+    nbr = numel(nbr);
+    
+else
+    
+    nbr = 0;
+    
+end
+
+ps = 1 + nbg + nbr;
 
 %% Background
 
-if obj.bg.enabled
+if nbg > 0
     
-    obj.bg.set_param_vector(p(1));
+    obj.bg.set_param_vector(p(1:nbg));
     
 end
   
 %% Backreflection
 
-if not(isempty(obj.sls_br)) && obj.sls_br.enabled
+if nbr > 0
     
-    obj.sls_br.set_param_vector(p(ps-1));
+    for i = 1:nbr
+        
+        obj.sls_br(i).set_param_vector(p(nbg+i));
+        
+    end
     
 end
 
@@ -36,7 +58,10 @@ for i = 1 : numel(obj.s_models)
     sm = obj.s_models{i};
     np = numel(sm.p_ids) + numel(sm.dist.p_ids);
     
-    sm.set_param_vector(p(ps:ps+np-1));
+    % parameter indices in the total parameter vector p
+    pinds = ps:ps+np-1;
+    
+    sm.set_param_vector(p(pinds));
     ps = ps + np;
     
 end % for

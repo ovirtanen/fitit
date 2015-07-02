@@ -1,4 +1,4 @@
-function c = chi2reg(i_exp,std,p,handles,regh)
+function c = chi2reg(nc,q_exp,i_exp,std,p,active_handles,handles,regh)
 %CHI2 Calculates Chi squared with regularization of multiple model expressions
 %   
 %   c = chi2(intst,std,p,handles,regh) iterates through all the model
@@ -26,17 +26,28 @@ function c = chi2reg(i_exp,std,p,handles,regh)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-i_mod = zeros(numel(i_exp),1);
+c = 0;
 
 % combined intensity from all the models
-for i = 1:numel(handles)
-   
-    h = handles{i};
-    i_mod = i_mod + h(p);
+% numel(active_handles) == numel(obj.data_sets)
+for i = 1:numel(active_handles)
+    
+    i_mod = zeros(numel(i_exp{i}),1);
+    ah = active_handles{i};
+    h_set = handles(ah);
+    
+    for j = 1:numel(h_set)
+        
+        h = h_set{j};
+        i_mod = i_mod + h(nc,q_exp{i},p);
+        
+    end
+    
+    c = c + sum(((i_exp{i} - i_mod)./std{i}).^2);
     
 end % for
 
-c = sum(((i_exp-i_mod)./std).^2) + regh(p);
+c = c + regh(p);
 
 end
 

@@ -96,7 +96,7 @@ classdef View < handle
             obj.realign_all_controls;
             
         end
-        switch_enable_panels(obj,toggle);
+        prev_state = switch_enable_panels(obj,input);
         
         %% swappers
         

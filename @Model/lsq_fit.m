@@ -45,17 +45,15 @@ switch nargin
     
 end
 
-if numel(obj.data_sets) ~= 1
-    
-    error('Only one data set is supported at the time.');
-    
-end %
-
 %% Other inputs
 
-q = obj.data_sets.q_exp;
-intst = obj.data_sets.i_exp;
-std = obj.data_sets.std_exp;
+ds = obj.data_sets;
+handles = obj.handles;
+active_handles = {ds.active_handles};
+
+q = {ds.q_exp};
+intst = {ds.i_exp};
+std = {ds.std_exp};
 nc = 150;
 
 if any(cellfun(@isempty,{q intst std}))
@@ -83,18 +81,6 @@ x0 = p(pf);
 lb = lb(pf);
 ub = ub(pf);
 
-
-%% Initialize handles for chi2
-
-handles = obj.handles;
-
-for i = 1:numel(handles)
-    
-    handles{i} = @(x) handles{i}(nc,q,x);
-    
-end % for
-
-
 % p0_to_p maps the free parameters to their right places in the total
 % parameter vector.
 prm = @(p0) obj.p0_to_p(p0,p,pf);
@@ -116,13 +102,26 @@ if any(smfp)
     % This is taken care of in Model.update_handles for regular models, but
     % has to be recognized here for SM_Free_profile.reg(p).
     
-    ps = 1 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled);
-    rh = @(x) sm.reg(x(ps:end),2);  % second derivative smoothing norm
-    f = @(x) Model.chi2reg(intst,std,prm(x),handles,rh);
+    if isempty(obj.sls_br)
+        
+        ps = 1 + numel(obj.bg.enabled);
+        
+    else
+        
+        ps = 1 + numel(find(obj.bg.enabled)) + numel(find([obj.sls_br.enabled]));
+            
+    end
+    
+    nds = numel(obj.data_sets);
+    np = sm.n;
+    
+    pinds = [ps ps+nds+1:ps+nds+np];
+    rh = @(x) sm.reg(x(pinds),2);  % second derivative smoothing norm
+    f = @(x) Model.chi2reg(nc,q,intst,std,prm(x),active_handles,handles,rh);
     
 else % All the other models without regularization
     
-    f = @(x) Model.chi2(intst,std,prm(x),handles);
+    f = @(x) Model.chi2(nc,q,intst,std,prm(x),active_handles,handles);
 
 end
 

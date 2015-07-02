@@ -1,17 +1,18 @@
-function r = reg(obj,p,d)
+function r = reg(~,p,d)
 %REG Regularization term for SM_Free_profile
 %
 %   r = reg(p)
 %
+% NOTE: Model.lsq_fit is responsible for formatting the parameter vector to
+% be suitable for reg!
+%
 % Parameters
 % p             Model parameter vector, where
 %                   p(1)        Regularization parameter lambda
-%                   p(2)        Scattering amplitude
-%                   p(3)        Polariszation density of the 1st step
+%                   p(2)        Polarization density of the 1st step
 %                   .
 %                   .
-%                   p(n+2)      Polarization density of the nth step
-%                   p(n+3:end)  Parameters for the PSD
+%                   p(n+1)      Polarization density of the nth step
 % d                 order of the smoothing norm:       
 %                       0       Standard norm
 %                       1       1st derivative norm
@@ -24,9 +25,8 @@ function r = reg(obj,p,d)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-n = obj.n;
 lambda = 10.^p(1);
-prf = p(3:n+2);
+prf = p(2:end);
 
 
 switch d

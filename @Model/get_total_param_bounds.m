@@ -10,10 +10,13 @@ ub = [];
 
 %% Background
 
-if obj.bg.enabled
+if any(obj.bg.enabled)
     
-    lb = [lb obj.bg.get_param('bg_min')];
-    ub = [ub obj.bg.get_param('bg_max')];
+    lb_bg = cell2mat(obj.bg.params(:,1));
+    ub_bg = cell2mat(obj.bg.params(:,3));
+    
+    lb = [lb; lb_bg(:)];
+    ub = [ub, ub_bg(:)];
         
 end
 

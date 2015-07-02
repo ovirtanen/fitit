@@ -18,7 +18,7 @@ function update_handles(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-%% Book keeping
+%% Bookkeeping
 
 % number of backgrounds
 ebg = obj.bg.enabled;

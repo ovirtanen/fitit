@@ -73,7 +73,7 @@ for i = 1:nrows
     lpos = h_spacer;
     u4 = uicontrol('Parent',p,'Position',[lpos vpos onoff_box_width element_height],'Tag',['bgonoff' num2str(i) '_chck'],'Style','checkbox','String',bg_txt);
     u4.Callback = @(hObject,callbackdata) obj.controller.bg_enable_callback(hObject,callbackdata);
-    u4.Value = 0;
+    u4.Value = source.enabled(i);
 
     lpos = lpos + h_spacer + onoff_box_width;
     sldr = uicontrol('Parent',p,'Position',[lpos vpos-2 onoff_box_width element_height],'Tag',trow{1},'Style','slider');
@@ -111,12 +111,24 @@ for i = 1:nrows
     chck.Value = v;
 
     % leave toggle button enabled
+    
+    if u4.Value
+        
+        sldr.Enable = 'on';
+        eb_min.Enable = 'on';
+        eb_val.Enable = 'on';
+        eb_max.Enable = 'on';
+        chck.Enable = 'on';
+        
+    else
 
-    sldr.Enable = 'off';
-    eb_min.Enable = 'off';
-    eb_val.Enable = 'off';
-    eb_max.Enable = 'off';
-    chck.Enable = 'off';
+        sldr.Enable = 'off';
+        eb_min.Enable = 'off';
+        eb_val.Enable = 'off';
+        eb_max.Enable = 'off';
+        chck.Enable = 'off';
+    
+    end
     
 end % for
 

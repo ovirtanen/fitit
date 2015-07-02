@@ -10,9 +10,88 @@ function update_vals_from_model(obj)
 % All rights reserved.
 
 m = obj.model;
-handles = {obj.bg_panel.Children obj.p_panel.Children obj.d_panel.Children};
+controls = {obj.bg_panel obj.br_panel obj.p_panel obj.d_panel};
+controls = controls(~cellfun(@isempty,controls));
+
+f = @(x) [x.Children];
+
+% controls is a cellarray, each cell containing the handles to the
+% UIControls in the panels
+controls = cellfun(f,controls,'UniformOutput',false);
+controls = cat(1,controls{:});
 
 f = @(x) strcmp(x.Style,'edit')  && ~isempty(strfind(x.Tag,'_val'));
+
+filter = arrayfun(f,controls);
+vals = controls(filter);
+
+for i = 1:numel(vals)
+    
+    switch vals(i).Parent.Tag;
+        
+        case 'bg_panel'
+            
+            bg = m.bg;
+            
+            if size(bg.p_ids,1) > 1
+               
+                bgnum = str2double(regexp(vals(i).Tag,'\d','match','once'));
+                
+                if bg.enabled(bgnum)
+                   
+                    p = bg.get_param(vals(i).Tag);
+                    vals(i).String = num2str(p);
+                    
+                end
+                
+            else
+                
+                if bg.enabled
+                   
+                    p = bg.get_param(vals(i).Tag);
+                    vals(i).String = num2str(p);
+                    
+                end
+                
+            end
+            
+ 
+        case 'br_panel'
+            
+            brs = m.sls_br;
+            ind = regexp(vals(i).Tag,'\d');
+            brnum = str2double(vals(i).Tag(ind));
+            
+            if brs(brnum).enabled
+                
+                tag = vals(i).Tag;
+                tag(ind) = [];
+                
+                p = brs(brnum).get_param(tag);
+                vals(i).String = num2str(p);
+                
+            end
+            
+            
+        case 'sm_panel'
+            
+            p = m.s_models{1}.get_param(vals(i).Tag); 
+            vals(i).String = num2str(p);
+        
+        case 'dist_panel'
+            
+            p = m.s_models{1}.dist.get_param(vals(i).Tag); 
+            vals(i).String = num2str(p);
+            
+        otherwise
+            
+            error([vals(i).Parent.Tag ': Panel type not recognized.']);
+            
+    end
+    
+end
+
+%{
 
 for i = 1:numel(handles)
     
@@ -51,6 +130,8 @@ for i = 1:numel(handles)
     end % for
     
 end % for
+
+%}
 
 end
 

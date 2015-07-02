@@ -31,7 +31,7 @@ if n_data_sets == 0 % only calculated model
     qfit = linspace(1e-4,xl(2),200);
     
     pa.add_data(qfit,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(100,qfit),'Intensity','cm-1');   
+    pa.add_data(m.total_scattered_intensity(150,1:numel(m.handles),qfit),'Intensity','cm-1');   
 
 elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})) % one data set with empirical data
     
@@ -42,24 +42,24 @@ elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})
     % Fit
     qfit = linspace(1e-4,max(ds.q_exp),200);
     pa.add_data(qfit,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(100,qfit),'Intensity','cm-1');
+    pa.add_data(m.total_scattered_intensity(150,ds.active_handles,qfit),'Intensity','cm-1');
 
-    %{ 
-    % multiple data sets are not supported at this time
+
 elseif n_data_sets > 1
     
     for i = 1:numel(ds)
         
-        pa.add_data(ds(i).q_exp,['q data set ' num2str(i)],'nm-1');
-        pa.add_data(ds(i).i_exp,'Intensity','cm-1');
-        pa.add_data(ds(i).std_exp,'STD','cm-1');
+        pa.add_data(ds(i).q_exp,['q experimental ' num2str(i)],'nm-1');
+        pa.add_data(ds(i).i_exp,['Intensity ' num2str(i)],'cm-1');
+        pa.add_data(ds(i).std_exp,['STD ' num2str(i)],'cm-1');
+
+        % Fit
+        qfit = linspace(1e-4,max(ds(i).q_exp),200);
+        pa.add_data(qfit,['q fit ' num2str(i)],'nm-1');
+        pa.add_data(m.total_scattered_intensity(150,ds(i).active_handles,qfit),['Intensity ' num2str(i)],'cm-1');
         
     end % for
-    %}
     
-elseif n_data_sets > 1
-    
-    error('Multiple data_sets are not supported yet.');
     
 end % if
 
@@ -87,7 +87,7 @@ for i = 1:numel(m.s_models)
     pa.add_data(params,sm.dist.name,'');
     pa.add_data(sm.dist.get_param_vector,'Fit values','');
 
-    [rpsd,psd,~] = sm.dist.psd(100,sm.dist.get_param_vector);
+    [rpsd,psd,~] = sm.dist.psd(150,sm.dist.get_param_vector);
     
     pa.add_data(rpsd,'Radius','nm');
     pa.add_data(psd,'PSD','');
@@ -97,17 +97,21 @@ end % for
 br = obj.model.sls_br;
 
 % add backreflection data if it is enabled
-if not(isempty(br)) && br.enabled
+if not(isempty(br)) && any([br.enabled])
    
-    params = {'Refractive index';...
-              'Wave length (nm)';...
-              'eta'};
-    values = {br.refr_index;...
-              br.w_length;...
-              br.eta{2}};
-          
-   pa.add_data(params,'SLS Backreflection','');
-   pa.add_data(values,'Fit values','');
+    for i = 1:numel(br)
+    
+        params = {'Refractive index';...
+                  'Wave length (nm)';...
+                  'eta'};
+        values = {br(i).refr_index;...
+                  br(i).w_length;...
+                  br(i).eta{2}};
+
+        pa.add_data(params,['SLS Backreflection' num2str(i)],'');
+        pa.add_data(values,['Fit values ' num2str(i)],'');
+   
+    end
     
 end
 

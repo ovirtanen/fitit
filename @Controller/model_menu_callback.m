@@ -69,8 +69,7 @@ end % switch
 sm.match_scale_factors_to_ds(max([1 numel(obj.model.data_sets)]));
 obj.swap_s_model(sm);
 
-
-if strcmp(hObject.Label,'SM_Free_profile')
+if strcmp(hObject.Label,'Free Profile Model')
    
      % get rid of the checkbox for the regularization parameter
     cb = findobj(obj.view.p_panel,'Tag','lambda_chck');

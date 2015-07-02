@@ -22,7 +22,7 @@ elseif strcmp(tag,'eta_min')
     
     p = obj.eta{1};
     
-elseif strcmp(tag,'wl_val')
+elseif strcmp(tag,'eta_val')
     
     p = obj.eta{2};
     
