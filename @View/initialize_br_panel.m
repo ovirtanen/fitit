@@ -35,6 +35,7 @@ p = uipanel('Parent',parent,...
 p.Tag = 'br_panel';
 p.Title = 'SLS backreflection parameters';
 p.Visible = 'off';
+p.ButtonDownFcn = @(hObject,Callbackdata) obj.controller.minimize_panel_callback(hObject,Callbackdata);
 
 vpos = p_height; 
 

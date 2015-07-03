@@ -42,7 +42,7 @@ end
 %%% Panel size and properties
 
 % Horizontal spacers
-p_text_width = 120;                                 %px
+p_text_width = obj.spacers.p_text_width;            %px
 h_spacer = obj.spacers.p_h_spacer;                  %px
 slider_width = obj.spacers.p_slider_width;          %px
 box_width = obj.spacers.p_box_width;                %px
@@ -62,6 +62,7 @@ p = uipanel('Parent',parent,...
 p.Tag = tag;
 p.Title = [name ' Parameters'];
 p.Visible = 'off';
+p.ButtonDownFcn = @(hObject,Callbackdata) obj.controller.minimize_panel_callback(hObject,Callbackdata);
 
 % Initialize children
 

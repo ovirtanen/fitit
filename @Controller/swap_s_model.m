@@ -19,6 +19,7 @@ end
 obj.model.replace_s_model(sm); % includes model.update_handles()
 
 obj.view.swap_panel('sm_panel');
+obj.sm_ui_cleanup(sm.name);
 
 end
 

@@ -9,9 +9,13 @@ function model_menu_callback(obj,hObject,callbackdata)
 asm = obj.model.get_active_s_model();
 d = asm.dist;
 
+%% Initialization
+
 % Determine L-Curve in Tools is enabled only for SM_Free_profile
 l = findobj(obj.view.menu.tools,'Tag','l_curve');
 l.Enable = 'off';
+
+%% Swap scattering model
 
 switch hObject.Label
     
@@ -30,7 +34,7 @@ switch hObject.Label
         
     case 'Free Profile Model'
         
-        sm = SM_Free_profile(d,15);
+        sm = SM_Free_profile(d,20);
         
     case 'Microgel dumbbell aggregation model'
         
@@ -67,22 +71,7 @@ switch hObject.Label
 end % switch
 
 sm.match_scale_factors_to_ds(max([1 numel(obj.model.data_sets)]));
-obj.swap_s_model(sm);
-
-if strcmp(hObject.Label,'Free Profile Model')
-   
-     % get rid of the checkbox for the regularization parameter
-    cb = findobj(obj.view.p_panel,'Tag','lambda_chck');
-    cb.delete();
-
-    %check whether to enable Tools menu Determine L-Curve item
-    if not(isempty(obj.model.data_sets))
-
-        l.Enable = 'on';
-
-    end
-    
-end
+obj.swap_s_model(sm); % includes sm_ui_cleanup
 
 end
 

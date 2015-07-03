@@ -80,6 +80,7 @@ classdef Controller < handle
         d = raw_data_to_array(obj,c);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
+        sm_ui_cleanup(obj,sm_name);
         
         %% CALLBACKS
         
@@ -97,6 +98,7 @@ classdef Controller < handle
         l_curve_callback(obj,hObject,callbackdata);
         load_data_set_callback(obj,hObject,callbackdata);
         load_histogram_callback(obj,hObject,callbackdata);
+        minimize_panel_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
         par_switch_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);

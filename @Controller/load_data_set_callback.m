@@ -120,6 +120,7 @@ end
 %% update UI
 
 obj.view.swap_panel('sm_panel');
+obj.sm_ui_cleanup(sm.name);
 obj.view.swap_panel('bg_panel');
 
 if not(isempty(obj.model.sls_br))

@@ -41,7 +41,8 @@ classdef View < handle
                          'p_slider_width',120,...   % parameter panel slider width
                          'br_text_tag_width',20,... % br parameter panel WL and RI text width
                          'p_text_width',120,...     % parameter panel parameter name text width
-                         'p_box_width',60);         % parameter panel edit box width
+                         'p_box_width',60,...       % parameter panel edit box width
+                         'min_p_panel_height',15);  % height of a minimized parameter panel
         
     end % read-only
     
@@ -97,6 +98,7 @@ classdef View < handle
             
         end
         prev_state = switch_enable_panels(obj,input);
+        realign_all_controls(obj);
         
         %% swappers
         
@@ -123,7 +125,6 @@ classdef View < handle
         initialize_menu(obj,p);
         p = initialize_param_panel(obj,p,source,tag);
         [bg,pp,dp,b] = initialize_smodel_controls(obj,f);
-        realign_all_controls(obj);
         resize_figure(obj,rfig,bottom_spacer,new_height);
         
     end % private methods

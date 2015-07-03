@@ -25,7 +25,7 @@ end
 h_spacer = obj.spacers.p_h_spacer;                  %px
 onoff_box_width = obj.spacers.p_onoff_box_width;    %px
 slider_width = obj.spacers.p_slider_width;          %px
-box_width = obj.spacers.p_box_width;                   %px
+box_width = obj.spacers.p_box_width;                %px
 
 % Vertical spacers
 v_spacer = obj.spacers.p_v_spacer;                  %px
@@ -43,6 +43,7 @@ p = uipanel('Parent',parent,...
 p.Tag = 'bg_panel';
 p.Title = source.name;
 p.Visible = 'off';
+p.ButtonDownFcn = @(hObject,Callbackdata) obj.controller.minimize_panel_callback(hObject,Callbackdata);
 
 
 % Initialize children
