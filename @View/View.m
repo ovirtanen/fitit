@@ -65,7 +65,7 @@ classdef View < handle
         
         function obj = View(c,m)
             
-            obj.version = 1.0;
+            obj.version = 1.1;
             
             obj.controller = c;
             obj.model = m;

@@ -96,7 +96,8 @@ classdef Graphics_source < handle
                 
                 case 'errorbar'
                     
-                    p = @(x,y,e) errorbar(x,y,e,'Marker','o','LineStyle','none','Color','black');
+                    %p = @(x,y,e) errorbar(x,y,e,'Marker','o','LineStyle','none','Color','black');
+                    p = @(x,y,e) errorbar(x,y,e,'Marker','o','LineStyle','none');
                    
                 case 'line'
                     
@@ -104,7 +105,8 @@ classdef Graphics_source < handle
                     
                 case 'scatter'
                     
-                    p = @(x,y) scatter(x,y,'MarkerEdgeColor','black');
+                    %p = @(x,y) scatter(x,y,'MarkerEdgeColor','black');
+                    p = @(x,y) scatter(x,y,'MarkerEdgeColor');
                     
                 case 'bar'
                     
