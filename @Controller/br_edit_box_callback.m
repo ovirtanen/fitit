@@ -30,7 +30,7 @@ id = regexp(tag,'\D*','match','once');
 number = str2double(regexp(tag,'\d','match'));
 type = tag(end-2:end);
 
-sldr = findobj(panel.Children,'Tag', [id '_sldr']);
+sldr = findobj(panel.Children,'Tag', [id num2str(number) '_sldr']);
 
 switch id   % recognize WL and RI boxes that don't have min and max limits
    
