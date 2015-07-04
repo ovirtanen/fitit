@@ -1,8 +1,8 @@
-classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
-%SM_CORE_SHELL Scattering model for dumbbells formed by random aggregation
+classdef SM_CS_dumbbell < Scattering_model_spherical & Parallel_capable & handle
+%SM_CS_DUMBBELL Scattering model for core-shelldumbbells formed by random aggregation
 %of microgels
 %
-%   obj = SM_Core_shell(d)
+%   obj = SM_CS_dumbbell(d)
 %
 %   Parameters
 %   d           Distribution instance
@@ -14,7 +14,7 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
 
     properties (Constant)
        
-        name = 'Microgel dumbbell aggregation model';
+        name = 'Core-shell dumbbell aggregation model';
         
     end
     
@@ -42,7 +42,7 @@ classdef SM_MG_dumbbell < Scattering_model_spherical & Parallel_capable & handle
     
     methods (Access = public)
        
-        function obj = SM_MG_dumbbell(d,b_gpu,b_par)
+        function obj = SM_CS_dumbbell(d,b_gpu,b_par)
             
             obj = obj@Parallel_capable(b_gpu,b_par);
             

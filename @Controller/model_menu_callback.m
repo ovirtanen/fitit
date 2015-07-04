@@ -36,13 +36,13 @@ switch hObject.Label
         
         sm = SM_Free_profile(d,20);
         
-    case 'Microgel dumbbell aggregation model'
+    case 'Core-shell dumbbell aggregation model'
         
-        sm = SM_MG_dumbbell(d,obj.gpu_enabled_global,obj.par_enabled_global);
+        sm = SM_CS_dumbbell(d,obj.gpu_enabled_global,obj.par_enabled_global);
         
-    case 'Microgel triplet aggregation model'
+    case 'Core-shell triplet aggregation model'
         
-        sm = SM_MG_triplets(d,obj.gpu_enabled_global,obj.par_enabled_global);
+        sm = SM_CS_triplets(d,obj.gpu_enabled_global,obj.par_enabled_global);
         
     case 'Stieger Microgel Model'
         

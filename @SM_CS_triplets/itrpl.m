@@ -18,9 +18,9 @@ function p = itrpl(q,r1,r2,r3,xc,xl,pds,pdc,psdw)
 
 
 
-m3r1 = SM_MG_triplets.m3(r1,xc.*r1,pds,pdc);
-m3r2 = SM_MG_triplets.m3(r2,xc.*r2,pds,pdc);
-m3r3 = SM_MG_triplets.m3(r3,xc.*r3,pds,pdc);
+m3r1 = SM_CS_triplets.m3(r1,xc.*r1,pds,pdc);
+m3r2 = SM_CS_triplets.m3(r2,xc.*r2,pds,pdc);
+m3r3 = SM_CS_triplets.m3(r3,xc.*r3,pds,pdc);
 
 
 f3r1 = (pds .* 4.*pi./3.*r1.^3 .* (3.* (sin(q.*r1) - q.*r1.*cos(q.*r1))./ (q.*r1).^3)...

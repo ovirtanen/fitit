@@ -1,7 +1,7 @@
-classdef SM_MG_triplets < Scattering_model_spherical & Parallel_capable & handle
-%SM_CORE_SHELL Scattering model for core-shell triplets
+classdef SM_CS_triplets < Scattering_model_spherical & Parallel_capable & handle
+%SM_CS_TRIPLETS Scattering model for core-shell triplets
 %
-%   obj = SM_MG_triplets(d)
+%   obj = SM_CS_triplets(d)
 %
 %   Parameters
 %   d           Distribution instance
@@ -13,7 +13,7 @@ classdef SM_MG_triplets < Scattering_model_spherical & Parallel_capable & handle
     
     properties (Constant)
        
-        name = 'Microgel triplet aggregation model';
+        name = 'Core-shell triplet aggregation model';
         
     end
     
@@ -49,7 +49,7 @@ classdef SM_MG_triplets < Scattering_model_spherical & Parallel_capable & handle
     
     methods (Access = public)
        
-        function obj = SM_MG_triplets(d,b_gpu,b_par)
+        function obj = SM_CS_triplets(d,b_gpu,b_par)
             
             obj = obj@Parallel_capable(b_gpu,b_par);
             

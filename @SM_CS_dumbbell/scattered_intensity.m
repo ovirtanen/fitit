@@ -60,12 +60,12 @@ i_sing = sum(psdw .* SM_Core_shell.m3(rt,frc.*rt,pds,pdc).^2 .* SM_Core_shell.f3
 
 if obj.gpu_enabled
         
-    [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+    [i_dum, mwnd] = SM_CS_dumbbell.i_dumbbellGPUh(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
     %obj.g_device.reset();
    
 else
     
-    [i_dum, mwnd] = SM_MG_dumbbell.i_dumbbell(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
+    [i_dum, mwnd] = SM_CS_dumbbell.i_dumbbell(q,rpsd,(1-frs) .* psd,w,frc,pds,pdc);
     
 end % else
 

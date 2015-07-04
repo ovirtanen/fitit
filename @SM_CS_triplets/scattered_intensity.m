@@ -69,13 +69,13 @@ frdbl = frml .* (1-frtr); % fraction doublets
 
     if obj.gpu_enabled
             
-        [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellGPUh(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
+        [i_dbl, swdbl] = SM_CS_triplets.i_dumbbellGPUh(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
         obj.g_device.reset();
         
     else
         
         % i_dumbbellPAR doesn't use any explicit parallel functions
-        [i_dbl, swdbl] = SM_MG_triplets.i_dumbbellPAR(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
+        [i_dbl, swdbl] = SM_CS_triplets.i_dumbbellPAR(q,rpsd, (frdbl .* psd),w,frc,pds,pdc);
     
     end % if
     
@@ -101,12 +101,12 @@ frtr = frml .* frtr; % fraction triplets
 
     if obj.gpu_enabled
         
-        [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
+        [i_trpl, swtrpl] = SM_CS_triplets.i_tripletsGPU(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
         %obj.g_device.reset();
    
     elseif obj.par_enabled
         
-        [i_trpl, swtrpl] = SM_MG_triplets.i_tripletsPAR(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
+        [i_trpl, swtrpl] = SM_CS_triplets.i_tripletsPAR(q,rpsd, (frtr .* psd),w,frl,frc,pds,pdc);
         
     else
         

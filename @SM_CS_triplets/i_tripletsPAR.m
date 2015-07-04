@@ -40,7 +40,7 @@ psdw = repmat(psdw,1,1,numel(rpsd)) .* reshape(repelem(psd,numel(psd),numel(psd)
 % logical array used to extract the non repeated
 l = tril(logical(ones(numel(rpsd))));
 l = repmat(l,1,1,numel(rpsd));
-l = SM_MG_triplets.nullify(l);
+l = SM_CS_triplets.nullify(l);
 
 % eliminate repeated units and transform to column vectors
 r1 = r1(l);
@@ -49,17 +49,17 @@ r3 = r3(l);
 psdw = psdw(l);
 
 % Obtain mole fractions of each combination r1 r2 r3 (adds also the integral weight w.^3)
-psdw = SM_MG_triplets.weight(psdw,r1,r2,r3,w);
+psdw = SM_CS_triplets.weight(psdw,r1,r2,r3,w);
 
 id = zeros(numel(q),1);
 parfor i = 1:numel(q)
     
-    id(i) = sum(SM_MG_triplets.itrpl(q(i),r1,r2,r3,xc,xl,pds,pdc,psdw));
+    id(i) = sum(SM_CS_triplets.itrpl(q(i),r1,r2,r3,xc,xl,pds,pdc,psdw));
     
 end
 
 % normalization weight
-mwnd = sum((SM_MG_triplets.m3(r1(:),(xc.*r1(:)),pds,pdc) + SM_MG_triplets.m3(r2(:),(xc.*r2(:)),pds,pdc) + SM_MG_triplets.m3(r3(:),(xc.*r3(:)),pds,pdc)) .^2 .* psdw(:));
+mwnd = sum((SM_CS_triplets.m3(r1(:),(xc.*r1(:)),pds,pdc) + SM_CS_triplets.m3(r2(:),(xc.*r2(:)),pds,pdc) + SM_CS_triplets.m3(r3(:),(xc.*r3(:)),pds,pdc)) .^2 .* psdw(:));
 id = id(:);
 
 end

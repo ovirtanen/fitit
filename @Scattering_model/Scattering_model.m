@@ -8,8 +8,8 @@ classdef Scattering_model < handle
                             'Hollow Microgel Model';
                             'Core Shell Model';
                             'Free Profile Model';
-                            'Microgel dumbbell aggregation model';
-                            'Microgel triplet aggregation model';
+                            'Core-shell dumbbell aggregation model';
+                            'Core-shell triplet aggregation model';
                             'Stieger Microgel Model';
                             'Numerical Microgel Model';
                             'Numerical Microgel Model II';

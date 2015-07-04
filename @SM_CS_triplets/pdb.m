@@ -5,8 +5,8 @@ function p = pdb(q,r1,r2,xc,pds,pdc,psdwg)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-m3r1 = SM_MG_triplets.m3(r1,xc.*r1,pds,pdc);
-m3r2 = SM_MG_triplets.m3(r2,xc.*r2,pds,pdc);
+m3r1 = SM_CS_triplets.m3(r1,xc.*r1,pds,pdc);
+m3r2 = SM_CS_triplets.m3(r2,xc.*r2,pds,pdc);
 
 
 f3r1 = (pds .* 4.*pi./3.*r1.^3 .* (3.* (sin(q.*r1) - q.*r1.*cos(q.*r1))./ (q.*r1).^3)...
