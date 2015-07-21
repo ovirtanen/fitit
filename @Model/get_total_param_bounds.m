@@ -10,13 +10,15 @@ ub = [];
 
 %% Background
 
-if any(obj.bg.enabled)
+bg_enabled = obj.bg.enabled;
+
+if any(bg_enabled)
     
     lb_bg = cell2mat(obj.bg.params(:,1));
     ub_bg = cell2mat(obj.bg.params(:,3));
     
-    lb = [lb; lb_bg(:)];
-    ub = [ub, ub_bg(:)];
+    lb = [lb; lb_bg(bg_enabled)];
+    ub = [ub, ub_bg(bg_enabled)];
         
 end
 

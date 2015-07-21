@@ -19,12 +19,15 @@ n = obj.n;
 rprf = ((1:n)./n)' .* m; 
 rprf = repelem(rprf,3);
 rprf(numel(rprf)) = [];
-rprf = [0;rprf];
+rprf = [0;rprf;rprf(end);0];
 
 prf = cell2mat(obj.params(:,2));
 prf = prf(end-n+1:end);
 prf = repelem(prf,3);
 prf(3:3:end) = 0;
+prf = [prf;1;1];
+
+
 
 end
 

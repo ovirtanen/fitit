@@ -7,12 +7,17 @@ function set_param_vector(obj,p)
 %   p           Total parameter vector for SM_Background
 %
 
-if numel(p) ~= (numel(obj.p_ids))
+e = obj.enabled;
+
+if numel(p) ~= (numel(e(e == true)))
     
+    numel(e == true)
+    numel(p)
     error('Parameter vector does not have the right number of parameters');
     
 end % if
 
-obj.params(:,2) = num2cell(p(1:numel(obj.p_ids)));
+ind = 1:numel(e);
+obj.params(ind(e == true),2) = num2cell(p);
 
 end

@@ -11,7 +11,7 @@ obj.view.disable_f_button();
 prev_state = obj.view.switch_enable_panels('off');
 drawnow();
 
-if any(cellfun(@(x)isa(x,'SM_Free_model'),obj.model.s_models))
+if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
     
     options = optimoptions('fmincon');
     options.MaxFunEvals = 5000;

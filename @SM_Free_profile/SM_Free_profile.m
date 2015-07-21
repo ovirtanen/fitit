@@ -75,7 +75,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             % Model parameter default values
             obj.params = {-1 -1 3 1;...                         % log lambda
                           0 1 1 1 };                            % Amplitude     
-            obj.params = [obj.params; repmat({0 1 1 1},n,1)];   % Steps: Default values [0 ... 1]
+            obj.params = [obj.params; repmat({0 1 3 1},n,1)];   % Steps: Default values [0 ... 1]
             
         end % constructor  
         

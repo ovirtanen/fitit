@@ -43,7 +43,7 @@ n = obj.n;                   % number of shells or steps in the profile
 %l = p(1)                    % lambda is unnecessary for intensity
                              % calculation. see obj.reg(p)
 a = p(2);                                               
-prf = p(3:n+2);              % polarization density profile
+prf = p(3:n+2);          % polarization density profile i.r.t. dispersion average
 rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 
 [rpsd,psd,w] = obj.dist.psd(nc,p(n+3:end));
