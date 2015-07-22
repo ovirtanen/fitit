@@ -1,4 +1,4 @@
-function [isolnorm, resnorm, lambda, pc] = l_curve(obj,npoints,prg)
+function [solnorm, resnorm, lambda, pc] = l_curve(obj,npoints,prg)
 %L_CURVE Calculates L-curve for SM_Free_profile
 %   
 %   [solnorm, resnorm,pc] = lcurve(npoints)
@@ -24,14 +24,6 @@ if isempty(sm)
     
 end
 
-if numel(obj.data_sets) ~= 1
-
-    error('Only one dataset is supported at the moment.');
-    
-end
-    
-data = obj.data_sets(1).i_exp;
-q = obj.data_sets(1).q_exp;
 
 lambdaprms = sm.params(1,:);
 [minl,maxl] = lambdaprms{[1,3]};
@@ -40,12 +32,38 @@ lambda = linspace(minl,maxl,npoints);
 n = sm.n;                                           % number of steps in the profile
 p_orig = obj.get_total_parameter_vector();          % original parameter vector
 
-% Offset in the parameter vector due to background and backreflection
-p_off = 0 + double(obj.bg.enabled) + double(not(isempty(obj.sls_br)) && obj.sls_br.enabled); 
+%% Offset in the parameter vector due to background and backreflection
 
-isolnorm = zeros(numel(lambda),1);  % inverse solution norm
+% number of backgrounds
+ebg = obj.bg.enabled;
+nbg = ebg(ebg == true);
+nbg = numel(nbg);
+
+% number of backreflections
+if not(isempty(obj.sls_br))
+   
+    ebr = [obj.sls_br.enabled];
+    nbr = ebr(ebr == true);
+    nbr = numel(nbr);
+    
+else
+    
+    nbr = 0;
+    
+end
+
+
+p_off = nbg + nbr;
+
+%% Initiatlize output vectors
+solnorm = zeros(numel(lambda),1);  % inverse solution norm
 resnorm = zeros(numel(lambda),1);   % residual norm
 pc = cell(numel(lambda),1);
+
+%% Do the calculation for different regularization parameters
+
+options = optimoptions('fmincon');
+options.MaxFunEvals = 5000;
 
 for i = 1:numel(lambda)
     
@@ -54,25 +72,33 @@ for i = 1:numel(lambda)
     
     obj.set_total_parameter_vector(pi);
     
-    p_l = obj.lsq_fit();
+    p_l = obj.lsq_fit(options);
     pc{i} = p_l;
     
     obj.set_total_parameter_vector(p_l);
     
-    prf = p_l(3+p_off:2+n+p_off);
-    % normalization doesn't affect the scattering curve because only
-    % relative differences in the density profile matter, but scaling the
-    % absolute profile values helps to distinguish excessive
-    % regularization. Large regularization values force to profile to box
-    % profile, but the height of the profile is not necessarily 1 when a
-    % smoothing norm is used, which messes up the "real" solution norm.
-    prf = prf ./ max(prf); 
-    prf = 1./prf;
-    isolnorm(i) = sqrt((prf(:)' * prf(:)));
+    prf_start = p_off + 2 + numel(obj.data_sets);
+    prf_end = prf_start + n - 1 ;
+    prf = p_l(prf_start:prf_end);
+
+    solnorm(i) = sqrt(sum(diff(prf,2).^2));
     
-    res = obj.total_scattered_intensity(150,q) - data;
-    res = res ./ max(res);
-    resnorm(i) = sqrt(res(:)' * res(:));
+    
+    for j = 1:numel(obj.data_sets)
+        
+        ds = obj.data_sets(j);
+        
+        q = ds.q_exp;
+        intst = ds.i_exp;
+        ah = ds.active_handles;
+    
+        res = obj.total_scattered_intensity(150,ah,q) - intst;
+
+        resnorm(i) = resnorm(i) + res(:)' * res(:);
+        
+    end
+    
+    resnorm(i) = sqrt(resnorm(i));
     
     prg(i/numel(lambda));
     

@@ -14,7 +14,7 @@ function l_curve_callback(obj,hObject,callbackdata)
 % All rights reserved.
 
 obj.view.disable_f_button();
-obj.view.switch_enable_panels('off');
+prev_state = obj.view.switch_enable_panels('off');
 drawnow();
 
 wb = waitbar(0,'Calculating L-curve with given initial guesses...');
@@ -22,14 +22,15 @@ wb.WindowStyle = 'modal';
 wb.CloseRequestFcn = @(src,callbackdata) beep();
 drawnow();
 
-[isolnorm, resnorm, lambda, ~] = obj.model.l_curve(10, @(x)wbar(wb,x));
+[solnorm, resnorm, lambda, ~] = obj.model.l_curve(8, @(x)wbar(wb,x));
 
 wb.delete();
 
-obj.view.switch_enable_panels('on');
+obj.view.switch_enable_panels(prev_state);
 obj.view.update_f_button_status();
+drawnow();
 
-obj.view.display_l_curve(isolnorm, resnorm,lambda);
+obj.view.display_l_curve(solnorm, resnorm,lambda);
 
 end
 
