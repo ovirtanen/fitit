@@ -19,7 +19,7 @@ drawnow();
 
 wb = waitbar(0,'Calculating L-curve with given initial guesses...');
 wb.WindowStyle = 'modal';
-wb.CloseRequestFcn = @(src,callbackdata) beep();
+%wb.CloseRequestFcn = @(src,callbackdata) beep();
 drawnow();
 
 [solnorm, resnorm, lambda, ~] = obj.model.l_curve(8, @(x)wbar(wb,x));
