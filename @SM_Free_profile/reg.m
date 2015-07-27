@@ -33,12 +33,12 @@ switch d
     
     case 0
         
-        r = lambda.^2 .* sum((1./prf).^2);
+        r = lambda.^2 .* sum(prf.^2);
         
     case 1
         
-        %r = lambda.^2 .* sum(diff((1./prf)).^2);
         r = lambda.^2 .* sum(diff(prf).^2);
+        
     case 2
 
         r = lambda.^2 .* sum(diff(prf,2).^2);

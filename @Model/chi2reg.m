@@ -43,7 +43,7 @@ for i = 1:numel(active_handles)
         
     end
     
-    c = c + sum(((i_exp{i} - i_mod)./std{i}).^2);
+    c = c + sum((log10(i_exp{i}).^2.*(i_exp{i} - i_mod)./std{i}).^2);
     
 end % for
 
