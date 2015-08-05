@@ -2,7 +2,7 @@ function [i_mod] = total_scattered_intensity(obj,nc,ihandles,q)
 %TOTAL_SCATTERED_INTENSITY Total scattered intensity of all
 %Scattering_models and background for one dataset
 %   
-%   i_mod = total_scattered_intensity(nc,q)
+%   i_mod = total_scattered_intensity(nc,ihandles,q)
 %
 %   Parameters
 %   nc          number of integration points for the PSD
