@@ -59,7 +59,7 @@ classdef Model < handle
         
         add_data_set(obj,ds);
         sm = get_active_s_model(obj);
-        p = get_total_param_vector(obj);
+        p = get_total_parameter_vector(obj);
         l = get_total_free_params(obj);
         [lb,ub] = get_total_param_bounds(obj);
         match_br_to_ds(obj,nds);
