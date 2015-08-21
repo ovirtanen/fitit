@@ -23,6 +23,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
         
         dist;                   % Distribution instance
         n;                      % Number of steps in the profile
+        sno;                    % Order of the smooting norm; 0, 1 or 2.
         
         p_name_strings;         % parameter name strings for gui
         p_ids;                  % internal names for the parameters
@@ -43,10 +44,11 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
     
     methods (Access = public)
        
-        function obj = SM_Free_profile(d,n)
+        function obj = SM_Free_profile(d,n,sno)
             
             obj.dist = d;
             obj.n = n;
+            obj.sno = sno;
             
             % Indice of the amplitude paramter
             obj.scale_param_rows = 2;

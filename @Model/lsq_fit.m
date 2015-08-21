@@ -87,7 +87,10 @@ prm = @(p0) obj.p0_to_p(p0,p,pf);
 
 %% Handle for fmincon
 
-% Special case for a regularized fit using SM_Free_profile
+% ***
+% *** Special case for a regularized fit using SM_Free_profile ***
+% ***
+
 smfp = cellfun(@(x)isa(x,'SM_Free_profile'),obj.s_models);
 
 if any(smfp)
@@ -116,10 +119,30 @@ if any(smfp)
     np = sm.n;
     
     pinds = [ps ps+nds+1:ps+nds+np];
-    rh = @(x) sm.reg(x(pinds),2);  % second derivative smoothing norm
+    
+    switch sm.sno
+       
+        case 0
+            
+            rh = @(x) sm.reg(x(pinds),0);  % second derivative smoothing norm
+            
+        case 1
+            
+            rh = @(x) sm.reg(x(pinds),1);  % second derivative smoothing norm
+            
+        case 2
+            
+            rh = @(x) sm.reg(x(pinds),2);  % second derivative smoothing norm
+            
+        otherwise
+            
+            error('Illegal regularization norm.');
+        
+    end
+    
     f = @(x) Model.chi2reg(nc,q,intst,std,prm(x),active_handles,handles,rh);
     
-else % All the other models without regularization
+else % *** All the other models without regularization ***
     
     f = @(x) Model.chi2(nc,q,intst,std,prm(x),active_handles,handles);
 
