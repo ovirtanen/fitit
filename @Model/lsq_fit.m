@@ -116,7 +116,7 @@ if any(smfp)
     end
     
     nds = numel(obj.data_sets);
-    np = sm.n;
+    np = sm.n - 1;
     
     pinds = [ps ps+nds+1:ps+nds+np];
     
