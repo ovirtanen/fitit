@@ -54,19 +54,21 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             obj.scale_param_rows = 2;
             
             % Parameter name strings
-            steps = repmat({'Step '},n-1,1);
-            inds  = strsplit(num2str((1:n-1)))';
+            deltas = repmat({'Delta '},n-1,1);
+            inds_outer  = strsplit(num2str(fliplr(2:n)))';
+            inds_inner  = strsplit(num2str(fliplr(1:n-1)))';
+            dash = repmat({' - '},numel(deltas),1);
             
             obj.p_name_strings = {'log lambda';...
                                   'Amplitude (1/cm)';}; 
-            obj.p_name_strings = [obj.p_name_strings; strcat(steps,inds)];
+            obj.p_name_strings = [obj.p_name_strings; strcat(deltas,inds_outer,dash,inds_inner)];
             
             % Parameter ids
-            ids = repmat({'stp'},n-1,1);
+            ids = repmat({'dlt'},n-1,1);
             
             obj.p_ids = {'lambda';...
                          'a'};
-            obj.p_ids = [obj.p_ids; strcat(ids,inds)];
+            obj.p_ids = [obj.p_ids; strcat(ids,inds_outer,inds_inner)];
             
             % Model parameters map
             keyset = obj.param_ids_to_tags(obj.p_ids,'params');

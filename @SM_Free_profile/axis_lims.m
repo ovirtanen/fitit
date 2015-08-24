@@ -12,7 +12,8 @@ function lims = axis_lims(obj)
 
 xmax = obj.dist.max_limit();
 ymax = 1.1.*max(cumsum([cell2mat(obj.params(end-obj.n+2:end,2));1],'reverse'));
-lims = [0 xmax 0 ymax];
+ymin = 0.9.*min(cumsum([cell2mat(obj.params(end-obj.n+2:end,2));1],'reverse'));
+lims = [0 xmax ymin ymax];
 
 end
 

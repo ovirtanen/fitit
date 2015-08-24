@@ -9,7 +9,7 @@ classdef Scattering_model < handle
                             'Core Shell Model';
                             'Free Profile Model, 2-norm';
                             'Free Profile Model, 1st deriv. SN';
-                            'Free Profile Model, 2nd deriv. SN';
+                            %'Free Profile Model, 2nd deriv. SN';
                             'Core-shell dumbbell aggregation model';
                             'Core-shell triplet aggregation model';
                             'Stieger Microgel Model';

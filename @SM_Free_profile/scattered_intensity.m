@@ -44,7 +44,7 @@ n = obj.n;                   % number of shells or steps in the profile
                              % calculation. see obj.reg(p)
 a = p(2);                                               
 %prf = p(3:n+2);          % polarization density profile i.r.t. dispersion average
-dprf = [p(3:n-1+2);1]
+dprf = [p(3:n-1+2);1];
 rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 
 [rpsd,psd,w] = obj.dist.psd(nc,p(n-1+3:end));
