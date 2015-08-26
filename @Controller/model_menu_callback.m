@@ -32,17 +32,21 @@ switch hObject.Label
         
         sm = SM_Core_shell(d);
         
-    case 'Free Profile Model, 2-norm'
+    %case 'Free Profile Model, 2-norm'
         
-        sm = SM_Free_profile(d,20,0);
+        %sm = SM_Free_profile(d,20,0);
+        
+    case 'Free Profile Model, TV reg.'
+        
+        sm = SM_Free_profile(d,20,-1);
         
     case 'Free Profile Model, 1st deriv. SN'
         
+        sm = SM_Free_profile(d,20,0);
+        
+    case 'Free Profile Model, 2nd deriv. SN'
+        
         sm = SM_Free_profile(d,20,1);
-        
-    %case 'Free Profile Model, 2nd deriv. SN'
-        
-        %sm = SM_Free_profile(d,20,2);
         
     case 'Core-shell dumbbell aggregation model'
         

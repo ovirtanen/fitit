@@ -121,6 +121,10 @@ if any(smfp)
     pinds = [ps ps+nds+1:ps+nds+np];
     
     switch sm.sno
+        
+        case -1
+            
+            rh = @(x) sm.reg(x(pinds),-1);  % second derivative smoothing norm
        
         case 0
             

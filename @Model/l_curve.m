@@ -80,7 +80,7 @@ for i = 1:numel(lambda)
     
     prf_start = p_off + 2 + numel(obj.data_sets);
     prf_end = prf_start + n - 2 ; % !!!! Changed to -2 from -1 for diffprf
-    prf = p_l(prf_start:prf_end)
+    prf = p_l(prf_start:prf_end);
     
     %solnorm(i) = sqrt(sum(diff(prf,2).^2));
     solnorm(i) = sqrt(sum(prf).^2);

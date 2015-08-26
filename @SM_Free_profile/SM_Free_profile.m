@@ -84,6 +84,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
         end % constructor  
         
         i_mod = scattered_intensity(obj,nc,q,p);
+        
         r = reg(obj,p,d);
         [rprf,prf] = radial_profile(obj);
         lims = axis_lims(obj);
