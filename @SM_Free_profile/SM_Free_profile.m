@@ -23,6 +23,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
         
         dist;                   % Distribution instance
         n;                      % Number of steps in the profile
+        sno;                    % Order of the smooting norm; 0, 1 or 2.
         
         p_name_strings;         % parameter name strings for gui
         p_ids;                  % internal names for the parameters
@@ -43,28 +44,31 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
     
     methods (Access = public)
        
-        function obj = SM_Free_profile(d,n)
+        function obj = SM_Free_profile(d,n,sno)
             
             obj.dist = d;
             obj.n = n;
+            obj.sno = sno;
             
             % Indice of the amplitude paramter
             obj.scale_param_rows = 2;
             
             % Parameter name strings
-            steps = repmat({'Step '},n,1);
-            inds  = strsplit(num2str((1:n)))';
+            deltas = repmat({'Delta '},n-1,1);
+            inds_outer  = strsplit(num2str(fliplr(2:n)))';
+            inds_inner  = strsplit(num2str(fliplr(1:n-1)))';
+            dash = repmat({' - '},numel(deltas),1);
             
             obj.p_name_strings = {'log lambda';...
                                   'Amplitude (1/cm)';}; 
-            obj.p_name_strings = [obj.p_name_strings; strcat(steps,inds)];
+            obj.p_name_strings = [obj.p_name_strings; strcat(deltas,inds_outer,dash,inds_inner)];
             
             % Parameter ids
-            ids = repmat({'stp'},n,1);
+            ids = repmat({'dlt'},n-1,1);
             
             obj.p_ids = {'lambda';...
                          'a'};
-            obj.p_ids = [obj.p_ids; strcat(ids,inds)];
+            obj.p_ids = [obj.p_ids; strcat(ids,inds_outer,inds_inner)];
             
             % Model parameters map
             keyset = obj.param_ids_to_tags(obj.p_ids,'params');
@@ -75,11 +79,12 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
             % Model parameter default values
             obj.params = {-1 -1 3 1;...                         % log lambda
                           0 1 1 1 };                            % Amplitude     
-            obj.params = [obj.params; repmat({0 1 3 1},n,1)];   % Steps: Default values [0 ... 1]
+            obj.params = [obj.params; repmat({-3 0 3 1},n-1,1)];   % Steps: Default values [0 ... 1]
             
         end % constructor  
         
         i_mod = scattered_intensity(obj,nc,q,p);
+        
         r = reg(obj,p,d);
         [rprf,prf] = radial_profile(obj);
         lims = axis_lims(obj);

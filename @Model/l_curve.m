@@ -12,6 +12,10 @@ function [solnorm, resnorm, lambda, pc] = l_curve(obj,npoints,prg)
 % resnorm           Residual norm
 % pc                Cell array of parameter vectors, one entry for each
 %                   point on the L-curve
+%
+% Note: This function is more or less crap that combines computation with
+% output. Plotting has to be separated in the future.
+%
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
@@ -56,14 +60,16 @@ end
 p_off = nbg + nbr;
 
 %% Initiatlize output vectors
-solnorm = zeros(numel(lambda),1);  % inverse solution norm
+solnorm = zeros(numel(lambda),1);   % solution norm
 resnorm = zeros(numel(lambda),1);   % residual norm
+rchisqr = zeros(numel(lambda),1);   % reduced chi-squared
 pc = cell(numel(lambda),1);
 
 %% Do the calculation for different regularization parameters
 
 options = optimoptions('fmincon');
 options.MaxFunEvals = 5000;
+options.TolX = 1e-7;
 
 for i = 1:numel(lambda)
     
@@ -78,11 +84,16 @@ for i = 1:numel(lambda)
     obj.set_total_parameter_vector(p_l);
     
     prf_start = p_off + 2 + numel(obj.data_sets);
-    prf_end = prf_start + n - 1 ;
+    prf_end = prf_start + n - 2 ; % !!!! Changed to -2 from -1 for diffprf
     prf = p_l(prf_start:prf_end);
-
-    solnorm(i) = sqrt(sum(diff(prf,2).^2));
     
+    %solnorm(i) = sqrt(sum(diff(prf,2).^2));
+    solnorm(i) = sqrt(sum(prf).^2);
+    
+    h = figure;
+    hold on;
+    
+    ndata = 0;
     
     for j = 1:numel(obj.data_sets)
         
@@ -90,15 +101,32 @@ for i = 1:numel(lambda)
         
         q = ds.q_exp;
         intst = ds.i_exp;
+        std = ds.std_exp;
         ah = ds.active_handles;
-    
-        res = obj.total_scattered_intensity(150,ah,q) - intst;
-
+        
+        % ***
+        errorbar(q,intst,std);
+        
+        fit = obj.total_scattered_intensity(150,ah,q);
+        
+        % ***
+        plot(q,fit);
+        
+        res =  (fit - intst) ./ intst; % correct for the fast decaying data
+        
+        rchisqr(i) = rchisqr(i) + sum(((fit - intst) ./ std).^2);
         resnorm(i) = resnorm(i) + res(:)' * res(:);
+        ndata = ndata + numel(intst);
         
     end
     
+    rchisqr(i) = rchisqr(i) ./ (ndata - numel(p_orig) + 1); % +1 from lambda, which is not really a model parameter
     resnorm(i) = sqrt(resnorm(i));
+    
+    title(['Lambda: ' num2str(lambda(i)) ': Residual norm: ' num2str(resnorm(i)) ' RChiSqr: ' num2str(rchisqr(i))]);
+    h.Children.YScale = 'log';
+    box on;
+    hold off;
     
     prg(i/numel(lambda));
     

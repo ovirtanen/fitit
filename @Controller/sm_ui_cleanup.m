@@ -18,8 +18,8 @@ switch sm_label
     cb.delete();
     
     %cb = findobj(obj.view.p_panel,'Tag',['stp' num2str(obj.model.s_models{1}.n) '_chck']);
-    cb = findobj(obj.view.p_panel,'Tag',['stp' num2str(1) '_chck']);
-    cb.Enable = 'off';
+    %cb = findobj(obj.view.p_panel,'Tag',['stp' num2str(1) '_chck']);
+    %cb.Enable = 'off';
 
     %check whether to enable Tools menu Determine L-Curve item
     if isempty(obj.model.data_sets)

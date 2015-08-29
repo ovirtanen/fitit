@@ -26,5 +26,11 @@ CVS
 # Todo file
 FitIt Todo.txt
 
-# Cluster scripts folder
-/Cluster_scripts/
+# Cluster scripts
+/Cluster_scripts
+
+# Test problems
+/Test problems
+
+# MEX shit
+/MEX_tests

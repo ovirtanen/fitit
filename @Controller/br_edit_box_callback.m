@@ -53,7 +53,7 @@ switch id   % recognize WL and RI boxes that don't have min and max limits
         obj.view.update_axes();
         return;
         
-    case 'ir'
+    case 'ri'
     
         if v < 0
             

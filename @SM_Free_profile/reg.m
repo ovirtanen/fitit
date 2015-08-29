@@ -13,8 +13,9 @@ function r = reg(~,p,d)
 %                   .
 %                   .
 %                   p(n+1)      Polarization density of the nth step
-% d                 order of the smoothing norm:       
-%                       0       Standard norm
+% d                 order of the smoothing norm:  
+%                       -1      Total variation
+%                       0       2 - norm
 %                       1       1st derivative norm
 %                       2       2nd derivative norm
 %
@@ -30,6 +31,10 @@ prf = p(2:end);
 
 
 switch d
+    
+    case -1
+        
+        r = lambda.^2 .* sum(abs(prf));
     
     case 0
         

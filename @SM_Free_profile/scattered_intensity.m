@@ -43,10 +43,11 @@ n = obj.n;                   % number of shells or steps in the profile
 %l = p(1)                    % lambda is unnecessary for intensity
                              % calculation. see obj.reg(p)
 a = p(2);                                               
-prf = p(3:n+2);          % polarization density profile i.r.t. dispersion average
+%prf = p(3:n+2);          % polarization density profile i.r.t. dispersion average
+dprf = [p(3:n-1+2);1];
 rprf = ((1:n)./n)';          % radii of the cocentric shells (fractional)
 
-[rpsd,psd,w] = obj.dist.psd(nc,p(n+3:end));
+[rpsd,psd,w] = obj.dist.psd(nc,p(n-1+3:end));
 
 % Numerical integration over the distribution using the mid-point rule
 
@@ -71,9 +72,13 @@ qq = repmat(qq,[1,1,numel(rpsd)]);
 %%  Calculate the scattering amplitudes of all the size fractions of the core-shell particles
 
 m3f3 = obj.f_hard_sphere(rs .* qq);     % m3f3 is the scattering amplitude multiplied by the scattering mass weight
-dprf = prf - [prf(2:end); 0];           % polarization density differences between adjacent shells
+%dprf = prf - [prf(2:end); 0];           % polarization density differences between adjacent shells
 smw = 4./3.*pi.*(rs).^3;                % Scattering mass weight for each shell in each particle size fraction
-m3f3 = bsxfun(@times,dprf,smw .* m3f3);
+
+m3f3 = repmat(dprf,[1 size(m3f3,2) size(m3f3,3)]) .* smw .* m3f3;
+%m3f3 = bsxfun(@times,dprf,smw .* m3f3);
+
+
 m3f3 = sum(m3f3,1);                     % sum down the columns to get scattering amplitude of each particle size fraction
 m3f3 = squeeze(m3f3);                   % remove the singleton dimension, now each column contains m3f3(q) for each particle size fraction
 
@@ -84,8 +89,11 @@ v2p = m3f3.^2 * (w .* psd(:));          % weight each fraction according to the 
 % normalizer normalizes the integral of the (scattering mass)^2 weighted PSD
 % to 1, resulting in P(0) = 1.
 
-smn = squeeze(smw(:,1,:));              
-smn = bsxfun(@times,dprf,smn);
+smn = squeeze(smw(:,1,:));
+
+smn = repmat(dprf,[1 size(smn,2)]) .* smn;
+%smn = bsxfun(@times,dprf,smn);
+
 smn = sum(smn,1);                       % scattering mass weight, for each particle!
 
 smn = (smn(:).^2)' * (w .* psd(:)); 
@@ -93,4 +101,6 @@ smn = (smn(:).^2)' * (w .* psd(:));
 %% Scattered intensity
 
 i_mod = a ./smn .* v2p;
+
+end
 

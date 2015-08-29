@@ -7,7 +7,10 @@ classdef Scattering_model < handle
         available_models = {'Hard Sphere Model';
                             'Hollow Microgel Model';
                             'Core Shell Model';
-                            'Free Profile Model';
+                            'Free Profile Model, TV reg.';
+                            'Free Profile Model, 1st deriv. SN';
+                            'Free Profile Model, 2nd deriv. SN';
+                            %'Free Profile Model, 2nd deriv. SN';
                             'Core-shell dumbbell aggregation model';
                             'Core-shell triplet aggregation model';
                             'Stieger Microgel Model';
