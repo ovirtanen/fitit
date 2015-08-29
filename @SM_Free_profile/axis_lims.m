@@ -10,9 +10,17 @@ function lims = axis_lims(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+n = obj.n;
+dprf = cell2mat(obj.params(:,2));
+dprf = dprf(end-n+2:end);
+prf = cumsum([dprf;1],'reverse');
+
 xmax = obj.dist.max_limit();
-ymax = 1.1.*max(cumsum([cell2mat(obj.params(end-obj.n+2:end,2));1],'reverse'));
-ymin = 0.9.*min(cumsum([cell2mat(obj.params(end-obj.n+2:end,2));1],'reverse'));
+
+ymax = max(1.1.*max(prf),0.9.*max(prf));
+ymin = min(1.1.*min(prf),0.9.*min(prf));
+
+
 lims = [0 xmax ymin ymax];
 
 end
