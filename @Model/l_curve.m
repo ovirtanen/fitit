@@ -12,6 +12,10 @@ function [solnorm, resnorm, lambda, pc] = l_curve(obj,npoints,prg)
 % resnorm           Residual norm
 % pc                Cell array of parameter vectors, one entry for each
 %                   point on the L-curve
+%
+% Note: This function is more or less crap that combines computation with
+% output. Plotting has to be separated in the future.
+%
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
@@ -65,6 +69,7 @@ pc = cell(numel(lambda),1);
 
 options = optimoptions('fmincon');
 options.MaxFunEvals = 5000;
+options.TolX = 1e-7;
 
 for i = 1:numel(lambda)
     

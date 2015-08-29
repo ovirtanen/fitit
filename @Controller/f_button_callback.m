@@ -15,6 +15,7 @@ if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
     
     options = optimoptions('fmincon');
     options.MaxFunEvals = 5000;
+    options.TolX = 1e-7;
     
     p = obj.model.lsq_fit(options);
     
