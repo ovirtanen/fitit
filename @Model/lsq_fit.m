@@ -54,7 +54,7 @@ active_handles = {ds.active_handles};
 q = {ds.q_exp};
 intst = {ds.i_exp};
 std = {ds.std_exp};
-nc = 150;
+nc = obj.nc;
 
 if any(cellfun(@isempty,{q intst std}))
    

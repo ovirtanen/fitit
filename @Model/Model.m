@@ -20,8 +20,11 @@ classdef Model < handle
         bg;                 % Background SM
         sls_br;             % SLS backreflection object
         
-        handles;           % Cell array holding all the relevant handles 
-                           % to calculate total scattered intensity
+        handles;            % Cell array holding all the relevant handles 
+                            % to calculate total scattered intensity
+
+        nc;                 % number of integration points for the particle
+                            % radius distributions
         
     end
     
@@ -50,6 +53,8 @@ classdef Model < handle
             obj.s_models = {sm};
             obj.bg = SM_Background();
             obj.sls_br = [];
+
+            obj.nc = 50;
             
             obj.update_handles();
             

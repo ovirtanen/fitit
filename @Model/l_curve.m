@@ -88,7 +88,7 @@ for i = 1:numel(lambda)
     prf = p_l(prf_start:prf_end);
     
     %solnorm(i) = sqrt(sum(diff(prf,2).^2));
-    solnorm(i) = sqrt(sum(prf).^2);
+    solnorm(i) = sqrt(sum(prf.^2));
     
     h = figure;
     hold on;
@@ -103,11 +103,13 @@ for i = 1:numel(lambda)
         intst = ds.i_exp;
         std = ds.std_exp;
         ah = ds.active_handles;
+        nc = obj.nc;
         
         % ***
         errorbar(q,intst,std);
         
-        fit = obj.total_scattered_intensity(150,ah,q);
+        
+        fit = obj.total_scattered_intensity(nc,ah,q);
         
         % ***
         plot(q,fit);
@@ -123,7 +125,7 @@ for i = 1:numel(lambda)
     rchisqr(i) = rchisqr(i) ./ (ndata - numel(p_orig) + 1); % +1 from lambda, which is not really a model parameter
     resnorm(i) = sqrt(resnorm(i));
     
-    title(['Lambda: ' num2str(lambda(i)) ': Residual norm: ' num2str(resnorm(i)) ' RChiSqr: ' num2str(rchisqr(i))]);
+    title(['Lambda: ' num2str(lambda(i)) ' Solution norm: ' num2str(solnorm(i)) ' Residual norm: ' num2str(resnorm(i)) ' RChiSqr: ' num2str(rchisqr(i))]);
     h.Children.YScale = 'log';
     box on;
     hold off;

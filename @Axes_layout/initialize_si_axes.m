@@ -25,7 +25,8 @@ si.Box = 'on';
 m = obj.view.model;
 q = linspace(0.0001,0.025,200)';
 ihandles = @() 1:numel(obj.view.model.handles);
-intst = @()m.total_scattered_intensity(150,ihandles(),q);
+nc = m.nc;
+intst = @()m.total_scattered_intensity(nc,ihandles(),q);
         
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.g_sources = [obj.g_sources gs];
