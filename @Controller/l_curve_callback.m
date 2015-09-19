@@ -22,7 +22,10 @@ wb.WindowStyle = 'modal';
 %wb.CloseRequestFcn = @(src,callbackdata) beep();
 drawnow();
 
-[solnorm, resnorm, lambda, ~] = obj.model.l_curve(8, @(x)wbar(wb,x));
+fitoph = obj.view.create_axes_for_l_curve_output([2 4]);
+drawnow();
+
+[solnorm, resnorm, lambda, ~] = obj.model.l_curve(8,fitoph,@(x)wbar(wb,x));
 
 wb.delete();
 

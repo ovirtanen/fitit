@@ -19,26 +19,26 @@ amplitudes = {0.3;...
               0.1};
 
 wl = {404;...
-      642};
+      658};
   
-wl_e = {1;...
-        -1};
+wl_e = {0;...
+        0};
 
 ri = {1.342;...
       1.332};
   
-ri_e = {0.01;...
-        0.01};
+ri_e = {0;...
+        0};
 
-bg = {1e-5;...
-      3e-6};
+bg = {0;...
+      0};
   
-bg_e = {0.1e-5;...
-        0.5e-6};
+bg_e = {0;...
+        0};
   
 % relative noise level  
-rnl = {2e-4;...
-       5e-4};     
+rnl = {1e-4;...
+       3e-4};     
 
 %%% --------------------------------------
 
@@ -79,7 +79,7 @@ for i = 1:numel(q)
     intst_j = m.total_scattered_intensity(150,ih,q{i});
     bg_j = repmat(bg{i},numel(angles),1);
     
-    for j = 1 :10
+    for j = 1 :100
             
         e = randn(numel(angles),1);
         e = e./norm(e);
@@ -95,14 +95,15 @@ for i = 1:numel(q)
         
     end
     
-    %std_intst = std(intst,0,2);
-    %std_bg = std(bg_intst,0,2);
+    std_intst = std(intst,0,2);
+    std_bg = std(bg_intst,0,2);
     
+    c = cov(bsxfun(@minus,intst,m.total_scattered_intensity(150,ih,q{i})));
     intst = mean(intst,2);
     bg_intst = mean(bg_intst,2);
     
-    std_bg = 0.07.*bg_intst;
-    std_intst = 0.07 .* intst;
+    %std_bg = 0.07.*bg_intst;
+    %std_intst = 0.07 .* intst;
     
     
     intst = intst - bg_intst;

@@ -1,11 +1,13 @@
-function [solnorm, resnorm, lambda, pc] = l_curve(obj,npoints,prg)
+function [solnorm, resnorm, lambda, pc] = l_curve(obj,npoints,fitop,prg)
 %L_CURVE Calculates L-curve for SM_Free_profile
 %   
 %   [solnorm, resnorm,pc] = lcurve(npoints)
 %
 % Parameters
 % npoints           Number of points for the L-curve between the lambda limits
-% prg               Handle to an output function
+% fitop             Cellarray to handles to subplots, where solutions will
+%                   be plotted
+% prg               Handle to waitbar function
 % 
 % Returns
 % solnorm           Solution norm
@@ -25,6 +27,14 @@ sm = obj.s_models{cellfun(@(x)isa(x,'SM_Free_profile'),obj.s_models)};
 if isempty(sm)
    
     error('The model is not SM_Free_profile.');
+    
+elseif numel(fitop) ~= npoints
+    
+    error('Not enough handles for output');
+    
+elseif not(all(cellfun(@(x) isa(x,'matlab.graphics.axis.Axes'),fitop)))
+    
+    error('Input is not a cellarray of Axes.');
     
 end
 
@@ -87,11 +97,7 @@ for i = 1:numel(lambda)
     prf_end = prf_start + n - 2 ; % !!!! Changed to -2 from -1 for diffprf
     prf = p_l(prf_start:prf_end);
     
-    %solnorm(i) = sqrt(sum(diff(prf,2).^2));
     solnorm(i) = sqrt(sum(prf.^2));
-    
-    h = figure;
-    hold on;
     
     ndata = 0;
     
@@ -100,19 +106,47 @@ for i = 1:numel(lambda)
         ds = obj.data_sets(j);
         
         q = ds.q_exp;
+        q_fit = linspace(1e-4,max(q),200);
         intst = ds.i_exp;
         std = ds.std_exp;
         ah = ds.active_handles;
         nc = obj.nc;
         
-        % ***
-        errorbar(q,intst,std);
+        % Plot results --------------------------------
         
+        hold(fitop{i},'on');
+        
+        fitop{i}.YLim;
+        fitop{i}.XLim;
+        
+        errorbar(fitop{i},q,intst,std,'Marker','o','MarkerSize',3);
+        
+        fit = obj.total_scattered_intensity(nc,ah,q_fit);
+        
+        if j == 1
+        
+            fitop{i}.YLim(1) = min(intst);  % min Y
+            fitop{i}.YLim(2) = max(fit);  % max Y
+
+            fitop{i}.XLim(1) = 0; % min X
+            fitop{i}.XLim(2) = max(q_fit); % max X
+            
+        else
+            
+            fitop{i}.YLim(1) = min(fitop{i}.YLim(1),min(intst));  % min Y
+            fitop{i}.YLim(2) = max(fitop{i}.YLim(2),max(fit));  % max Y
+
+            fitop{i}.XLim(2) = max(fitop{i}.XLim(2),max(q_fit)); % max X
+            
+        end
+        
+        plot(fitop{i},q_fit,fit,'LineWidth',1.5);
         
         fit = obj.total_scattered_intensity(nc,ah,q);
         
-        % ***
-        plot(q,fit);
+        hold(fitop{i},'off');
+        
+        % ---------------------------------------------
         
         res =  (fit - intst) ./ intst; % correct for the fast decaying data
         
@@ -125,10 +159,12 @@ for i = 1:numel(lambda)
     rchisqr(i) = rchisqr(i) ./ (ndata - numel(p_orig) + 1); % +1 from lambda, which is not really a model parameter
     resnorm(i) = sqrt(resnorm(i));
     
-    title(['Lambda: ' num2str(lambda(i)) ' Solution norm: ' num2str(solnorm(i)) ' Residual norm: ' num2str(resnorm(i)) ' RChiSqr: ' num2str(rchisqr(i))]);
-    h.Children.YScale = 'log';
-    box on;
-    hold off;
+    % Plot title -------------------
+    
+    title(fitop{i},['\lambda: ' num2str(lambda(i),2) ', Sol. norm: ' num2str(solnorm(i),3) ', Res. norm: ' num2str(resnorm(i),3)]);
+    drawnow();
+   
+    % ----------------
     
     prg(i/numel(lambda));
     
