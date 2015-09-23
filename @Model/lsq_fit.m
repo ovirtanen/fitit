@@ -166,7 +166,15 @@ end % if
 
 %% Estimate the standard deviation of the least squares solution
 
-std_p = estimate_p_std();
+if any(smfp)    % STD for ill-conditioned inverse problem is crap
+
+    std_p = -1.*ones(size(p));
+    
+else
+    
+    std_p = obj.estimate_p_std();
+    
+end
 
 %% Return
 
