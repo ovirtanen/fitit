@@ -1,4 +1,4 @@
-function p = lsq_fit(obj,varargin)
+function [p, std_p] = lsq_fit(obj,varargin)
 %LSQ_FIT Least squares fit on the experimental data
 %   
 %   p = lsq_fit() performs a least squares fit on single experimental data
@@ -13,7 +13,7 @@ function p = lsq_fit(obj,varargin)
 %
 %   Returns
 %   p           Total parameter vector
-%
+%   std_p       Estimated standard deviation of the least squares solution
 %
 
 % Copyright (c) 2015, Otto Virtanen
@@ -152,17 +152,23 @@ else % *** All the other models without regularization ***
 
 end
 
-%% Minimize & return
+%% Minimize
 
 if isempty(options)
 
-    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub);
+    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub);
     
 else
     
-    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
+    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
     
 end % if
+
+%% Estimate the standard deviation of the least squares solution
+
+std_p = estimate_p_std();
+
+%% Return
 
 p(pf) = pfit;
 

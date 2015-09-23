@@ -41,6 +41,7 @@ classdef Model < handle
         c = chi2reg(nc,q,i_exp,std,p,active_handles,handles,regh);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
+        j = estimate_jacobian(p,delta_p,f,t,varargin);
         
     end
     
@@ -69,8 +70,10 @@ classdef Model < handle
         [lb,ub] = get_total_param_bounds(obj);
         match_br_to_ds(obj,nds);
         [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,fitop,prg);
-        p = lsq_fit(obj,options);
+        [p,std_p] = lsq_fit(obj,options);
         %set_active_s_model(obj,asm);
+        j = total_jacobian(obj,varargin);
+        p_std = estimate_p_std(obj);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
         initialize_sls_backreflection(obj,ri,wl,eta,fixed);
         function remove_sls_backreflection(obj)
