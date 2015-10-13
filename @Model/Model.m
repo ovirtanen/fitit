@@ -39,9 +39,11 @@ classdef Model < handle
        
         c = chi2(nc,q,i_exp,std,p,active_handles,handles);
         c = chi2reg(nc,q,i_exp,std,p,active_handles,handles,regh);
+        j = estimate_jacobian(p,delta_p,f,t,varargin);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
-        j = estimate_jacobian(p,delta_p,f,t,varargin);
+        r = res_function(q,qn,sigma2);
+        
         
     end
     
