@@ -8,6 +8,7 @@ classdef Lib
     methods (Static)
         
         inargtchck(varargin);
+        ntarget = assign(target,value,varargin);
         
     end
     

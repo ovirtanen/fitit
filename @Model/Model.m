@@ -20,8 +20,11 @@ classdef Model < handle
         bg;                 % Background SM
         sls_br;             % SLS backreflection object
         
-        handles;           % Cell array holding all the relevant handles 
-                           % to calculate total scattered intensity
+        handles;            % Cell array holding all the relevant handles 
+                            % to calculate total scattered intensity
+
+        nc;                 % number of integration points for the particle
+                            % radius distributions
         
     end
     
@@ -36,8 +39,11 @@ classdef Model < handle
        
         c = chi2(nc,q,i_exp,std,p,active_handles,handles);
         c = chi2reg(nc,q,i_exp,std,p,active_handles,handles,regh);
+        j = estimate_jacobian(p,delta_p,f,t,varargin);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
+        r = res_function(q,qn,sigma2);
+        
         
     end
     
@@ -50,6 +56,8 @@ classdef Model < handle
             obj.s_models = {sm};
             obj.bg = SM_Background();
             obj.sls_br = [];
+
+            obj.nc = 50;
             
             obj.update_handles();
             
@@ -63,9 +71,11 @@ classdef Model < handle
         l = get_total_free_params(obj);
         [lb,ub] = get_total_param_bounds(obj);
         match_br_to_ds(obj,nds);
-        [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,prg);
-        p = lsq_fit(obj,options);
+        [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,fitop,prg);
+        [p,std_p] = lsq_fit(obj,options);
         %set_active_s_model(obj,asm);
+        j = total_jacobian(obj,varargin);
+        p_std = estimate_p_std(obj);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
         initialize_sls_backreflection(obj,ri,wl,eta,fixed);
         function remove_sls_backreflection(obj)

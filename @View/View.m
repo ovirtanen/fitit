@@ -82,6 +82,7 @@ classdef View < handle
         [enable,ri,wl,eta,fixed] = display_br_dialog(obj,enable,dri,dwl,deta,dfixed);
         display_comfort_me_box(obj);
         display_l_curve(obj,snorm,rnorm,lambda);
+        fitoph = create_axes_for_l_curve_output(obj,shape);
         delete_g_sources_in_si_axes(obj);
         function disable_f_button(obj)
            

@@ -21,24 +21,24 @@ amplitudes = {0.3;...
 wl = {404;...
       642};
   
-wl_e = {1;...
-        -1};
+wl_e = {0;...
+        0};
 
 ri = {1.342;...
       1.332};
   
-ri_e = {0.01;...
-        0.01};
+ri_e = {0.00;...
+        0.00};
 
-bg = {1e-5;...
-      3e-6};
+bg = {3e-6;...
+      1e-6};
   
-bg_e = {0.1e-5;...
-        0.5e-6};
+bg_e = {0;...
+        0};
   
-% relative noise level  
-rnl = {2e-4;...
-       5e-4};     
+% Scaling for the Poisson noise  
+nl = {1e8;...
+      1e8};     
 
 %%% --------------------------------------
 
@@ -79,39 +79,38 @@ for i = 1:numel(q)
     intst_j = m.total_scattered_intensity(150,ih,q{i});
     bg_j = repmat(bg{i},numel(angles),1);
     
-    for j = 1 :10
+    for j = 1 :100
             
-        e = randn(numel(angles),1);
-        e = e./norm(e);
-        e_intst = rnl{i} .* norm(intst_j).*e;
+        % Add artificially scaled Poisson noise to the intensity
+        intst_je = intst_j.*nl{i};
+        e = poissrnd(intst_je);
+        intst_je = (intst_je + e)./nl{i};
+
+        intst(:,j) = intst_je;
         
-        intst(:,j) = m.total_scattered_intensity(150,ih,q{i}) + e_intst;
+        % Add artificially scaled Poisson noise to the background
+        bg_je = bg_j.*nl{i};
+        e = poissrnd(bg_je);
+        bg_je = (bg_je + e)./nl{i};
         
-        e = randn(numel(angles),1);
-        e = e./norm(e);
-        e_bg = rnl{i} .* norm(bg_j).*e;
-        
-        bg_intst(:,j) = bg_j + e_bg;
+        bg_intst(:,j) = bg_je;
         
     end
     
-    %std_intst = std(intst,0,2);
-    %std_bg = std(bg_intst,0,2);
+    std_intst = std(intst,0,2);
+    std_bg = std(bg_intst,0,2);
     
-    intst = mean(intst,2);
-    bg_intst = mean(bg_intst,2);
+    c = cov(bsxfun(@minus,intst,m.total_scattered_intensity(150,ih,q{i})));
+    intst_m = mean(intst,2);
+    bg_intst_m = mean(bg_intst,2);
     
-    std_bg = 0.07.*bg_intst;
-    std_intst = 0.07 .* intst;
-    
-    
-    intst = intst - bg_intst;
+    intst_m = intst_m - bg_intst_m;
     std_total = sqrt(std_intst.^2 + std_bg.^2);
     
     % Scale to the amplitudes
     
-    r = [q_nominal{i} intst std_total];    
+    r = [q_nominal{i} intst_m std_total];    
     
-    save(['q_' num2str(wl{i}-wl_e{i}) ' rnl_' num2str(rnl{i}) '.txt'],'r','-ascii');
+    save(['q_' num2str(wl{i}-wl_e{i}) ' nl_' num2str(nl{i}) '.txt'],'r','-ascii');
     
 end

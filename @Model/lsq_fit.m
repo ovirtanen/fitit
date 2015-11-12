@@ -1,4 +1,4 @@
-function p = lsq_fit(obj,varargin)
+function [p, std_p] = lsq_fit(obj,varargin)
 %LSQ_FIT Least squares fit on the experimental data
 %   
 %   p = lsq_fit() performs a least squares fit on single experimental data
@@ -13,7 +13,7 @@ function p = lsq_fit(obj,varargin)
 %
 %   Returns
 %   p           Total parameter vector
-%
+%   std_p       Estimated standard deviation of the least squares solution
 %
 
 % Copyright (c) 2015, Otto Virtanen
@@ -54,7 +54,7 @@ active_handles = {ds.active_handles};
 q = {ds.q_exp};
 intst = {ds.i_exp};
 std = {ds.std_exp};
-nc = 150;
+nc = obj.nc;
 
 if any(cellfun(@isempty,{q intst std}))
    
@@ -152,17 +152,31 @@ else % *** All the other models without regularization ***
 
 end
 
-%% Minimize & return
+%% Minimize
 
 if isempty(options)
 
-    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub);
+    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub);
     
 else
     
-    [pfit,~,exitflag] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
+    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
     
 end % if
+
+%% Estimate the standard deviation of the least squares solution
+
+if any(smfp)    % STD for ill-conditioned inverse problem is crap
+
+    std_p = -1.*ones(size(p));
+    
+else
+    
+    std_p = obj.estimate_p_std();
+    
+end
+
+%% Return
 
 p(pf) = pfit;
 
