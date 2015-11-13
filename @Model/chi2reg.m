@@ -11,12 +11,19 @@ function c = chi2reg(nc,q_exp,i_exp,std,p,active_handles,handles,regh)
 %   Euclidean norm. regh needs to encompass the whole second term.
 %
 %   Parameters
-%   i_exp           Experimental intensity
-%   std             Experimental standard deviation
+%   nc              Number of integration points for the PSD
+%   q_exp           Cell array containing experimental q values for all
+%                   datasets
+%   i_exp           Cell array containing experimental intensity for all
+%                   datasets
+%   std             Cell array containing standard deviation of intensity 
+%                   for all datasets
 %   p               Combined parameter vector for all handles
-%   handles         Cell array of handles to models, h = @(p)
-%                   f(nc,q,p(5:8)), see lsq_fit
-%   regh            Handle to a regularization term
+%   active_handles  Cell array containing arrays indicating which handles
+%                   are active for each dataset
+%   handles         Cell array of handles to models, each handle accepts
+%                   three arguments h(nc,q,p)
+%   regh            Handle to a regularization term, regh(p)
 %   
 %   Returns
 %   c               Chi squared
