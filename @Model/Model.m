@@ -43,6 +43,7 @@ classdef Model < handle
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
         r = res_function(q,qn,sigma2);
+        v = res_variance(qn,a,b)
         
         
     end

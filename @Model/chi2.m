@@ -17,7 +17,8 @@ function c = chi2(nc,q_exp,i_exp,std,p,active_handles,handles)
 %   p               Combined parameter vector for all handles
 %   active_handles  Cell array containing arrays indicating which handles
 %                   are active for each dataset
-%   handles         Cell array of handles to models
+%   handles         Cell array of handles to models, each handle accepts
+%                   three arguments h(nc,q,p)
 %   
 %   Returns
 %   c               Chi squared
