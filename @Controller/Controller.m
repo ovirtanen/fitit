@@ -49,7 +49,21 @@ classdef Controller < handle
             
             % Select the default GPU if available
             if gpuDeviceCount > 0
-                obj.gpu = gpuDevice(1);
+                
+                try
+                
+                    obj.gpu = gpuDevice(1);
+                    
+                catch ME
+                   
+                    display('Error with GPU initialization:');
+                    display(ME.message);
+                    display('Overriding GPU functionality.');
+                    
+                    obj.gpu = [];
+                    
+                end
+                
             else
                 obj.gpu = [];
             end
