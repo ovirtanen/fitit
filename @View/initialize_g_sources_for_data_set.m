@@ -24,7 +24,7 @@ switch all(ds.std_exp == 1)
     
     case 1  % Artificial STD of 1 was added. Bad thing, bad!
         
-        gs = Graphics_source(si,'scatter',[0 max(ds.q_exp) 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
+        gs = Graphics_source(si,'scatter',[0 0 0 0],@()ds.q_exp(),@()ds.i_exp(),@()ds.std_exp());
         
     case 0 % STD is there like it should be.
         
