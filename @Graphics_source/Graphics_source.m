@@ -106,7 +106,7 @@ classdef Graphics_source < handle
                 case 'scatter'
                     
                     %p = @(x,y) scatter(x,y,'MarkerEdgeColor','black');
-                    p = @(x,y) scatter(x,y,'MarkerEdgeColor');
+                    p = @(x,y) scatter(x,y);
                     
                 case 'bar'
                     
