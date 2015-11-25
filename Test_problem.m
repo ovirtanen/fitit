@@ -45,11 +45,11 @@ function Test_problem(m,param,varargin)
 %
 %   s = 
 %
+%    angles: [141x1 double]
 %        wl: [404 642]
 %      wl_e: [-1 1]
 %        ri: [1.3420 1.3320]
 %      ri_e: [0.0200 0.0100]
-%    angles: [141x1 double]
 %        bg: [3.0000e-06 1.0000e-06]
 %      bg_e: [2.0000e-06 1.0000e-06]
 %       amp: [0.5000 0.1000]
@@ -63,7 +63,8 @@ function Test_problem(m,param,varargin)
 
 %% Check inputs
 
-reqflds = {'wl';...
+reqflds = {'angles';...
+           'wl';...
            'wl_e';...
            'ri';...
            'ri_e';...
@@ -77,17 +78,21 @@ aoptions = {'autosave'};    % available options
 
 if not(isa(m,'Model'))
    
-    error('The first argument has to be a reference to a Model instance');
+    error('The first argument has to be a reference to a Model instance.');
+    
+elseif isa(m.data_sets,'Data_set')
+    
+    error('Re-initialize FitIt to workspace and do not load any data.');
     
 elseif not(m.bg.enabled)
     
-    error('Enable the background');
+    error('Enable the background.');
     
 elseif isa(m.sls_br,'SLS_Backreflection') && not(m.sls_br.enabled)
     
     error('Enable SLS backreflection.');
     
-elseif numel(fields(param)) ~= numel(reqflds) && not(isstruct(param)) && all(strcmp(fields(param),reqflds))
+elseif not(isstruct(param) && numel(fields(param)) == numel(reqflds) && all(strcmp(fields(param),reqflds)))
     
     error('Invalid parameter struct.');
     
@@ -228,32 +233,28 @@ end
 
 if any(strcmp('autosave',varargin))
     
-    for i = 1:numel(r)
-
-        export = r{i};
-        save(['q_' num2str(wl{i}) '_rnl_' num2str(rnl{i}) '.txt'],'export','-ascii');
-
-    end
-
+    path = '';
+ 
 else
     
     path = uigetdir('','Choose directory for saving');
     
     if path == 0
-        
-        error('Aborted by the user.');
-        
-    else
-        
-        for i = 1:numel(r)
 
-            export = r{i};
-            save([path '/q_' num2str(wl{i}) '_rnl_' num2str(rnl{i}) '.txt'],'export','-ascii');
-        
-        end
-        
+        error('Aborted by the user.');
+
     end
     
+    path = [path '/'];
+    
 end
+         
+for i = 1:numel(r)
+
+    export = r{i};
+    save([path 'q_' num2str(wl{i}) '_rnl_' num2str(rnl{i}) '.txt'],'export','-ascii');
+
+end
+        
 
 end
