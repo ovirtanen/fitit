@@ -10,7 +10,8 @@ function ds = data_to_data_set(d)
 %
 %
 
-
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
 
 
 [rows,cols] = size(d);
