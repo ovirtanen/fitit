@@ -27,11 +27,16 @@ classdef Distribution < handle
     
     properties (Constant)
        
-        available_distributions = {'Burr Type XII PSD';...
-                                    'Gumbel PSD';...
-                                    'Gaussian PSD';...
-                                    'Lognormal PSD';...
-                                    'Skew normal PSD'};
+        available_distributions = containers.Map({  'Burr Type XII PSD';
+                                                    'Gumbel PSD';
+                                                    'Gaussian PSD';
+                                                    'Lognormal PSD';
+                                                    'Skew normal PSD'},...
+                                                 {  @()DST_BurrXII();
+                                                    @()DST_Gumbel();
+                                                    @()DST_Gaussian();
+                                                    @()DST_Lognrml();
+                                                    @()DST_Skewnrml()});
         
     end
     

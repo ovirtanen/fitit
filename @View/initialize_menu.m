@@ -39,7 +39,7 @@ m = uimenu(p,'Label','Model');
 m.Tag = 'model_menu';
 obj.menu.model = m;
 
-am = Scattering_model.available_models;
+am = Scattering_model.available_models.keys;
 
 for i = 1 : numel(am)
    
@@ -58,7 +58,7 @@ di = uimenu(d);
 di.Label = 'Load histogram...';
 di.Callback = @(hObject,callbackdata) obj.controller.load_histogram_callback(hObject,callbackdata);
 
-ad = Distribution.available_distributions;
+ad = Distribution.available_distributions.keys;
 for i = 1 : numel(ad)
    
    di = uimenu(d);
