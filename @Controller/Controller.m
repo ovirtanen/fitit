@@ -90,7 +90,6 @@ classdef Controller < handle
         
         d = import_data(obj,ms);
         d = import_histogram_data(obj);
-        add_data_set_to_model(obj,d);
         d = raw_data_to_array(obj,c);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
