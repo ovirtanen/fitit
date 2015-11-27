@@ -23,6 +23,8 @@ classdef Data_node < handle
         dist_name;
         bg_enabled;
         sls_br_enabled;
+        
+        sls_br_param;           % struct with fields ri and wl
         total_param_vector;
         
         isfit;
@@ -77,6 +79,7 @@ classdef Data_node < handle
             obj.dist_name = [];
             obj.bg_enabled = [];
             obj.sls_br_enabled = [];
+            obj.sls_br_param = [];
             obj.total_param_vector = [];
             
             obj.isfit = false;

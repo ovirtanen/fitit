@@ -89,6 +89,7 @@ classdef Model < handle
         end
         remove_experimental_data(obj);
         replace_s_model(obj,sm);
+        set_total_parameter_vector(obj,p);
         update_handles(obj);
         
     end % public methods
