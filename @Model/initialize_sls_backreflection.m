@@ -16,7 +16,7 @@ function initialize_sls_backreflection(obj,ri,wl,eta,fixed)
 sbr = SLS_Backreflection(ri,wl,eta,fixed);
 obj.sls_br = [obj.sls_br sbr];
 
-obj.update_handles();
+%obj.update_handles();
 
 end
 
