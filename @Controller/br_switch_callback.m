@@ -17,6 +17,7 @@ switch isempty(obj.model.sls_br)
 
         obj.view.initialize_br_panel(obj.view.gui);
         
+        obj.model.update_handles();
         obj.view.update_axes();
 
         hObject.Label = 'Disable SLS Backreflection';

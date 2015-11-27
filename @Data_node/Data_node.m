@@ -19,8 +19,14 @@ classdef Data_node < handle
         
         data_sets;
         filenames;
+         
+    end
+    
+    properties(Access = public)
+        
         s_model_name;
         dist_name;
+        
         bg_enabled;
         sls_br_enabled;
         
@@ -29,7 +35,7 @@ classdef Data_node < handle
         
         isfit;
         issaved;
-              
+        
     end
     
     methods (Static)
@@ -86,13 +92,129 @@ classdef Data_node < handle
             obj.issaved = false;
                 
         end % constructor
-        
+         
         function obj = plus(dn1,dn2)
             
             obj = Data_node.combine(dn1,dn2);
             
         end
         
+    end
+    
+    methods % SETTERS
+        
+        function set.s_model_name(obj,name)
+
+            if ischar(name)
+
+                obj.s_model_name = name;
+
+            else
+
+                error('Invalid input argument');
+
+            end % if
+
+        end % function
+        
+        function set.dist_name(obj,name)
+            
+            if ischar(name)
+
+                obj.dist_name = name;
+
+            else
+
+                error('Invalid input argument');
+
+            end % if
+            
+        end
+        
+        function set.bg_enabled(obj,b)
+            
+            if islogical(b) && numel(b) == numel(obj.data_sets)
+               
+                obj.bg_enabled = b;
+                
+            else
+                
+                error('Invalid input argument');
+                
+            end
+            
+        end
+        
+        function set.sls_br_enabled(obj,b)
+            
+            if islogical(b) && numel(b) == numel(obj.data_sets)
+               
+                obj.sls_br_enabled = b;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+            
+        end
+        
+        function set.sls_br_param(obj,param)
+            
+            if isstruct(param) && numel(param) == numel(obj.data_sets) && all(strcmp({'ri';'wl'},fieldnames(param)))
+               
+                obj.sls_br_param = param;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.total_param_vector(obj,p)
+            
+            if isnumeric(p) && isvector(p)
+               
+                obj.total_param_vector = p;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.isfit(obj,b)
+            
+            if islogical(b) && numel(b) == 1
+               
+                obj.isfit = b;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.issaved(obj,b)
+            
+            if islogical(b) && numel(b) == 1
+               
+                obj.issaved = b;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
     end
     
 end

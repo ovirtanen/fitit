@@ -21,9 +21,9 @@ function initialize_from_data_node(obj,dn,varargin)
 %% Inarg check
 
 Lib.inargtchck(dn,@(x)isa(x,'Data_node'),...
-               dn,@(x)all([numel(x.data_sets) > 1 numel(x.file_names) > 1 numel(x.data_sets) == numel(x.file_names)]));
+               dn,@(x)all([numel(x.data_sets) > 1 numel(x.filenames) > 1 numel(x.data_sets) == numel(x.filenames)]));
            
-b = [isempty(x.s_model_name) isempty(x.dist_name) isempty(x.total_param_vector)];          
+b = [isempty(dn.s_model_name) isempty(dn.dist_name) isempty(dn.total_param_vector)];          
            
 b_only_data = false;
 
@@ -45,11 +45,11 @@ elseif numel(varargin) == 1
             
     end % switch
     
-elseif all(b)       % Data for Model parameters, no override switch
+elseif all(not(b))       % Data for Model parameters, no override switch
     
     % do nothing, b_only_data stays false
     
-elseif all(not(b))  % All are empty
+elseif all(b)  % All are empty
     
     b_only_data = true;
     
@@ -75,45 +75,11 @@ end
 
 if not(b_only_data)
     
-    asm = obj.model.get_active_s_model();
-    
-    b_sd = [strcmp(dn.s_model_name,asm.name) strcmp(dn.dist_name,asm.dist.name)];
-    
-    if all(b_sd == [1 1])       % Both scattering model and distribution need to be swapped
+   if any(dn.bg_enabled)    % background scattering enabled
         
-        dh = Distribution.available_distributions(dn.dist_name);
-        d = dh();
+        obj.bg.match_scale_factors_to_ds(numel(ds));
         
-        smh = Scattering_model.available_models(dn.s_model_name);
-        sm = smh(d);
-        
-        obj.replace_s_model(sm);    % updates handles, adjusts to number of datasets
-        
-    elseif all(b_sd == [1 0])   % Only scattering model needs to be swapped
-        
-        d = asm.dist;
-        
-        smh = Scattering_model.available_models(dn.s_model_name);
-        sm = smh(d);
-        
-        obj.replace_s_model(sm);    % updates handles, adjusts to number of datasets
-        
-    elseif all(b_sd == [0 1])   % Only distribution needs to be swapped
-        
-        dh = Distribution.available_distributions(dn.dist_name);
-        d = dh();
-        
-        asm.set_distribution(d);
-        obj.update_handles();
-        
-    end
-   
-      
-    if any(dn.bg_enabled)    % background scattering enabled
-        
-        obj.bg.match_scale_factors_to_ds(numel(data));
-        
-        for i = 1:numel(dn.bg.enabled)
+        for i = 1:numel(dn.bg_enabled)
            
             switch dn.bg_enabled(i)
             
@@ -138,17 +104,17 @@ if not(b_only_data)
             
             for i = 1:numel(dn.sls_br_enabled)
                 
-                obj.initialize_sls_backreflection(dn.sls_br_param.ri,dn.sls_br_param.wl,0.003,1);
+                obj.initialize_sls_backreflection(dn.sls_br_param(i).ri,dn.sls_br_param(i).wl,0.003,1);
                
                 switch dn.sls_br_enabled(i)
                     
                     case true
                 
-                        obj.sls_br.enable();
+                        obj.sls_br(i).enable();
                         
                     case false
                         
-                        obj.sls_br.disable();
+                        obj.sls_br(i).disable();
                 
                 end % switch
                 
@@ -164,11 +130,11 @@ if not(b_only_data)
                     
                     case true
                 
-                        obj.sls_br.enable();
+                        obj.sls_br(i).enable();
                         
                     case false
                         
-                        obj.sls_br.disable();
+                        obj.sls_br(i).disable();
                 
                 end % switch
                 
@@ -178,6 +144,42 @@ if not(b_only_data)
               
     end
     
+    asm = obj.get_active_s_model();
+    
+    b_sd = [strcmp(dn.s_model_name,asm.name) strcmp(dn.dist_name,asm.dist.name)];
+    
+    if all(b_sd == [1 1])       % Both scattering model and distribution need to be swapped
+        
+        dh = Distribution.available_distributions(dn.dist_name);
+        d = dh();
+        
+        smh = Scattering_model.available_models(dn.s_model_name);
+        sm = smh(d);
+        
+        obj.replace_s_model(sm);    % updates handles, adjusts to number of datasets
+        
+    elseif all(b_sd == [0 1])   % Only scattering model needs to be swapped
+        
+        d = asm.dist;
+        
+        smh = Scattering_model.available_models(dn.s_model_name);
+        sm = smh(d);
+        
+        obj.replace_s_model(sm);    % updates handles, adjusts to number of datasets
+        
+    elseif all(b_sd == [1 0])   % Only distribution needs to be swapped
+        
+        dh = Distribution.available_distributions(dn.dist_name);
+        d = dh();
+        
+        asm.set_distribution(d);
+        obj.update_handles();
+        
+    end
+   
+      
+ 
+    
     obj.set_total_parameter_vector(dn.total_param_vector);
     
 else    % Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.
@@ -185,11 +187,11 @@ else    % Only data loaded, number of parameters in the scattering model has to 
    for i = 1:numel(obj.s_models)
    
     sm = obj.s_models{i};
-    sm.match_scale_factors_to_ds(numel(data));
+    sm.match_scale_factors_to_ds(numel(ds));
     
     end
 
-    obj.bg.match_scale_factors_to_ds(numel(data));
+    obj.bg.match_scale_factors_to_ds(numel(ds));
 
     if not(isempty(obj.sls_br))
 
