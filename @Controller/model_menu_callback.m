@@ -21,8 +21,6 @@ smh = Scattering_model.available_models(hObject.Label); % function handle to con
 
 sm = smh(d);
 
-
-sm.match_scale_factors_to_ds(max([1 numel(obj.model.data_sets)]));
 obj.swap_s_model(sm); % includes sm_ui_cleanup
 
 end

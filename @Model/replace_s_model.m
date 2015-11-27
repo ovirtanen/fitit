@@ -6,6 +6,10 @@ function replace_s_model(obj,sm)
 %   Parameters
 %   sm      Scattering_model instance that deletes and replaces the
 %           currently active Scattering_model
+%
+% Updates handles, adjusts the number of parameters based on the number of
+% datasets.
+%
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
@@ -28,6 +32,7 @@ switch numel(obj.s_models)
     
 end
 
+obj.s_models{obj.active_s_model}.match_scale_factors_to_ds(max([1 numel(obj.data_sets)]));
 obj.update_handles();
 
 end
