@@ -23,7 +23,7 @@ function initialize_from_data_node(obj,dn,varargin)
 Lib.inargtchck(dn,@(x)isa(x,'Data_node'),...
                dn,@(x)all([numel(x.data_sets) > 1 numel(x.filenames) > 1 numel(x.data_sets) == numel(x.filenames)]));
            
-b = [isempty(dn.s_model_name) isempty(dn.dist_name) isempty(dn.total_param_vector)];          
+b = [isempty(dn.s_model_name) isempty(dn.dist_name) isnan(dn.total_param_vector)];          
            
 b_only_data = false;
 
@@ -58,6 +58,8 @@ else    % Inconsistent Data_node instance
     error('Invalid Data_node instance.');
     
 end
+
+%% Remove old data
 
 obj.remove_experimental_data();
 
@@ -148,7 +150,7 @@ if not(b_only_data)
     
     b_sd = [strcmp(dn.s_model_name,asm.name) strcmp(dn.dist_name,asm.dist.name)];
     
-    if all(b_sd == [1 1])       % Both scattering model and distribution need to be swapped
+    if all(b_sd == [0 0])       % Both scattering model and distribution need to be swapped
         
         dh = Distribution.available_distributions(dn.dist_name);
         d = dh();
@@ -157,6 +159,7 @@ if not(b_only_data)
         sm = smh(d);
         
         obj.replace_s_model(sm);    % updates handles, adjusts to number of datasets
+        
         
     elseif all(b_sd == [0 1])   % Only scattering model needs to be swapped
         
@@ -177,9 +180,6 @@ if not(b_only_data)
         
     end
    
-      
- 
-    
     obj.set_total_parameter_vector(dn.total_param_vector);
     
 else    % Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.

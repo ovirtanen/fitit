@@ -54,6 +54,13 @@ classdef Data_node < handle
         
         function obj = Data_node(varargin)
             
+            % object array initialization, return an uninialized instance
+            if nargin == 0 
+                
+                return;
+                
+            end
+            
             %% Check input vararing
             
             index = 1:numel(varargin);
