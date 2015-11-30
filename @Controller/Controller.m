@@ -88,7 +88,7 @@ classdef Controller < handle
         
         %% OTHER PUBLIC
         
-        d = import_data(obj,ms);
+        [d,fn] = import_data(obj,ms);
         d = import_histogram_data(obj);
         load_from_data_node(obj,dn);
         d = raw_data_to_array(obj,c);

@@ -1,4 +1,4 @@
-function d = import_data(obj,ms)
+function [d,fn] = import_data(obj,ms)
 %IMPORT_DATA Import data using GUI
 %
 %   d = import_data(ms)
@@ -9,6 +9,7 @@ function d = import_data(obj,ms)
 %   Returns
 %   d           Cell array, each cell holding a measurement data as three
 %               column array
+%   fn          Cell array, each cell holding a filename string
 %
 % Rethrows
 % FitIt:InvalidFileStructure:No numeric data recognized.
@@ -24,6 +25,9 @@ p = obj.fr.get_file_paths(ms);
 
 c = obj.fr.read_files(p);
 
+[~,fn,ext] = cellfun(@fileparts,p,'UniformOutput',false);
+
+fn = strcat(fn,ext);
 
 % FitIt:InvalidFileStructure:Data structure not recognized.
 d = obj.raw_data_to_array(c);

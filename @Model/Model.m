@@ -15,6 +15,8 @@ classdef Model < handle
     
     properties (SetAccess = private)
         
+        bl;                 % Batch_loader instance
+        
         data_sets;          % Empirical data
         s_models;           % All the scattering models
         bg;                 % Background SM
@@ -52,6 +54,8 @@ classdef Model < handle
     methods (Access = public)
         
         function obj = Model(sm)
+            
+            obj.bl = Batch_loader();
             
             obj.active_s_model = 1;
             obj.data_sets = [];
