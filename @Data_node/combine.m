@@ -28,15 +28,15 @@ elseif not(all(cellfun(@(x)isempty(x.dist_name),varargin)))
     
     error('Data_node instances must not contain fit related data.');
     
-elseif not(all(cellfun(@(x)isempty(x.bg_enabled),varargin)))   
+elseif not(all(cellfun(@(x)x.bg_enabled == 0,varargin)))   
     
     error('Data_node instances must not contain fit related data.');
     
-elseif not(all(cellfun(@(x)isempty(x.sls_br_enabled),varargin)))
+elseif not(all(cellfun(@(x)x.sls_br_enabled == 0,varargin)))
     
     error('Data_node instances must not contain fit related data.');
     
-elseif not(all(cellfun(@(x)isempty(x.total_param_vector),varargin)))
+elseif not(all(cellfun(@(x)isnan(x.total_param_vector),varargin)))
     
     error('Data_node instances must not contain fit related data.');
     

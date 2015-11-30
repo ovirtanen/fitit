@@ -1,0 +1,45 @@
+function single_load_data(obj,d,fn)
+%SINGLE_LOAD_DATA Load one dataset or multiset to Model
+%   
+%   single_load_data(d,fn)
+%
+% Parameters
+% d             Cell array containing [j x 3] double arrays, where columns
+%               are q, intensity and std. If d contains more than one
+%               array, multiset for global fitting is created automatically
+% fn            Cell array of strings, where each entry is the filename of
+%               the corresponding data array in d
+%
+% Rethrows:
+% 'FitIt:InvalidInputDataStructure'
+% 'FitIt:InvalidInputDataFileNames'
+%
+
+
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
+
+dns = initialize_nodes_from_data(obj,d,fn);
+
+if numel(dns) == 1
+    
+    obj.nodes = dns;
+    obj.active_node = dns;
+    
+elseif numel(dns) > 1
+    
+    dns = num2cell(dns);
+    dns = Data_node.combine(dns{:});
+    
+    obj.nodes = dns;
+    obj.active_node = dns;
+    
+else
+    
+    error('Data loading failed: No Data_nodes created.');
+    
+end
+
+end
+

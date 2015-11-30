@@ -21,7 +21,7 @@ function initialize_from_data_node(obj,dn,varargin)
 %% Inarg check
 
 Lib.inargtchck(dn,@(x)isa(x,'Data_node'),...
-               dn,@(x)all([numel(x.data_sets) > 1 numel(x.filenames) > 1 numel(x.data_sets) == numel(x.filenames)]));
+               dn,@(x)all([numel(x.data_sets) >= 1 numel(x.filenames) >= 1 numel(x.data_sets) == numel(x.filenames)]));
            
 b = [isempty(dn.s_model_name) isempty(dn.dist_name) isnan(dn.total_param_vector)];          
            

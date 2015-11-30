@@ -61,7 +61,10 @@ end % try-catch
 
 obj.view.delete_g_sources_in_si_axes();
 
-obj.model.initialize_from_data(d);
+%obj.model.initialize_from_data(d);
+
+obj.model.bl.single_load_data(d,fn);                            % Create Data_node to Batch_loader
+obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
 
 %% Initialize g_sources
 

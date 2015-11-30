@@ -25,8 +25,13 @@ p = obj.fr.get_file_paths(ms);
 
 c = obj.fr.read_files(p);
 
-[~,fn,ext] = cellfun(@fileparts,p,'UniformOutput',false);
+if ischar(p)
+    
+    p = {p};
+    
+end
 
+[~,fn,ext] = cellfun(@fileparts,p,'UniformOutput',false);
 fn = strcat(fn,ext);
 
 % FitIt:InvalidFileStructure:Data structure not recognized.
