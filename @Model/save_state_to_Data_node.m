@@ -22,9 +22,7 @@ dist_name = obj.get_active_s_model.dist.name;
 
 bg_enabled = obj.bg.enabled;
 
-sls_br_enabled = false;
-sls_br_param = [];
-
+% Change default values only if SLS_Backreflection has been loaded
 if not(isempty(obj.sls_br))
    
     sls_br_enabled = [obj.sls_br.enabled];
@@ -41,8 +39,12 @@ end
 dn.s_model_name = s_model_name;
 dn.dist_name = dist_name;
 dn.bg_enabled = bg_enabled;
-dn.sls_br_enabled = sls_br_enabled;
-dn.sls_br_param = sls_br_param;
+
+if not(isempty(obj.sls_br))
+    dn.sls_br_enabled = sls_br_enabled;
+    dn.sls_br_param = sls_br_param;
+end
+
 dn.total_param_vector = obj.get_total_parameter_vector();
 
 end
