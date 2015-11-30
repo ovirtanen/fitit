@@ -72,24 +72,25 @@ classdef Model < handle
         p = get_total_parameter_vector(obj);
         l = get_total_free_params(obj);
         [lb,ub] = get_total_param_bounds(obj);
+        p_std = estimate_p_std(obj);
         initialize_from_data(obj,data);
         initialize_from_data_node(obj,dn);
-        match_br_to_ds(obj,nds);
+        initialize_sls_backreflection(obj,ri,wl,eta,fixed);
         [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,fitop,prg);
         [p,std_p] = lsq_fit(obj,options);
+        match_br_to_ds(obj,nds);
         %set_active_s_model(obj,asm);
-        j = total_jacobian(obj,varargin);
-        p_std = estimate_p_std(obj);
-        i_mod = total_scattered_intensity(obj,nc,q,varargin);
-        initialize_sls_backreflection(obj,ri,wl,eta,fixed);
+        remove_experimental_data(obj);
         function remove_sls_backreflection(obj)
            
             obj.sls_br = [];
             
         end
-        remove_experimental_data(obj);
         replace_s_model(obj,sm);
+        j = total_jacobian(obj,varargin);
+        save_state_to_Data_node(obj,dn);
         set_total_parameter_vector(obj,p);
+        i_mod = total_scattered_intensity(obj,nc,q,varargin);
         update_handles(obj);
         
     end % public methods
