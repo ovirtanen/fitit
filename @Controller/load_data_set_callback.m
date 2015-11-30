@@ -74,7 +74,7 @@ end
 %% update UI
 
 obj.view.swap_panel('sm_panel');
-obj.sm_ui_cleanup(obj.model.s_models{1}.name);
+obj.sm_ui_cleanup(obj.model.get_active_s_model().name);
 obj.view.swap_panel('bg_panel');
 
 if not(isempty(obj.model.sls_br))
