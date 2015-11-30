@@ -55,7 +55,7 @@ classdef Model < handle
         
         function obj = Model(sm)
             
-            obj.bl = Batch_loader();
+            obj.bl = Batch_loader(obj);
             
             obj.active_s_model = 1;
             obj.data_sets = [];

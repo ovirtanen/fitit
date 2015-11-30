@@ -29,10 +29,9 @@ classdef Batch_loader < handle
         
         % OTHER PUBLIC
         
-        initialize_nodes_from_data(obj);
+        dns = initialize_nodes_from_data(obj,d,fn);
         set_active_node(obj,ani)
-        
-        
+       
     end
     
 end

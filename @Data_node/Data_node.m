@@ -111,6 +111,7 @@ classdef Data_node < handle
             obj = Data_node.combine(dn1,dn2);
             
         end
+       
         
     end
     

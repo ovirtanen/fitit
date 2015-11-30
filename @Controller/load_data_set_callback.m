@@ -27,7 +27,7 @@ end % switch
 
 try 
     
-    d = obj.import_data(ms);
+    [d,fn] = obj.import_data(ms);
     
 catch ME
    
