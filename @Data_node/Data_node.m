@@ -10,7 +10,13 @@ classdef Data_node < handle
     % filename          File name string
     % dataset           Data_set instance
     %
-    
+    %
+    % Note: Even though FitIt could accommodate multiple scattering models,
+    % Data_node supports only one scattering model in Model.data_sets
+    % variable. Generalization has to be considered, if multiple scattering
+    % models will be seriously implemented in the future.
+    %
+    %
     
     % Copyright (c) 2015, Otto Virtanen
     % All rights reserved.
@@ -81,12 +87,12 @@ classdef Data_node < handle
             [obj.filenames,order] = sort(fn); 
             obj.data_sets = ds(order);
             
-            obj.s_model_name = [];
-            obj.dist_name = [];
-            obj.bg_enabled = [];
-            obj.sls_br_enabled = [];
-            obj.sls_br_param = [];
-            obj.total_param_vector = [];
+            obj.s_model_name = '';
+            obj.dist_name = '';
+            obj.bg_enabled = false(size(obj.data_sets));
+            obj.sls_br_enabled = false(size(obj.data_sets));
+            obj.sls_br_param = struct('ri',num2cell(NaN(size(obj.data_sets))),'wl',num2cell(NaN(size(obj.data_sets))));
+            obj.total_param_vector = NaN;
             
             obj.isfit = false;
             obj.issaved = false;
@@ -105,7 +111,7 @@ classdef Data_node < handle
         
         function set.s_model_name(obj,name)
 
-            if ischar(name)
+            if ischar(name) 
 
                 obj.s_model_name = name;
 
