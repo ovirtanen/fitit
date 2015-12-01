@@ -99,6 +99,7 @@ classdef Controller < handle
         %% CALLBACKS
         
         about_menu_callback(obj,hObject,callbackdata);
+        batch_load_callback(obj,hObject,callbackdata);
         bg_enable_callback(obj,hObject,callbackdata);
         br_edit_box_callback(obj,hObject,callbackdata);
         br_enable_callback(obj,hObject,callbackdata);
