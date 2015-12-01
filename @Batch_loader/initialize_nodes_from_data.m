@@ -10,7 +10,7 @@ function dns = initialize_nodes_from_data(obj,d,fn)
 % fn            Cell array of strings, where each entry is the filename of
 %               the corresponding data array in d
 % Returns
-% dns           Data_node_instances
+% dns           Data_node_instances sorted in ASCII dictionary order
 %
 %
 % Throws:
@@ -44,6 +44,11 @@ elseif not(all(bfn))
     throw(err);
     
 end
+
+% Sort data in ASCII dictionary order
+
+[fn, order] = sort(fn);
+d = d(order);
 
 % Initialize Data_node array
 dns(numel(d),1) = Data_node();

@@ -1,7 +1,8 @@
 function single_load_data(obj,d,fn)
 %SINGLE_LOAD_DATA Load one dataset or multiset to Model
 %   
-%   single_load_data(d,fn)
+%   single_load_data(d,fn) initializes one or more datasets to one Data_node,
+%   which will be loaded to Model.
 %
 % Parameters
 % d             Cell array containing [j x 3] double arrays, where columns
