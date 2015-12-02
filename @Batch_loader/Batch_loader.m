@@ -7,19 +7,19 @@ classdef Batch_loader < handle
         
         nodes;
         active_node;
+        active_node_index;
         
     end
     
     properties (Access = private)
        
-        model;
-        active_node_index;
+        model; 
         
     end
     
     methods(Static)
        
-        t = data_nodes_to_table(obj,dna);
+        [t,ci] = data_nodes_to_table(obj,dna);
         
     end
     
@@ -41,6 +41,7 @@ classdef Batch_loader < handle
            
             if numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes)
                 
+                obj.active_node_index = ani;
                 obj.active_node = obj.nodes(ani);
                 
             end

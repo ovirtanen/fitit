@@ -43,8 +43,9 @@ t.ColumnName = cnames;
 
 % Get any data that might be in the Model
 
-d = Batch_loader.data_nodes_to_table(obj.view.model.bl.nodes);
+[d,ci] = Batch_loader.data_nodes_to_table(obj.view.model.bl.nodes);
 t.Data = d;
+t.RowName = ci;
 
 % Check the width of the darn box
 
