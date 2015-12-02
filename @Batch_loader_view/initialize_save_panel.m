@@ -80,7 +80,7 @@ s_options_panel.Position = [(panel_width  - sop_width)./2 c1.Position(2)-(b_grou
 % Radio button group
 
 b_group = uibuttongroup(p);
-b_group.Title = 'Manual save';
+b_group.Title = 'Save Now';
 b_group.Units = 'pixels';
 
 b_group_width = 0.9.*panel_width;
