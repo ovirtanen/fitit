@@ -47,7 +47,8 @@ classdef Data_node < handle
     
     methods (Static)
        
-        obj = combine(varargin);
+        obj = combine(varargin)
+        dna = ungroup(dn)
         
     end
     
@@ -117,6 +118,21 @@ classdef Data_node < handle
             
         end
        
+        function [b,n] = ismultinode(obj)
+           
+            n = numel(obj.data_sets);
+            
+            if n > 1
+                
+                b = true;
+                
+            else
+                
+                b = false;
+                
+            end
+            
+        end
         
     end
     
