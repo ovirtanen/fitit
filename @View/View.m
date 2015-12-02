@@ -28,6 +28,9 @@ classdef View < handle
         d_panel;    % distribution panel
         f_button;   % fit button
         
+        minimize_timer;
+        minimize_counter;
+        
         
         
         spacers = struct('top_spacer', 10,...       % GUI top spacer
@@ -75,10 +78,22 @@ classdef View < handle
             obj.gui = obj.initialize_gui();
             obj.bl_view = Batch_loader_view(obj);
             
+            obj.minimize_counter = 0;
+            
+            obj.minimize_timer = timer();
+            obj.minimize_timer.Name = 'Minimize Panel Timer';
+            obj.minimize_timer.StartDelay = 0.2;
+            obj.minimize_timer.TimerFcn = @(tmr,es) obj.reset_minimize_counter;
+            
         end % constructor
         
         %% other public
         
+        function increment_minimize_counter(obj)
+           
+            obj.minimize_counter = obj.minimize_counter + 1;
+            
+        end
         initialize_g_sources_for_data_set(obj,ds);
         display_about_box(obj);
         [enable,ri,wl,eta,fixed] = display_br_dialog(obj,enable,dri,dwl,deta,dfixed);
@@ -102,6 +117,11 @@ classdef View < handle
         end
         prev_state = switch_enable_panels(obj,input);
         realign_all_controls(obj);
+        function reset_minimize_counter(obj)
+           
+            obj.minimize_counter = 0;
+            
+        end
         
         %% swappers
         
