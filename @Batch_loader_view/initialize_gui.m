@@ -38,8 +38,8 @@ t.Position = [(fig.Position(3)-t_width)./2 fig.Position(4)-(t_height+t_spacer) t
 cnames = {'Filename','Fit','Saved'};
 t.ColumnName = cnames;
 
-d = rand(50,3);
-t.Data = d;
+%d = rand(50,3);
+%t.Data = d;
 
 % Check the width of the darn box
 

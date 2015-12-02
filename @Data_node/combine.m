@@ -28,11 +28,11 @@ elseif not(all(cellfun(@(x)isempty(x.dist_name),varargin)))
     
     error('Data_node instances must not contain fit related data.');
     
-elseif not(all(cellfun(@(x)x.bg_enabled == 0,varargin)))   
+elseif not(all(cellfun(@(x)all(x.bg_enabled == 0),varargin)))   
     
     error('Data_node instances must not contain fit related data.');
     
-elseif not(all(cellfun(@(x)x.sls_br_enabled == 0,varargin)))
+elseif not(all(cellfun(@(x)all(x.sls_br_enabled == 0),varargin)))
     
     error('Data_node instances must not contain fit related data.');
     
@@ -46,12 +46,13 @@ end
 
 dna = [varargin{:}];            % Data_node array
 
-fns = [dna.filenames];
+fps = fullfile([dna.filedirs],[dna.filenames]);
+
 dss = [dna.data_sets];
 dss = num2cell(dss);
 
 % zip argin
-argin = [fns;dss];
+argin = [fps;dss];
 argin = argin(:);
 
 obj = Data_node(argin{:});

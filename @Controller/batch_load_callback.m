@@ -7,7 +7,7 @@ function batch_load_callback(obj,hObject,callbackdata)
 
 try 
     
-    [d,fn] = obj.import_data('on');     % multi-select on
+    [d,p] = obj.import_data('on');     % multi-select on
     
 catch ME
    
@@ -40,8 +40,7 @@ end % try-catch
 %% Clean up data 
 
 obj.view.delete_g_sources_in_si_axes();
-
-obj.model.bl.batch_load_data(d,fn);                            % Create Data_node to Batch_loader
+obj.model.bl.batch_load_data(d,p);                            % Create Data_node to Batch_loader
 obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
 
 

@@ -4,10 +4,10 @@ classdef Data_node < handle
     % to represent multiset data.
     %
     %
-    % obj = Data_node(filename1, dataset1, filename2, dataset2, ...)
+    % obj = Data_node(filepath1, dataset1, filepath2, dataset2, ...)
     % 
     % Parameters
-    % filename          File name string
+    % filename          Filepath string
     % dataset           Data_set instance
     %
     %
@@ -25,6 +25,7 @@ classdef Data_node < handle
         
         data_sets;
         filenames;
+        filedirs;
          
     end
     
@@ -87,11 +88,15 @@ classdef Data_node < handle
             
             % Store data as row vector so that they concatenate nicely when
             % using plus (+) operator
-            fn = varargin(ic);
+            fp = varargin(ic);
             ds = [varargin{id}];
+            
+            [p,fn,ext] = cellfun(@fileparts,fp,'UniformOutput',false);
+            fn = strcat(fn,ext);
             
             % Sort alphabetically
             [obj.filenames,order] = sort(fn); 
+            obj.filedirs = p(order);
             obj.data_sets = ds(order);
             
             obj.s_model_name = '';
