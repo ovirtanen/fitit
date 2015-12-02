@@ -120,6 +120,12 @@ classdef Controller < handle
         si_scale_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);
         quit_callback(obj,hObject,callbackdata);
+        
+        %% Batch Loader CALLBACKS
+        
+        bl_import_data_callback(obj,hObject,callbackdata);
+        bl_swap_active_data_node_callback(obj);
+        bl_table_cell_callback(obj,hObject,callbackdata,bl_view);
                
     end % public methods
     

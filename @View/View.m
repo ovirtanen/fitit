@@ -19,6 +19,7 @@ classdef View < handle
         gui;
         controller;
         model;
+        bl_view;
         
         menu;       % struct for top menu
         bg_panel;   % background panel
@@ -72,6 +73,7 @@ classdef View < handle
             obj.layouts = [];
             
             obj.gui = obj.initialize_gui();
+            obj.bl_view = Batch_loader_view(obj);
             
         end % constructor
         

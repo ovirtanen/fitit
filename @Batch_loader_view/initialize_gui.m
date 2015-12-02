@@ -12,7 +12,7 @@ function fig = initialize_gui(obj)
 
 %% Build the root figure
 
-fig = figure('Name','FitIt! Batch Loader','Visible','on'); % Change Visible to off 
+fig = figure('Name','FitIt! Batch Loader','Visible','off'); % Change Visible to off 
 fig.Tag = 'Root';
 fig.NumberTitle = 'off';
 fig.ToolBar = 'none';
@@ -28,6 +28,9 @@ obj.gui = fig;
 
 t = uitable(fig);
 t.Units = 'pixels';
+%t.Interruptible = 'off';
+%t.BusyAction = 'cancel';
+t.CellSelectionCallback = @(hObject,callbackdata) obj.view.controller.bl_table_cell_callback(hObject,callbackdata,obj);
 
 t_width = 650;
 t_height = 270;
@@ -38,8 +41,10 @@ t.Position = [(fig.Position(3)-t_width)./2 fig.Position(4)-(t_height+t_spacer) t
 cnames = {'Filename','Fit','Saved'};
 t.ColumnName = cnames;
 
-%d = rand(50,3);
-%t.Data = d;
+% Get any data that might be in the Model
+
+d = Batch_loader.data_nodes_to_table(obj.view.model.bl.nodes);
+t.Data = d;
 
 % Check the width of the darn box
 
@@ -87,6 +92,7 @@ obj.save_panel.Position(1:2) = [t.Position(1)+3.*(panel_spacer+panel_width) t.Po
 
 % fig.Position(4) = t_spacer + t_height + t_spacer + max([p_data.Position(4) p_policy.Position(4) p_batch.Position(4) p_save.Position(4)]) + t_spacer;
 
+fig.Visible = 'on';
 
 end
 

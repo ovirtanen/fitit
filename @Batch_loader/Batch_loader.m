@@ -17,6 +17,12 @@ classdef Batch_loader < handle
         
     end
     
+    methods(Static)
+       
+        t = data_nodes_to_table(obj,dna);
+        
+    end
+    
     methods (Access = public)
         
         function obj = Batch_loader(model)
@@ -29,9 +35,17 @@ classdef Batch_loader < handle
         
         % OTHER PUBLIC
         
-        batch_load_data(obj,d,fn);
+        batch_load_data(obj,d,fn); 
         dns = initialize_nodes_from_data(obj,d,fn);
-        set_active_node(obj,ani)
+        function set_active_node(obj,ani)
+           
+            if numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes)
+                
+                obj.active_node = obj.nodes(ani);
+                
+            end
+            
+        end
         single_load_data(obj,d,fn);
        
     end
