@@ -1,4 +1,4 @@
-function fig = initialize_gui(obj)
+function initialize_gui(obj)
 %INITIALIZE_GUI Initializes figure holding the Batch_loader GUI
 %   
 % fig = initialize_gui()
@@ -53,6 +53,8 @@ extra_spacer = 50;          % Works on my Mac.
 
 width = t.Position(3);
 t.ColumnWidth = {width - 2.* small_column_width-extra_spacer, small_column_width,small_column_width};
+
+obj.file_table = t;
 
 %% Initialize UIPanels
 

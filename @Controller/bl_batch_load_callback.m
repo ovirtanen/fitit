@@ -1,4 +1,4 @@
-function batch_load_callback(obj,hObject,callbackdata)
+function bl_batch_load_callback(obj,hObject,callbackdata)
 %BATCH_LOAD_CALLBACK Callback for batch loading data
 
 
@@ -37,10 +37,21 @@ catch ME
     
 end % try-catch
 
-%% Clean up data 
+%% Data exist, only load additional data
+
+if not(isempty(obj.model.bl.active_node)) % previous data loaded, no need to reinitialize the whole GUI
+    
+    obj.model.bl.batch_load_data(d,p);
+    obj.view.bl_view.update_table();
+    return;
+    
+end
+
+%% Clean up data & load
 
 obj.view.delete_g_sources_in_si_axes();
-obj.model.bl.batch_load_data(d,p);                            % Create Data_node to Batch_loader
+obj.model.bl.batch_load_data(d,p);
+obj.view.bl_view.update_table();
 obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
 
 
@@ -64,9 +75,7 @@ if not(isempty(obj.model.sls_br))
     
 end
 
-
 obj.view.update_axes;
-
 obj.view.update_f_button_status();
 
 %% Check for SM_Free_profile

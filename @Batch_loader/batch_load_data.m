@@ -7,6 +7,9 @@ function batch_load_data(obj,d,fn,varargin)
 % batch_load_data(d,fn,loadseq) uses load sequence to group datasets to
 % Data_node instances
 %
+% If there are Data_nodes already loaded, new Data_nodes will be added and
+% all the Data_nodes will be sorted according to ASCII alphabet.
+%
 % Parameters
 % d             Cell array containing [j x 3] double arrays, where columns
 %               are q, intensity and std. If d contains more than one
@@ -37,8 +40,23 @@ end
 
 dns = initialize_nodes_from_data(obj,d,fn);
 
-obj.nodes = dns;
-obj.active_node = dns(1);
+if isempty(obj.nodes)
+    
+    obj.nodes = dns;
+    obj.active_node = dns(1);
+    
+else
+    
+    % If someone wants to add already loaded data they can do it.
+    
+    dns = [obj.nodes; dns];
+    
+    fns = [dns.filenames];
+    [~,order] = sort(fns);
+    
+    obj.nodes = dns(order);
+    
+end
 
 end
 

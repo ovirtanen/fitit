@@ -47,6 +47,7 @@ classdef Batch_loader < handle
             
         end
         single_load_data(obj,d,fn);
+        update_table(obj);
        
     end
     

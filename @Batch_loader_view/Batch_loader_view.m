@@ -11,6 +11,8 @@ classdef Batch_loader_view < handle
         gui;
         view;
         
+        file_table;        % Table for displaying loaded data in GUI
+        
         pupdate_panel;     % Parameter update panel
         bfit_panel;        % Batch fit panel
         manage_panel;      % Manage data panel
@@ -52,7 +54,7 @@ classdef Batch_loader_view < handle
             
         end
         
-        fig = initialize_gui(obj);
+        initialize_gui(obj);
         p = initialize_bfit_panel(obj,panel_width);
         p = initialize_manage_panel(obj,panel_width);
         p = initialize_pupdate_panel(obj,panel_width);

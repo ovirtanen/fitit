@@ -99,7 +99,6 @@ classdef Controller < handle
         %% CALLBACKS
         
         about_menu_callback(obj,hObject,callbackdata);
-        batch_load_callback(obj,hObject,callbackdata);
         bg_enable_callback(obj,hObject,callbackdata);
         br_edit_box_callback(obj,hObject,callbackdata);
         br_enable_callback(obj,hObject,callbackdata);
@@ -123,6 +122,7 @@ classdef Controller < handle
         
         %% Batch Loader CALLBACKS
         
+        bl_batch_load_callback(obj,hObject,callbackdata);        
         bl_import_data_callback(obj,hObject,callbackdata);
         bl_swap_active_data_node_callback(obj);
         bl_table_cell_callback(obj,hObject,callbackdata,bl_view);

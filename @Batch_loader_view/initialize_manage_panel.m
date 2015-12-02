@@ -37,7 +37,7 @@ p.Position(3:4) = [panel_width panel_height];
 % Import Data push button
 id_btn = uicontrol(p,'Style','pushbutton');
 id_btn.String = 'Import Data';
-id_btn.Callback = @(hObject,Callbackdata) obj.view.controller.import_data_callback(hObject,Callbackdata);
+id_btn.Callback = @(hObject,callbackdata) obj.view.controller.batch_load_callback(hObject,callbackdata);
 
 id_btn.Units = 'pixels';
 
