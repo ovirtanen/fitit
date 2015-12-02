@@ -3,6 +3,9 @@ function bl_swap_active_data_node_callback(obj)
 %Batch_loader, initializes Model and updates the GUI if single Data_node
 %has been selected in Batch_loader GUI
 
+% Copyright (c) 2015, Otto Virtanen
+% All rights reserved.
+
 indices = obj.view.bl_view.last_t_indices;
 
 if not(numel(indices)==2 && indices(2) == 1)

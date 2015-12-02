@@ -43,6 +43,7 @@ if not(isempty(obj.model.bl.active_node)) % previous data loaded, no need to rei
     
     obj.model.bl.batch_load_data(d,p);
     obj.view.bl_view.update_table();
+    obj.view.bl_view.set_last_t_indices([]);
     return;
     
 end
@@ -52,6 +53,7 @@ end
 obj.view.delete_g_sources_in_si_axes();
 obj.model.bl.batch_load_data(d,p);
 obj.view.bl_view.update_table();
+obj.view.bl_view.set_last_t_indices([]);
 obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
 
 
