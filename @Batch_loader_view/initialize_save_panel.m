@@ -31,24 +31,51 @@ checkbox_height = obj.spacers.checkbox_height;
 
 checkbox_width = 0.9.*panel_width;
 b_group_height = 3.*rbtn_spacer + 2.*rbtn_height;
-panel_height = 5.* checkbox_spacer + 3.*checkbox_height + b_group_spacer + b_group_height + 2.*btn_spacer + btn_height;
+sop_height = 8.*checkbox_spacer + 4.*checkbox_height;
+panel_height = 3.* checkbox_spacer ... 
+               + checkbox_height ...
+               + b_group_spacer ...
+               + sop_height ...
+               + b_group_spacer ...
+               + b_group_height ...
+               + 2.*btn_spacer ...
+               + btn_height;
 
 p.Position(3:4) = [panel_width panel_height];
 
 c1 = uicontrol(p,'Style','checkbox');
 c1.Units = 'pixels';
-c1.String = 'Autosave after batch fit';
-c1.Position = [(panel_width  - checkbox_width)./2 panel_height-(1.*(checkbox_spacer+checkbox_height)+2.*checkbox_spacer) checkbox_width rbtn_height];
+c1.String = 'Batch Fit Autosave';
+c1.Position = [(panel_width  - checkbox_width)./2 panel_height-(1.*(checkbox_height)+3.*checkbox_spacer) checkbox_width rbtn_height];
 
-c2 = uicontrol(p,'Style','checkbox');
-c2.Units = 'pixels';
-c2.String = 'Export p to table';
-c2.Position = [(panel_width  - checkbox_width)./2 c1.Position(2)-1.*(checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
+s_options_panel = uipanel(p);
+s_options_panel.Units = 'pixels';
+s_options_panel.Title = 'Save Options';
 
-c3 = uicontrol(p,'Style','checkbox');
-c3.Units = 'pixels';
-c3.String = 'Export as text';
-c3.Position = [(panel_width  - checkbox_width)./2 c2.Position(2)-1.*(checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
+sop_width = 0.9.*panel_width;
+s_options_panel.Position = [(panel_width  - sop_width)./2 c1.Position(2)-(b_group_spacer+sop_height) sop_width sop_height];
+    
+    c2 = uicontrol(s_options_panel,'Style','checkbox');
+    c2.Units = 'pixels';
+    c2.String = 'Save as .fitit';
+    c2.Position = [(panel_width  - checkbox_width)./2 sop_height-(3.*checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
+    c2.Enable = 'off';
+    
+    c3 = uicontrol(s_options_panel,'Style','checkbox');
+    c3.Units = 'pixels';
+    c3.String = 'Save Loading Seq.';
+    c3.Position = [(panel_width  - checkbox_width)./2 c2.Position(2)-1.*(checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
+    c3.Enable = 'off';
+       
+    c4 = uicontrol(s_options_panel,'Style','checkbox');
+    c4.Units = 'pixels';
+    c4.String = 'Export p to table';
+    c4.Position = [(panel_width  - checkbox_width)./2 c3.Position(2)-1.*(checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
+
+    c5 = uicontrol(s_options_panel,'Style','checkbox');
+    c5.Units = 'pixels';
+    c5.String = 'Export as text';
+    c5.Position = [(panel_width  - checkbox_width)./2 c4.Position(2)-1.*(checkbox_spacer+checkbox_height) checkbox_width rbtn_height];
 
 % Radio button group
 
@@ -58,7 +85,7 @@ b_group.Units = 'pixels';
 
 b_group_width = 0.9.*panel_width;
 
-b_group.Position = [(panel_width-b_group_width)./2 c3.Position(2)-(b_group_spacer+b_group_height) b_group_width b_group_height];
+b_group.Position = [(panel_width-b_group_width)./2 s_options_panel.Position(2)-(b_group_spacer+b_group_height) b_group_width b_group_height];
 
 % Radio buttons
 
