@@ -16,6 +16,8 @@ classdef View < handle
         
         version;
         
+        graphics_root;
+        
         gui;
         controller;
         model;
@@ -70,6 +72,8 @@ classdef View < handle
         function obj = View(c,m)
             
             obj.version = 1.1;
+            
+            obj.graphics_root = groot();
             
             obj.controller = c;
             obj.model = m;

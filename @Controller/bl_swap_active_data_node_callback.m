@@ -42,7 +42,6 @@ if not(isempty(obj.model.sls_br))
     
 end
 
-
 obj.view.update_axes;
 
 obj.view.update_f_button_status();
@@ -58,5 +57,7 @@ else
     l.Enable = 'off';
     
 end
+
+
 end
 
