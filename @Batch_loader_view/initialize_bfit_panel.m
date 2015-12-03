@@ -40,6 +40,7 @@ p.Position(3:4) = [panel_width panel_height];
 b_group = uibuttongroup(p);
 b_group.Title = 'Fit';
 b_group.Units = 'pixels';
+b_group.SelectionChangedFcn = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
 
 b_group_width = 0.9.*panel_width;
 
@@ -60,11 +61,17 @@ b_group.Position = [(panel_width-b_group_width)./2 b_group.Position(4)-(b_group_
     r2.String = 'Only selected';
     r2.Position = [(b_group_width - rbtn_width)./2 fitgroup_height-2.*(rbtn_spacer+rbtn_height) rbtn_width rbtn_height];
 
+r_btns = [r1 r2];
+f = [obj.booleans.fit_all,...
+     obj.booleans.fit_selected];
+b_group.SelectedObject = r_btns(f);  
+
 % Radio button group for selecting fitting mode
 
 b_group = uibuttongroup(p);
-b_group.Title = 'Initial guess vector p';
+b_group.Title = 'Initial Guess Vector p';
 b_group.Units = 'pixels';
+b_group.SelectionChangedFcn = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
 
 b_group.Position = [(p.Position(3)-b_group_width)./2 b_group.Position(4)-(2.*b_group_spacer+fitgroup_height+fitoptions_height) b_group_width fitoptions_height];
 
@@ -86,6 +93,12 @@ b_group.Position = [(p.Position(3)-b_group_width)./2 b_group.Position(4)-(2.*b_g
     r3.Units = 'pixels';
     r3.String = 'Propagate active p';
     r3.Position = [(b_group_width - rbtn_width)./2 fitoptions_height-3.*(rbtn_spacer+rbtn_height) rbtn_width rbtn_height];
+
+r_btns = [r1 r2 r3];
+f = [obj.booleans.p_use_original,...
+     obj.booleans.p_use_active,...
+     obj.booleans.p_propagate];
+b_group.SelectedObject = r_btns(f);  
 
 % Fit data button
 btn = uicontrol(p,'Style','pushbutton');

@@ -1,5 +1,5 @@
-function bl_swap_active_data_node_callback(obj)
-%BL_SWAP_ACTIVE_DATA_NODE_CALLBACK Swaps the currently active Data_node in
+function bl_table_cell_selection_callback(obj)
+%BL_TABLE_ CELL_SELECTION_CALLBACK Swaps the currently active Data_node in
 %Batch_loader, initializes Model and updates the GUI if single Data_node
 %has been selected in Batch_loader GUI
 
@@ -8,10 +8,16 @@ function bl_swap_active_data_node_callback(obj)
 
 indices = obj.view.bl_view.last_t_indices;
 
-if not(numel(indices)==2 && indices(2) == 1)
+%% Check the indices
+
+if not(all(indices(:,2) == 1))
    
-    % Invalid selection, do nothing and return.
+    % Invalid selection including other than Filename cells.
     return;
+    
+elseif numel(indices) == 2 % One Filename cell has been selected
+    
+else % Multiple Filename cells have been selected
     
 end
 

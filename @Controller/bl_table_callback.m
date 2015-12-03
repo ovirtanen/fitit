@@ -1,5 +1,5 @@
-function bl_table_cell_callback(obj,hObject,callbackdata,bl_view)
-%BL_TABLE_CELL_CALLBACK Callback for cell selection in Batch_loader GUI aka
+function bl_table_callback(obj,hObject,callbackdata,bl_view)
+%BL_TABLE_CALLBACK Callback for cell selection in Batch_loader GUI aka
 %unbelievable acrobatics because MATLAB sucks
 %
 % When the user selects multiple cells in the table rapidly, this callback 

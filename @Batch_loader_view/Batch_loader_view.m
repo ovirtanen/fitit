@@ -18,6 +18,9 @@ classdef Batch_loader_view < handle
         manage_panel;      % Manage data panel
         save_panel;        % Save panel
         
+        push_buttons;      % uicontroller array holding all the push buttons in the GUI
+        booleans;          % struct holding user selections from radio buttons and check boxes
+        
         last_t_indices;    % Last indices selected in the table
         table_timer;       % Timer object for tracking the table selection
         
@@ -26,15 +29,23 @@ classdef Batch_loader_view < handle
     properties (Access = private)
        
         spacers;
-        
-        
+          
     end
     
     methods (Access = public)
         
         function obj = Batch_loader_view(view)
             
+            obj.gui = [];
             obj.view = view;
+            
+            obj.pupdate_panel = [];  
+            obj.bfit_panel = [];        
+            obj.manage_panel = [];     
+            obj.save_panel = [];     
+        
+            
+            obj.push_buttons = [];
             
             obj.spacers = struct('btn_spacer',10,...        % Pushbutton spacer; px
                                  'b_group_spacer',15,...    % Button group spacer; px
@@ -45,13 +56,29 @@ classdef Batch_loader_view < handle
                                  'checkbox_height',20,...    % Checkbox height; px
                                  'rbtn_height',20);         % Radio button height; px
            
+           obj.booleans = struct('discard_all',false,...
+                                 'discard_all_but_selected',false,...
+                                 'discard_selected',true,...
+                                 'p_update_always',false,...
+                                 'p_update_after_fit',true,...
+                                 'fit_all',true,...
+                                 'fit_selected',false,...
+                                 'p_use_original',false,...
+                                 'p_use_active',true,...
+                                 'p_propagate',false,...
+                                 'b_fit_autosave',true,...
+                                 'save_as_fitit',false,...
+                                 'save_loading_seq',false,...
+                                 'export_p_to_table',false,...
+                                 'export_as_text',false,...
+                                 'save_now_all',true,...
+                                 'save_now_selected',false);
+                                     
            obj.table_timer = timer();
            obj.table_timer.Name = 'Table Selection Timer';
            obj.table_timer.StartDelay = 0.5;
-           obj.table_timer.TimerFcn = @(tmr,es) obj.view.controller.bl_swap_active_data_node_callback();
-           %obj.table_timer.StartFcn = @(tmr,es) display('Started');
-            
-            
+           obj.table_timer.TimerFcn = @(tmr,es) obj.view.controller.bl_table_cell_selection_callback();
+                     
         end
         
         initialize_gui(obj);
@@ -64,6 +91,8 @@ classdef Batch_loader_view < handle
             obj.last_t_indices = indices;
             
         end
+        update_booleans(obj,hObject,callbackdata);
+        update_push_buttons(obj);
         
     end % public methods
     

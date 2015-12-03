@@ -38,6 +38,7 @@ p.Position(3:4) = [panel_width panel_height];
 id_btn = uicontrol(p,'Style','pushbutton');
 id_btn.String = 'Import Data';
 id_btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_batch_load_callback(hObject,callbackdata);
+id_btn.Tag = 'import_data_btn';
 
 id_btn.Units = 'pixels';
 
@@ -49,6 +50,7 @@ id_btn.Position = [(panel_width-btn_width)./2 panel_height-(2.*btn_spacer+btn_he
 
 gm_btn = uicontrol(p,'Style','pushbutton');
 gm_btn.String = 'Group to Multiset';
+gm_btn.Tag = 'group_to_multiset_btn';
 
 gm_btn.Units = 'pixels';
 
@@ -58,6 +60,7 @@ gm_btn.Position = [(panel_width-btn_width)./2 id_btn.Position(2)-(1*btn_spacer+b
 
 ug_btn = uicontrol(p,'Style','pushbutton');
 ug_btn.String = 'Unroup to Datasets';
+ug_btn.Tag = 'ungroup_to_datasets_btn';
 
 ug_btn.Units = 'pixels';
 
@@ -66,8 +69,10 @@ ug_btn.Position = [(panel_width-btn_width)./2 gm_btn.Position(2)-(1*btn_spacer+b
 % Radio button group for discarding data
 
 b_group = uibuttongroup(p);
-b_group.Title = 'Discard options';
+b_group.Title = 'Discard Options';
 b_group.Units = 'pixels';
+b_group.SelectionChangedFcn = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
+%b_group.SelectionChangedFcn = @(hObject,callbackdata) display(class(hObject))
 
 b_group_width = 0.9.*panel_width;
 
@@ -92,9 +97,14 @@ b_group.Position = [(panel_width-b_group_width)./2 ug_btn.Position(2)-(b_group_s
         r3.String = 'Selected';
         r3.Position = [(b_group_width - rbtn_width)./2 b_group_height-3.*(rbtn_spacer+rbtn_height) rbtn_width rbtn_height];
 
+r_btns = [r1 r2 r3];
+f = [obj.booleans.discard_all obj.booleans.discard_all_but_selected obj.booleans.discard_selected];
+b_group.SelectedObject = r_btns(f);        
+
 % Discard data button
 id_btn = uicontrol(p,'Style','pushbutton');
 id_btn.String = 'Discard Data';
+id_btn.Tag = 'discard_data_btn';
 
 id_btn.Units = 'pixels';
 

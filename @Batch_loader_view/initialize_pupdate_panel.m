@@ -15,7 +15,8 @@ function p = initialize_pupdate_panel(obj,panel_width)
 
 p = uibuttongroup(obj.gui);
 p.Units = 'pixels';
-p.Title = 'Parameter update policy';
+p.Title = 'Parameter Update Policy';
+p.SelectionChangedFcn = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
 
 % Spacers & heights
 
@@ -40,6 +41,11 @@ r2 = uicontrol(p,'Style','radiobutton');
 r2.Units = 'pixels';
 r2.String = 'Update only after fit';
 r2.Position = [(panel_width - rbtn_width)./2 panel_height-2.*(rbtn_spacer+rbtn_height) rbtn_width rbtn_height];
+
+r_btns = [r1 r2];
+f = [obj.booleans.p_update_always,...
+     obj.booleans.p_update_after_fit];
+p.SelectedObject = r_btns(f);  
 
 end
 

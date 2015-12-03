@@ -28,9 +28,7 @@ obj.gui = fig;
 
 t = uitable(fig);
 t.Units = 'pixels';
-%t.Interruptible = 'off';
-%t.BusyAction = 'cancel';
-t.CellSelectionCallback = @(hObject,callbackdata) obj.view.controller.bl_table_cell_callback(hObject,callbackdata,obj);
+t.CellSelectionCallback = @(hObject,callbackdata) obj.view.controller.bl_table_callback(hObject,callbackdata,obj);
 
 t_width = 650;
 t_height = 270;
@@ -93,7 +91,21 @@ save_panel_height = obj.save_panel.Position(4);
 
 obj.save_panel.Position(1:2) = [t.Position(1)+3.*(panel_spacer+panel_width) t.Position(2)-panel_spacer-save_panel_height];
 
-% fig.Position(4) = t_spacer + t_height + t_spacer + max([p_data.Position(4) p_policy.Position(4) p_batch.Position(4) p_save.Position(4)]) + t_spacer;
+fig.Position(4) = t_spacer + t_height + t_spacer + max([obj.manage_panel.Position(4) obj.pupdate_panel.Position(4) obj.bfit_panel.Position(4) obj.save_panel.Position(4)]) + t_spacer;
+
+% Collect push buttons
+
+all_children = [obj.manage_panel.Children;...
+                obj.pupdate_panel.Children;...
+                obj.bfit_panel.Children;...
+                obj.save_panel.Children];
+            
+filter =  arrayfun(@(x)isa(x,'matlab.ui.control.UIControl') && strcmp(x.Style,'pushbutton'),all_children);
+obj.push_buttons = all_children(filter);
+
+% Enable specific push buttons
+
+obj.update_push_buttons();
 
 fig.Visible = 'on';
 
