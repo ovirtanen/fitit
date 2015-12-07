@@ -103,6 +103,7 @@ b_group.SelectedObject = r_btns(f);
 % Fit data button
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Fit';
+btn.Tag = 'fit_btn';
 
 btn.Units = 'pixels';
 

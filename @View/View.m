@@ -99,6 +99,7 @@ classdef View < handle
             
         end
         initialize_g_sources_for_data_set(obj,ds);
+        initialize_g_source_for_model(obj);
         display_about_box(obj);
         [enable,ri,wl,eta,fixed] = display_br_dialog(obj,enable,dri,dwl,deta,dfixed);
         display_comfort_me_box(obj);

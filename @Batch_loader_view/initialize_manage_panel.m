@@ -105,6 +105,7 @@ b_group.SelectedObject = r_btns(f);
 id_btn = uicontrol(p,'Style','pushbutton');
 id_btn.String = 'Discard Data';
 id_btn.Tag = 'discard_data_btn';
+id_btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_discard_data_callback(hObject,callbackdata);
 
 id_btn.Units = 'pixels';
 

@@ -19,7 +19,8 @@ obj.graphics_root.CurrentFigure.CurrentAxes = si;
 m = obj.model;
 q = linspace(0.0001,max(ds.q_exp),200)';
 ihandles = @() ds.active_handles;
-intst = @()m.total_scattered_intensity(150,ihandles(),q);
+nc = m.nc;
+intst = @()m.total_scattered_intensity(nc,ihandles(),q);
 
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);

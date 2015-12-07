@@ -37,34 +37,33 @@ catch ME
     
 end % try-catch
 
-%% Data exist, only load additional data
-
-if not(isempty(obj.model.bl.active_node)) % previous data loaded, no need to reinitialize the whole GUI
-    
-    obj.model.bl.batch_load_data(d,p);
-    obj.view.bl_view.update_table();
-    obj.view.bl_view.set_last_t_indices([]);
-    return;
-    
-end
-
 %% Clean up data & load
 
 obj.view.delete_g_sources_in_si_axes();
-obj.model.bl.batch_load_data(d,p);
-obj.view.bl_view.update_table();
-obj.view.bl_view.set_last_t_indices([]);
-obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
 
-
-%% Initialize g_sources
-
-for i = 1:numel(obj.model.data_sets)
-   
-    obj.view.initialize_g_sources_for_data_set(obj.model.data_sets(i));
+if not(isempty(obj.model.bl.nodes)) % previous data loaded, no need to reinitialize the whole GUI
+    
+    obj.model.bl.batch_load_data(d,p);
+    obj.view.bl_view.update_table();
+    
+else
+    
+    obj.model.bl.batch_load_data(d,p);
     
 end
-       
+
+obj.view.bl_view.update_table();
+obj.view.bl_view.set_last_t_indices([]);
+obj.model.bl.set_active_node([]);
+
+%% Initialize g_source
+% Currently there is no way to highlight cell selections in UItable.
+% Therefore it is better to remove any data from Model, so that the user
+% does not start working with data which might not be the one he or she
+% intended. 
+
+obj.view.initialize_g_source_for_model();
+
 %% update UI
 
 obj.view.swap_panel('sm_panel');

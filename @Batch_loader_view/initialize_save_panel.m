@@ -48,8 +48,7 @@ c1.Units = 'pixels';
 c1.String = 'Batch Fit Autosave';
 c1.Callback = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
 c1.Position = [(panel_width  - checkbox_width)./2 panel_height-(1.*(checkbox_height)+3.*checkbox_spacer) checkbox_width rbtn_height];
-obj.booleans.b_fit_autosave
-c1.Value = obj.booleans.b_fit_autosave
+c1.Value = obj.booleans.b_fit_autosave;
 
 s_options_panel = uipanel(p);
 s_options_panel.Units = 'pixels';
@@ -123,6 +122,7 @@ b_group.SelectedObject = r_btns(f);
 % Set path push button
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Set Path';
+btn.Tag = 'set_path_btn';
 btn.Units = 'pixels';
 
 btn_width = 0.9.*panel_width ./ 2;
@@ -131,6 +131,7 @@ btn.Position = [(panel_width-btn_width.*2)./2 b_group.Position(2)-(btn_spacer + 
 
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Save Now';
+btn.Tag = 'save_now_btn';
 btn.Units = 'pixels';
 
 btn.Position = [(panel_width-btn_width.*2)./2 + btn_width b_group.Position(2)-(btn_spacer + btn_height) btn_width btn_height];

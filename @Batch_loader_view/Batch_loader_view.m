@@ -73,10 +73,12 @@ classdef Batch_loader_view < handle
                                  'export_as_text',false,...
                                  'save_now_all',true,...
                                  'save_now_selected',false);
+           
+           obj.last_t_indices = [];
                                      
            obj.table_timer = timer();
            obj.table_timer.Name = 'Table Selection Timer';
-           obj.table_timer.StartDelay = 0.5;
+           obj.table_timer.StartDelay = 0.3;
            obj.table_timer.TimerFcn = @(tmr,es) obj.view.controller.bl_table_cell_selection_callback();
                      
         end
@@ -88,6 +90,12 @@ classdef Batch_loader_view < handle
         p = initialize_save_panel(obj,panel_width);
         function set_last_t_indices(obj,indices)
            
+            if not(isnumeric(indices) && (isempty(indices) || size(indices,2) == 2))
+               
+                error('Invalid indices.')
+                
+            end
+            
             obj.last_t_indices = indices;
             
         end

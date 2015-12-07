@@ -9,19 +9,15 @@ function bl_table_cell_selection_callback(obj)
 indices = obj.view.bl_view.last_t_indices;
 
 %% Check the indices
-
-if not(all(indices(:,2) == 1))
+if not(all(indices(:,2) == 1)) || isempty(indices)
    
     % Invalid selection including other than Filename cells.
+    obj.view.bl_view.update_push_buttons();
     return;
     
 elseif numel(indices) == 2 % One Filename cell has been selected
     
-else % Multiple Filename cells have been selected
-    
-end
-
-%% Clean up data 
+ %% Clean up data 
 
 obj.view.delete_g_sources_in_si_axes();
 obj.model.bl.set_active_node(indices(1));
@@ -64,6 +60,13 @@ else
     
 end
 
+obj.view.bl_view.update_push_buttons();
+    
+else % Multiple Filename cells have been selected
+    
+    obj.view.bl_view.update_push_buttons();
+    
+end
 
 end
 

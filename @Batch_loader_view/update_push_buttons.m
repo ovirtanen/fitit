@@ -12,16 +12,57 @@ function update_push_buttons(obj)
 btns = obj.push_buttons;
 tags = arrayfun(@(x)x.Tag,btns,'UniformOutput',false);
 
+indices = obj.last_t_indices;
 
-% No data, all except Import Data and Set Path disabled
-if(isempty(obj.view.model.bl.nodes))
+
+% No data, or invalid selection all except Import Data and Set Path disabled
+if (isempty(obj.view.model.bl.nodes)) || any(indices(:,2) ~= 1)
    
-    f = strcmp('import_data_btn',tags) | strcmp('set_path_btn',tags);
+    f = strcmp('import_data_btn',tags) ... 
+        | strcmp('set_path_btn',tags);
     
     set(btns(f),'Enable','on');
     set(btns(not(f)),'Enable','off');
     
     return;
+
+% One Filename row selected    
+elseif numel(indices) == 2
+       
+    f = strcmp('import_data_btn',tags) ... 
+        | strcmp('set_path_btn',tags) ...
+        | strcmp('fit_btn',tags)...
+        | strcmp('discard_data_btn',tags) ...
+        | strcmp('save_now_btn',tags);
+    
+    % Check if Multinode has been selected
+    
+    rn = obj.file_table.RowName;
+    nn = rn(indices(1));
+    
+    if obj.view.model.bl.nodes(str2double(nn)).ismultinode()
+        
+        f = f | strcmp('ungroup_to_datasets_btn',tags);
+        
+    end
+    
+    
+    set(btns(f),'Enable','on');
+    set(btns(not(f)),'Enable','off');    
+
+    
+% Multiple Filename rows selected    
+elseif numel(indices) > 2
+    
+    f = strcmp('import_data_btn',tags) ... 
+        | strcmp('set_path_btn',tags) ...
+        | strcmp('fit_btn',tags) ...
+        | strcmp('group_to_multiset_btn',tags) ...
+        | strcmp('discard_data_btn',tags) ...
+        | strcmp('save_now_btn',tags);
+    
+    set(btns(f),'Enable','on');
+    set(btns(not(f)),'Enable','off');  
     
 end
 

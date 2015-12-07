@@ -37,9 +37,35 @@ classdef Batch_loader < handle
         
         batch_load_data(obj,d,fn); 
         dns = initialize_nodes_from_data(obj,d,fn);
+        function remove_data_nodes(obj,nn)
+           
+            if isempty(nn) % All but selected was chosen but there is only one dataset
+                
+                return;
+                
+            end
+            
+            if not(min(nn) >= 1 && max(nn) <= numel(obj.nodes))
+               
+                error('Invalid node indices');
+                
+            end
+
+            if numel(nn) == numel(obj.nodes) || (numel(obj.nodes) == 1 && nn == 1)
+                
+                obj.nodes = [];
+                
+            else
+            
+                obj.nodes(nn) = [];
+                
+            end
+            
+        end
+        
         function set_active_node(obj,ani)
            
-            if numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes)
+            if isempty(ani) || (numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes))
                 
                 obj.active_node_index = ani;
                 obj.active_node = obj.nodes(ani);

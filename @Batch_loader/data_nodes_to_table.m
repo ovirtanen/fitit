@@ -10,7 +10,7 @@ function [t,ci] = data_nodes_to_table(dna)
 % Returns
 % t         Cell array holding the table data [i x 3] cell. If dna is
 %           empty, t will be []
-% ci        Node indices list
+% ci        Node indices as cellstr
 %
 
 % Copyright (c) 2015, Otto Virtanen
@@ -43,6 +43,8 @@ if any(mn)
 end
 
 ci = vertcat(crowindices{:});
+ci = num2cell(ci);
+ci = cellfun(@int2str,ci,'UniformOutput',false);
 
 %% Table data
 
