@@ -32,6 +32,7 @@ classdef Batch_loader_view < handle
           
     end
     
+    
     methods (Access = public)
         
         function obj = Batch_loader_view(view)
@@ -79,7 +80,7 @@ classdef Batch_loader_view < handle
            obj.table_timer = timer();
            obj.table_timer.Name = 'Table Selection Timer';
            obj.table_timer.StartDelay = 0.3;
-           obj.table_timer.TimerFcn = @(tmr,es) obj.view.controller.bl_table_cell_selection_callback();
+           obj.table_timer.TimerFcn = @obj.tt_timer_fcn;
                      
         end
         
@@ -88,6 +89,7 @@ classdef Batch_loader_view < handle
         p = initialize_manage_panel(obj,panel_width);
         p = initialize_pupdate_panel(obj,panel_width);
         p = initialize_save_panel(obj,panel_width);
+        ind = row_indices_to_node_indices(obj,indices);
         function set_last_t_indices(obj,indices)
            
             if not(isnumeric(indices) && (isempty(indices) || size(indices,2) == 2))
@@ -97,6 +99,30 @@ classdef Batch_loader_view < handle
             end
             
             obj.last_t_indices = indices;
+            
+        end
+        function tt_timer_fcn(obj,tmr,es)
+            % Try-catch wrapper for table_timer.TimerFcn for easier error
+            % localization.
+            
+            try
+                
+                obj.view.controller.bl_table_cell_selection_callback();
+                
+            catch ME
+                
+                display('Error in Table Selection Timer TimerFcn.');
+                display(ME.identifier);
+                display(ME.message);
+                display(['Error stack size: ' num2str(numel(ME.stack))])
+                
+                for i = 1:numel(ME.stack)
+                   
+                    display(ME.stack(i));
+                    
+                end
+                
+            end
             
         end
         update_booleans(obj,hObject,callbackdata);

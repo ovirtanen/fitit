@@ -6,7 +6,7 @@ function bl_discard_data_callback(obj,hObject,callbackdata)
 
 indices = obj.view.bl_view.last_t_indices;
 
-if not(all(indices(:,2) == 1))
+if isempty(indices) || not(all(indices(:,2) == 1))
     
     error('Invalid selection.');
     
@@ -14,15 +14,7 @@ end
 
 %% Get the Data_node indices 
 
-rn = obj.view.bl_view.file_table.RowName;
-
-if not(iscellstr(rn) || size(rn,2) >= size(rn,1))
-   error('Invalid output from uitable RowName property.');
-end
-
-rn = str2double(obj.view.bl_view.file_table.RowName); % RowName is a cellstr
-nn = rn(indices(:,1));
-nn = unique(nn);
+nn = obj.view.bl_view.row_indices_to_node_indices(indices);
 
 %% Check radio buttons and act accordingly
 

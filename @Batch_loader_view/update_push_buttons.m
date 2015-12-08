@@ -16,7 +16,7 @@ indices = obj.last_t_indices;
 
 
 % No data, or invalid selection all except Import Data and Set Path disabled
-if (isempty(obj.view.model.bl.nodes)) || any(indices(:,2) ~= 1)
+if (isempty(obj.view.model.bl.nodes)) || isempty(indices) || any(indices(:,2) ~= 1)
    
     f = strcmp('import_data_btn',tags) ... 
         | strcmp('set_path_btn',tags);

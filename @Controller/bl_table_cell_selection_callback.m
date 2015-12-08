@@ -9,7 +9,12 @@ function bl_table_cell_selection_callback(obj)
 indices = obj.view.bl_view.last_t_indices;
 
 %% Check the indices
-if not(all(indices(:,2) == 1)) || isempty(indices)
+if isempty(indices)
+    
+    obj.view.bl_view.update_push_buttons();
+    return;
+
+elseif not(all(indices(:,2) == 1))
    
     % Invalid selection including other than Filename cells.
     obj.view.bl_view.update_push_buttons();
