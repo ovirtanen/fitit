@@ -43,18 +43,15 @@ dns = initialize_nodes_from_data(obj,d,fn);
 if isempty(obj.nodes)
     
     obj.nodes = dns;
-    obj.active_node = dns(1);
+    obj.active_node = [];
     
 else
     
     % If someone wants to add already loaded data they can do it.
     
     dns = [obj.nodes; dns];
-    
-    fns = [dns.filenames];
-    [~,order] = sort(fns);
-    
-    obj.nodes = dns(order);
+    obj.nodes = Data_node.name_sort(dns);
+    obj.active_node = [];
     
 end
 

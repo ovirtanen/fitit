@@ -48,6 +48,7 @@ classdef Data_node < handle
     methods (Static)
        
         obj = combine(varargin)
+        dna = name_sort(dna);
         dna = ungroup(dn)
         
     end

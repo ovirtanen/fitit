@@ -4,6 +4,8 @@ function obj = combine(varargin)
 %
 % obj = combine(dn1,dn2,...)
 %
+% Sorts data internally according to file names.
+%
 % Parameters
 % dn            Data_node instance
 %
@@ -47,12 +49,13 @@ end
 dna = [varargin{:}];            % Data_node array
 
 fps = fullfile([dna.filedirs],[dna.filenames]);
+[~,order] = sort([dna.filenames]);
 
 dss = [dna.data_sets];
 dss = num2cell(dss);
 
 % zip argin
-argin = [fps;dss];
+argin = [fps(order);dss(order)];
 argin = argin(:);
 
 obj = Data_node(argin{:});

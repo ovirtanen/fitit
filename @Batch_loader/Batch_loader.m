@@ -35,6 +35,26 @@ classdef Batch_loader < handle
         
         % OTHER PUBLIC
         
+        function add_data_nodes(obj,nodes)
+            
+            if isempty(nodes) % All but selected was chosen but there is only one dataset
+                
+                return;
+                
+            elseif not(isa(nodes,'Data_node'))
+                
+                error('Invalid input argument.');
+                
+            end
+            
+            old_nodes = obj.nodes(:);
+            nodes = [old_nodes; nodes(:)];
+            
+            obj.nodes = Data_node.name_sort(nodes);
+            
+            
+        end
+        
         batch_load_data(obj,d,fn); 
         dns = initialize_nodes_from_data(obj,d,fn);
         function remove_data_nodes(obj,nn)
@@ -62,9 +82,7 @@ classdef Batch_loader < handle
             end
             
             % Sort just to be sure
-            fns = [obj.nodes.filenames];
-            [~,order] = sort(fns);
-            obj.nodes = obj.nodes(order);
+            obj.nodes = Data_node.name_sort(obj.nodes);
             
         end     
         function set_active_node(obj,ani)

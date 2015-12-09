@@ -21,7 +21,7 @@ if isempty(indices)
     ind = [];
     return;
     
-elseif size(indices,2) ~=2 || indices(:,2) ~= 1
+elseif size(indices,2) ~=2 || all(indices(:,2) ~= 1)
     
     error('Invalid indices.');
     
