@@ -61,8 +61,12 @@ classdef Batch_loader < handle
                 
             end
             
-        end
-        
+            % Sort just to be sure
+            fns = [obj.nodes.filenames];
+            [~,order] = sort(fns);
+            obj.nodes = obj.nodes(order);
+            
+        end     
         function set_active_node(obj,ani)
            
             if isempty(ani) || (numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes))

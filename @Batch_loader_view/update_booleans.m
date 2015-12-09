@@ -1,5 +1,6 @@
 function update_booleans(obj,hObject,callbackdata)
-%UPDATE_BOOLEANS Updates the booleans struct with current selection
+%UPDATE_BOOLEANS Updates the booleans struct with current selection and
+%calls update_push_buttons to apply changes to GUI.
 %
 
 % Copyright (c) 2015, Otto Virtanen
@@ -172,6 +173,7 @@ elseif isa(hObject,'matlab.ui.control.UIControl') && strcmp(hObject.Style,'check
     
 end
 
+obj.update_push_buttons();
 
 end
 

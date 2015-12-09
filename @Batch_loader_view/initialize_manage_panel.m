@@ -50,6 +50,7 @@ id_btn.Position = [(panel_width-btn_width)./2 panel_height-(2.*btn_spacer+btn_he
 
 gm_btn = uicontrol(p,'Style','pushbutton');
 gm_btn.String = 'Group to Multiset';
+gm_btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_group_to_multiset_callback(hObject,callbackdata);
 gm_btn.Tag = 'group_to_multiset_btn';
 
 gm_btn.Units = 'pixels';
@@ -72,7 +73,6 @@ b_group = uibuttongroup(p);
 b_group.Title = 'Discard Options';
 b_group.Units = 'pixels';
 b_group.SelectionChangedFcn = @(hObject,callbackdata) obj.update_booleans(hObject,callbackdata);
-%b_group.SelectionChangedFcn = @(hObject,callbackdata) display(class(hObject))
 
 b_group_width = 0.9.*panel_width;
 

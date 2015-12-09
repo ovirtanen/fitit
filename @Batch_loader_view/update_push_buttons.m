@@ -14,9 +14,26 @@ tags = arrayfun(@(x)x.Tag,btns,'UniformOutput',false);
 
 indices = obj.last_t_indices;
 
+% no selection but data loaded
+if isempty(indices) && not(isempty(obj.view.model.bl.nodes))
+    
+    f = strcmp('import_data_btn',tags) ... 
+        | strcmp('set_path_btn',tags);
+    
+    % data is loaded and discard all has been selected in Discard Options
+    if obj.booleans.discard_all
+       
+        f = f | strcmp('discard_data_btn',tags);
+        
+    end
+    
+    set(btns(f),'Enable','on');
+    set(btns(not(f)),'Enable','off');
+    
+    return;
 
 % No data, or invalid selection all except Import Data and Set Path disabled
-if (isempty(obj.view.model.bl.nodes)) || isempty(indices) || any(indices(:,2) ~= 1)
+elseif (isempty(obj.view.model.bl.nodes)) || any(indices(:,2) ~= 1)
    
     f = strcmp('import_data_btn',tags) ... 
         | strcmp('set_path_btn',tags);

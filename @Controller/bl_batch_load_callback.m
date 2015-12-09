@@ -78,6 +78,7 @@ end
 
 obj.view.update_axes;
 obj.view.update_f_button_status();
+obj.view.bl_view.update_push_buttons();
 
 %% Check for SM_Free_profile
 l = findobj(obj.view.menu.tools,'Tag','l_curve');
