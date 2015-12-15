@@ -38,13 +38,13 @@ crowindices = num2cell(1:numel(dna))';
 
 if any(mn)
     
-    crowindices(mn) = cellfun(@(x,y)repmat(x,[y 1]),crowindices(mn),num2cell(nds(mn)),'UniformOutput',false)
+    crowindices(mn) = cellfun(@(x,y)repmat(x,[y 1]),crowindices(mn),num2cell(nds(mn)),'UniformOutput',false);
     
 end
 
-ci = vertcat(crowindices{:})
-ci = num2cell(ci)
-ci = cellfun(@int2str,ci,'UniformOutput',false)
+ci = vertcat(crowindices{:});
+ci = num2cell(ci);
+ci = cellfun(@int2str,ci,'UniformOutput',false);
 
 %% Table data
 

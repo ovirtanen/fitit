@@ -39,6 +39,8 @@ classdef Data_node < handle
         
         sls_br_param;           % struct with fields ri and wl
         total_param_vector;
+        total_param_bounds;
+        total_fixed;
         
         isfit;
         issaved;
@@ -215,6 +217,34 @@ classdef Data_node < handle
             if isnumeric(p) && isvector(p)
                
                 obj.total_param_vector = p;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.total_param_bounds(obj,b)
+            
+            if isnumeric(b) && size(b,1) == length(obj.total_param_vector) && size(b,2) == 2
+               
+                obj.total_param_bounds = b;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.total_fixed(obj,f)
+            
+            if islogical(f) && isvector(f) && numel(f) == numel(obj.total_param_vector)
+               
+                obj.total_fixed = f;
                 
             else
                 

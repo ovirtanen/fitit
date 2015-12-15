@@ -5,7 +5,7 @@ function bl_group_to_multiset_callback(obj,hObject,callbackdata)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-indices = obj.view.bl_view.last_t_indices
+indices = obj.view.bl_view.last_t_indices;
 
 if isempty(indices) || not(all(indices(:,2) == 1)) || numel(indices(:,1)) < 2
     
@@ -16,16 +16,24 @@ end
 %% Get the Data_node indices 
 
 nn = obj.view.bl_view.row_indices_to_node_indices(indices);
+unn = unique(nn);
+
+if numel(unn) < numel (nn)
+   
+    % two datasets were chosen that already were in the same multinode
+    return;
+    
+end
 
 %% Create Multinode
-nodes = obj.model.bl.nodes(nn);
+nodes = obj.model.bl.nodes(unn);
 nodes = num2cell(nodes);
 
 multinode = Data_node.combine(nodes{:});
 
 %% Manage nodes
 
-obj.model.bl.remove_data_nodes(nn);
+obj.model.bl.remove_data_nodes(unn);
 obj.model.bl.add_data_nodes(multinode);
 
 %% Discard active node

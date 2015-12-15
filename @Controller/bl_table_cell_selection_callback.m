@@ -24,9 +24,22 @@ elseif numel(indices) == 2 % One Filename cell has been selected
     
  %% Clean up data 
 
-obj.view.delete_g_sources_in_si_axes();
-obj.model.bl.set_active_node(indices(1));
-obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
+% Check if already selected node has been selected again, e.g. if the user
+% selectes another entry of the multinode.
+n_index = obj.view.bl_view.row_indices_to_node_indices(indices);
+ 
+if n_index == obj.model.bl.active_node_index
+    
+    return;
+    
+else % if not, proceed with initialization
+    
+    obj.view.delete_g_sources_in_si_axes();
+    obj.model.bl.set_active_node(n_index);
+    obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
+ 
+end
+
 
 
 %% Initialize g_sources

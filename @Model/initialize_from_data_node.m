@@ -23,7 +23,7 @@ function initialize_from_data_node(obj,dn,varargin)
 Lib.inargtchck(dn,@(x)isa(x,'Data_node'),...
                dn,@(x)all([numel(x.data_sets) >= 1 numel(x.filenames) >= 1 numel(x.data_sets) == numel(x.filenames)]));
            
-b = [isempty(dn.s_model_name) isempty(dn.dist_name) isnan(dn.total_param_vector)];          
+b = [isempty(dn.s_model_name); isempty(dn.dist_name); isnan(dn.total_param_vector)];          
            
 b_only_data = false;
 
@@ -76,7 +76,9 @@ end
 %% Load appropriate model, distribution and other parameters if necessary
 
 if not(b_only_data)
-    
+   
+   % BACKGROUND ----------------------------------------------------------- 
+   
    if any(dn.bg_enabled)    % background scattering enabled
         
         obj.bg.match_scale_factors_to_ds(numel(ds));
@@ -97,11 +99,13 @@ if not(b_only_data)
             
         end     % for
         
-    end
+   end
+    
+    % BACKREFLECTION-------------------------------------------------------
     
     if any(dn.sls_br_enabled) 
         
-        if isempty(obj.sls_br) % Backreflection enabled but Model doesn't have the necessary instances
+        if numel(obj.sls_br == 0) % Backreflection enabled but Model doesn't have the necessary instances
            
             
             for i = 1:numel(dn.sls_br_enabled)
@@ -146,6 +150,8 @@ if not(b_only_data)
               
     end
     
+    % SCATTERING MODEL AND RADIUS DISTRIBUTION ----------------------------
+    
     asm = obj.get_active_s_model();
     
     b_sd = [strcmp(dn.s_model_name,asm.name) strcmp(dn.dist_name,asm.dist.name)];
@@ -182,7 +188,8 @@ if not(b_only_data)
    
     obj.set_total_parameter_vector(dn.total_param_vector);
     
-else    % Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.
+else % ONLY DATA ----------------------------------------------------------
+% Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.
     
    for i = 1:numel(obj.s_models)
    
