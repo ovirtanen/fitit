@@ -2,7 +2,8 @@ classdef Pinds < handle
     %PINDS Class for returning parameter indices of the total parameter
     %vector p for a certain state of Model. 
     %
-    %
+    % The class is not designed for extensive reuse. Always initialize a new
+    % instance when Pinds is needed.
     % 
     
     % Copyright (c) 2015, Otto Virtanen
@@ -12,9 +13,14 @@ classdef Pinds < handle
         
         pind_arrays;
         pind_types;
+        n_species;
+
+    end
+    
+    properties (Access = private)
         
         iterator_index;
- 
+        
     end
     
     methods (Access = public)
@@ -56,7 +62,9 @@ classdef Pinds < handle
                              repmat({'SLS_Backreflection'},nbr,1);...
                              repmat({'Scattering_model'},numel(model.s_models),1)];
             
+            obj.n_species = nbg+nbr + numel(n_s_params);
             
+                         
         end % constructor
         
         [pinds, type] = next(obj);
