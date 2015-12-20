@@ -61,6 +61,7 @@ classdef Scattering_model < handle
     methods (Abstract)
         
         intst = scattered_intensity(obj,nc,q,p);
+        n = n_total_params(obj);
         
     end
     

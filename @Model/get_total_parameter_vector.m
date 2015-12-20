@@ -6,11 +6,11 @@ function p = get_total_parameter_vector(obj)
 %
 %   Returns
 %   p           Total parameter vector
-%               p : [bg p1; p2; ... pn], where p1..pn are total parameter
-%               vectors for Scattering_models 1..n in the model. The first
-%               entry is background (bg) if bg is enabled in SM_Background,
-%               otherwise p: [p1; p2; ... pn]
-%
+%               p : [bg1 bg2 .. bgn br1 br2 .. brn p1; p2; .. pk], where bg 
+%               are the enabled backgrounds for maximum n loaded datasets,
+%               br are the enabled backreflections for maximum n datasets
+%               and p are the total parameter vectors for k scattering
+%               models. 
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.

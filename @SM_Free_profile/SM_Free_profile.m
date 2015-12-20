@@ -88,6 +88,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
         r = reg(obj,p,d);
         [rprf,prf] = radial_profile(obj);
         lims = axis_lims(obj);
+        n = n_total_params(obj); 
         
     end % public methods
     

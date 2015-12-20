@@ -69,9 +69,9 @@ classdef SM_MG_numerical_III < Scattering_model_spherical & handle
         end % constructor  
         
         i_mod = scattered_intensity(obj,nc,q,p);
-        [rprf,prf] = radial_profile(obj);
-        
+        [rprf,prf] = radial_profile(obj);   
         lims = axis_lims(obj);
+        n = n_total_params(obj); 
         
     end % public methods
     

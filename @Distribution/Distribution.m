@@ -69,6 +69,7 @@ classdef Distribution < handle
         m = mean(nc);
         mx = max_limit(obj);
         lims = axis_lims(obj);
+        n = n_total_params(obj);
         
     end
     
