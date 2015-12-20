@@ -53,16 +53,29 @@ classdef Pinds < handle
             n_s_params = cellfun(@(x) x.n_total_params, model.s_models);
             
             pind = (1:nbg+nbr+sum(n_s_params))';
-            rows = [ones(nbg,1);...
+            
+            % Backgrounds for all the datasets are stored in a single
+            % SM_Background instance. All the backrounds, therefore, have
+            % their parameter indices in one array.  Backreflections in
+            % contrast have to be stored in different instances, and each
+            % of them require their own parameter indice array.
+            %
+            % double(not(nbg == 0)) returns 0 if there are no enabled
+            % backgrounds and otherwise 1 regardless of the number of
+            % backgrounds.
+
+            rows = [nbg;... 
                     ones(nbr,1);...
                     n_s_params(:)];
+                
+            rows(rows == 0) = [];   % Remove possible 0 backgrounds entry    
             
             obj.pind_arrays = mat2cell(pind,rows,1);
-            obj.pind_types = [repmat({'SM_Background'},nbg,1);...
+            obj.pind_types = [repmat({'SM_Background'},double(not(nbg == 0)),1);...
                              repmat({'SLS_Backreflection'},nbr,1);...
                              repmat({'Scattering_model'},numel(model.s_models),1)];
             
-            obj.n_species = nbg+nbr + numel(n_s_params);
+            obj.n_species = double(not(nbg == 0)) + nbr + numel(n_s_params);
             
                          
         end % constructor
