@@ -124,6 +124,7 @@ classdef Controller < handle
         
         bl_batch_load_callback(obj,hObject,callbackdata);        
         bl_import_data_callback(obj,hObject,callbackdata);
+        bl_ungroup_to_datasets(obj,hObject,callbackdata);
         bl_table_cell_selection_callback(obj);
         bl_table_callback(obj,hObject,callbackdata,bl_view);
                

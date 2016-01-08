@@ -61,6 +61,7 @@ gm_btn.Position = [(panel_width-btn_width)./2 id_btn.Position(2)-(1*btn_spacer+b
 
 ug_btn = uicontrol(p,'Style','pushbutton');
 ug_btn.String = 'Unroup to Datasets';
+ug_btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_ungroup_to_datasets_callback(hObject,callbackdata);
 ug_btn.Tag = 'ungroup_to_datasets_btn';
 
 ug_btn.Units = 'pixels';
