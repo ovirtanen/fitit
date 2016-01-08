@@ -97,6 +97,7 @@ methods (Access = public)
     match_scale_factors_to_ds(obj,nds);
         
     set_param_vector(obj,p);
+    set_bounds_vectors(obj,lb,ub);
     n = n_total_params(obj);    
         
 end % public methods

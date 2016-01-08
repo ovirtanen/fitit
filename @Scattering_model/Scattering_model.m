@@ -86,6 +86,7 @@ classdef Scattering_model < handle
         set_fixed_vector(obj,pf);
         set_param(obj,tag,value);
         set_param_vector(obj,p);
+        set_bounds_vectors(obj,lb,ub);
         set_distribution(obj,dist);        
         
     end

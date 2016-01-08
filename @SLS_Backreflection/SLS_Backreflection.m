@@ -55,8 +55,27 @@ classdef SLS_Backreflection <  handle
         end
         
         function set_param_vector(obj,p)
+            
+            if numel(p) > 1
+                
+                error('Too many parameters.')
+                
+            end
            
             obj.eta{2} = p;
+            
+        end
+        
+        function set_bounds_vectors(obj,lb,ub)
+           
+            if numel(lb) ~= numel(ub) || numel(lb) > 1
+                
+                error('Invalid parameters')
+                
+            end
+           
+            obj.eta{1} = lb;
+            obj.eta{3} = ub;
             
         end
         

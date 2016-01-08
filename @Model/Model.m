@@ -93,6 +93,7 @@ classdef Model < handle
         replace_s_model(obj,sm);
         j = total_jacobian(obj,varargin);
         save_state_to_Data_node(obj,dn);
+        set_total_bounds(obj,lb,ub);
         set_total_parameter_vector(obj,p);
         i_mod = total_scattered_intensity(obj,nc,q,varargin);
         update_handles(obj);
