@@ -26,6 +26,13 @@ else
 end
 
 obj.model.set_total_parameter_vector(p);
+
+%% Update Data_node
+
+obj.model.bl.update_data_node_params(obj.model.bl.active_node);
+
+%% Update View
+
 obj.view.update_vals_from_model();
 obj.view.update_sliders();
 obj.view.update_axes();
