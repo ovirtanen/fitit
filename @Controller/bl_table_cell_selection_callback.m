@@ -63,6 +63,7 @@ end
 
 obj.view.swap_panel('sm_panel');
 obj.sm_ui_cleanup(obj.model.get_active_s_model().name);
+obj.view.swap_panel('dist_panel');
 obj.view.swap_panel('bg_panel');
 
 if not(isempty(obj.model.sls_br))
