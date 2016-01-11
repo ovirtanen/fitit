@@ -55,38 +55,8 @@ prm = @(p0) obj.p0_to_p(p0,p,pf);
 % *** Special case for a regularized fit using SM_Free_profile ***
 % ***
 
-smfp = cellfun(@(x)isa(x,'SM_Free_profile'),obj.s_models);
-
 if not(all(0 == bf))
-    
-    %{
-    % Warning: this goes south if logical indexing gets more than one
-    % model, sm will be the first match.
-    
-    sm = obj.s_models{smfp};
-    
-    % The second thing that goes south here is that the length of p changes
-    % if background and backreflection (in future maybe more?) are enabled.
-    % This is taken care of in Model.update_handles for regular models, but
-    % has to be recognized here for SM_Free_profile.reg(p).
-    
-    if isempty(obj.sls_br)
         
-        ps = 1 + numel(obj.bg.enabled);
-        
-    else
-        
-        ps = 1 + numel(find(obj.bg.enabled)) + numel(find([obj.sls_br.enabled]));
-            
-    end
-    
-    nds = numel(obj.data_sets);
-    np = sm.n - 1;
-    
-    pinds = [ps ps+nds+1:ps+nds+np];
-    
-    %}
-    
     sno = bf(1);        % smoothing norm order
     n = bf(2);          % number of spherical shells
     
@@ -160,8 +130,6 @@ end
 %% Return
 
 p(pf) = pfit;
-
-
 
 end
 
