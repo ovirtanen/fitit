@@ -75,19 +75,19 @@ if not(all(0 == bf))
         
         case -1
             
-            rh = @(x) sm.reg(x(pinds),-1);  % Total variation smoothing norm
+            rh = @(x) SM_Free_profile.reg(x(pinds),-1);  % Total variation smoothing norm
        
         case 0
             
-            rh = @(x) sm.reg(x(pinds),0);  % 2-norm smoothing norm
+            rh = @(x) SM_Free_profile.reg(x(pinds),0);  % 2-norm smoothing norm
             
         case 1
             
-            rh = @(x) sm.reg(x(pinds),1);  % first derivative smoothing norm
+            rh = @(x) SM_Free_profile.reg(x(pinds),1);  % first derivative smoothing norm
             
         case 2
             
-            rh = @(x) sm.reg(x(pinds),2);  % second derivative smoothing norm
+            rh = @(x) SM_Free_profile.reg(x(pinds),2);  % second derivative smoothing norm
             
         otherwise
             
@@ -117,7 +117,7 @@ end % if
 
 %% Estimate the standard deviation of the least squares solution
 
-if any(smfp)    % STD for ill-conditioned inverse problem is crap
+if not(all(0 == bf))    % STD for ill-conditioned inverse problem is crap
 
     std_p = -1.*ones(size(p));
     

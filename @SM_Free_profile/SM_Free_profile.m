@@ -38,6 +38,7 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
        
         f = f_hard_sphere(qr);
         A = mult3(A,x);
+        r = reg(p,d);
         
     end
     
@@ -85,7 +86,6 @@ classdef SM_Free_profile < Scattering_model_spherical & handle
         
         i_mod = scattered_intensity(obj,nc,q,p);
         
-        r = reg(obj,p,d);
         [rprf,prf] = radial_profile(obj);
         lims = axis_lims(obj);
         n = n_total_params(obj); 
