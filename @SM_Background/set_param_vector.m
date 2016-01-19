@@ -7,6 +7,9 @@ function set_param_vector(obj,p)
 %   p           Total parameter vector for SM_Background
 %
 
+% Copyright (c) 2015,2016, Otto Virtanen
+% All rights reserved.
+
 e = obj.enabled;
 
 if numel(p) ~= (numel(e(e == true)))

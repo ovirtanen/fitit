@@ -9,6 +9,9 @@ function set_bounds_vector(obj,lb,ub)
 %   ub           Total upper bounds vector for SM_Background
 %
 
+% Copyright (c) 2015,2016, Otto Virtanen
+% All rights reserved.
+
 e = obj.enabled;
 
 if numel(lb) ~= numel(ub) || numel(lb) ~= (numel(e(e == true)))
