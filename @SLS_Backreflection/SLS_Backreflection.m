@@ -54,6 +54,24 @@ classdef SLS_Backreflection <  handle
             
         end
         
+        function set_fixed_vector(obj,f)
+            % NOTE: FIXED parameter == 1
+            
+            
+            if numel(f) > 1
+                
+                error('Too many parameters.')
+                
+            elseif not(islogical(f))
+    
+                error('Fixed state vector has to contain booleans.');    
+                
+            end
+           
+            obj.eta{4} = f;
+            
+        end
+        
         function set_param_vector(obj,p)
             
             if numel(p) > 1

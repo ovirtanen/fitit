@@ -23,7 +23,7 @@ distn = m.get_active_s_model().dist.name;
 
 p = m.get_total_parameter_vector();
 [lb,ub] = m.get_total_param_bounds();
-f = m.get_total_free_params();
+f = not(m.get_total_free_params());  % NOTE the difference between FIXED params and m.get_total_free_params()
 bg_e = m.bg.enabled;
 
 if not(numel(m.sls_br) == 0)
@@ -43,7 +43,7 @@ dn.dist_name = distn;
 
 dn.total_param_vector = p;
 dn.total_param_bounds = [lb ub];
-dn.total_fixed = f;
+dn.total_fixed_params = f;
 
 dn.bg_enabled = bg_e;
 dn.sls_br_enabled = sls_br_e;

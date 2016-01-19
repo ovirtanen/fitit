@@ -18,7 +18,7 @@ classdef Data_node < handle
     %
     %
     
-    % Copyright (c) 2015, Otto Virtanen
+    % Copyright (c) 2015,2016, Otto Virtanen
     % All rights reserved.
     
     properties (SetAccess = private)
@@ -40,7 +40,7 @@ classdef Data_node < handle
         sls_br_param;           % struct with fields ri and wl
         total_param_vector;
         total_param_bounds;
-        total_fixed;
+        total_fixed_params;
         
         isfit;
         issaved;
@@ -109,6 +109,8 @@ classdef Data_node < handle
             obj.sls_br_enabled = false(size(obj.data_sets));
             obj.sls_br_param = struct('ri',num2cell(NaN(size(obj.data_sets))),'wl',num2cell(NaN(size(obj.data_sets))));
             obj.total_param_vector = NaN;
+            obj.total_param_bounds = [NaN NaN];
+            obj.total_fixed_params = true;
             
             obj.isfit = false;
             obj.issaved = false;
@@ -137,7 +139,8 @@ classdef Data_node < handle
             
         end
         
-    end
+        
+    end % public methods
     
     methods % SETTERS
         
@@ -240,11 +243,11 @@ classdef Data_node < handle
             
         end
         
-        function set.total_fixed(obj,f)
+        function set.total_fixed_params(obj,f)
             
             if islogical(f) && isvector(f) && numel(f) == numel(obj.total_param_vector)
                
-                obj.total_fixed = f;
+                obj.total_fixed_params = f;
                 
             else
                 

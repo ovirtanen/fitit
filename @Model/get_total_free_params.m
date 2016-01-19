@@ -28,7 +28,7 @@ if not(isempty(brs)) && any([brs.enabled])
     fixed = {brs.eta};
     fixed = cellfun(@(x)x{4},fixed([brs.enabled]));
     
-    l = [l; fixed(:)];
+    l = [l; logical(fixed(:))];
     
 end
 
@@ -40,9 +40,11 @@ for i = 1:numel(obj.s_models)
     
     lsm = sm.params(:,4);
     ldist = sm.dist.params(:,4);
-    t = cell2mat([lsm; ldist]);
+    % There's a bug somewhere so that lsm ldist might not be logical but
+    % double.
+    t = cellfun(@logical,[lsm; ldist]); 
     
-    l = logical([l;logical(t)]);
+    l = logical([l;t]);
     l = not(l);
     
 end % for

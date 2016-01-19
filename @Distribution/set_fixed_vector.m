@@ -1,27 +1,28 @@
-function set_fixed_vector(obj,p)
-%SET_FIXED_VECTOR Sets fixed state to the values specified in the parameter
-%vector
+function set_fixed_vector(obj,f)
+%%SET_FIXED_VECTOR Sets fixed parameters to the state specified in the parameter
+%vector for the Distribution instance.
 %
-%   set_fixed_vector(p)
-%   
-%   Paramters
-%   p           Parameter vector
+%   set_fixed_vector(f)   
+%
+%   Parameters
+%   f           Total FIXED (1) parameter state vector for the Distribution
+%               instance.
 %
 
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-if numel(p) ~= numel(obj.p_ids)
+if numel(f) ~= numel(obj.p_ids)
     
     error('Parameter vector does not have the right number of parameters');
     
-elseif not(all(p == 1 | p == 0))
+elseif not(islogical(f))
     
     error('Fixed state vector has to contain booleans.');
     
 end
 
-obj.params(:,4) = num2cell(p);
+obj.params(:,4) = num2cell(f);
 
 end
 

@@ -191,6 +191,7 @@ if not(b_only_data)
     obj.set_total_parameter_vector(dn.total_param_vector);
     tb = dn.total_param_bounds;
     obj.set_total_bounds(tb(:,1),tb(:,2));
+    obj.set_total_fixed_vector(dn.total_fixed_params);
     
 else % ONLY DATA ----------------------------------------------------------
 % Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.
