@@ -6,16 +6,16 @@ function bl_table_cell_selection_callback(obj)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-indices = obj.view.bl_view.last_t_indices;
 
 %% Check whether Model data has to be copied to the previous active Data_node
 
-if obj.view.bl_view.booleans.p_update_always && not(isempty(obj.model.bl.active_node))
-   
-    obj.model.bl.update_data_node_params(obj.model.bl.active_node);
-    
-end
+    if obj.view.bl_view.booleans.p_update_always && not(isempty(obj.model.bl.active_node))
 
+        obj.model.bl.update_data_node_params(obj.model.bl.active_node);
+
+    end
+
+indices = obj.view.bl_view.last_t_indices;
 
 %% Check the indices
 if isempty(indices)
@@ -42,7 +42,7 @@ if n_index == obj.model.bl.active_node_index
     return;
     
 else % if not, proceed with initialization
-    
+        
     obj.view.delete_g_sources_in_si_axes();
     obj.model.bl.set_active_node(n_index);
     obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
@@ -92,7 +92,14 @@ obj.view.bl_view.update_push_buttons();
     
 else % Multiple Filename cells have been selected
     
+     
+    obj.model.bl.set_active_node([]);         % selection is poorly defined, get rid of it.
     obj.view.bl_view.update_push_buttons();
+    
+    %% Update Views
+
+    obj.view.delete_g_sources_in_si_axes();
+    obj.view.initialize_g_source_for_model();
     
 end
 

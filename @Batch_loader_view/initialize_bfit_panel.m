@@ -104,6 +104,7 @@ b_group.SelectedObject = r_btns(f);
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Fit';
 btn.Tag = 'fit_btn';
+btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_fit_callback(hObject,callbackdata);
 
 btn.Units = 'pixels';
 

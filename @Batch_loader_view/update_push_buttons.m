@@ -27,6 +27,13 @@ if isempty(indices) && not(isempty(obj.view.model.bl.nodes))
         
     end
     
+    % data is loaded and fit all has been selected in Batch fitting Options
+    if obj.booleans.fit_all && any([ obj.booleans.p_use_original obj.booleans.p_use_active])
+       
+        f = f | strcmp('fit_btn',tags);
+        
+    end
+    
     set(btns(f),'Enable','on');
     set(btns(not(f)),'Enable','off');
     
@@ -73,10 +80,18 @@ elseif numel(indices) > 2
     
     f = strcmp('import_data_btn',tags) ... 
         | strcmp('set_path_btn',tags) ...
-        | strcmp('fit_btn',tags) ...
         | strcmp('group_to_multiset_btn',tags) ...
         | strcmp('discard_data_btn',tags) ...
         | strcmp('save_now_btn',tags);
+    
+    
+    %  fit only selected all has been selected in Batch fitting Options
+    if (obj.booleans.fit_all && not(obj.booleans.p_propagate)) || (obj.booleans.fit_selected && any([ obj.booleans.p_use_original obj.booleans.p_use_active]))
+       
+        f = f | strcmp('fit_btn',tags);
+        
+    end
+    
     
     set(btns(f),'Enable','on');
     set(btns(not(f)),'Enable','off');  
