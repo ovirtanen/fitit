@@ -28,7 +28,9 @@ if isempty(indices) && not(isempty(obj.view.model.bl.nodes))
     end
     
     % data is loaded and fit all has been selected in Batch fitting Options
-    if obj.booleans.fit_all && any([ obj.booleans.p_use_original obj.booleans.p_use_active]) && any(obj.view.model.get_total_free_params())
+    [~,n] = arrayfun(@(x)x.ismultinode,obj.view.model.bl.nodes);
+    
+    if numel(unique(n)) == 1 && obj.booleans.fit_all && any([obj.booleans.p_use_original obj.booleans.p_use_active]) && any(obj.view.model.get_total_free_params())
        
         f = f | strcmp('fit_btn',tags);
         
@@ -58,9 +60,15 @@ elseif numel(indices) == 2
         | strcmp('discard_data_btn',tags) ...
         | strcmp('save_now_btn',tags);
     
+    [~,n] = arrayfun(@(x)x.ismultinode,obj.view.model.bl.nodes);
+
     % Check whether the all the parameters are fixed
-    if any(obj.view.model.get_total_free_params())
+    if obj.booleans.fit_selected && any(obj.view.model.get_total_free_params())
        
+        f = f | strcmp('fit_btn',tags);
+        
+    elseif numel(numel(unique(n))) == 1 && obj.booleans.fit_all && any(obj.view.model.get_total_free_params())
+        
         f = f | strcmp('fit_btn',tags);
         
     end
@@ -92,8 +100,21 @@ elseif numel(indices) > 2
     
     
     %  fit only selected all has been selected in Batch fitting Options
-    if any(obj.view.model.get_total_free_params()) && (obj.booleans.fit_all && not(obj.booleans.p_propagate)) || (obj.booleans.fit_selected && any([ obj.booleans.p_use_original obj.booleans.p_use_active]))
+    
+    [~,n] = arrayfun(@(x)x.ismultinode,obj.view.model.bl.nodes);
+    
+    if numel(unique(n)) == 1 && any(obj.view.model.get_total_free_params()) && (obj.booleans.fit_all && not(obj.booleans.p_propagate))
        
+        f = f | strcmp('fit_btn',tags);
+        
+    end
+    
+    indices = obj.row_indices_to_node_indices(indices);
+    nodes = obj.view.model.bl.nodes(indices);
+    [~,n] = arrayfun(@(x)x.ismultinode,nodes);
+    
+    if numel(unique(n)) == 1 && any(obj.view.model.get_total_free_params()) && (obj.booleans.fit_selected && any([ obj.booleans.p_use_original obj.booleans.p_use_active]))
+
         f = f | strcmp('fit_btn',tags);
         
     end
