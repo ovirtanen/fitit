@@ -4,7 +4,8 @@ function obj = combine(varargin)
 %
 % obj = combine(dn1,dn2,...)
 %
-% Sorts data internally according to file names.
+% Sorts data internally according to file names. NOTE: For simplicity, any
+% fit related data will be removed from the node instances.
 %
 % Parameters
 % dn            Data_node instance
@@ -21,32 +22,14 @@ function obj = combine(varargin)
 if not(all(cellfun(@(x)isa(x,'Data_node'),varargin)))
    
     error('Input arguments have to be of type Data_node');
-    
-elseif not(all(cellfun(@(x)isempty(x.s_model_name),varargin)))
-    
-    error('Data_node instances must not contain fit related data.');
-    
-elseif not(all(cellfun(@(x)isempty(x.dist_name),varargin)))
-    
-    error('Data_node instances must not contain fit related data.');
-    
-elseif not(all(cellfun(@(x)all(x.bg_enabled == 0),varargin)))   
-    
-    error('Data_node instances must not contain fit related data.');
-    
-elseif not(all(cellfun(@(x)all(x.sls_br_enabled == 0),varargin)))
-    
-    error('Data_node instances must not contain fit related data.');
-    
-elseif not(all(cellfun(@(x)isnan(x.total_param_vector),varargin)))
-    
-    error('Data_node instances must not contain fit related data.');
-    
+        
 end
 
 %% Combine the nodes
 
 dna = [varargin{:}];            % Data_node array
+
+arrayfun(@(x)x.remove_parameters(),dna); % for simplicity, remove any existing fit related data
 
 fps = fullfile([dna.filedirs],[dna.filenames]);
 [~,order] = sort([dna.filenames]);

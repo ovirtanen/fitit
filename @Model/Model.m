@@ -78,7 +78,7 @@ classdef Model < handle
         [lb,ub] = get_total_param_bounds(obj);
         p_std = estimate_p_std(obj);
         initialize_from_data(obj,data);         % Will be deprecated.
-        initialize_from_data_node(obj,dn);
+        initialize_from_data_node(obj,dn,varargin);
         initialize_sls_backreflection(obj,ri,wl,eta,fixed);
         [solnorm, resnorm, lamda, pc] = l_curve(obj,npoints,fitop,prg);
         [p,std_p] = lsq_fit(obj,options);

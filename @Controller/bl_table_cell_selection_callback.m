@@ -9,11 +9,11 @@ function bl_table_cell_selection_callback(obj)
 
 %% Check whether Model data has to be copied to the previous active Data_node
 
-    if obj.view.bl_view.booleans.p_update_always && not(isempty(obj.model.bl.active_node))
+if obj.view.bl_view.booleans.p_update_always && not(isempty(obj.model.bl.active_node))
 
-        obj.model.bl.update_data_node_params(obj.model.bl.active_node);
+    obj.model.bl.update_data_node_params(obj.model.bl.active_node);
 
-    end
+end
 
 indices = obj.view.bl_view.last_t_indices;
 

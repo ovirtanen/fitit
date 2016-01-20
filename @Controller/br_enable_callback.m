@@ -2,6 +2,10 @@ function br_enable_callback(obj,hObject,callbackdata)
 %BR_ENABLE_CALLBACK Callback for enabling a specific SLS_Backreflection
 %
 
+% for simplicity, remove all fit related data from nodes in Batch_loader
+obj.model.bl.reset_nodes();
+
+
 tag = hObject.Tag;
 id = str2double(tag(8));
 state = hObject.Value;

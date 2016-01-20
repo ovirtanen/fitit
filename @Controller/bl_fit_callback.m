@@ -54,6 +54,26 @@ else
     
 end
 
+%% Update the current node in the case the user has changed the parameters
+
+if not(isempty(obj.model.bl.active_node))
+
+    obj.model.bl.update_data_node_params(obj.model.bl.active_node);
+
+end
+
+%% Get current active node
+
+current_active_node = obj.model.bl.active_node_index;
+
+
+%% Switch off controls
+
+prev_state = obj.view.switch_enable_panels('off');
+obj.view.disable_f_button();
+blv_prev_state = obj.view.bl_view.switch_enable_panels('off');
+
+
 %% Fit nodes
 
 wb = waitbar(0,'Batch fitting...');
@@ -67,7 +87,7 @@ wb.delete();
 
 %% Update View
 
-if isempty(obj.model.bl.active_node_index) % delete everything
+if isempty(current_active_node) % delete everything
 
     obj.view.delete_g_sources_in_si_axes();
     obj.view.initialize_g_source_for_model();
@@ -75,6 +95,7 @@ if isempty(obj.model.bl.active_node_index) % delete everything
 else
     
     obj.view.delete_g_sources_in_si_axes();
+    obj.model.bl.set_active_node(current_active_node);
     obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
     
     % Initialize g_sources
@@ -89,11 +110,14 @@ else
     obj.view.update_sliders();
     obj.view.update_axes();
 
-    %obj.view.switch_enable_panels(prev_state);
     obj.view.update_f_button_status();
     drawnow();
     
 end
+
+obj.view.switch_enable_panels(prev_state);
+obj.view.update_f_button_status();
+obj.view.bl_view.switch_enable_panels(blv_prev_state);
 
 end
 

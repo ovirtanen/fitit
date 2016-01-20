@@ -18,6 +18,7 @@ function initialize_from_data_node(obj,dn,varargin)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+
 %% Inarg check
 
 Lib.inargtchck(dn,@(x)isa(x,'Data_node'),...
@@ -79,10 +80,11 @@ if not(b_only_data)
    
    % BACKGROUND ----------------------------------------------------------- 
    
+   % Number of bgs needs to be adjusted regardless if they are enabled
+   obj.bg.match_scale_factors_to_ds(numel(ds));
+   
    if any(dn.bg_enabled)    % background scattering enabled
-        
-        obj.bg.match_scale_factors_to_ds(numel(ds));
-        
+          
         for i = 1:numel(dn.bg_enabled)
            
             switch dn.bg_enabled(i)
@@ -105,9 +107,8 @@ if not(b_only_data)
     
     if any(dn.sls_br_enabled) 
         
-        if numel(obj.sls_br == 0) % Backreflection enabled but Model doesn't have the necessary instances
+        if numel(obj.sls_br) == 0 % Backreflection enabled but Model doesn't have the necessary instances
            
-            
             for i = 1:numel(dn.sls_br_enabled)
                 
                 obj.initialize_sls_backreflection(dn.sls_br_param(i).ri,dn.sls_br_param(i).wl,0.003,1);
@@ -127,7 +128,7 @@ if not(b_only_data)
             end % for
             
         else
-            
+
             obj.match_br_to_ds(numel(ds));
             
             for i = 1:numel(dn.sls_br_enabled)
@@ -184,6 +185,11 @@ if not(b_only_data)
         asm.set_distribution(d);
         obj.update_handles();
         
+    elseif all(b_sd == [1 1]) % Nothing needs to be changed, but parameters might need to be adjusted to number of datasets
+        
+        obj.get_active_s_model().match_scale_factors_to_ds(numel(ds));
+        obj.update_handles();
+        
     end
    
     % Update parameters in Model ------------------------------------------
@@ -192,6 +198,19 @@ if not(b_only_data)
     tb = dn.total_param_bounds;
     obj.set_total_bounds(tb(:,1),tb(:,2));
     obj.set_total_fixed_vector(dn.total_fixed_params);
+    
+    % Update backreflection data that is not in the total parameter vector
+    
+    if any(not(isnan([dn.sls_br_param.wl dn.sls_br_param.ri])))
+        
+        for i = 1:numel(dn.sls_br_param)
+           
+            obj.sls_br(i).set_param('ri_val',dn.sls_br_param(i).ri);
+            obj.sls_br(i).set_param('wl_val',dn.sls_br_param(i).wl);
+            
+        end
+        
+    end
     
 else % ONLY DATA ----------------------------------------------------------
 % Only data loaded, number of parameters in the scattering model has to be adjusted & handles updated.

@@ -13,7 +13,9 @@ bg_enabled = obj.bg.enabled;
 
 if any(bg_enabled)
     
-    bg_chcks = cell2mat(obj.bg.params(:,4));
+    % There's an inconsistency somewhere where logicals and double 1 & 0 are
+    % mixed happily. This is not a good solution.
+    bg_chcks = cellfun(@logical,obj.bg.params(:,4));
     
     l = [l; logical(bg_chcks(bg_enabled))];
         
@@ -26,7 +28,7 @@ brs = obj.sls_br;
 if not(isempty(brs)) && any([brs.enabled])
     
     fixed = {brs.eta};
-    fixed = cellfun(@(x)x{4},fixed([brs.enabled]));
+    fixed = cellfun(@(x)logical(x{4}),fixed([brs.enabled]));
     
     l = [l; logical(fixed(:))];
     

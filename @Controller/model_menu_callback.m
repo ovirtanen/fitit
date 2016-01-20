@@ -6,6 +6,9 @@ function model_menu_callback(obj,hObject,callbackdata)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+% for simplicity, remove all fit related data from nodes in Batch_loader
+obj.model.bl.reset_nodes();
+
 asm = obj.model.get_active_s_model();
 d = asm.dist;
 
