@@ -28,7 +28,7 @@ if isempty(indices) && not(isempty(obj.view.model.bl.nodes))
     end
     
     % data is loaded and fit all has been selected in Batch fitting Options
-    if obj.booleans.fit_all && any([ obj.booleans.p_use_original obj.booleans.p_use_active])
+    if obj.booleans.fit_all && any([ obj.booleans.p_use_original obj.booleans.p_use_active]) && any(obj.view.model.get_total_free_params())
        
         f = f | strcmp('fit_btn',tags);
         
@@ -55,9 +55,15 @@ elseif numel(indices) == 2
        
     f = strcmp('import_data_btn',tags) ... 
         | strcmp('set_path_btn',tags) ...
-        | strcmp('fit_btn',tags)...
         | strcmp('discard_data_btn',tags) ...
         | strcmp('save_now_btn',tags);
+    
+    % Check whether the all the parameters are fixed
+    if any(obj.view.model.get_total_free_params())
+       
+        f = f | strcmp('fit_btn',tags);
+        
+    end
     
     % Check if Multinode has been selected
     
@@ -86,7 +92,7 @@ elseif numel(indices) > 2
     
     
     %  fit only selected all has been selected in Batch fitting Options
-    if (obj.booleans.fit_all && not(obj.booleans.p_propagate)) || (obj.booleans.fit_selected && any([ obj.booleans.p_use_original obj.booleans.p_use_active]))
+    if any(obj.view.model.get_total_free_params()) && (obj.booleans.fit_all && not(obj.booleans.p_propagate)) || (obj.booleans.fit_selected && any([ obj.booleans.p_use_original obj.booleans.p_use_active]))
        
         f = f | strcmp('fit_btn',tags);
         

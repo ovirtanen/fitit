@@ -127,6 +127,7 @@ classdef Batch_loader_view < handle
         end
         update_booleans(obj,hObject,callbackdata);
         update_push_buttons(obj);
+        prev_state = switch_enable_panels(obj,input);
         
     end % public methods
     
