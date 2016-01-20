@@ -139,6 +139,19 @@ classdef Data_node < handle
             
         end
         
+        function remove_parameters(obj)
+           
+            obj.s_model_name = '';
+            obj.dist_name = '';
+            obj.bg_enabled = false(size(obj.data_sets));
+            obj.sls_br_enabled = false(size(obj.data_sets));
+            obj.sls_br_param = struct('ri',num2cell(NaN(size(obj.data_sets))),'wl',num2cell(NaN(size(obj.data_sets))));
+            obj.total_param_vector = NaN;
+            obj.total_param_bounds = [NaN NaN];
+            obj.total_fixed_params = true;
+            
+        end
+        
         
     end % public methods
     

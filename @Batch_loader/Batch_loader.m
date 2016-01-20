@@ -95,6 +95,7 @@ classdef Batch_loader < handle
             end
             
         end
+        reset_nodes(obj);
         single_load_data(obj,d,fn);
         update_table(obj);
        
