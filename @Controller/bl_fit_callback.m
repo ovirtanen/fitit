@@ -81,7 +81,7 @@ wb.WindowStyle = 'modal';
 %wb.CloseRequestFcn = @(src,callbackdata) beep();
 drawnow();
 
-obj.model.multi_lsq_fit(node_indices,fit_mode,@(x)wbar(wb,x)); % see wbar below
+obj.multi_lsq_fit(node_indices,fit_mode,@(x)wbar(wb,x)); % see wbar below
 
 wb.delete();
 

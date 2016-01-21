@@ -17,8 +17,8 @@ function multi_lsq_fit(obj,node_indices,fitmode,prg)
 % Copyright (c) 2015-2016, Otto Virtanen
 % All rights reserved.
 
-nodes = obj.bl.nodes;
-ani = obj.bl.active_node_index;
+nodes = obj.model.bl.nodes;
+ani = obj.model.bl.active_node_index;
 
 %% Some checks on the inputs
 
@@ -44,9 +44,9 @@ end
 %% Iterate, fit and update Data_nodes 
 
 % parameters of the currently active node
-p_active = obj.get_total_parameter_vector;
-[lb_a,ub_a] = obj.get_total_param_bounds;
-fixed = not(obj.get_total_free_params());
+p_active = obj.model.get_total_parameter_vector;
+[lb_a,ub_a] = obj.model.get_total_param_bounds;
+fixed = not(obj.model.get_total_free_params());
 
 j = 1; % iteration variable for the progress bar
 
@@ -56,31 +56,31 @@ switch fitmode
         
         for i = node_indices
             
-           obj.bl.set_active_node(i);
+           obj.model.bl.set_active_node(i);
            
-           if isempty(obj.bl.active_node.s_model_name) % crappy check, implement better method later
+           if isempty(obj.model.bl.active_node.s_model_name) % crappy check, implement better method later
                
-               obj.initialize_from_data_node(obj.bl.active_node,'onlydata');
-               obj.set_total_parameter_vector(p_active);
-               obj.set_total_bounds(lb_a,ub_a);
-               obj.set_total_fixed_vector(fixed);
+               obj.model.initialize_from_data_node(obj.model.bl.active_node,'onlydata');
+               obj.model.set_total_parameter_vector(p_active);
+               obj.model.set_total_bounds(lb_a,ub_a);
+               obj.model.set_total_fixed_vector(fixed);
                
            else
                
-                obj.initialize_from_data_node(obj.bl.active_node);
+                obj.model.initialize_from_data_node(obj.model.bl.active_node);
            
            end
            
-           if all(not(obj.get_total_free_params()))
+           if all(not(obj.model.get_total_free_params()))
            
                warning('All parameters fixed, skipping node.');
                continue;
                
            end
            
-           [p, std_p] = obj.lsq_fit();
-           obj.set_total_parameter_vector(p);
-           obj.bl.update_data_node_params(obj.bl.active_node);
+           [p, std_p] = obj.model.lsq_fit();
+           obj.model.set_total_parameter_vector(p);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node);
            
            prg(j/numel(node_indices));
            
@@ -93,23 +93,23 @@ switch fitmode
         
         for i = node_indices
            
-           obj.bl.set_active_node(i);
-           obj.initialize_from_data_node(obj.bl.active_node,'onlydata');
+           obj.model.bl.set_active_node(i);
+           obj.model.initialize_from_data_node(obj.model.bl.active_node,'onlydata');
            
-           obj.set_total_parameter_vector(p_active);
-           obj.set_total_bounds(lb_a,ub_a);
-           obj.set_total_fixed_vector(fixed);
+           obj.model.set_total_parameter_vector(p_active);
+           obj.model.set_total_bounds(lb_a,ub_a);
+           obj.model.set_total_fixed_vector(fixed);
            
-           if all(not(obj.get_total_free_params()))
+           if all(not(obj.model.get_total_free_params()))
            
                warning('All parameters fixed, skipping node.');
                continue;
                
            end
            
-           [p, std_p] = obj.lsq_fit();
-           obj.set_total_parameter_vector(p);
-           obj.bl.update_data_node_params(obj.bl.active_node);
+           [p, std_p] = obj.model.lsq_fit();
+           obj.model.set_total_parameter_vector(p);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node);
            
            prg(j/numel(node_indices));
            
@@ -119,7 +119,7 @@ switch fitmode
         
     case 3 % Use current parameters as guess for the first fit and use the results as guesses for subsequent fits
         
-        ani = obj.bl.active_node_index;
+        ani = obj.model.bl.active_node_index;
         
         pos = ani == node_indices;
         pos = find(pos);
@@ -147,25 +147,25 @@ switch fitmode
         
         % Set the parameters based on the first entry in the list
         
-        obj.bl.set_active_node(node_indices(1));
-        obj.initialize_from_data_node(obj.bl.active_node,'onlydata');
+        obj.model.bl.set_active_node(node_indices(1));
+        obj.model.initialize_from_data_node(obj.model.bl.active_node,'onlydata');
 
-        obj.set_total_parameter_vector(p_active);
-        obj.set_total_bounds(lb_a,ub_a);
-        obj.set_total_fixed_vector(fixed);
+        obj.model.set_total_parameter_vector(p_active);
+        obj.model.set_total_bounds(lb_a,ub_a);
+        obj.model.set_total_fixed_vector(fixed);
         
         % fit the first node
         
-        if all(not(obj.get_total_free_params()))
+        if all(not(obj.model.get_total_free_params()))
            
                warning('All parameters fixed, skipping node.');
                
         end
 
-        [p, std_p] = obj.lsq_fit();
+        [p, std_p] = obj.model.lsq_fit();
         p_active = p;       % if starting from a mid-node, propgation to the other direction starts with this guess
-        obj.set_total_parameter_vector(p);
-        obj.bl.update_data_node_params(obj.bl.active_node);
+        obj.model.set_total_parameter_vector(p);
+        obj.model.bl.update_data_node_params(obj.model.bl.active_node);
 
         prg(j/numel(node_indices));
         
@@ -175,31 +175,31 @@ switch fitmode
         
         for i = node_indices(2:end)
             
-           if all(not(obj.get_total_free_params()))
+           if all(not(obj.model.get_total_free_params()))
            
                warning('All parameters fixed, skipping node.');
                continue;
                
            end % if
            
-           obj.bl.set_active_node(i);
-           obj.initialize_from_data_node(obj.bl.active_node,'onlydata');
+           obj.model.bl.set_active_node(i);
+           obj.model.initialize_from_data_node(obj.model.bl.active_node,'onlydata');
            
            if i == iter_start % other side of the propagation point
                
-               obj.set_total_parameter_vector(p_active);
-               obj.bl.update_data_node_params(obj.bl.active_node);
+               obj.model.set_total_parameter_vector(p_active);
+               obj.model.bl.update_data_node_params(obj.model.bl.active_node);
                
            else
                
-               obj.set_total_parameter_vector(p);
-               obj.bl.update_data_node_params(obj.bl.active_node);
+               obj.model.set_total_parameter_vector(p);
+               obj.model.bl.update_data_node_params(obj.model.bl.active_node);
                
            end % if
            
-           [p, std_p] = obj.lsq_fit();
-           obj.set_total_parameter_vector(p);
-           obj.bl.update_data_node_params(obj.bl.active_node);
+           [p, std_p] = obj.model.lsq_fit();
+           obj.model.set_total_parameter_vector(p);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node);
            
            prg(j/numel(node_indices));
            

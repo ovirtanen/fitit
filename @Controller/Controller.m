@@ -91,6 +91,7 @@ classdef Controller < handle
         [d,p] = import_data(obj,ms);
         d = import_histogram_data(obj);
         load_from_data_node(obj,dn);
+        multi_lsq_fit(obj,node_indices,fitmode,prg);
         d = raw_data_to_array(obj,c);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
