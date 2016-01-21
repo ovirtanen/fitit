@@ -1,12 +1,12 @@
 function bl_discard_data_callback(obj,hObject,callbackdata)
 %BL_DISCARD_DATA_CALLBACK Remove specified Data_nodes from Batch_loader
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
 indices = obj.view.bl_view.last_t_indices;
 
-if isempty(indices) || not(all(indices(:,2) == 1))
+if not(isempty(indices)) && not(all(indices(:,2) == 1))
     
     error('Invalid selection.');
     
