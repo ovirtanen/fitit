@@ -9,6 +9,8 @@ classdef Batch_loader < handle
         active_node;
         active_node_index;
         
+        save_path;
+        
     end
     
     properties (Access = private)
@@ -30,6 +32,8 @@ classdef Batch_loader < handle
             obj.model = model;             
             obj.nodes = [];
             obj.active_node = [];
+            
+            obj.save_path = '';
                    
         end % Constructor
         
@@ -95,8 +99,10 @@ classdef Batch_loader < handle
             end
             
         end
+        set_save_path(obj,path);
         reset_nodes(obj);
         single_load_data(obj,d,fn);
+        update_data_node_params(obj,dn,varargin);
         update_table(obj);
        
     end

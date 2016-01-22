@@ -119,16 +119,18 @@ f = [obj.booleans.save_now_all,...
      obj.booleans.save_now_selected'];
 b_group.SelectedObject = r_btns(f);  
 
-% Set path push button
+% Set Path push button
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Set Path';
 btn.Tag = 'set_path_btn';
+btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_set_path_callback(hObject,callbackdata);
 btn.Units = 'pixels';
 
 btn_width = 0.9.*panel_width ./ 2;
 
 btn.Position = [(panel_width-btn_width.*2)./2 b_group.Position(2)-(btn_spacer + btn_height)  btn_width btn_height];
 
+% Save Now push button
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Save Now';
 btn.Tag = 'save_now_btn';

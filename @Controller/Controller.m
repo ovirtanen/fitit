@@ -115,6 +115,7 @@ classdef Controller < handle
         load_histogram_callback(obj,hObject,callbackdata);
         minimize_panel_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
+        open_bl_callback(obj,hObject,callbackdata);
         par_switch_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);
         si_scale_callback(obj,hObject,callbackdata);
@@ -126,6 +127,7 @@ classdef Controller < handle
         bl_batch_load_callback(obj,hObject,callbackdata);        
         bl_import_data_callback(obj,hObject,callbackdata);
         bl_ungroup_to_datasets(obj,hObject,callbackdata);
+        bl_set_path_callback(obj,hObject,callbackdata);
         bl_table_cell_selection_callback(obj);
         bl_table_callback(obj,hObject,callbackdata,bl_view);
                
