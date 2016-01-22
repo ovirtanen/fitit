@@ -28,7 +28,7 @@ function [p,std_p] = lsq_fit_core(obj,handles,active_handles,nc,q,intst,std,p,p_
 % std_p             Standard deviation of the parameters estimated from the
 %                   Jacobian
 
-% Copyright (c) 2015-2016, Otto Virtanen
+% Copyright (c) 2015,2016, Otto Virtanen
 % All rights reserved.
 
 

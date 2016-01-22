@@ -26,6 +26,7 @@ classdef (ConstructOnLoad = true) FileWriter < handle
     methods(Static)
        
        s =  cellToSpec(c,d);
+       write_line(path,format_spec,data);
         
     end
     

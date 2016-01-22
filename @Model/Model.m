@@ -72,6 +72,7 @@ classdef Model < handle
         % OTHER PUBLIC
         
         add_data_set(obj,ds);
+        phv = construct_p_header_vector(obj,b_std);
         sm = get_active_s_model(obj);
         p = get_total_parameter_vector(obj);
         l = get_total_free_params(obj);

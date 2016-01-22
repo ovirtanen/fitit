@@ -12,6 +12,10 @@ function multi_lsq_fit(obj,node_indices,fitmode,prg)
 %                   the first fit, then use the result of the fit as the
 %                   initial guess for the adjacent nodes
 % prg            Function handle to waitbar()
+%
+% Throws
+% bps_exception
+%
 
 
 % Copyright (c) 2015-2016, Otto Virtanen
@@ -37,6 +41,74 @@ elseif any(fitmode == [2 3]) && isempty(ani)
 elseif not(issorted(node_indices)) && numel(unique(node_indices)) == numel(node_indices) && all(node_indices > 0)
     
     error('Improper node indices list.');
+    
+end
+
+%% Check save options
+
+autosave = obj.view.bl_view.booleans.b_fit_autosave;
+
+p_export = obj.view.bl_view.booleans.export_p_to_table;
+p_path = [];
+text_export = obj.view.bl_view.booleans.export_as_text;
+text_path = [];
+
+% p table export
+
+if autosave && p_export
+   
+    if isempty(obj.model.bl.save_path)
+       
+        p_path = [pwd '/' datestr(now,30) '-FitIt-p-export.txt'];
+        
+    else
+        
+        p_path = [obj.model.bl.save_path '/' datestr(now,30) '-FitIt-p-export.txt'];
+        
+    end
+    
+    % Create the p export file.
+    
+    fid = fopen(p_path,'a');
+
+    if fid == -1
+
+        msgID = 'MULTI_LSQ_FIT:Bad_path_string.';
+        msg = 'Unable to open file for writing.';
+        bps_exception = MException(msgID,msg);
+
+        throw(bps_exception);
+        
+    else
+        
+        fclose(fid);
+
+    end
+    
+    
+    % Write parameter names to file
+    
+    phv = obj.model.construct_p_header_vector(true);
+    phv = [{'"Filenames"'}; phv(:)];
+    fspec = ['%s' repmat(' %s',[1 numel(phv) - 1]) '\n'];
+    
+    FileWriter.write_line(p_path,fspec,phv); % opens and closes automagically
+         
+end
+
+% Export full text file
+if autosave && text_export
+   
+    if isempty(obj.model.bl.save_path)
+       
+        text_path = [pwd '/'];
+        
+    else
+        
+        text_path = [obj.model.bl.save_path '/'];
+        
+    end
+    
     
 end
 
@@ -85,6 +157,26 @@ switch fitmode
            prg(j/numel(node_indices));
            
            j = j + 1;
+           
+           if autosave && p_export
+              
+               p_file = [p(:)'; std_p(:)'];
+               p_file = num2cell(p_file(:));
+               p_file = [strjoin(obj.model.bl.active_node.filenames,'+'); p_file];
+               
+               fspec = ['%s' repmat(' %.3e',[1 numel(p_file) - 1]) '\n'];
+               
+               FileWriter.write_line(p_path,fspec,p_file); % opens and closes automagically
+               
+           end
+           
+           if autosave && text_export
+              
+               path = [text_path datestr(now,30) '-' strjoin(obj.model.bl.active_node.filenames,'+') '-fit.txt'];
+               
+               obj.save_data(path);
+               
+           end
             
         end
         
@@ -114,6 +206,26 @@ switch fitmode
            prg(j/numel(node_indices));
            
            j = j + 1;
+           
+           if autosave && p_export
+              
+               p_file = [p(:)'; std_p(:)'];
+               p_file = num2cell(p_file(:));
+               p_file = [strjoin(obj.model.bl.active_node.filenames,'+'); p_file];
+               
+               fspec = ['%s' repmat(' %.3e',[1 numel(p_file) - 1]) '\n'];
+               
+               FileWriter.write_line(p_path,fspec,p_file); % opens and closes automagically
+               
+           end
+           
+           if autosave && text_export
+              
+               path = [text_path datestr(now,30) '-' strjoin(obj.model.bl.active_node.filenames,'+') '-fit.txt'];
+               
+               obj.save_data(path);
+               
+           end
            
         end
         
@@ -171,6 +283,26 @@ switch fitmode
         
         j = j + 1;
         
+        if autosave && p_export
+              
+               p_file = [p(:)'; std_p(:)'];
+               p_file = num2cell(p_file(:));
+               p_file = [strjoin(obj.model.bl.active_node.filenames,'+'); p_file];
+               
+               fspec = ['%s' repmat(' %.3e',[1 numel(p_file) - 1]) '\n'];
+               
+               FileWriter.write_line(p_path,fspec,p_file); % opens and closes automagically
+               
+        end
+        
+        if autosave && text_export
+              
+               path = [text_path datestr(now,30) '-' strjoin(obj.model.bl.active_node.filenames,'+') '-fit.txt'];
+               
+               obj.save_data(path);
+               
+           end
+        
         % Iterate through the rest of the nodes
         
         for i = node_indices(2:end)
@@ -204,6 +336,26 @@ switch fitmode
            prg(j/numel(node_indices));
            
            j = j + 1;
+           
+           if autosave && p_export
+              
+               p_file = [p(:)'; std_p(:)'];
+               p_file = num2cell(p_file(:));
+               p_file = [strjoin(obj.model.bl.active_node.filenames,'+'); p_file];
+               
+               fspec = ['%s' repmat(' %.3e',[1 numel(p_file) - 1]) '\n'];
+               
+               FileWriter.write_line(p_path,fspec,p_file); % opens and closes automagically
+               
+           end
+           
+           if autosave && text_export
+              
+               path = [text_path datestr(now,30) '-' strjoin(obj.model.bl.active_node.filenames,'+') '-fit.txt'];
+               
+               obj.save_data(path);
+               
+           end
                        
         end % for
         
