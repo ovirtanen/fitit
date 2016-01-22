@@ -10,9 +10,47 @@ function bl_table_cell_selection_callback(obj)
 %% Check whether Model data has to be copied to the previous active Data_node
 
 if obj.view.bl_view.booleans.p_update_always && not(isempty(obj.model.bl.active_node))
+    
+    % previously saved entries
+    
+    sm_name_node =  obj.model.bl.active_node.s_model_name;
+    dist_name_node = obj.model.bl.active_node.dist_name;
+    
+    p_node = obj.model.bl.active_node.total_param_vector;
+    bounds_node = obj.model.bl.active_node.total_param_bounds;
+    lb_node = bounds_node(:,1);
+    ub_node = bounds_node(:,2);
+    p_fixed_node = obj.model.bl.active_node.total_fixed_params;
+    
+    % Should be the same length
+    l_node = max([size(p_node(:),1) size(lb_node(:),1) size(ub_node(:),1) size(p_fixed_node(:),1)]);
+    
+    % currently loaded entries
+    
+    sm = obj.model.get_active_s_model();
+    
+    sm_name =  sm.name;
+    dist_name = sm.dist.name;
+    
+    p = obj.model.get_total_parameter_vector();
+    [lb,ub] = obj.model.get_total_param_bounds();
+    p_fixed = not(obj.model.get_total_free_params());
+    
+    l = max([size(p(:),1) size(lb(:),1) size(ub(:),1) size(p_fixed(:),1)]);
+     
+    if any(not([strcmp(sm_name_node,sm_name),...
+            strcmp(dist_name_node,dist_name),...
+            l_node == l,...
+            all(p_node == p),...
+            all(lb_node == lb),...
+            all(ub_node == ub),...
+            all(p_fixed_node == p_fixed)]))
+    
+        % Some parametes have been changed
+        obj.model.bl.update_data_node_params(obj.model.bl.active_node,false);
 
-    obj.model.bl.update_data_node_params(obj.model.bl.active_node);
-
+    end
+    
 end
 
 indices = obj.view.bl_view.last_t_indices;
@@ -88,6 +126,7 @@ else
     
 end
 
+obj.view.bl_view.update_table();
 obj.view.bl_view.update_push_buttons();
     
 else % Multiple Filename cells have been selected

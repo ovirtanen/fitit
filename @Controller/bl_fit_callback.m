@@ -115,6 +115,7 @@ else
     
 end
 
+obj.view.bl_view.update_table();
 obj.view.switch_enable_panels(prev_state);
 obj.view.update_f_button_status();
 obj.view.bl_view.switch_enable_panels(blv_prev_state);

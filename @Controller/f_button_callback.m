@@ -29,7 +29,7 @@ obj.model.set_total_parameter_vector(p);
 
 %% Update Data_node
 
-obj.model.bl.update_data_node_params(obj.model.bl.active_node);
+obj.model.bl.update_data_node_params(obj.model.bl.active_node,true);
 
 %% Update View
 
@@ -39,6 +39,13 @@ obj.view.update_axes();
 
 obj.view.switch_enable_panels(prev_state);
 obj.view.update_f_button_status();
+
+if ishghandle(obj.view.bl_view.gui)
+    
+    obj.view.bl_view.update_table();
+    
+end
+
 drawnow();
 
 end

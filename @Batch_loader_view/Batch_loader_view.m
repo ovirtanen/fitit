@@ -79,7 +79,7 @@ classdef Batch_loader_view < handle
                                      
            obj.table_timer = timer();
            obj.table_timer.Name = 'Table Selection Timer';
-           obj.table_timer.StartDelay = 0.2;
+           obj.table_timer.StartDelay = 0.1;
            obj.table_timer.TimerFcn = @obj.tt_timer_fcn;
                      
         end
