@@ -21,14 +21,21 @@ f = uimenu(p,'Label','File');
 f.Tag = 'file_menu';
 obj.menu.file = f;
 
+%{
 fl = uimenu(f,'Label','Load dataset');
 fl.Tag = 'single_ds_loader';
 fl.Callback = @(hObject,callbackdata) obj.controller.load_data_set_callback(hObject,callbackdata);
+%}
 
-flm = uimenu(f,'Label','Load multiset');
+flm = uimenu(f,'Label','Import data');
 %flm.Enable = 'off';
 flm.Tag = 'multiple_ds_loader';
 flm.Callback = @(hObject,callbackdata) obj.controller.load_data_set_callback(hObject,callbackdata);
+
+fbl = uimenu(f,'Label','Open Batch Loader');
+%flm.Enable = 'off';
+fbl.Tag = 'batch_loader';
+fbl.Callback = @(hObject,callbackdata) obj.controller.open_bl_callback(hObject,callbackdata);
 
 fs = uimenu(f,'Label','Save dataset');
 fs.Callback = @(hObject,callbackdata) obj.controller.save_data_callback(hObject,callbackdata);
