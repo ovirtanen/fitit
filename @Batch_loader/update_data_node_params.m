@@ -5,10 +5,14 @@ function update_data_node_params(obj,dn,varargin)
 %
 % update_data_node_params(dn)
 % update_data_node_params(dn,isfit)
+% update_data_node_params(dn,isfit,std) (This will be hopefully improved.)
 %
 % Parameters
 % dn            Data_node instance whose parameters will be updated
 % isfit         boolean, whether the update is due to fit
+% std           Standard deviation vector for p. The objective is to modify
+%               Model in the future so that the std would be saved there
+%               and this option would become unnecessary.
 %
 %
 
@@ -16,11 +20,15 @@ function update_data_node_params(obj,dn,varargin)
 % All rights reserved.
 
 
-if nargin > 3
+if nargin > 4
     
     error('Too many inargs.');
     
 elseif nargin == 3 && not(islogical(varargin{1}))
+    
+    error('Illegal inarg type.');
+    
+elseif nargin == 4 && not(islogical(varargin{1})) && not(isvector(varargin{2})) && not(isnumeric(varargin{2}))
     
     error('Illegal inarg type.');
     
@@ -57,6 +65,21 @@ dn.total_param_vector = p;
 dn.total_param_bounds = [lb ub];
 dn.total_fixed_params = f;
 
+% Check if STD data is available
+if nargin == 4
+   
+    if numel(varargin{2}) == numel(p)
+    
+        dn.total_std_vector = varargin{2};
+    
+    else
+    
+        error('Standard deviation vector has wrong number of elements.');
+        
+    end
+    
+end
+
 dn.bg_enabled = bg_e;
 dn.sls_br_enabled = sls_br_e;
 
@@ -66,7 +89,7 @@ if any(sls_br_e)
 
 end
 
-if nargin == 3
+if nargin >= 3 && islogical(varargin{1})
     
     dn.isfit = varargin{1};
     

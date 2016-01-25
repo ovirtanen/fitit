@@ -134,6 +134,7 @@ btn.Position = [(panel_width-btn_width.*2)./2 b_group.Position(2)-(btn_spacer + 
 btn = uicontrol(p,'Style','pushbutton');
 btn.String = 'Save Now';
 btn.Tag = 'save_now_btn';
+btn.Callback = @(hObject,callbackdata) obj.view.controller.bl_save_now_callback(hObject,callbackdata);
 btn.Units = 'pixels';
 
 btn.Position = [(panel_width-btn_width.*2)./2 + btn_width b_group.Position(2)-(btn_spacer + btn_height) btn_width btn_height];

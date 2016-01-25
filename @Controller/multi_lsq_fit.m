@@ -152,7 +152,7 @@ switch fitmode
            
            [p, std_p] = obj.model.lsq_fit();
            obj.model.set_total_parameter_vector(p);
-           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true,std_p);
            
            prg(j/numel(node_indices));
            
@@ -201,7 +201,7 @@ switch fitmode
            
            [p, std_p] = obj.model.lsq_fit();
            obj.model.set_total_parameter_vector(p);
-           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true,std_p);
            
            prg(j/numel(node_indices));
            
@@ -277,7 +277,7 @@ switch fitmode
         [p, std_p] = obj.model.lsq_fit();
         p_active = p;       % if starting from a mid-node, propgation to the other direction starts with this guess
         obj.model.set_total_parameter_vector(p);
-        obj.model.bl.update_data_node_params(obj.model.bl.active_node,true);
+        obj.model.bl.update_data_node_params(obj.model.bl.active_node,true,std_p);
 
         prg(j/numel(node_indices));
         
@@ -301,7 +301,7 @@ switch fitmode
                
                obj.save_data(path);
                
-           end
+        end
         
         % Iterate through the rest of the nodes
         
@@ -331,7 +331,7 @@ switch fitmode
            
            [p, std_p] = obj.model.lsq_fit();
            obj.model.set_total_parameter_vector(p);
-           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true);
+           obj.model.bl.update_data_node_params(obj.model.bl.active_node,true,std_p);
            
            prg(j/numel(node_indices));
            

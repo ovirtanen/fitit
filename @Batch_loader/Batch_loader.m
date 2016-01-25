@@ -91,7 +91,7 @@ classdef Batch_loader < handle
         end     
         function set_active_node(obj,ani)
            
-            if isempty(ani) || (numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes))
+            if isnumeric(ani) && (isempty(ani) || (numel(ani) == 1 && ani > 0 && ani <= numel(obj.nodes)))
                 
                 obj.active_node_index = ani;
                 obj.active_node = obj.nodes(ani);
