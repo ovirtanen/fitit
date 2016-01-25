@@ -62,6 +62,11 @@ if isempty(obj.view.bl_view.gui) || not(ishghandle(obj.view.bl_view.gui))
     obj.view.delete_g_sources_in_si_axes();
     obj.view.initialize_g_source_for_model();
     
+    % Disable Import data from File menu
+
+    m = findobj(obj.view.menu.file,'Tag','multiple_ds_loader');
+    m.Enable = 'off';
+    
 else
     
    % Make GUI active 

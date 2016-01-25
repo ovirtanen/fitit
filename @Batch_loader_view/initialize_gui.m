@@ -17,7 +17,7 @@ fig.Tag = 'Root';
 fig.NumberTitle = 'off';
 fig.ToolBar = 'none';
 fig.MenuBar = 'none';
-
+fig.CloseRequestFcn = @(hObject,callbackdata) obj.view.controller.bl_close_req_callback(hObject,callbackdata);
 fig.Units = 'pixels';
 fig.Position = [22  271 720  630]; %[left bottom width height]
 fig.Resize = 'off';
@@ -28,7 +28,7 @@ obj.gui = fig;
 
 t = uitable(fig);
 t.Units = 'pixels';
-t.CellSelectionCallback = @(hObject,callbackdata) obj.view.controller.bl_table_callback(hObject,callbackdata,obj);
+t.CellSelectionCallback = @(hObject,callbackdata) obj.view.controller.bl_table_callback(hObject,callbackdata,obj); % Non-standard callback
 
 t_width = 650;
 t_height = 270;

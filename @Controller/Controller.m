@@ -124,7 +124,8 @@ classdef Controller < handle
         
         %% Batch Loader CALLBACKS
         
-        bl_batch_load_callback(obj,hObject,callbackdata);        
+        bl_batch_load_callback(obj,hObject,callbackdata); 
+        bl_close_req_callback(obj,hObject,callbackdata);
         bl_import_data_callback(obj,hObject,callbackdata);
         bl_ungroup_to_datasets(obj,hObject,callbackdata);
         bl_set_path_callback(obj,hObject,callbackdata);
