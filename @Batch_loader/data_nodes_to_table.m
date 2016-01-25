@@ -51,7 +51,8 @@ ci = cellfun(@int2str,ci,'UniformOutput',false);
 fns = [dna.filenames]';
 
 isfit = repmat({'No'},size(fns));
-isfit([dna.isfit]') = {'Yes'};
+[~,r] = arrayfun(@(x)x.ismultinode,dna);
+isfit(repelem([dna.isfit]',r)) = {'Yes'};
 
 % Tracking of the save status not yet implemented
 %issaved = repmat({'-'},size(fns));

@@ -153,6 +153,9 @@ classdef Data_node < handle
             obj.total_param_bounds = [NaN NaN];
             obj.total_fixed_params = true;
             
+            obj.isfit = false;
+            obj.issaved = false;
+            
         end
         
         
