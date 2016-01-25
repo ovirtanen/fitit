@@ -39,6 +39,7 @@ classdef Data_node < handle
         
         sls_br_param;           % struct with fields ri and wl
         total_param_vector;
+        total_std_vector;
         total_param_bounds;
         total_fixed_params;
         
@@ -109,6 +110,7 @@ classdef Data_node < handle
             obj.sls_br_enabled = false(size(obj.data_sets));
             obj.sls_br_param = struct('ri',num2cell(NaN(size(obj.data_sets))),'wl',num2cell(NaN(size(obj.data_sets))));
             obj.total_param_vector = NaN;
+            obj.total_std_vector = NaN;
             obj.total_param_bounds = [NaN NaN];
             obj.total_fixed_params = true;
             
@@ -147,6 +149,7 @@ classdef Data_node < handle
             obj.sls_br_enabled = false(size(obj.data_sets));
             obj.sls_br_param = struct('ri',num2cell(NaN(size(obj.data_sets))),'wl',num2cell(NaN(size(obj.data_sets))));
             obj.total_param_vector = NaN;
+            obj.total_std_vector = NaN;
             obj.total_param_bounds = [NaN NaN];
             obj.total_fixed_params = true;
             
@@ -233,6 +236,20 @@ classdef Data_node < handle
             if isnumeric(p) && isvector(p)
                
                 obj.total_param_vector = p;
+                
+            else
+                
+                error('Invalid input argument');    
+                
+            end
+            
+        end
+        
+        function set.total_std_vector(obj,s)
+            
+            if isnumeric(s) && isvector(s)
+               
+                obj.total_std_vector = s;
                 
             else
                 
