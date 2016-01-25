@@ -53,10 +53,12 @@ fns = [dna.filenames]';
 isfit = repmat({'No'},size(fns));
 isfit([dna.isfit]') = {'Yes'};
 
-issaved = repmat({'No'},size(fns));
-issaved([dna.issaved]') = {'Yes'};
+% Tracking of the save status not yet implemented
+%issaved = repmat({'-'},size(fns));
+%issaved([dna.issaved]') = {'Yes'};
 
-t = [fns isfit issaved];
+%t = [fns isfit issaved];
+t = [fns isfit];
 
 end
 

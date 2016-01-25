@@ -36,7 +36,8 @@ t_spacer = 20;
 
 t.Position = [(fig.Position(3)-t_width)./2 fig.Position(4)-(t_height+t_spacer) t_width t_height]; %[left bottom width height]
 
-cnames = {'Filename','Fit','Saved'};
+%cnames = {'Filename','Fit','Saved'};
+cnames = {'Filename','Fit'};
 t.ColumnName = cnames;
 
 % Get any data that might be in the Model
@@ -51,7 +52,7 @@ small_column_width = 50;
 extra_spacer = 50;          % Works on my Mac.
 
 width = t.Position(3);
-t.ColumnWidth = {width - 2.* small_column_width-extra_spacer, small_column_width,small_column_width};
+t.ColumnWidth = {width - 1.* small_column_width-extra_spacer, small_column_width};
 
 obj.file_table = t;
 
