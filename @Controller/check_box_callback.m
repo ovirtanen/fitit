@@ -41,7 +41,7 @@ end % switch
 target.set_param(tag,v);
 obj.view.update_f_button_status();
 
-if not(isempty(obj.view.bl_view))
+if not(isempty(obj.view.bl_view.gui)) && ishghandle(obj.view.bl_view.gui)
     
     obj.view.bl_view.update_push_buttons();
     

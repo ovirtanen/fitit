@@ -217,20 +217,20 @@ else % ONLY DATA ----------------------------------------------------------
     
    for i = 1:numel(obj.s_models)
    
-    sm = obj.s_models{i};
-    sm.match_scale_factors_to_ds(numel(ds));
+        sm = obj.s_models{i};
+        sm.match_scale_factors_to_ds(numel(ds));
     
-    end
+   end
 
-    obj.bg.match_scale_factors_to_ds(numel(ds));
+   obj.bg.match_scale_factors_to_ds(numel(ds));
 
-    if not(isempty(obj.sls_br))
+   if not(isempty(obj.sls_br))
 
-        obj.match_br_to_ds(numel(ds));
+       obj.match_br_to_ds(numel(ds));
         
-    end
+   end
     
-    obj.update_handles();
+   obj.update_handles();
     
 end
 
