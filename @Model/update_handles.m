@@ -155,10 +155,15 @@ end % for
 % with a handle to res_function_integrator
 
 if not(isempty(obj.data_sets))
-    
+        
 sfilter = [ds.is_smeared];
 
-    if any(sfilter)
+
+    if any(sfilter) && not(isempty(obj.sls_br)) && any([obj.sls_br.enabled])
+        
+        error('Backreflection and SAS smearing cannot be enabled at the same time.');
+        
+    elseif any(sfilter)
 
         for j = find(sfilter)
 

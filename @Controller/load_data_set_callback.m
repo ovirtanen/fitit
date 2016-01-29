@@ -64,7 +64,15 @@ obj.view.delete_g_sources_in_si_axes();
 %obj.model.initialize_from_data(d);
 
 obj.model.bl.single_load_data(d,fn);                            % Create Data_node to Batch_loader
-obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model
+
+% SLS backreflection and SAS smearing cannot be enabled at the same time.
+if not(isempty(obj.model.sls_br)) && any([obj.model.bl.active_node.data_sets.is_smeared])
+        
+    obj.model.remove_sls_backreflection();
+    
+end
+
+obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model (update_handles)
 
 %% Initialize g_sources
 
@@ -100,6 +108,27 @@ if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
 else
     
     l.Enable = 'off';
+    
+end
+
+%% Check for SAS smearing
+
+l = findobj(obj.view.menu.tools,'Tag','br_switch');
+if any([obj.model.data_sets.is_smeared])
+   
+    l.Enable = 'off';
+    
+    if not(isempty(obj.view.br_panel))
+       
+       l.Label = 'Enable SLS Backreflection';
+       obj.view.delete_br_panel(); 
+       obj.view.update_axes();
+       
+    end
+    
+else
+    
+    l.Enable = 'on';
     
 end
 
