@@ -45,8 +45,8 @@ classdef Model < handle
         j = estimate_jacobian(p,delta_p,f,t,varargin);
         p = get_total_s_model_param_vector(sm);
         p = p0_to_p(p0,p,pf);
-        r = res_function(q,qn,sigma2);
-        v = res_variance(qn,a,b)
+        i_mod = res_function_integrator(nc,p,handles,qs,r,dq);
+        %v = res_variance(qn,a,b)
         
         
     end

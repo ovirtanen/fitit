@@ -10,19 +10,37 @@ function ds = data_to_data_set(d)
 %
 %
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
 
 [rows,cols] = size(d);
 
-if not(all([cols == 3 rows >= 3]))
+if rows < 3 || not(any([cols == 2 cols == 3 cols == 4]))
    
     error('Invalid data set structure.');
     
-end % id
+end % if
 
-ds = Data_set(d(:,1),d(:,2),d(:,3));
+switch cols
+    
+    case 2
+        
+        ds = Data_set(d(:,1),d(:,2));
+   
+    case 3
+        
+        ds = Data_set(d(:,1),d(:,2),d(:,3));
+        
+    case 4
+        
+        ds = Data_set(d(:,1),d(:,2),d(:,3),d(:,4).^2);
+        
+    otherwise
+        
+        error('Invalid data set structure.');
+        
+end
 
 end
 
