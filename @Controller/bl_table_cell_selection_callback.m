@@ -138,6 +138,13 @@ else % Multiple Filename cells have been selected
     %% Update Views
 
     obj.view.delete_g_sources_in_si_axes();
+    
+    % If SAS datasets with smearing were handled before, handles need to be
+    % updated as we do not have smearing values for the whole q range of 
+    % the plain model. Therefore the smeared expression cannot be
+    % calculated.
+
+    obj.model.update_handles();
     obj.view.initialize_g_source_for_model();
     
 end

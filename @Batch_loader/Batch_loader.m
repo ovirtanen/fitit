@@ -96,6 +96,14 @@ classdef Batch_loader < handle
                 obj.active_node_index = ani;
                 obj.active_node = obj.nodes(ani);
                 
+                % If active node is removed, also the remaining dataset has
+                % to be removed from the Model.
+                if isempty(ani)
+                   
+                    obj.model.remove_experimental_data();
+                    
+                end
+                
             end
             
         end
