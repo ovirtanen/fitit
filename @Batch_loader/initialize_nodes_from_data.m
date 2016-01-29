@@ -5,8 +5,8 @@ function dns = initialize_nodes_from_data(obj,d,p)
 %   initialize_nodes_from_data(d)
 %
 % Parameters
-% d             Cell array containing [j x 3] double arrays, where columns
-%               are q, intensity and std.
+% d             Cell array containing [j x 2-4] double arrays, where columns
+%               are q, intensity, std and smearing parameter sigma.
 % p             Cell array of strings, where each entry is the filepath of
 %               the corresponding data array in d
 % Returns
@@ -18,7 +18,7 @@ function dns = initialize_nodes_from_data(obj,d,p)
 % 'FitIt:InvalidInputDataFileNames'
 %
 
-bd = cellfun(@(x) isnumeric(x) && size(x,2)==3,d);
+bd = cellfun(@(x) isnumeric(x) && (size(x,2)==2 || size(x,2)==3 || size(x,2)==4),d);
 bp = cellfun(@(x) ischar(x),p);
 
 if not(numel(bd) == numel(bp))

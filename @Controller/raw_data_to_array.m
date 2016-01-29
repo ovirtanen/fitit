@@ -14,8 +14,9 @@ function d = raw_data_to_array(obj,c)
 %           array of strings row wise
 %
 %   Returns
-%   d       Cell array where each cell holds a three column double array,
-%           the columns corresponding to q, intensity and std.
+%   d       Cell array where each cell holds a two, three or four column 
+%           double array, the columns corresponding to q, intensity and std
+%           and smearing parameter sigma. Std and sigma can be missing.
 %
 % Throws
 % FitIt:InvalidFileStructure:No numeric data recognized.
@@ -50,7 +51,7 @@ for j = 1:numel(c)
     if datastart == numel(rc)
    
         err = MException('FitIt:InvalidFileStructure',...
-            'No numeric data recognized.');
+                         'No numeric data recognized.');
         throw(err);
     
     end % if
@@ -58,15 +59,15 @@ for j = 1:numel(c)
     d{j} = str2num(char(rc(datastart:end)));
 
     [~,cols] = size(d{j});
-
-    if (cols == 2)
+    
+    if cols == 2
    
         warning('Only two columns, STD appears to be missing. Using STD = 1.');
         
-    elseif not(cols == 3)
+    elseif cols == 1 || cols > 4
         
         err = MException('FitIt:InvalidFileStructure',...
-            'Data structure not recognized.');
+                         'Data structure not recognized.');
         throw(err);
       
     end % if

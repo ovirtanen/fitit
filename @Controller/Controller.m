@@ -41,7 +41,7 @@ classdef Controller < handle
         function obj = Controller(m,mode)
             
             obj.model = m;
-            obj.fr = File_reader('.txt');
+            obj.fr = File_reader({'*.txt' '.txt' ;'*.DAT' 'KWS-2 file'});
             obj.fw = FileWriter(obj,'.txt');
             
             obj.gpu_enabled_global = 0;

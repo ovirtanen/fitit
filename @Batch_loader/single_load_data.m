@@ -5,9 +5,10 @@ function single_load_data(obj,d,fn)
 %   which will be loaded to Model.
 %
 % Parameters
-% d             Cell array containing [j x 3] double arrays, where columns
-%               are q, intensity and std. If d contains more than one
-%               array, multiset for global fitting is created automatically
+% d             Cell array containing [j x 2-4] double arrays, where columns
+%               are q, intensity and std ans smearing parameter sigma. If d 
+%               contains more than one array, multiset for global fitting 
+%               is created automatically
 % fn            Cell array of strings, where each entry is the filename of
 %               the corresponding data array in d
 %
@@ -17,11 +18,10 @@ function single_load_data(obj,d,fn)
 %
 
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
-
-dns = initialize_nodes_from_data(obj,d,fn);
+dns = obj.initialize_nodes_from_data(d,fn);
 
 if numel(dns) == 1
     
