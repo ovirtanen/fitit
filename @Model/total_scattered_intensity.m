@@ -18,15 +18,17 @@ function [i_mod] = total_scattered_intensity(obj,nc,ihandles,q)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-i_mod = zeros(numel(q),1);
+i_mod = zeros(numel(q),1); % Column vector
 
 handles = obj.handles;
 p = obj.get_total_parameter_vector();
 
 %for i = ihandles
 for i = ihandles
-
-    i_mod = i_mod + handles{i}(nc,q,p);
+    
+    intensity = handles{i}(nc,q,p);
+    % Force the orientation.
+    i_mod = i_mod + intensity(:);
     
 end % for
 

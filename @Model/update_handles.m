@@ -21,7 +21,7 @@ function update_handles(obj)
 %% Some technicalities
 pnd = Pinds(obj);
 ds = obj.data_sets;
-nds = 1: max([1 numel(ds)]); % Dataset indices, minimum one pseudo-dataset
+nds = 1 : max([1 numel(ds)]); % Dataset indices, minimum one pseudo-dataset
 sms = obj.s_models;
 
 %% SLS_Backreflection stack
@@ -150,6 +150,46 @@ for i = 1 : pnd.n_species
     
 end % for
 
+%% Check whether SAS instrumental smearing has to be accounted for
+% If so, the handles for the affected datasets will be removed and replaced
+% with a handle to res_function_integrator
+
+if not(isempty(obj.data_sets))
+    
+sfilter = [ds.is_smeared];
+
+    if any(sfilter)
+
+        for j = find(sfilter)
+
+            qs = ds(j).qs;
+            r = ds(j).r;
+            dq = ds(j).dq;
+            ds_handles = handles(active_handles{j});
+
+            h = @(nc,q,p) Model.res_function_integrator(nc,p,ds_handles,qs,r,dq);
+
+            % Replace the active_handles for this dataset with the handle to
+            % the res_function_integrator
+
+            res_handle_index = active_handles{j}(1); % assign the replacement arbitrarily to the first handle for this dataset
+            
+            % Multiple curly brace indexing doesn't work, have to iterate
+            % though them
+            for k = active_handles{j}
+                handles{k} = [];
+            end
+            
+            handles{res_handle_index} = h;
+            active_handles{j} = res_handle_index;
+
+        end % for
+
+    end % if
+
+end % if
+
+
 %% Assing handle sets to their right places
 
 if not(isempty(ds)) 
@@ -162,8 +202,8 @@ if not(isempty(ds))
     
 end
 
-filter = cellfun(@isempty,handles);
-obj.handles = handles(not(filter));
+efilter = cellfun(@isempty,handles);
+obj.handles = handles(not(efilter));
 
 end
 

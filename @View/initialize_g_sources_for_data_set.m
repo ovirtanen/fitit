@@ -17,7 +17,17 @@ obj.graphics_root.CurrentFigure.CurrentAxes = si;
 %% Graphics_source for plotting the model intensity
 
 m = obj.model;
-q = linspace(0.0001,max(ds.q_exp),200)';
+
+if(ds.is_smeared)
+    
+    q = ds.q_exp;
+    
+else
+    
+    q = linspace(0.0001,max(ds.q_exp),200)';
+
+end
+
 ihandles = @() ds.active_handles;
 nc = m.nc;
 intst = @()m.total_scattered_intensity(nc,ihandles(),q);
