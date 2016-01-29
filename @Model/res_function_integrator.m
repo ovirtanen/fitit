@@ -15,7 +15,8 @@ function i_mod = res_function_integrator(nc,p,handles,qs,r,dq)
 % dq            Integration constants for nominal q values [1 x k double]
 %
 % Returns
-% i_mod         Model intensity smeared due to resolution function
+% i_mod         Model intensity smeared due to resolution function, columen
+%               vector
 %
 % qs = 
 %
@@ -73,6 +74,7 @@ end
 i_mod = i_mod .* r;
 i_mod = bsxfun(@times,i_mod,dq);
 i_mod = sum(i_mod,1);
+i_mod = i_mod(:);
 
 end
 
