@@ -22,19 +22,31 @@ if rows < 3 || not(any([cols == 2 cols == 3 cols == 4]))
     
 end % if
 
+% Remove negative intensity values
+neq_filter = d(:,2) > 0;
+
 switch cols
     
     case 2
         
-        ds = Data_set(d(:,1),d(:,2));
+        q = d(:,1);
+        intst = d(:,2);
+        ds = Data_set(q(neq_filter),intst(neq_filter));
    
     case 3
         
-        ds = Data_set(d(:,1),d(:,2),d(:,3));
+        q = d(:,1);
+        intst = d(:,2);
+        intst_std = d(:,3);
+        ds = Data_set(q(neq_filter),intst(neq_filter),intst_std(neq_filter));
         
     case 4
         
-        ds = Data_set(d(:,1),d(:,2),d(:,3),d(:,4).^2);
+        q = d(:,1);
+        intst = d(:,2);
+        intst_std = d(:,3);
+        sigma = d(:,4);
+        ds = Data_set(q(neq_filter),intst(neq_filter),intst_std(neq_filter),sigma(neq_filter).^2);
         
     otherwise
         
