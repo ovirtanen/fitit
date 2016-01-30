@@ -22,6 +22,9 @@ classdef Controller < handle
         fr;
         fw;
         
+        % Factors to convert imported q values to inverse nanometers
+        import_q_conversion_factor;
+        
         gpu;
         
     end
@@ -31,7 +34,8 @@ classdef Controller < handle
         gpu_enabled_global;
         par_enabled_global;
        
-        
+        import_filter_spec;
+      
     end
     
     %%
@@ -40,12 +44,21 @@ classdef Controller < handle
         %% Constructor
         function obj = Controller(m,mode)
             
-            obj.model = m;
-            obj.fr = File_reader({'*.txt' '.txt' ;'*.DAT' 'KWS-2 file'});
-            obj.fw = FileWriter(obj,'.txt');
-            
             obj.gpu_enabled_global = 0;
             obj.par_enabled_global = 0;
+            
+            obj.import_filter_spec = {'*.txt' 'Text import (.txt) (nm^{-1})';...
+                                       '*.DAT' 'KWS-2 file (å^{-1})'};
+            
+            % Factors to convert imported q values to inverse nanometers
+            obj.import_q_conversion_factor = [1;...
+                                              10];
+            
+            obj.model = m;
+            obj.fr = File_reader(obj.import_filter_spec);
+            obj.fw = FileWriter(obj,'.txt');
+            
+            
             
             % Select the default GPU if available
             if gpuDeviceCount > 0

@@ -54,6 +54,14 @@ if isempty(obj.view.bl_view.gui) || not(ishghandle(obj.view.bl_view.gui))
     %% Remove selections
     
     obj.model.bl.set_active_node([]);         % selection is poorly defined, get rid of it.
+    
+    % If SAS datasets with smearing were handled before, handles need to be
+    % updated as we do not have smearing values for the whole q range of 
+    % the plain model. Therefore the smeared expression cannot be
+    % calculated.
+
+    obj.model.update_handles();
+    
     obj.view.bl_view.update_push_buttons();
     
     %% Update Views

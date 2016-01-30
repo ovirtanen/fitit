@@ -1,4 +1,4 @@
-function dns = initialize_nodes_from_data(obj,d,p)
+function dns = initialize_nodes_from_data(obj,d,p,qcf)
 %INITIALIZE_NODES_FROM_DATA Initialize Data_nodes from data and add them to
 %Batch_loader
 %
@@ -9,6 +9,9 @@ function dns = initialize_nodes_from_data(obj,d,p)
 %               are q, intensity, std and smearing parameter sigma.
 % p             Cell array of strings, where each entry is the filepath of
 %               the corresponding data array in d
+% qcf           Conversion factor to convert q (and sigma, if present) to
+%               inverse nanometers
+%
 % Returns
 % dns           Data_node_instances sorted in ASCII dictionary order
 %
@@ -57,7 +60,7 @@ dns(numel(d),1) = Data_node();
 
 for i = 1 : numel(d)
           
-    ds = obj.model.data_to_data_set(d{i});
+    ds = obj.model.data_to_data_set(d{i},qcf);
     dns(i) = Data_node(p{i},ds);
            
 end

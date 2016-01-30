@@ -1,14 +1,14 @@
-function ds = data_to_data_set(d)
+function ds = data_to_data_set(d,qcf)
 %DATA_TO_DATA_SET Initialize Data_set from three-column double array
 %   
 %   ds = data_to_data_set(d)
 %
 % Parameters
-% d             Three column double array, with columns q, intensity and
-%               std
-%
-%
-%
+% d             2-4 column double array, with columns q, intensity,
+%               std and sigma parameters. Minimum q and intensity are
+%               required
+% qcf           Conversion factor to convert q (and sigma, if present) to
+%               inverse nanometers
 
 % Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
@@ -29,23 +29,23 @@ switch cols
     
     case 2
         
-        q = d(:,1);
+        q = d(:,1) .* qcf;
         intst = d(:,2);
         ds = Data_set(q(neq_filter),intst(neq_filter));
    
     case 3
         
-        q = d(:,1);
+        q = d(:,1) .* qcf;
         intst = d(:,2);
         intst_std = d(:,3);
         ds = Data_set(q(neq_filter),intst(neq_filter),intst_std(neq_filter));
         
     case 4
         
-        q = d(:,1);
+        q = d(:,1) .* qcf;
         intst = d(:,2);
         intst_std = d(:,3);
-        sigma = d(:,4);
+        sigma = d(:,4) .* qcf;
         ds = Data_set(q(neq_filter),intst(neq_filter),intst_std(neq_filter),sigma(neq_filter).^2);
         
     otherwise

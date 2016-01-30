@@ -12,6 +12,7 @@ classdef (ConstructOnLoad = true) File_reader < handle
         
         last_load_path;
         filter_spec;            % cellstr of file allowd extensions, e.g. {'.txt'}
+        last_filter_spec_index; % Filter spec index that was chosen at last import (See Controller)
         
     end
     

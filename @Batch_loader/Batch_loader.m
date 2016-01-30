@@ -59,8 +59,8 @@ classdef Batch_loader < handle
             
         end
         
-        batch_load_data(obj,d,fn); 
-        dns = initialize_nodes_from_data(obj,d,fn);
+        batch_load_data(obj,d,fn,qcf); 
+        dns = initialize_nodes_from_data(obj,d,fn,qcf);
         function remove_data_nodes(obj,nn)
            
             if isempty(nn) % All but selected was chosen but there is only one dataset
@@ -109,7 +109,7 @@ classdef Batch_loader < handle
         end
         set_save_path(obj,path);
         reset_nodes(obj);
-        single_load_data(obj,d,fn);
+        single_load_data(obj,d,fn,qcf);
         update_data_node_params(obj,dn,varargin);
         update_table(obj);
        
