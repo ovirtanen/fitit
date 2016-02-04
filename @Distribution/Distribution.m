@@ -27,11 +27,16 @@ classdef Distribution < handle
     
     properties (Constant)
        
-        available_distributions = {'Burr Type XII PSD';...
-                                    'Gumbel PSD';...
-                                    'Gaussian PSD';...
-                                    'Lognormal PSD';...
-                                    'Skew normal PSD'};
+        available_distributions = containers.Map({  'Burr Type XII PSD';
+                                                    'Gumbel PSD';
+                                                    'Gaussian PSD';
+                                                    'Lognormal PSD';
+                                                    'Skew normal PSD'},...
+                                                 {  @()DST_BurrXII();
+                                                    @()DST_Gumbel();
+                                                    @()DST_Gaussian();
+                                                    @()DST_Lognrml();
+                                                    @()DST_Skewnrml()});
         
     end
     
@@ -64,6 +69,7 @@ classdef Distribution < handle
         m = mean(nc);
         mx = max_limit(obj);
         lims = axis_lims(obj);
+        n = n_total_params(obj);
         
     end
     
@@ -74,6 +80,7 @@ classdef Distribution < handle
         set_fixed_vector(obj,pf);
         set_param(obj,tag,value);
         set_param_vector(obj,p);
+        set_bounds_vectors(obj,lb,ub);
         
     end
     

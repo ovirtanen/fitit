@@ -62,123 +62,26 @@ if any(cellfun(@isempty,{q intst std}))
     
 end % if
 
-%% Prepare parameter vector and bounds
-
-% Parameter vector
 p = obj.get_total_parameter_vector();
-
-% Free parameters
-free_filter = obj.get_total_free_params();
-pf = 1:numel(p);
-pf = pf(free_filter);
-
-% values of the initial guess
-x0 = p(pf);                     
-
-% Parameter bounds
+p_free = obj.get_total_free_params();
 [lb,ub] = obj.get_total_param_bounds();
+bf = [0 0];
 
-lb = lb(pf);
-ub = ub(pf);
-
-% p0_to_p maps the free parameters to their right places in the total
-% parameter vector.
-prm = @(p0) obj.p0_to_p(p0,p,pf);
-
-%% Handle for fmincon
-
-% ***
-% *** Special case for a regularized fit using SM_Free_profile ***
-% ***
+%% Check for SM_Free_profile
 
 smfp = cellfun(@(x)isa(x,'SM_Free_profile'),obj.s_models);
 
 if any(smfp)
     
-    % Warning: this goes south if logical indexing gets more than one
-    % model, sm will be the first match.
-    
     sm = obj.s_models{smfp};
-    
-    % The second thing that goes south here is that the length of p changes
-    % if background and backreflection (in future maybe more?) are enabled.
-    % This is taken care of in Model.update_handles for regular models, but
-    % has to be recognized here for SM_Free_profile.reg(p).
-    
-    if isempty(obj.sls_br)
-        
-        ps = 1 + numel(obj.bg.enabled);
-        
-    else
-        
-        ps = 1 + numel(find(obj.bg.enabled)) + numel(find([obj.sls_br.enabled]));
-            
-    end
-    
-    nds = numel(obj.data_sets);
-    np = sm.n - 1;
-    
-    pinds = [ps ps+nds+1:ps+nds+np];
-    
-    switch sm.sno
-        
-        case -1
-            
-            rh = @(x) sm.reg(x(pinds),-1);  % second derivative smoothing norm
-       
-        case 0
-            
-            rh = @(x) sm.reg(x(pinds),0);  % second derivative smoothing norm
-            
-        case 1
-            
-            rh = @(x) sm.reg(x(pinds),1);  % second derivative smoothing norm
-            
-        case 2
-            
-            rh = @(x) sm.reg(x(pinds),2);  % second derivative smoothing norm
-            
-        otherwise
-            
-            error('Illegal regularization norm.');
-        
-    end
-    
-    f = @(x) Model.chi2reg(nc,q,intst,std,prm(x),active_handles,handles,rh);
-    
-else % *** All the other models without regularization ***
-    
-    f = @(x) Model.chi2(nc,q,intst,std,prm(x),active_handles,handles);
-
-end
-
-%% Minimize
-
-if isempty(options)
-
-    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub);
-    
-else
-    
-    [pfit,~,exitflag,~,~,grad] = fmincon(f,x0,[],[],[],[],lb,ub,[],options);
-    
-end % if
-
-%% Estimate the standard deviation of the least squares solution
-
-if any(smfp)    % STD for ill-conditioned inverse problem is crap
-
-    std_p = -1.*ones(size(p));
-    
-else
-    
-    std_p = obj.estimate_p_std();
+    bf = [sm.sno sm.n];
     
 end
 
-%% Return
+%% Minimize and return
 
-p(pf) = pfit;
+[p,std_p] = lsq_fit_core(obj,handles,active_handles,nc,q,intst,std,p,p_free,lb,ub,bf,options);
+
 
 end
 

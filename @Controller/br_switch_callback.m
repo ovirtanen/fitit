@@ -1,9 +1,11 @@
 function br_switch_callback(obj,hObject,callbackdata)
 %BR_SWITCH_CALLBACK Callback for toggling SLS back reflection
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015,2016 Otto Virtanen
 % All rights reserved.
 
+% for simplicity, remove all fit related data from nodes in Batch_loader
+obj.model.bl.reset_nodes();
 
 switch isempty(obj.model.sls_br)
     
@@ -17,6 +19,7 @@ switch isempty(obj.model.sls_br)
 
         obj.view.initialize_br_panel(obj.view.gui);
         
+        obj.model.update_handles();
         obj.view.update_axes();
 
         hObject.Label = 'Disable SLS Backreflection';

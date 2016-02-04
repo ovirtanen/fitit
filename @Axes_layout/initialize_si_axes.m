@@ -19,7 +19,6 @@ si.YScale = 'log';
         
 si.Box = 'on';
 
-
 %% Add Graphics_source to the Axes_layout for plotting the model
  
 m = obj.view.model;

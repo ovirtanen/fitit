@@ -14,6 +14,13 @@ if not(isempty(sms)) && any(sms.gpu_enabled)
 
 end
 
+if not(isempty(obj.view.bl_view.gui)) && ishghandle(obj.view.bl_view.gui)
+   
+    close(obj.view.bl_view.gui);
+    
+end
+
+
 close(obj.view.gui);
 delete(obj.view);
 delete(obj.model);

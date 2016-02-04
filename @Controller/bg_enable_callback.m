@@ -6,6 +6,8 @@ function bg_enable_callback(obj,hObject,callbackdata)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
+obj.model.bl.reset_nodes();
+
 state = hObject.Value;
 nbg = str2double(hObject.Tag(8));
 panel = ancestor(hObject,'uipanel');

@@ -56,6 +56,7 @@ classdef DST_Gumbel < Distribution & handle
         m = mean(obj,nc);
         mx = max_limit(obj);
         lims = axis_lims(obj);
+        n = n_total_params(obj);
         
     end % public methods
 

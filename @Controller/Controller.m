@@ -22,6 +22,9 @@ classdef Controller < handle
         fr;
         fw;
         
+        % Factors to convert imported q values to inverse nanometers
+        import_q_conversion_factor;
+        
         gpu;
         
     end
@@ -31,7 +34,8 @@ classdef Controller < handle
         gpu_enabled_global;
         par_enabled_global;
        
-        
+        import_filter_spec;
+      
     end
     
     %%
@@ -40,12 +44,21 @@ classdef Controller < handle
         %% Constructor
         function obj = Controller(m,mode)
             
-            obj.model = m;
-            obj.fr = File_reader('.txt');
-            obj.fw = FileWriter(obj,'.txt');
-            
             obj.gpu_enabled_global = 0;
             obj.par_enabled_global = 0;
+            
+            obj.import_filter_spec = {'*.txt' 'Text import (.txt) (nm^{-1})';...
+                                       '*.DAT' 'KWS-2 file (å^{-1})'};
+            
+            % Factors to convert imported q values to inverse nanometers
+            obj.import_q_conversion_factor = [1;...
+                                              10];
+            
+            obj.model = m;
+            obj.fr = File_reader(obj.import_filter_spec);
+            obj.fw = FileWriter(obj,'.txt');
+            
+            
             
             % Select the default GPU if available
             if gpuDeviceCount > 0
@@ -88,13 +101,16 @@ classdef Controller < handle
         
         %% OTHER PUBLIC
         
-        d = import_data(obj,ms);
+        [d,p] = import_data(obj,input);
         d = import_histogram_data(obj);
-        add_data_set_to_model(obj,d);
+        load_from_data_node(obj,dn);
+        multi_lsq_fit(obj,node_indices,fitmode,prg);
         d = raw_data_to_array(obj,c);
+        p_table_export(obj,nodes);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
         sm_ui_cleanup(obj,sm_name);
+        text_file_export(obj,nodes);
         
         %% CALLBACKS
         
@@ -114,11 +130,23 @@ classdef Controller < handle
         load_histogram_callback(obj,hObject,callbackdata);
         minimize_panel_callback(obj,hObject,callbackdata);
         model_menu_callback(obj,hObject,callbackdata);
+        open_bl_callback(obj,hObject,callbackdata);
         par_switch_callback(obj,hObject,callbackdata);
         save_data_callback(obj,hObject,callbackdata);
         si_scale_callback(obj,hObject,callbackdata);
         slider_callback(obj,hObject,callbackdata);
         quit_callback(obj,hObject,callbackdata);
+        
+        %% Batch Loader CALLBACKS
+        
+        bl_batch_load_callback(obj,hObject,callbackdata); 
+        bl_close_req_callback(obj,hObject,callbackdata);
+        bl_import_data_callback(obj,hObject,callbackdata);
+        bl_ungroup_to_datasets(obj,hObject,callbackdata);
+        bl_set_path_callback(obj,hObject,callbackdata);
+        bl_save_now_callback(obj,hObject,callbackdata);
+        bl_table_cell_selection_callback(obj);
+        bl_table_callback(obj,hObject,callbackdata,bl_view);
                
     end % public methods
     

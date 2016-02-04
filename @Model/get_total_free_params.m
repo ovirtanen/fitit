@@ -13,7 +13,9 @@ bg_enabled = obj.bg.enabled;
 
 if any(bg_enabled)
     
-    bg_chcks = cell2mat(obj.bg.params(:,4));
+    % There's an inconsistency somewhere where logicals and double 1 & 0 are
+    % mixed happily. This is not a good solution.
+    bg_chcks = cellfun(@logical,obj.bg.params(:,4));
     
     l = [l; logical(bg_chcks(bg_enabled))];
         
@@ -26,9 +28,9 @@ brs = obj.sls_br;
 if not(isempty(brs)) && any([brs.enabled])
     
     fixed = {brs.eta};
-    fixed = cellfun(@(x)x{4},fixed([brs.enabled]));
+    fixed = cellfun(@(x)logical(x{4}),fixed([brs.enabled]));
     
-    l = [l; fixed(:)];
+    l = [l; logical(fixed(:))];
     
 end
 
@@ -40,9 +42,11 @@ for i = 1:numel(obj.s_models)
     
     lsm = sm.params(:,4);
     ldist = sm.dist.params(:,4);
-    t = cell2mat([lsm; ldist]);
+    % There's a bug somewhere so that lsm ldist might not be logical but
+    % double.
+    t = cellfun(@logical,[lsm; ldist]); 
     
-    l = logical([l;logical(t)]);
+    l = logical([l;t]);
     l = not(l);
     
 end % for

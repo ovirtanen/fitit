@@ -83,7 +83,7 @@ classdef Graphics_source < handle
             end % switch
             
             obj.target_axis = target_axis;
-            axes(obj.target_axis);
+            %axes(obj.target_axis);
             hold(obj.target_axis,'on');
             
             obj.axis_lims = a_lims;

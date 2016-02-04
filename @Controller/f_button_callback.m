@@ -17,21 +17,35 @@ if any(cellfun(@(x)isa(x,'SM_Free_profile'),obj.model.s_models))
     options.MaxFunEvals = 5000;
     options.TolX = 1e-7;
     
-    p = obj.model.lsq_fit(options);
+    [p,p_std] = obj.model.lsq_fit(options);
     
 else
     
-    p = obj.model.lsq_fit();
+    [p,p_std] = obj.model.lsq_fit();
     
 end
 
 obj.model.set_total_parameter_vector(p);
+
+%% Update Data_node
+
+obj.model.bl.update_data_node_params(obj.model.bl.active_node,true,p_std);
+
+%% Update View
+
 obj.view.update_vals_from_model();
 obj.view.update_sliders();
 obj.view.update_axes();
 
 obj.view.switch_enable_panels(prev_state);
 obj.view.update_f_button_status();
+
+if ishghandle(obj.view.bl_view.gui)
+    
+    obj.view.bl_view.update_table();
+    
+end
+
 drawnow();
 
 end

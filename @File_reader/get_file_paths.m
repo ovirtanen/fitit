@@ -11,7 +11,7 @@ function p = get_file_paths(obj,ms)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-[filenames, pathnames, ~] = uigetfile(obj.filter_spec,'Select files for import','MultiSelect',ms,obj.last_load_path);
+[filenames, pathnames, filter_spec_index] = uigetfile(obj.filter_spec,'Select files for import','MultiSelect',ms,obj.last_load_path);
             
 if isequal(filenames,0) || isequal(pathnames,0)
                
@@ -34,6 +34,7 @@ else filepaths = {filepaths}; % only one file selected
 end % if
 
 obj.last_load_path = pathnames;
+obj.last_filter_spec_index = filter_spec_index;
 
 p = filepaths;
 

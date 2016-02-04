@@ -27,7 +27,7 @@ end % switch
 
 try 
     
-    d = obj.import_data(ms); % d contains only one data set for now
+    [d,fn] = obj.import_data(ms);
     
 catch ME
    
@@ -59,55 +59,21 @@ end % try-catch
 
 %% Clean up data 
 
-data = std_chck(d);
-data = rm_neg(data);
-
 obj.view.delete_g_sources_in_si_axes();
-obj.model.remove_experimental_data();
 
-%% Initialize according to the number of datasets
+%obj.model.initialize_from_data(d);
 
-switch ms
-    
-    case 'on'
-        
-       for i = 1 : numel(data)
-          
-            obj.add_data_set_to_model(data{i});
-           
-       end
-        
-    case 'off'
-        
-       obj.add_data_set_to_model(data{1});
-       
-    otherwise
-        
-        error('Data loading error.');
-        
-end % switch
+qcf = obj.import_q_conversion_factor(obj.fr.last_filter_spec_index);
+obj.model.bl.single_load_data(d,fn,qcf); % Create Data_node to Batch_loader
 
-%% Adjust the number of paramters in the scattering models
-
-
-for i = 1:numel(obj.model.s_models)
-   
-    sm = obj.model.s_models{i};
-    sm.match_scale_factors_to_ds(numel(data));
+% SLS backreflection and SAS smearing cannot be enabled at the same time.
+if not(isempty(obj.model.sls_br)) && any([obj.model.bl.active_node.data_sets.is_smeared])
+        
+    obj.model.remove_sls_backreflection();
     
 end
 
-obj.model.bg.match_scale_factors_to_ds(numel(data));
-
-if not(isempty(obj.model.sls_br))
-   
-    obj.model.match_br_to_ds(numel(data));
-    
-end
-
-%% Update handles
-
-obj.model.update_handles();
+obj.model.initialize_from_data_node(obj.model.bl.active_node);  % Load data to Model (update_handles)
 
 %% Initialize g_sources
 
@@ -120,7 +86,7 @@ end
 %% update UI
 
 obj.view.swap_panel('sm_panel');
-obj.sm_ui_cleanup(sm.name);
+obj.sm_ui_cleanup(obj.model.get_active_s_model().name);
 obj.view.swap_panel('bg_panel');
 
 if not(isempty(obj.model.sls_br))
@@ -146,43 +112,29 @@ else
     
 end
 
-end
+%% Check for SAS smearing
 
-function d = std_chck(d)
-   % check whether STD is included and if not, add STD = 1
-
-   dcols = cellfun(@(x)size(x,2), d);
-
-   std_missing = dcols == 2;
-
-   if any(std_missing)
-
-       f = @(x) [x ones(size(x,1),1)];
-       d = cellfun(f,d(std_missing),'UniformOutput',false);
-
-   end
-
-end
-
-function d = rm_neg(d)
-% removes negative intensity values from the data
-
-for i = 1 : numel(d)
+l = findobj(obj.view.menu.tools,'Tag','br_switch');
+if any([obj.model.data_sets.is_smeared])
    
-    di = d{i};
+    l.Enable = 'off';
     
-    q = di(:,1);
-    intst = di(:,2);
-    std = di(:,3);
+    if not(isempty(obj.view.br_panel))
+       
+       l.Label = 'Enable SLS Backreflection';
+       obj.view.delete_br_panel(); 
+       obj.view.update_axes();
+       
+    end
     
-    f = intst > 0;
+else
     
-    di = [q(f) intst(f) std(f)];
-    d{i} = di;
-    
+    l.Enable = 'on';
     
 end
 
 end
+
+
 
 

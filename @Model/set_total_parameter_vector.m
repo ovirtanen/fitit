@@ -9,63 +9,41 @@ function set_total_parameter_vector(obj,p)
 % Copyright (c) 2015, Otto Virtanen
 % All rights reserved.
 
-%% Starting index for scattering models' parameters
+pnd = Pinds(obj);
 
-% number of backgrounds
-ebg = obj.bg.enabled;
-nbg = ebg(ebg == true);
-nbg = numel(nbg);
+% Some inelegant counters for tracking the local indices in the Model
+% instance.
 
-% number of backreflections
-if not(isempty(obj.sls_br))
-   
-    ebr = [obj.sls_br.enabled];
-    nbr = ebr(ebr == true);
-    nbr = numel(nbr);
-    
-else
-    
-    nbr = 0;
-    
-end
+bri = 0;
+smi = 0;
 
-ps = 1 + nbg + nbr;
-
-%% Background
-
-if nbg > 0
+for i = 1:pnd.n_species
     
-    obj.bg.set_param_vector(p(1:nbg));
+    [pinds,type] = pnd.next();
     
-end
-  
-%% Backreflection
-
-if nbr > 0
-    
-    for i = 1:nbr
+    switch type
+       
+        case 'SM_Background'
         
-        obj.sls_br(i).set_param_vector(p(nbg+i));
-        
-    end
+            obj.bg.set_param_vector(p(pinds));
+            
+        case 'SLS_Backreflection'
+            
+            bri = bri + 1; 
+            obj.sls_br(bri).set_param_vector(p(pinds));
+            
+        case 'Scattering_model'
+            
+            smi = smi + 1;
+            obj.s_models{smi}.set_param_vector(p(pinds));
+            
+        otherwise
+            
+            error('Unrecognized Model component.');
+            
+    end % switch
     
 end
-
-%% Scattering models
-
-for i = 1 : numel(obj.s_models)
-    
-    sm = obj.s_models{i};
-    np = numel(sm.p_ids) + numel(sm.dist.p_ids);
-    
-    % parameter indices in the total parameter vector p
-    pinds = ps:ps+np-1;
-    
-    sm.set_param_vector(p(pinds));
-    ps = ps + np;
-    
-end % for
-
 
 end
 

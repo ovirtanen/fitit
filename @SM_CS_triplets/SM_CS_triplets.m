@@ -90,6 +90,7 @@ classdef SM_CS_triplets < Scattering_model_spherical & Parallel_capable & handle
         i_mod = scattered_intensity(obj,nc,q,p);
         [rprf,prf] = radial_profile(obj);
         lims = axis_lims(obj);
+        n = n_total_params(obj);         
         
     end % public methods
     

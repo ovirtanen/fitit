@@ -1,58 +1,80 @@
-function intst = res_function_integrator(nc,q_smeared,p,f)
+function i_mod = res_function_integrator(nc,p,handles,qs,r,dq)
 %RES_FUNCTION_INTEGRATOR Function to integrate the scattering model
-%experssion against q distribution due to instrumental smearing
+%experssion against q distribution due to instrumental smearing using the
+%mid-point rule.
 %
-%   intst = res_function_integrator(q_smeared,f)
+%   i_mod = res_function_integrator(nc,p,qs,r,dq)
 %
 % Parameters
-% q_smeared     A 3D composite matrix with q values and integration
-%               weights. See below for details
-% p             Total paramter vector for the model
-% f             Function handle to the model expression without smearing,
-%               f(nc,q,p)
+% nc            Number of integration points for the PSD
+% p             Total parameter vector
+% handles       Cell array of function handles relevant to the dataset
+% qs            Integration points for the smeared q [n x k double]
+% r             Resolution function values for the integration points 
+%               [n x k double]
+% dq            Integration constants for nominal q values [1 x k double]
 %
 % Returns
-% intst         Model intensity smeared due to resolution function
+% i_mod         Model intensity smeared due to resolution function, columen
+%               vector
 %
-% q_smeared(:,:,1) = 
+% qs = 
 %
-%   q(1,1) q(2,1) ... q(6,1) ... q(10,1) q(11,1)
-%   q(1,2) q(2,2) ... q(6,2) ... q(10,2) q(11,2)
-%   q(1,3) q(2,3) ... q(6,3) ... q(10,3) q(11,3)
-%     .      .          .           .       .
-%     .      .          .           .       .
-%   q(1,n) q(2,n) ... q(6,n) ... q(10,n) q(11,n)
+%   Nominal q values -->
+%   q1      q2     ... qk     
+%   _________________________
+%  | q(1,1) q(2,1) ... q(k,1)
+%  | q(1,2) q(2,2) ... q(k,2)
+%  | q(1,3) q(2,3) ... q(k,3)
+%  |   .      .          .       
+%  |   .      .          .      
+%  | q(1,n) q(2,n) ... q(6,n)
 %
-% q_smeared(:,:,2) = 
+% r = 
 %
-%   w(1,1) w(2,1) ... w(6,1) ... w(10,1) w(11,1)
-%   w(1,2) w(2,2) ... q(6,2) ... w(10,2) w(11,2)
-%   w(1,3) w(2,3) ... q(6,3) ... w(10,3) w(11,3)
-%     .      .          .           .       .
-%     .      .          .           .       .
-%   w(1,n) w(2,n) ... w(6,n) ... w(10,n) w(11,n)
+%   q1      q2     ... qk     
+%   _________________________
+%  | r(1,1) r(2,1) ... r(k,1)
+%  | r(1,2) r(2,2) ... r(k,2)
+%  | r(1,3) r(2,3) ... r(k,3)
+%  |   .      .          .       
+%  |   .      .          .      
+%  | r(1,n) r(2,n) ... r(6,n)
 %
-% Discretization to 11 points should be sufficient to express the
-% instrumental smearing. Column 6 holds the nominal q values, row vectors
-% q(i,:) hold the integration points of the q distribution. q_smeared(:,:,1)
-% contains the q values, q_smeared(:,:,2) contains integration weights,
-% i.e., QD(q_i,sigma_i) .* dq, where QD is the q distribution function with
-% nominal q value q_i and STD sigma_i.
 %
+% dq =
+%
+%   dq(1,1) dq(2,1) ... dq(k,1)
+%
+% In the matrix qs each column denotes the k nominal q values from q1 to qk. 
+% Rows in each column are the n integration points for the resolution
+% function. Resolution function values for each n integration point for
+% each nominal q value are in matrix r. Vector dq holds the integration
+% constant for each nominal q value.
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015,2016 Otto Virtanen
 % All rights reserved.
 
-q = q_smeared(:,:,1);
-w = q_smeared(:,:,2);
+i_mod = zeros(size(qs));
 
-intst = zeros(size(q,1),1);
+for i = 1:size(qs,1)
+    
+    for j = 1:numel(handles)
+        
+        intensity = handles{j}(nc,qs(i,:),p);
+        % Force the orientation of the vector. Whether the intensity from
+        % the handle is always a column vector, I'm not sure at this
+        % instant.
+        i_mod(i,:) = i_mod(i,:) + intensity(:)'; 
+        
+    end
+    
+end
 
-for i = 1:size(q,2)
-    
-    intst = intst + f(nc,q(:,i),p) .* w(:,i);  
-    
-end % for
+i_mod = i_mod .* r;
+i_mod = bsxfun(@times,i_mod,dq);
+i_mod = sum(i_mod,1);
+i_mod = i_mod(:);
 
 end
 

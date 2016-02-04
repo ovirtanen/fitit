@@ -8,15 +8,33 @@ function initialize_g_sources_for_data_set(obj,ds)
 
 si = findobj(obj.active_layout.axes_panel,'Tag','si_axes');
 
+% Set the Graphics Root object to FitIt figure and output to si axes. This
+% prevents the FitIt figure from jumping to the users face every time a new
+% Graphics source is initialized.
+obj.graphics_root.CurrentFigure = obj.gui;
+obj.graphics_root.CurrentFigure.CurrentAxes = si;
+
 %% Graphics_source for plotting the model intensity
 
 m = obj.model;
-q = linspace(0.0001,max(ds.q_exp),200)';
+
+if(ds.is_smeared)
+    
+    q = ds.q_exp;
+    
+else
+    
+    q = linspace(0.0001,max(ds.q_exp),200)';
+
+end
+
 ihandles = @() ds.active_handles;
-intst = @()m.total_scattered_intensity(150,ihandles(),q);
+nc = m.nc;
+intst = @()m.total_scattered_intensity(nc,ihandles(),q);
 
 gs = Graphics_source(si,'line',[0 0 0 0],q,intst);
 obj.active_layout.add_g_source(gs);
+
 
 %% Graphics_source for showing the experimental data
 

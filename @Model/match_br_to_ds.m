@@ -6,6 +6,12 @@ Lib.inargtchck(nds,@(x) all([numel(nds) == 1 isfloat(x) x >= 1 rem(x,1) == 0]));
 
 brs = obj.sls_br;
 
+if isempty(brs)
+    
+    return;
+    
+end
+
 %% Change the number of SLS_Backreflections
 
 if nds < numel(brs)

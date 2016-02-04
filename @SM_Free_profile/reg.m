@@ -1,4 +1,4 @@
-function r = reg(~,p,d)
+function r = reg(p,d)
 %REG Regularization term for SM_Free_profile
 %
 %   r = reg(p)
