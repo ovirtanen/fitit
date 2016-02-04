@@ -25,6 +25,14 @@ end % if
 % Remove negative intensity values
 neq_filter = d(:,2) > 0;
 
+if all(not(neq_filter))
+
+    ME = MException('data_to_data_set:invalid_intensity', ...
+                    'All intensity values are invalid (< 0)');
+    throw(ME);
+    
+end
+    
 switch cols
     
     case 2

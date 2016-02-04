@@ -2,7 +2,7 @@ function dns = initialize_nodes_from_data(obj,d,p,qcf)
 %INITIALIZE_NODES_FROM_DATA Initialize Data_nodes from data and add them to
 %Batch_loader
 %
-%   initialize_nodes_from_data(d)
+%   initialize_nodes_from_data(d,p,qcf)
 %
 % Parameters
 % d             Cell array containing [j x 2-4] double arrays, where columns
@@ -57,13 +57,32 @@ d = d(order);
 
 % Initialize Data_node array
 dns(numel(d),1) = Data_node();
+invalid = false(numel(d),1);
 
 for i = 1 : numel(d)
-          
-    ds = obj.model.data_to_data_set(d{i},qcf);
-    dns(i) = Data_node(p{i},ds);
+    
+    % negative intensity exception
+    try 
+        
+        ds = obj.model.data_to_data_set(d{i},qcf);
+        dns(i) = Data_node(p{i},ds);
+        
+    catch ME
+        
+        if strcmp(ME.identifier,'data_to_data_set:invalid_intensity')
+           
+            invalid(i) = true;
+            warning(['Invalid intensity, skipping file ' p{i}]);
+            continue;
+            
+        end % if
+        
+    end % try-catch
            
 end
+
+% Remove any skipped files from the nodes list
+dns(invalid) = [];
 
 end
 

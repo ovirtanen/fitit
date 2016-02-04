@@ -101,14 +101,16 @@ classdef Controller < handle
         
         %% OTHER PUBLIC
         
-        [d,p] = import_data(obj,ms);
+        [d,p] = import_data(obj,input);
         d = import_histogram_data(obj);
         load_from_data_node(obj,dn);
         multi_lsq_fit(obj,node_indices,fitmode,prg);
         d = raw_data_to_array(obj,c);
+        p_table_export(obj,nodes);
         swap_distribution(obj,dist);
         swap_s_model(obj,sm);
         sm_ui_cleanup(obj,sm_name);
+        text_file_export(obj,nodes);
         
         %% CALLBACKS
         

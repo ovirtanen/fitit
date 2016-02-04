@@ -37,6 +37,13 @@ catch ME
     
 end % try-catch
 
+if numel(d) == 0
+    
+    warning('No files could be imported. Check files');
+    return;
+    
+end
+
 %% Clean up data & load
 
 obj.view.delete_g_sources_in_si_axes();

@@ -15,7 +15,7 @@ function m = read_files(obj,p)
 %   Rethrows: 
 %       FitIt:UIException:Open dialog cancelled.
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
 if not(iscellstr(p))
@@ -24,17 +24,35 @@ if not(iscellstr(p))
     
 end
 
-m = cell(length(p),1); % initialize for speed
+m = cell(numel(p),1); % initialize for speed
 
-fids = cellfun(@fopen,p);
-
-for i = 1 : length(fids)
+for i = 1 : numel(p)
     
-    m{i} = obj.txt2cellstr(fids(i),[char(13) char(10)]);
+    fid = fopen(p{i});
+    
+    try
+        m{i} = obj.txt2cellstr(fid,[char(13) char(10)]);
+        
+    catch ME
+        
+        success = fclose(fid);
+        
+        if success == -1
+           warning(['Unable to close file ' p{i}]); 
+        end
+        
+        rethrow(ME);
+       
+    end
+    
+    success = fclose(fid);
+    
+    if success == -1
+           warning(['Unable to close file ' p{i}]); 
+    end
     
 end % for
 
-fclose('all');
 
 end
 

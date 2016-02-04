@@ -11,9 +11,10 @@ function batch_load_data(obj,d,fn,qcf,varargin)
 % all the Data_nodes will be sorted according to ASCII alphabet.
 %
 % Parameters
-% d             Cell array containing [j x 3] double arrays, where columns
-%               are q, intensity and std. If d contains more than one
-%               array, multiset for global fitting is created automatically
+% d             Cell array containing [j x 2-4] double arrays, where columns
+%               are q, intensity, std and smearing parameter sigma. (NOTE:
+%               not sigma2) If d contains more than one array, multiple 
+%               nodes are created.
 % fn            Cell array of strings, where each entry is the filename of
 %               the corresponding data array in d
 % qcf           Conversion factor to convert q (and sigma, if present) to
@@ -40,7 +41,7 @@ elseif nargin > 5
     
 end
 
-dns = initialize_nodes_from_data(obj,d,fn,qcf);
+dns = obj.initialize_nodes_from_data(d,fn,qcf);
 
 if isempty(obj.nodes)
     

@@ -8,7 +8,7 @@ function save_data(obj,varargin)
 %
 %
 
-% Copyright (c) 2015, Otto Virtanen
+% Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
 m = obj.model;
@@ -40,7 +40,11 @@ elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})
     pa.add_data(ds.std_exp,'STD','cm-1');
     
     % Fit
-    qfit = linspace(1e-4,max(ds.q_exp),200);
+    if ds.is_smeared
+        qfit = ds.q_exp;
+    else
+        qfit = linspace(1e-4,max(ds.q_exp),200);
+    end
     pa.add_data(qfit,'q fit','nm-1');
     pa.add_data(m.total_scattered_intensity(150,ds.active_handles,qfit),'Intensity','cm-1');
 
@@ -54,7 +58,11 @@ elseif n_data_sets > 1
         pa.add_data(ds(i).std_exp,['STD ' num2str(i)],'cm-1');
 
         % Fit
-        qfit = linspace(1e-4,max(ds(i).q_exp),200);
+        if ds.is_smeared
+            qfit = ds.q_exp;
+        else
+            qfit = linspace(1e-4,max(ds.q_exp),200);
+        end
         pa.add_data(qfit,['q fit ' num2str(i)],'nm-1');
         pa.add_data(m.total_scattered_intensity(150,ds(i).active_handles,qfit),['Intensity ' num2str(i)],'cm-1');
         

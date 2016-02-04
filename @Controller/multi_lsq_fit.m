@@ -45,14 +45,25 @@ elseif not(issorted(node_indices)) && numel(unique(node_indices)) == numel(node_
 end
 
 %% Check save options
+if isempty(obj.view) % cluster mode
+    
+    autosave = false;
+    
+    p_export = false;
+    p_path = [];
+    text_export = false;
+    text_path = [];
+    
+else
+    
+    autosave = obj.view.bl_view.booleans.b_fit_autosave;
 
-autosave = obj.view.bl_view.booleans.b_fit_autosave;
-
-p_export = obj.view.bl_view.booleans.export_p_to_table;
-p_path = [];
-text_export = obj.view.bl_view.booleans.export_as_text;
-text_path = [];
-
+    p_export = obj.view.bl_view.booleans.export_p_to_table;
+    p_path = [];
+    text_export = obj.view.bl_view.booleans.export_as_text;
+    text_path = [];
+    
+end
 % p table export
 
 if autosave && p_export

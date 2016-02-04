@@ -85,6 +85,7 @@ classdef Data_set < handle
                 % Use 10 point discretization, which should be sufficient
                 % according to Pedersen.
                 [obj.qs,obj.r,obj.dq] = Data_set.res_discretize(obj.q_exp,obj.s2,10);
+                
                 obj.is_smeared = true;
                 
             elseif nargin > 4
