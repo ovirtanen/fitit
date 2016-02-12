@@ -63,7 +63,7 @@ if not(all(0 == bf))
     pnd = Pinds(obj);
     pinds = pnd.get(pnd.n_species); % Parameter indices for the scattering model and distribution
     
-    pinds(1:numel(q)+1) = []; % Remove amplitude terms and lambda; numel(q) equals number of datasets equals number of ampitude terms.
+    pinds(2:numel(q)+1) = []; % Remove amplitude terms; numel(q) equals number of datasets equals number of ampitude terms.
     pinds(n:end) = []; % Remove Distribution related parameters.
     
     % pinds should contain n-1 elements, because the model happened to be
