@@ -22,7 +22,7 @@ for i = 1:numel(ds)
     
     f = @(x,t) total_intensity(nc,handles,ih,x,t);
     
-    ji = obj.estimate_jacobian(p,0.01.*p,f,q,1e-5);
+    ji = obj.estimate_jacobian(p,f,q);
     
     j = [j;ji];
     
