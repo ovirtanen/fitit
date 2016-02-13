@@ -58,10 +58,10 @@ elseif n_data_sets > 1
         pa.add_data(ds(i).std_exp,['STD ' num2str(i)],'cm-1');
 
         % Fit
-        if ds.is_smeared
-            qfit = ds.q_exp;
+        if ds(i).is_smeared
+            qfit = ds(i).q_exp;
         else
-            qfit = linspace(1e-4,max(ds.q_exp),200);
+            qfit = linspace(1e-4,max(ds(i).q_exp),200);
         end
         pa.add_data(qfit,['q fit ' num2str(i)],'nm-1');
         pa.add_data(m.total_scattered_intensity(150,ds(i).active_handles,qfit),['Intensity ' num2str(i)],'cm-1');
