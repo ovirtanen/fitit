@@ -32,5 +32,9 @@ FitIt Todo.txt
 # Test problems
 /Test problems
 
+# STD tests
+/STD_tests
+create_struct.m
+
 # MEX shit
 /MEX_tests
