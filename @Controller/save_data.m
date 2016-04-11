@@ -13,6 +13,7 @@ function save_data(obj,varargin)
 
 m = obj.model;
 ds = m.data_sets;
+nc = m.nc;
 
 n_smodels = numel(obj.model.s_models);
 n_data_sets = numel(ds);
@@ -31,7 +32,7 @@ if n_data_sets == 0 % only calculated model
     qfit = linspace(1e-4,xl(2),200);
     
     pa.add_data(qfit,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(150,1:numel(m.handles),qfit),'Intensity','cm-1');   
+    pa.add_data(m.total_scattered_intensity(nc,1:numel(m.handles),qfit),'Intensity','cm-1');   
 
 elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})) % one data set with empirical data
     
@@ -46,7 +47,7 @@ elseif n_data_sets == 1 && ~all(cellfun(@isempty,{ds.q_exp ds.i_exp ds.std_exp})
         qfit = linspace(1e-4,max(ds.q_exp),200);
     end
     pa.add_data(qfit,'q fit','nm-1');
-    pa.add_data(m.total_scattered_intensity(150,ds.active_handles,qfit),'Intensity','cm-1');
+    pa.add_data(m.total_scattered_intensity(nc,ds.active_handles,qfit),'Intensity','cm-1');
 
 
 elseif n_data_sets > 1
@@ -64,7 +65,7 @@ elseif n_data_sets > 1
             qfit = linspace(1e-4,max(ds(i).q_exp),200);
         end
         pa.add_data(qfit,['q fit ' num2str(i)],'nm-1');
-        pa.add_data(m.total_scattered_intensity(150,ds(i).active_handles,qfit),['Intensity ' num2str(i)],'cm-1');
+        pa.add_data(m.total_scattered_intensity(nc,ds(i).active_handles,qfit),['Intensity ' num2str(i)],'cm-1');
         
     end % for
     
@@ -95,7 +96,7 @@ for i = 1:numel(m.s_models)
     pa.add_data(params,sm.dist.name,'');
     pa.add_data(sm.dist.get_param_vector,'Fit values','');
 
-    [rpsd,psd,~] = sm.dist.psd(150,sm.dist.get_param_vector);
+    [rpsd,psd,~] = sm.dist.psd(nc,sm.dist.get_param_vector);
     
     pa.add_data(rpsd,'Radius','nm');
     pa.add_data(psd,'PSD','');
