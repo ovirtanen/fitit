@@ -24,6 +24,9 @@ classdef Controller < handle
         
         % Factors to convert imported q values to inverse nanometers
         import_q_conversion_factor;
+        % lines to skip in loaded data files, depending the instrument
+        % used. Analogous to import_q_conversion_factor
+        import_line_skip;
         
         gpu;
         
@@ -48,18 +51,22 @@ classdef Controller < handle
             obj.par_enabled_global = 0;
             
             obj.import_filter_spec = {'*.txt' 'Text import (.txt) (nm^{-1})';...
-                                       '*.DAT' 'KWS-2 file (å^{-1})'};
+                                       '*.DAT' 'KWS-2 file (a^{-1})'};
             
             % Factors to convert imported q values to inverse nanometers
-            obj.import_q_conversion_factor = [1;...
-                                              10];
+            obj.import_q_conversion_factor = [1;...     % Text import (.txt) (nm^{-1})
+                                              10        % KWS-2 file (a^{-1})
+                                              ];
+            obj.import_line_skip = [0;                  % Text import (.txt) (nm^{-1})
+                                    2;                  % KWS-2 file (a^{-1})
+                                    ];  
+                                        
             
             obj.model = m;
             obj.fr = File_reader(obj.import_filter_spec);
             obj.fw = FileWriter(obj,'.txt');
             
-            
-            
+                       
             % Select the default GPU if available
             if gpuDeviceCount > 0
                 
@@ -94,6 +101,12 @@ classdef Controller < handle
                 otherwise
                     
                     error('Invalid mode.')
+                
+            end
+            
+            if numel(obj.import_q_conversion_factor) ~= numel(obj.import_line_skip)
+                
+                error('Remember to update both import_q_conversion_factor and import_line_skip.');
                 
             end
             

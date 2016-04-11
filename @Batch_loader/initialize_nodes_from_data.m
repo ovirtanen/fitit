@@ -1,4 +1,4 @@
-function dns = initialize_nodes_from_data(obj,d,p,qcf)
+function dns = initialize_nodes_from_data(obj,d,p,qcf,ls)
 %INITIALIZE_NODES_FROM_DATA Initialize Data_nodes from data and add them to
 %Batch_loader
 %
@@ -11,6 +11,8 @@ function dns = initialize_nodes_from_data(obj,d,p,qcf)
 %               the corresponding data array in d
 % qcf           Conversion factor to convert q (and sigma, if present) to
 %               inverse nanometers
+% ls            Line skip, how many data lines to skip when initializing
+%               data_sets. 
 %
 % Returns
 % dns           Data_node_instances sorted in ASCII dictionary order
@@ -64,7 +66,8 @@ for i = 1 : numel(d)
     % negative intensity exception
     try 
         
-        ds = obj.model.data_to_data_set(d{i},qcf);
+        ds = obj.model.data_to_data_set(d{i},qcf,ls);
+        
         dns(i) = Data_node(p{i},ds);
         
     catch ME
@@ -74,6 +77,10 @@ for i = 1 : numel(d)
             invalid(i) = true;
             warning(['Invalid intensity, skipping file ' p{i}]);
             continue;
+            
+        else
+            
+            rethrow(ME);
             
         end % if
         

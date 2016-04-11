@@ -1,4 +1,4 @@
-function batch_load_data(obj,d,fn,qcf,varargin)
+function batch_load_data(obj,d,fn,qcf,ls,varargin)
 %BATCH_LOAD_DATA Load multiple Data_nodes to Batch_loader
 %   
 % batch_load_data(d,fn,qcf) initializes multiple datasets from data that will 
@@ -19,6 +19,8 @@ function batch_load_data(obj,d,fn,qcf,varargin)
 %               the corresponding data array in d
 % qcf           Conversion factor to convert q (and sigma, if present) to
 %               inverse nanometers
+% ls            Line skip, how many data lines to skip when initializing
+%               data_sets. 
 % loadseq       Not yet implemented
 %
 % Rethrows:
@@ -30,18 +32,24 @@ function batch_load_data(obj,d,fn,qcf,varargin)
 % All rights reserved.
 
 
-if nargin == 5
+if nargin == 6
    
     % check load sequence
     warning('Load sequencing not implemented yet');
     
-elseif nargin > 5 
+elseif nargin > 6 
     
     error('Too many input arguments.');
     
 end
 
-dns = obj.initialize_nodes_from_data(d,fn,qcf);
+if ls ~= 0
+   
+    warning(['Line skip of ' num2str(ls) ' is in use for data import.']);
+    
+end
+
+dns = obj.initialize_nodes_from_data(d,fn,qcf,ls);
 
 if isempty(obj.nodes)
     

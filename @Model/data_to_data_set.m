@@ -1,4 +1,4 @@
-function ds = data_to_data_set(d,qcf)
+function ds = data_to_data_set(d,qcf,ls)
 %DATA_TO_DATA_SET Initialize Data_set from three-column double array
 %   
 %   ds = data_to_data_set(d)
@@ -9,6 +9,8 @@ function ds = data_to_data_set(d,qcf)
 %               required
 % qcf           Conversion factor to convert q (and sigma, if present) to
 %               inverse nanometers
+% ls            Line skip, how many data lines to skip when initializing
+%               data_sets. 
 
 % Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
@@ -22,6 +24,10 @@ if rows < 3 || not(any([cols == 2 cols == 3 cols == 4]))
     
 end % if
 
+% Remove any bad points specific to this instrument
+start_index = 1 + ls;
+d = d(start_index:end,:);
+
 % Remove negative intensity values
 neq_filter = d(:,2) > 0;
 
@@ -32,7 +38,7 @@ if all(not(neq_filter))
     throw(ME);
     
 end
-    
+
 switch cols
     
     case 2

@@ -49,15 +49,16 @@ end
 obj.view.delete_g_sources_in_si_axes();
 
 qcf = obj.import_q_conversion_factor(obj.fr.last_filter_spec_index);
+ls = obj.import_line_skip(obj.fr.last_filter_spec_index);
 
 if not(isempty(obj.model.bl.nodes)) % previous data loaded, no need to reinitialize the whole GUI
     
-    obj.model.bl.batch_load_data(d,p,qcf);
+    obj.model.bl.batch_load_data(d,p,qcf,ls);
     obj.view.bl_view.update_table();
     
 else
     
-    obj.model.bl.batch_load_data(d,p,qcf);
+    obj.model.bl.batch_load_data(d,p,qcf,ls);
     
 end
 

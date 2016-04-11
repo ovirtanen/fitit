@@ -1,4 +1,4 @@
-function single_load_data(obj,d,fn,qcf)
+function single_load_data(obj,d,fn,qcf,ls)
 %SINGLE_LOAD_DATA Load one dataset or multiset to Model
 %   
 %   single_load_data(d,fn) initializes one or more datasets to one Data_node,
@@ -13,6 +13,8 @@ function single_load_data(obj,d,fn,qcf)
 %               the corresponding data array in d
 % qcf           Conversion factor to convert q (and sigma, if present) to
 %               inverse nanometers
+% ls            Line skip, how many data lines to skip when initializing
+%               data_sets. 
 %
 % Rethrows:
 % 'FitIt:InvalidInputDataStructure'
@@ -23,7 +25,13 @@ function single_load_data(obj,d,fn,qcf)
 % Copyright (c) 2015, 2016, Otto Virtanen
 % All rights reserved.
 
-dns = obj.initialize_nodes_from_data(d,fn,qcf);
+if ls ~= 0
+   
+    warning(['Line skip of ' num2str(ls) ' is in use for data import.']);
+    
+end
+
+dns = obj.initialize_nodes_from_data(d,fn,qcf,ls);
 
 if numel(dns) == 1
     

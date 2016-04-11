@@ -64,7 +64,8 @@ obj.view.delete_g_sources_in_si_axes();
 %obj.model.initialize_from_data(d);
 
 qcf = obj.import_q_conversion_factor(obj.fr.last_filter_spec_index);
-obj.model.bl.single_load_data(d,fn,qcf); % Create Data_node to Batch_loader
+ls = obj.import_line_skip(obj.fr.last_filter_spec_index);
+obj.model.bl.single_load_data(d,fn,qcf,ls); % Create Data_node to Batch_loader
 
 % SLS backreflection and SAS smearing cannot be enabled at the same time.
 if not(isempty(obj.model.sls_br)) && any([obj.model.bl.active_node.data_sets.is_smeared])
