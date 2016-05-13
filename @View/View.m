@@ -71,7 +71,7 @@ classdef View < handle
         
         function obj = View(c,m)
             
-            obj.version = '1.2.3';
+            obj.version = '1.2.3.1';
             
             obj.graphics_root = groot();
             
