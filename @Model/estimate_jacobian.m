@@ -50,7 +50,7 @@ end
 d_f = j2 - j1;
 d_p = ones(numel(t),1) * (2.*delta_p(:)');
 
-j = d_f ./ d_p;             % Jacobian
+j = -1 .* d_f ./ d_p;             % Jacobian
    
 end
 
