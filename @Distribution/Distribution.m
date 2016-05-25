@@ -30,11 +30,13 @@ classdef Distribution < handle
         available_distributions = containers.Map({  'Burr Type XII PSD';
                                                     'Gumbel PSD';
                                                     'Gaussian PSD';
+                                                    'Gaussian PSD in volume';
                                                     'Lognormal PSD';
                                                     'Skew normal PSD'},...
                                                  {  @()DST_BurrXII();
                                                     @()DST_Gumbel();
                                                     @()DST_Gaussian();
+                                                    @()DST_Gaussian_volume();
                                                     @()DST_Lognrml();
                                                     @()DST_Skewnrml()});
         
