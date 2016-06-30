@@ -1,4 +1,4 @@
-classdef SM_Stieger < Scattering_model_spherical & handle
+classdef SM_Fuzzy_sphere < Scattering_model_spherical & handle
     %SM_STIEGER Scattering model for Stieger microgel
     %   Detailed explanation goes here
     
@@ -7,7 +7,7 @@ classdef SM_Stieger < Scattering_model_spherical & handle
     
     properties (Constant)
        
-        name = 'Stieger Microgel Model';
+        name = 'Fuzzy Sphere Model';
         
     end
     
@@ -27,22 +27,22 @@ classdef SM_Stieger < Scattering_model_spherical & handle
     
     methods (Static)
        
-        p = p_mg_stieger(qr,q,f);
+        p = phi(q,r,sigma);
         
     end
     
     
     methods (Access = public)
        
-        function obj = SM_Stieger(d)
+        function obj = SM_Fuzzy_sphere(d)
             
             
             obj.dist = d;
             
-            obj.p_name_strings = {'Amplitude';
-                                  'Fuzziness (nm)'};
+            obj.p_name_strings = {'Amplitude (cm-^)';
+                                  '2 x sigma (%)'};
             obj.p_ids = {'a';
-                         'fuzz'};
+                         '2sigma'};
             
             % Model parameters map
             keyset = obj.param_ids_to_tags(obj.p_ids,'params');
@@ -52,7 +52,7 @@ classdef SM_Stieger < Scattering_model_spherical & handle
             
             % Model parameter default values
             obj.params = {0 1 1 1;              % Amplitude
-                          0 20 100 1};          % Fuzziness               
+                          0.01 0.5 1 1};           % Width ofthe total fuzzy section (2 x sigma) as fraction of total particle radius               
             
         end % constructor  
         
