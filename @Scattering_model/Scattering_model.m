@@ -14,6 +14,7 @@ classdef Scattering_model < handle
                                             %'Core-shell triplet aggregation model';
                                             'SANS Polymer Particle Model'
                                             'Stieger Microgel Model';
+                                            'Fuzzy Core Shell Model'
                                             'Numerical Microgel Model';
                                             'Numerical Microgel Model II';
                                             'Numerical Microgel Model III';
@@ -28,6 +29,7 @@ classdef Scattering_model < handle
                                             %@(d)SM_CS_triplets(d,false,false);
                                             @(d)SM_SANS_HS(d);
                                             @(d)SM_Stieger(d);
+                                            @(d)SM_Fuzzy_core_shell(d);
                                             @(d)SM_MG_numerical(d);
                                             @(d)SM_MG_numerical_II(d);
                                             @(d)SM_MG_numerical_III(d);
