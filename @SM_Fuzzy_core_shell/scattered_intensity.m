@@ -6,17 +6,16 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 %   nc          Number of collcation points for the distribution
 %   q           Scattering vector magnitudes
 %   p           Parameter vector p, where
-%                   p(1)        Number of particles
-%                   p(2)        Width of the particle chell
-%                   p(3)        Width of the particle core
-%                   p(4)        Width of the interpenetration region of
-%                               core and shell
+%                   p(1)        Amplitude (cm-1)
+%                   p(2)        Fractional radius of the hard core
+%                   p(3)        Fractional width of the fuzzy core
+%                               periphery
+%                   p(4)        Fractional width of the shell 
 %                   p(5)        Relative scattering contrast *
 %                               polymer volumefraction of the core
 %                   p(6)        Relative scattering contrast *
 %                               polymer volumefraction of the shell
 %                   p(5:end)    Parameters for the PSD
-%                   sigmaS      Dependent parameter: R - p(2)-p(3)-p(4)
 %
 %
 %   Returns
