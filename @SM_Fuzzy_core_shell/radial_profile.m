@@ -14,46 +14,46 @@ function [rprf,prf] = radial_profile(obj)
 % All rights reserved.
 
 % Collect parameters
-R_tot = obj.dist.mean();
-Rbox_frac = obj.get_param('Rbox_val');
-sigmaC_frac = obj.get_param('sigmaC_val');
-RS_frac = obj.get_param('RS_val');
+r_tot = obj.dist.mean();
+r_box_frac = obj.get_param('r_box_val');
+sigma_core_frac = obj.get_param('sigma_core_val');
+ws_frac = obj.get_param('ws_val'); % shell width
 
-volfracC = obj.get_param('volfracC_val');
-volfracS = obj.get_param('volfracS_val');
+vfc = obj.get_param('vfc_val');     % "volume fraction" core
+vfs = obj.get_param('vfs_val');     % "volume fraction" shell
 
 % Calculate absolute values
-Rbox = Rbox_frac * R_tot;
-sigmaC = sigmaC_frac * (R_tot-Rbox)/2;
-RS = RS_frac .* (R_tot - Rbox - 2.*sigmaC);
-sigmaS = (R_tot - (Rbox + RS + 2.*sigmaC))/2;
+r_box = r_box_frac * r_tot;
+sigma_core = sigma_core_frac * (r_tot-r_box)/2;
+ws = ws_frac .* (r_tot - r_box - 2.*sigma_core);
+sigma_shell = (r_tot - (r_box + ws + 2.*sigma_core))/2;
 
-rprf = linspace(0,R_tot,100);
+rprf = linspace(0,r_tot,100);
 
-% Create filters for the pairwise function
-f_core = rprf <= Rbox;
-f_fuzzy_core_in = rprf > Rbox & rprf <= Rbox + sigmaC;
-f_fuzzy_core_out = rprf > Rbox + sigmaC & rprf <= Rbox + 2* sigmaC;
+% Create filters for the pairwise defined function
+f_core = rprf <= r_box;
+f_fuzzy_core_in = rprf > r_box & rprf <= r_box + sigma_core;
+f_fuzzy_core_out = rprf > r_box + sigma_core & rprf <= r_box + 2* sigma_core;
 
-Rbox_shell = Rbox + 2* sigmaC + RS;
-f_shell = rprf <= Rbox_shell;
-f_fuzzy_shell_in = rprf > Rbox_shell & rprf <= Rbox_shell + sigmaS;
-f_fuzzy_shell_out = rprf > Rbox_shell + sigmaS & rprf <= Rbox_shell + 2* sigmaS;
+r_box_shell = r_box + 2* sigma_core + ws;
+f_shell = rprf <= r_box_shell;
+f_fuzzy_shell_in = rprf > r_box_shell & rprf <= r_box_shell + sigma_shell;
+f_fuzzy_shell_out = rprf > r_box_shell + sigma_shell & rprf <= r_box_shell + 2* sigma_shell;
 
 % Calculate profile of the core particle
 prf_c = zeros(size(rprf));
 prf_c(f_core) = 1;
-prf_c(f_fuzzy_core_in) = 1 - 0.5.*((rprf(f_fuzzy_core_in)-(Rbox + sigmaC)) + sigmaC).^2./sigmaC.^2;
-prf_c(f_fuzzy_core_out) = 0.5.*(((Rbox + sigmaC) - rprf(f_fuzzy_core_out)) + sigmaC).^2./sigmaC.^2;
+prf_c(f_fuzzy_core_in) = 1 - 0.5.*((rprf(f_fuzzy_core_in)-(r_box + sigma_core)) + sigma_core).^2./sigma_core.^2;
+prf_c(f_fuzzy_core_out) = 0.5.*(((r_box + sigma_core) - rprf(f_fuzzy_core_out)) + sigma_core).^2./sigma_core.^2;
 
 % Calculate profile of the shell partiicle
 prf_s = zeros(size(rprf));
 prf_s(f_shell) = 1;
-prf_s(f_fuzzy_shell_in) = 1 - 0.5.*((rprf(f_fuzzy_shell_in) - (Rbox_shell + sigmaS)) + sigmaS).^2./sigmaS.^2;
-prf_s(f_fuzzy_shell_out) = 0.5.*(((Rbox_shell + sigmaS) - rprf(f_fuzzy_shell_out)) + sigmaS).^2./sigmaS.^2;
+prf_s(f_fuzzy_shell_in) = 1 - 0.5.*((rprf(f_fuzzy_shell_in) - (r_box_shell + sigma_shell)) + sigma_shell).^2./sigma_shell.^2;
+prf_s(f_fuzzy_shell_out) = 0.5.*(((r_box_shell + sigma_shell) - rprf(f_fuzzy_shell_out)) + sigma_shell).^2./sigma_shell.^2;
 
 % Return overall profile
-prf = volfracS .* prf_s + (volfracC - volfracS) .* prf_c;
+prf = vfs .* prf_s + (vfc - vfs) .* prf_c;
 
 end
 

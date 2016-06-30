@@ -56,11 +56,11 @@ classdef SM_Fuzzy_core_shell < Scattering_model_spherical & handle
                                   };
                           
             obj.p_ids = {'a';
-                         'Rbox';
-                         'sigmaC';
-                         'RS';
-                         'volfracC';
-                         'volfracS';
+                         'r_box';
+                         'sigma_core';
+                         'ws';
+                         'vfc';
+                         'vfs';
                          };
             
             % Model parameters map

@@ -29,79 +29,39 @@ function i_mod = scattered_intensity(obj,nc,q,p)
 % All rights reserved.
 
 a = p(1);
-Rbox_frac = p(2); % Rbox as fraction of total particle radius rpsd(i)
-sigmaC_frac = p(3);
-RS_frac = p(4);
-volfracC = p(5);
-volfracS = p(6);
-
-% frc = p(2);
-% pdc = p(3);
-% pds = p(4);
-
-intst = zeros(size(q));
+r_box_frac = p(2);      % Radius of the box as fraction of total particle radius rpsd(i)
+sigma_core_frac = p(3);
+ws_frac = p(4);         % width of the shell
+vfc = p(5);             % relative contrast of the core
+vfs = p(6);             % relative contrast of the shell
 
 [rpsd,psd,~] = obj.dist.psd(nc,p(7:end));
-
+intst = zeros(size(q));
 normalizer = 0;
 
 for i = 1 : numel(rpsd)
     
-    R_tot = rpsd(i);
-    Rbox = Rbox_frac .* R_tot;
-    sigmaC = sigmaC_frac .* (R_tot-Rbox)./2;
-    RS = RS_frac .* (R_tot - Rbox - 2.*sigmaC);
-    sigmaS = (R_tot - (Rbox + RS + 2.*sigmaC))/2;
+    r_tot = rpsd(i);
     
-    %rho_core = volfracC*(Rbox + sigmaC);
-    %m_core = obj.vol_sphere(Rbox+sigmaC) * rho_core/(Rbox + sigmaC); % Scattering weight core
+    r_box = r_box_frac .* r_tot;
+    sigma_core = sigma_core_frac .* (r_tot - r_box)./2;
+    ws = ws_frac .* (r_tot - r_box - 2 .* sigma_core);
+    sigma_shell = (r_tot - (r_box + ws + 2.*sigma_core))/2;
     
+    r_out = r_tot - sigma_shell;
+    r_in = r_box + sigma_core;
     
-    %rho_shell = volfracS * (sigmaC + RS + sigmaS);                  
-    %m_shell = (obj.vol_sphere(R_tot-sigmaS) - obj.vol_sphere(Rbox+sigmaC))* (rho_shell/(sigmaC + RS + sigmaS)); % Scattering weight shell
+    % Volumes of core and shlee
+    v_core = 4*pi*(r_in.^3/3 + r_in.*sigma_core.^2./6);
+    v_shell = 4*pi*(r_out.^3/3 + r_out.*sigma_shell.^2./6);
     
-    
-    r_out = R_tot - sigmaS;
-    r_in = Rbox + sigmaC;
-    
-    %v_core = obj.vol_sphere(r_in);
-    v_core = 4*pi*(r_in.^3/3 + r_in.*sigmaC.^2./6);
-    v_shell = 4*pi*(r_out.^3/3 + r_out.*sigmaS.^2./6);
-    %v_shell = obj.vol_sphere(r_out) - obj.vol_sphere(r_in);
-    
-    normalizer = normalizer + psd(i) * (volfracS .* v_shell + (volfracC - volfracS) .* v_core).^2;
+    normalizer = normalizer + psd(i) * (vfs .* v_shell + (vfc - vfs) .* v_core).^2;
    
-    intst = intst + psd(i) .* (volfracS .* v_shell .* obj.phi(q,r_out,sigmaS) + (volfracC - volfracS) .* v_core .* obj.phi(q,r_in,sigmaC)).^2;
-    %intst = intst + psd(i) .* (m_shell .* obj.phi(q,r_out,sigmaS) + m_core .* obj.phi(q,r_in,sigmaC)).^2;
+    intst = intst + psd(i) .* (vfs .* v_shell .* obj.phi(q,r_out,sigma_shell) + (vfc - vfs) .* v_core .* obj.phi(q,r_in,sigma_core)).^2;
     
 end
 
 i_mod = a .* intst./normalizer;
-
-% Numerical integration over the distribution using the mid-point rule
-
-% r = [r1 r1 r1 ... r1          q = [q1 q2 q3 ... qn
-%      r2 r2 r2 ... r2               q1 q2 q3 ... qn
-%       . .  .      .                .  .  .      .
-%      rn rn rn ... rn]              q1 q2 q3 ... qn]
-%
-
-%rt = rpsd(:) * ones(1,numel(q));                            % total particle radius
-%rc = frc ./ 100 .* rt;                                      % core radius
-
-%psdw = psd(:) * (w .* ones(1,numel(q)));                    % PSD and quadrature weight
-
-
-
-% Scattering weight normalizer. Dividing the scattered intensity with the
-% normalizer normalizes the integral of the (scattering mass)^2 weighted PSD
-% to 1, resulting in P(0) = 1.
-
-%swn = sum(SM_Core_shell.m3(rpsd(:),frc./100.*rpsd(:),pds,pdc).^2 .*w .* psd(:)); 
-
-%q = ones(numel(rpsd),1) * q(:)';
-
-%i_mod = a ./swn .* sum(psdw  .* SM_Fuzzy_core_shell.m3(rt,frc./100.*rt,pds,pdc).^2 .*  SM_Fuzzy_core_shell.f3(q,rt,rc,pds,pdc).^2)';
 
 
 end
